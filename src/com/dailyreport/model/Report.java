@@ -1,5 +1,5 @@
 package com.dailyreport.model;
-// Generated Mar 5, 2018 3:36:32 PM by Hibernate Tools 5.2.8.Final
+// Generated Mar 5, 2018 4:53:59 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import javax.persistence.Column;

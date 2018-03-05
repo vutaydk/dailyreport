@@ -1,7 +1,6 @@
 package com.dailyreport.model;
-// Generated Mar 5, 2018 3:36:32 PM by Hibernate Tools 5.2.8.Final
+// Generated Mar 5, 2018 4:53:59 PM by Hibernate Tools 5.2.8.Final
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +24,8 @@ public class User {
 
 	private String employeeCode;
 	private Rights rights;
-	private Serializable password;
-	private Serializable name;
+	private String password;
+	private String name;
 	private Date createdAt;
 	private Date updatedAt;
 	private Set<Report> reports = new HashSet<Report>(0);
@@ -38,8 +37,8 @@ public class User {
 		this.employeeCode = employeeCode;
 	}
 
-	public User(String employeeCode, Rights rights, Serializable password, Serializable name, Date createdAt,
-			Date updatedAt, Set<Report> reports) {
+	public User(String employeeCode, Rights rights, String password, String name, Date createdAt, Date updatedAt,
+			Set<Report> reports) {
 		this.employeeCode = employeeCode;
 		this.rights = rights;
 		this.password = password;
@@ -71,20 +70,20 @@ public class User {
 	}
 
 	@Column(name = "password")
-	public Serializable getPassword() {
+	public String getPassword() {
 		return this.password;
 	}
 
-	public void setPassword(Serializable password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	@Column(name = "name")
-	public Serializable getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public void setName(Serializable name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

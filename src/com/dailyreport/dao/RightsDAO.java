@@ -13,7 +13,7 @@ public class RightsDAO {
 
 	private Session session;
 
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<Rights> getAllRights() {
 		session = HibernateUtil.getSessionFactory().openSession();
 		try {

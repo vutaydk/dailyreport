@@ -1,7 +1,6 @@
 package com.dailyreport.model;
-// Generated Mar 5, 2018 3:36:32 PM by Hibernate Tools 5.2.8.Final
+// Generated Mar 5, 2018 4:53:59 PM by Hibernate Tools 5.2.8.Final
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +21,7 @@ import javax.persistence.TemporalType;
 public class Project {
 
 	private String projectCode;
-	private Serializable name;
+	private String name;
 	private Date startAt;
 	private Date finishAt;
 	private Date createdAt;
@@ -36,7 +35,7 @@ public class Project {
 		this.projectCode = projectCode;
 	}
 
-	public Project(String projectCode, Serializable name, Date startAt, Date finishAt, Date createdAt, Date updatedAt,
+	public Project(String projectCode, String name, Date startAt, Date finishAt, Date createdAt, Date updatedAt,
 			Set<Report> reports) {
 		this.projectCode = projectCode;
 		this.name = name;
@@ -59,11 +58,11 @@ public class Project {
 	}
 
 	@Column(name = "name")
-	public Serializable getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public void setName(Serializable name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
