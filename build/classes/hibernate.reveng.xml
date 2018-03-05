@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-catalog="dailyreport" match-schema="dbo"
+		match-name="project" />
+	<table-filter match-catalog="dailyreport" match-schema="dbo"
+		match-name="report" />
+	<table-filter match-catalog="dailyreport" match-schema="dbo"
+		match-name="rights" />
+	<table-filter match-catalog="dailyreport" match-schema="dbo"
+		match-name="user" />
+	<table catalog="dailyreport" schema="dbo" name="project" class="com.dailyreport.model.Project">
+		<column name="project_code"></column>
+		<column name="name"></column>
+		<column name="start_at"></column>
+		<column name="updated_at"></column>
+		<column name="created_at"></column>
+		<column name="finish_at"></column>
+	</table>
+	<table catalog="dailyreport" schema="dbo" name="report" class="com.dailyreport.model.Report">
+		<column name="id"></column>
+		<column name="employee_code"></column>
+		<column name="project_code"></column>
+		<column name="time_work"></column>
+		<column name="note"></column>
+		<column name="leader_approve"></column>
+		<column name="created_at"></column>
+		<column name="director_approve"></column>
+		<column name="manager_approve"></column>
+		<column name="updated_at"></column>
+	</table>
+	<table catalog="dailyreport" schema="dbo" name="rights" class="com.dailyreport.model.Rights">
+		<column name="id"></column>
+		<column name="created_at"></column>
+		<column name="update_at"></column>
+		<column name="name"></column>
+		<column name="lv"></column>
+	</table>
+	<table catalog="dailyreport" schema="dbo" name="user" class="com.dailyreport.model.User">
+		<column name="employee_code"></column>
+		<column name="password"></column>
+		<column name="updated_at"></column>
+		<column name="created_at"></column>
+		<column name="rights"></column>
+		<column name="name"></column>
+	</table>
+</hibernate-reverse-engineering>
