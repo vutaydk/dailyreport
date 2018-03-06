@@ -15,6 +15,9 @@
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/style.css">
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="css/fontawesome-all.css">
+
 <!-- jQuery -->
 <script src="js/jquery-3.3.1.min.js"></script>
 
@@ -23,6 +26,9 @@
 
 <!-- gijgo CSS -->
 <link href="css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Custom JS -->
+<script src="js/script.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -43,18 +49,23 @@
 				    <a class="nav-link active" href="#">Create report</a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" href="#">Link</a>
+				  	<div class="dropdown-divider"></div>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" href="#">Link</a>
-				  </li>
-				  <li class="nav-item">
-				    <a class="nav-link disabled" href="#">Disabled</a>
+					  <div>
+					    <input id="datepicker" />
+						 <script>
+						 	var currentDate = new Date().toLocaleDateString('en-US');					 	
+						    $('#datepicker').datepicker({
+						    	value: currentDate
+						    });
+						 </script>
+					 </div>
 				  </li>
 				</ul>
 			</div>
-			<div class="col-9">
-				<jsp:include page="WEB-INF/jsps/add-project.jsp"></jsp:include>
+			<div class="col-9" id="report-list">
+				<jsp:include page="WEB-INF/jsps/create-report.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>
