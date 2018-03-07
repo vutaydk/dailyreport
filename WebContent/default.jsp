@@ -18,56 +18,38 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="css/fontawesome-all.css">
 
+<!-- gijgo CSS -->
+<link href="css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
 <!-- jQuery -->
 <script src="js/jquery-3.3.1.min.js"></script>
 
 <!-- gijgo JS -->
 <script src="js/gijgo.min.js" type="text/javascript"></script>
 
-<!-- gijgo CSS -->
-<link href="css/gijgo.min.css" rel="stylesheet" type="text/css" />
-
-<!-- Custom JS -->
-<script src="js/script.js" type="text/javascript"></script>
-
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
-		  <div class="container-fluid">
-		    <div class="navbar-header">
-		      <a class="navbar-brand" href="#">
-		        <img alt="Daily report" src="...">
-		      </a>
-		    </div>
-		  </div>
-		</nav>
+		<jsp:include page="WEB-INF/jsps/header.jsp"></jsp:include>
 		<div class="row">
 			<div class="col-3">
-				<ul class="nav flex-column">
-				  <li class="nav-item">
-				    <a class="nav-link active" href="#">Create report</a>
-				  </li>
-				  <li class="nav-item">
-				  	<div class="dropdown-divider"></div>
-				  </li>
-				  <li class="nav-item">
-					  <div>
-					    <input id="datepicker" />
-						 <script>
-						 	var currentDate = new Date().toLocaleDateString('en-US');					 	
-						    $('#datepicker').datepicker({
-						    	value: currentDate
-						    });
-						 </script>
-					 </div>
-				  </li>
-				</ul>
+				<jsp:include page="WEB-INF/jsps/side-bar.jsp"></jsp:include>
 			</div>
 			<div class="col-9" id="report-list">
 				<jsp:include page="WEB-INF/jsps/create-report.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>
+
+
+
+	<!-- Bootstrap JS -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+	<!-- Custom JS -->
+	<script src="js/script.js" type="text/javascript"></script>
+
 </body>
 </html>

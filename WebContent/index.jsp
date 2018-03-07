@@ -17,31 +17,46 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default">
-		  <div class="container-fluid">
-		    <div class="navbar-header">
-		      <a class="navbar-brand" href="#">
-		        <img alt="Daily report" src="...">
-		      </a>
-		    </div>
-		  </div>
-		</nav>
-		<div class="row justify-content-center">
-			<h3>Login</h3>
-		</div>
-		<div class="row justify-content-center">
-			<form action="" class="login-form">
-				<div class="form-group">
-					<input class="form-control" type="text" placeholder="Employee code"> 
+		<jsp:include page="WEB-INF/jsps/header.jsp"></jsp:include>
+		<div class="auth-form">
+			<form action="login" class="login-form" method="post">
+				<div class="auth-form-header">
+					<h3>Login</h3>
 				</div>
-				<div class="form-group">
-					<input class="form-control" type="password" placeholder="Password">
+				<div class="auth-form-message">
+					<%
+						if (null != request.getAttribute("message")) {
+					%>
+
+					<p class="text-danger">
+						<%=request.getAttribute("message")%>
+					</p>
+
+					<%
+						}
+					%>
 				</div>
-				<div class="form-group">
-					<input type="submit" value="Login" class="btn btn-primary" />
+				<div class="auth-form-body">
+					<div class="form-group">
+						<label for="employeeCode">Employee code</label> <input
+							class="form-control" type="text" id="employeeCode"
+							name="employeeCode">
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label> <input class="form-control"
+							type="password" id="password" name="password">
+					</div>
+					<div class="form-group text-center">
+						<input type="submit" value="Login" class="btn btn-primary" />
+					</div>
 				</div>
 			</form>
 		</div>
 	</div>
+
+	<!-- Bootstrap JS -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
