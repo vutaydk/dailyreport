@@ -48,23 +48,25 @@
 							</div>
 						</div>
 						<div class="form-group row">
+							<fmt:formatDate var="startAt" value="${project.startAt}"
+								pattern="dd-MM-yyyy" />
 							<label for="startAt"
 								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Start
 								at </label>
 							<div class="col-sm-8 col-md-9 col-lg-10">
 								<input id="startAt" type="text" name="txt_startAt"
-									value="<fmt:formatDate value="${not empty param.txt_startAt?param.txt_startAt:project.startAt}"
-											pattern="dd-MM-yyyy" />">
+									value="<c:out value="${param.txt_startAt}" default="${startAt}" />">
 							</div>
 						</div>
 						<div class="form-group row">
+							<fmt:formatDate var="finishAt" value="${project.finishAt}"
+								pattern="dd-MM-yyyy" />
 							<label for="finishAt"
 								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Finish
 								at </label>
 							<div class="col-sm-8 col-md-9 col-lg-10">
 								<input id="finishAt" type="text" name="txt_finishAt"
-									value="<fmt:formatDate value="${not empty param.txt_finishAt?param.txt_finishAt:project.finishAt}"
-											pattern="dd-MM-yyyy" />">
+									value="<c:out value="${param.txt_finishAt}" default="${finishAt}" />">
 							</div>
 						</div>
 						<div class="form-group row">
