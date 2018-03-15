@@ -1,42 +1,105 @@
 package com.dailyreport.dao;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
-import com.dailyreport.conn.HibernateUtil;
 import com.dailyreport.model.Rights;
+import com.dailyreport.util.HibernateUtil;
 
-public class RightsDAO {
+public class RightsDao {
 
-	private Session session;
-
-	@SuppressWarnings({ "unchecked", "deprecation" })
-	public List<Rights> getAllRights() {
-		session = HibernateUtil.getSessionFactory().openSession();
+	@SuppressWarnings("unchecked")
+	public List<Rights> get() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Rights> list = null;
 		try {
 			session.beginTransaction();
-			List<Rights> rights = new ArrayList<>();
-			Criteria criteria = session.createCriteria(Rights.class);
-			rights = criteria.list();
+			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName());
+			list = query.getResultList();
 			session.getTransaction().commit();
-			return rights;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			e.printStackTrace();
 		} finally {
-			session.close();
+			if (session != null) {
+				session.close();
+			}
 		}
-		return null;
+		return list;
 	}
 
-	public static void main(String[] args) {
-		System.out.println("main method");
-		RightsDAO rightsDAO = new RightsDAO();
-		for (Rights r : rightsDAO.getAllRights()) {
-			System.out.println(r.getName());
+	@SuppressWarnings("unchecked")
+	public Rights find(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Rights rights = null;
+		try {
+			session.beginTransaction();
+			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id");
+			query.setParameter("id", id);
+			rights = query.getSingleResult();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
+		return rights;
 	}
+
+	public boolean insert(Rights object) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			object.setCreatedAt(new Date());
+			session.save(object);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return false;
+	}
+
+	public boolean update(Rights object) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			session.update(object);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return false;
+	}
+
+	public boolean delete(Rights object) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			session.delete(object);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return false;
+	}
+
 }

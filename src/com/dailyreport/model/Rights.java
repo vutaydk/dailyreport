@@ -1,5 +1,5 @@
 package com.dailyreport.model;
-// Generated Mar 5, 2018 4:53:59 PM by Hibernate Tools 5.2.8.Final
+// Generated Mar 15, 2018 9:13:02 AM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "rights", schema = "dbo", catalog = "dailyreport")
-public class Rights {
+public class Rights implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
