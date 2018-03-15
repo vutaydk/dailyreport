@@ -42,28 +42,24 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<fmt:formatDate var="workedAt" value="${report.workedAt}"
-								pattern="H" />
 							<label for="workedAt"
 								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Work
 								At</label>
 							<div class="col-sm-8 col-md-9 col-lg-10">
 								<input id="workedAt" type="text" name="txt_workedAt"
-									value="<c:out
-										value="${param.txt_workedAt}" default="${workedAt}" />"
+									value="<fmt:formatDate value="${not empty param.txt_workedAt?param.txt_workedAt:report.workedAt}"
+											pattern="HH" />"
 									class="form-control">
 							</div>
 						</div>
 						<div class="form-group row">
-							<fmt:formatDate var="workedTo" value="${report.workedTo}"
-								pattern="H" />
 							<label for="workedTo"
 								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Work
 								To</label>
 							<div class="col-sm-8 col-md-9 col-lg-10">
 								<input id="workedTo" type="text" name="txt_workedTo"
-									value="<c:out
-										value="${param.txt_workedTo}" default="${workedTo}" />"
+									value="<fmt:formatDate value="${not empty param.txt_workedTo?param.txt_workedTo:report.workedTo}"
+											pattern="HH" />"
 									class="form-control">
 							</div>
 						</div>

@@ -25,39 +25,28 @@
 								</c:forEach>
 							</div>
 						</c:if>
-						<div class="form-group row">
-							<label for="projectCode"
-								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Project
-								Code</label>
-							<div class="col-sm-8 col-md-9 col-lg-10">
-								<input id="projectCode" type="text" name="txt_projectCode"
-									value="${param.txt_projectCode}" class="form-control">
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="projectCode">Project Code</label> <input
+										id="projectCode" type="text" name="txt_projectCode"
+										value="${param.txt_projectCode}" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="startAt">Start at </label> <input id="startAt"
+										type="text" name="txt_startAt" value="${param.txt_startAt}">
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label for="name"
-								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Name</label>
-							<div class="col-sm-8 col-md-9 col-lg-10">
-								<input id="name" type="text" name="txt_name"
-									value="${param.txt_name}" class="form-control">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="startAt"
-								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Start
-								at </label>
-							<div class="col-sm-8 col-md-9 col-lg-10">
-								<input id="startAt" type="text" name="txt_startAt"
-									value="${param.txt_startAt}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="finishAt"
-								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Finish
-								at </label>
-							<div class="col-sm-8 col-md-9 col-lg-10">
-								<input id="finishAt" type="text" name="txt_finishAt"
-									value="${param.txt_finishAt}">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="name">Name</label> <input id="name" type="text"
+										name="txt_name" value="${param.txt_name}" class="form-control">
+								</div>
+
+								<div class="form-group">
+									<label for="finishAt">Finish at </label> <input id="finishAt"
+										type="text" name="txt_finishAt" value="${param.txt_finishAt}">
+								</div>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -71,15 +60,19 @@
 									new Date().getMonth(), new Date().getDate());
 							$('#startAt').datepicker({
 								format : 'dd-mm-yyyy',
-								uiLibrary : 'bootstrap4',
 								minDate : today,
+								icons: {
+                                    rightIcon: '<i class="far fa-calendar-alt"></i>'
+                                },
 								maxDate : function() {
 									return $('#finishAt').val();
 								}
 							});
 							$('#finishAt').datepicker({
 								format : 'dd-mm-yyyy',
-								uiLibrary : 'bootstrap4',
+								icons: {
+                                    rightIcon: '<i class="far fa-calendar-alt"></i>'
+                                },
 								minDate : function() {
 									return $('#startAt').val();
 								}
