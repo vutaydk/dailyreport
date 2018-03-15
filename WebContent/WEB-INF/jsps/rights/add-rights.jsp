@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
-
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
@@ -12,34 +11,26 @@
 	<div class="row">
 		<%-- import sidebar --%>
 		<jsp:include page="../layout/sidebar.jsp" />
-
 		<div class="col-9" id="report-list">
 			<div class="report-form">
 				<form method="post">
 					<div class="report-form-body">
-						<c:if test="${not empty map}">
-							<div class="auth-form-message text-center">
-								<c:forEach items="${map}" var="m">
-									<p class="text-danger">
-										<c:out value="${m.value}" />
-									</p>
-								</c:forEach>
-							</div>
-						</c:if>
 						<div class="form-group row">
-							<label for="name"
-								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Name
+							<label for="name" class="col-4 col-form-label">Name
 								Position</label>
-							<div class="col-sm-8 col-md-9 col-lg-10">
+							<div class="col-8">
 								<input id="name" type="text" name="txt_name"
-									value="${param.txt_name}" class="form-control">
+									value="${param.txt_name}"
+									class="form-control <c:if test="${not empty map.txt_name}"><c:out value="is-invalid" /></c:if>">
+								<div class="invalid-feedback">${map.txt_name}</div>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="lv" class="col-sm-4 col-md-3 col-lg-2 col-form-label">Level</label>
-							<div class="col-sm-8 col-md-9 col-lg-10">
+							<label for="lv" class="col-4 col-form-label">Level</label>
+							<div class="col-8">
 								<input id="lv" type="text" name="txt_lv" value="${param.txt_lv}"
-									class="form-control">
+									class="form-control <c:if test="${not empty map.txt_lv}"><c:out value="is-invalid" /></c:if>">
+								<div class="invalid-feedback">${map.txt_lv}</div>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -54,7 +45,6 @@
 		</div>
 		<!-- ./create-report form -->
 	</div>
-
 </div>
 <%-- import footer --%>
 <jsp:include page="../layout/footer.jsp" />
