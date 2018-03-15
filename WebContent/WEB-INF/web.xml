@@ -8,24 +8,11 @@
   <jsp-config>
        <taglib>
          <taglib-uri>
-           http://some.thing/mine
+           http://some.thing/miFne
          </taglib-uri>
          <taglib-location>
            /WEB-INF/tags/util.tld
          </taglib-location>
        </taglib> 
-       </jsp-config> <welcome-file-list>
-    <welcome-file>login</welcome-file>
-  </welcome-file-list>
-  
-  <jsp-config>
-       <taglib>
-         <taglib-uri>
-           http://some.thing/mine
-         </taglib-uri>
-         <taglib-location>
-           /WEB-INF/tags/util.tld
-         </taglib-location>
-       </taglib> 
-       </jsp-config>
+</jsp-config>
 </web-app>
