@@ -20,7 +20,11 @@
 						<a href="report/add"><button type="button"
 								class="btn btn-primary">Create report</button></a>
 					</div>
+<<<<<<< HEAD
 					<table id="table" data-search="true" data-pagination="true"  class="report-table">
+=======
+					<table id="table" data-search="true" data-pagination="true" class="report-table">
+>>>>>>> 794030354e416a2b46052704e6f241adf2dc8a94
 						<thead>
 							<tr>
 								<th class="text-center"></th>

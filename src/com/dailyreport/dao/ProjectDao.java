@@ -1,7 +1,9 @@
 package com.dailyreport.dao;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -11,15 +13,41 @@ import com.dailyreport.util.HibernateUtil;
 
 public class ProjectDao {
 
-	private final String SELECT = "FROM " + Project.class.getName();
-	
+	private final String TABLE = "FROM " + Project.class.getName();
+	private Query<Project> query;
+	private String select;
+
+	public ProjectDao select(String[] array) {
+		select = "SELECT ";
+		for (String string : array) {
+			select = select + string + ", ";
+		}
+		System.out.println(select);
+
+		return this;
+	}
+
+	public static void main(String[] args) {
+		String[] str = {
+				"hanh", "hanh", "hanh"
+		};
+		new ProjectDao().select(str);
+	}
+
+	// public ProjectDao where(HashMap<String, Object> map) {
+	//
+	// select = "SELECT " + opt.get();
+	//
+	// return this;
+	// }
+
 	@SuppressWarnings("unchecked")
 	public List<Project> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Project> list = null;
 		try {
 			session.beginTransaction();
-			Query<Project> query = session.createQuery(SELECT);
+			query = session.createQuery(TABLE);
 			list = query.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -38,7 +66,7 @@ public class ProjectDao {
 		Project project = null;
 		try {
 			session.beginTransaction();
-			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id");
+			query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id");
 			query.setParameter("id", id);
 			project = query.getSingleResult();
 			session.getTransaction().commit();
