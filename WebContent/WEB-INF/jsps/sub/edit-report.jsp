@@ -56,7 +56,7 @@
 											<p>Note</p>
 										</div>
 										<div class="col-8">
-											<p>
+											<p class="w-wrap">
 												<c:out value="${detailReport.note}" />
 											</p>
 										</div>

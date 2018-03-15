@@ -20,7 +20,10 @@
 			<script>
 				var currentDate = new Date().toLocaleDateString('en-US');
 				$('#datepicker').datepicker({
-					value : currentDate
+					value : currentDate,
+					icons: {
+                        rightIcon: '<i class="far fa-calendar-alt"></i>'
+                    },
 				});
 			</script>
 		</div>
