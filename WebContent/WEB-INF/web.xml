@@ -2,6 +2,30 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>daily_report</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>login</welcome-file>
   </welcome-file-list>
+  
+  <jsp-config>
+       <taglib>
+         <taglib-uri>
+           http://some.thing/mine
+         </taglib-uri>
+         <taglib-location>
+           /WEB-INF/tags/util.tld
+         </taglib-location>
+       </taglib> 
+       </jsp-config> <welcome-file-list>
+    <welcome-file>login</welcome-file>
+  </welcome-file-list>
+  
+  <jsp-config>
+       <taglib>
+         <taglib-uri>
+           http://some.thing/mine
+         </taglib-uri>
+         <taglib-location>
+           /WEB-INF/tags/util.tld
+         </taglib-location>
+       </taglib> 
+       </jsp-config>
 </web-app>
