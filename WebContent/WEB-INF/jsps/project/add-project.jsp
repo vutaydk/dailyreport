@@ -33,27 +33,16 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="projectCode">Project Code</label>
-									<input id="projectCode" type="text" name="txt_projectCode"
-										value="${param.txt_projectCode}" class="form-control">
-								</div>
-								<div class="form-group">
-									<label for="startAt">Start at </label>
-									<input id="startAt" type="text" name="txt_startAt"
-										value="${param.txt_startAt}">
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="form-group">
 									<label for="name">Name</label>
 									<input id="name" type="text" name="txt_name"
-										value="${param.txt_name}" class="form-control">
+										value="${param.txt_name}" class="form-control <c:if test="${not empty map.txt_name}"><c:out value="is-invalid" /></c:if>">
+										<div class="invalid-feedback">${map.txt_name}</div>
 								</div>
 								<div class="form-group">
 									<label for="finishAt">Finish at </label>
 									<input id="finishAt" type="text" name="txt_finishAt"
-										value="${param.txt_finishAt}">
-									>>>>>>> 794030354e416a2b46052704e6f241adf2dc8a94
+										value="${param.txt_finishAt}" class="<c:if test="${not empty map.txt_finishAt}"><c:out value="is-invalid" /></c:if>">
+										<div class="invalid-feedback">${map.txt_finishAt}</div>
 								</div>
 							</div>
 						</div>
