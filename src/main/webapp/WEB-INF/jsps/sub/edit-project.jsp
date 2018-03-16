@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <div class="modal fade" id="project-form" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog" role="document">

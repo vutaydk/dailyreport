@@ -87,7 +87,6 @@ public class ReportSevlet extends HttpServlet {
 					Optional<User> user = Optional.ofNullable((User) request.getSession().getAttribute("user"));
 					if (user.isPresent())
 						opt.get().setUserByApprover(user.get());
-					opt.get().setApprovalStatus(1);
 					opt.get().setApprovedAt(new Date());
 
 					// update report
@@ -148,59 +147,25 @@ public class ReportSevlet extends HttpServlet {
 			}
 		}
 
-		Optional<String> txt_workedAt = Optional.ofNullable(request.getParameter("txt_workedAt"));
-		if (!txt_workedAt.isPresent() || txt_workedAt.get().isEmpty()) {
-			hashMap.put("txt_workedAt", "Please enter working time at.");
+		Optional<String> txt_timeWorked = Optional.ofNullable(request.getParameter("txt_timeWorked"));
+		if (!txt_timeWorked.isPresent() || txt_timeWorked.get().isEmpty()) {
+			hashMap.put("txt_timeWorked", "Please enter working time.");
 			bool = false;
 		} else {
 
-			if (!DataValidation.isNumber(txt_workedAt.get())) {
-				hashMap.put("txt_workedAt", "Invalid working time at.");
+			if (!DataValidation.isNumber(txt_timeWorked.get())) {
+				hashMap.put("txt_timeWorked", "Invalid working time.");
 				bool = false;
 			} else {
 
-				if (Integer.valueOf(txt_workedAt.get()) > 24) {
-					hashMap.put("txt_workedAt", "Invalid date format.");
+				if (Integer.valueOf(txt_timeWorked.get()) > 24) {
+					hashMap.put("txt_timeWorked", "Invalid date format.");
 					bool = false;
 				} else {
 					try {
-						report.setWorkedAt(new SimpleDateFormat("HH").parse(txt_workedAt.get()));
+						report.setTimeWorked(new SimpleDateFormat("HH").parse(txt_timeWorked.get()));
 					} catch (ParseException e) {
 						e.printStackTrace();
-					}
-				}
-			}
-		}
-
-		Optional<String> txt_workedTo = Optional.ofNullable(request.getParameter("txt_workedTo"));
-		if (!txt_workedTo.isPresent() || txt_workedTo.get().isEmpty()) {
-			hashMap.put("txt_workedTo", "Please enter finishing time.");
-			bool = false;
-		} else {
-
-			if (!DataValidation.isNumber(txt_workedTo.get())) {
-				hashMap.put("txt_workedTo", "Invalid finishing time.");
-				bool = false;
-			} else {
-
-				if (Integer.valueOf(txt_workedTo.get()) > 24) {
-					hashMap.put("txt_workedTo", "Invalid date format.");
-					bool = false;
-				} else {
-
-					if (DataValidation.isNumber(txt_workedAt.get())) {
-
-						if (Integer.valueOf(txt_workedTo.get()) < Integer.valueOf(txt_workedAt.get())) {
-							hashMap.put("txt_workedTo", "Not less than the start time.");
-							bool = false;
-						} else {
-
-							try {
-								report.setWorkedTo(new SimpleDateFormat("HH").parse(txt_workedTo.get()));
-							} catch (ParseException e) {
-								e.printStackTrace();
-							}
-						}
 					}
 				}
 			}

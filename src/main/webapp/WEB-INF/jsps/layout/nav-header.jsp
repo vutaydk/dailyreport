@@ -1,7 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <nav class="navbar navbar-expand-lg header">
-	<a class="navbar-brand" href="${pageContext.request.contextPath}/"><b>Daily
-			report</b></a>
+	<a class="navbar-brand" href=""><b>Daily report</b></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 		aria-expanded="false" aria-label="Toggle navigation">

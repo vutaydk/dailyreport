@@ -91,7 +91,7 @@ public class RightsSevlet extends HttpServlet {
 				hashMap.put("txt_lv", "Invalid level.");
 				bool = false;
 			} else
-				rights.setLv(Integer.valueOf(txt_lv.get()));
+				rights.setLevel(Integer.valueOf(txt_lv.get()));
 		}
 
 		return bool;

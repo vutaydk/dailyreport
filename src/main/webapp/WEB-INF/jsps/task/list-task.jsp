@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
@@ -20,34 +20,48 @@
 						<a href="task/add"><button type="button"
 								class="btn btn-primary">Create task</button> </a>
 					</div>
-					<table id="table" data-search="true" data-pagination="true">
+					<table id="table" data-url="data/task" data-search="true"
+						data-pagination="true">
 						<thead>
 							<tr>
-								<th class="text-center"></th>
-								<th>Task Code</th>
-								<th>Name Task</th>
-								<th>Updated At</th>
-								<th class="text-center"></th>
+								<th data-field="id" class="text-center"></th>
+								<th data-field="taskCode">Task Code</th>
+								<th data-field="name">Name Task</th>
+								<th data-field="createdAt">Updated At</th>
+								<th data-field="action" data-formatter="actionFormatter"
+									data-events="actionEvents" class="text-center"></th>
 							</tr>
 						</thead>
-						<tbody>
-							<c:forEach items="${listTask}" var="row" varStatus="i">
-								<tr>
-									<td><c:out value="${i.count}" /></td>
-									<td><c:out value="${row.taskCode}" /></td>
-									<td><c:out value="${row.name}" /></td>
-									<td><fmt:formatDate value="${row.updatedAt}"
-											pattern="dd/MM/yyyy" /></td>
-									<td><a href="project/edit?id=${row.id}"><i
-											class="fas fa-edit"></i></a></td>
-								</tr>
-							</c:forEach>
-						</tbody>
 					</table>
+					<div id="chat"> </div>
 					<script>
 						$('#table').bootstrapTable({
 							searchTimeOut : 0,
 						});
+						function actionFormatter(value, row, index) {
+							return [
+									'<a href="rights/edit?id=' + row.id + '">',
+									'<i class="fas fa-edit"></i></a>' ]
+									.join('');
+						}
+						function rData() {
+							$.ajax({
+										type : 'GET',
+										url : 'http://localhost:8080/daily_report/data/task',
+										data : {
+											get_param : 'value'
+										},
+										dataType : 'json',
+										success : function(data) {
+											$.each(data, function(index, row) {
+												$('#chat').html($('<div>', {
+													text : row.name
+												}));
+											});
+										}
+									});
+						}
+						setInterval(rData, 3000);
 					</script>
 					<%-- import sub --%>
 					<jsp:include page="../sub/edit-project.jsp" />

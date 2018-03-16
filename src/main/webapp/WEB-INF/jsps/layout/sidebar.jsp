@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="col-3">
 	<div class="sidebar">
@@ -40,7 +40,7 @@
 			<c:forEach items="${listOwn}" var="row">
 				<tr>
 					<td><c:choose>
-							<c:when test="${row.approvalStatus==1}">
+							<c:when test="${not empty row.userByApprover}">
 								<i class="fas fa-check text-success"></i>
 							</c:when>
 							<c:otherwise>

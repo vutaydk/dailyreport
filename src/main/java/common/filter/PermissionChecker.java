@@ -40,7 +40,7 @@ public class PermissionChecker implements Filter {
 			Optional<Rights> rights = Optional.ofNullable(user.get().getRights());
 			if (rights.isPresent()) {
 
-				if (rights.get().getLv() > 0) {
+				if (rights.get().getLevel() > 0) {
 
 					chain.doFilter(request, response);
 					return;

@@ -7,16 +7,16 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Daily Report</title>
 
-<base href="${pageContext.request.contextPath}/">
+<base href="<%= request.getContextPath() %>/" />
 
 <!-- Bootstrap -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css" />
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css" />
 
 <!-- Font Awesome -->
-<link rel="stylesheet" href="css/fontawesome-all.css">
+<link rel="stylesheet" href="css/fontawesome-all.css" />
 
 <!-- gijgo CSS -->
 <link href="css/gijgo.min.css" rel="stylesheet" type="text/css" />

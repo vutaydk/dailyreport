@@ -1,16 +1,14 @@
 package model.entity;
-// Generated Mar 15, 2018 9:13:02 AM by Hibernate Tools 5.2.8.Final
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated Mar 16, 2018 4:43:45 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -63,7 +61,7 @@ public class Project implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "project_code", nullable = false, length = 18)
+	@Column(name = "project_code", nullable = false, length = 4)
 	public String getProjectCode() {
 		return this.projectCode;
 	}

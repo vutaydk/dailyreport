@@ -1,5 +1,5 @@
 package model.entity;
-// Generated Mar 15, 2018 9:13:02 AM by Hibernate Tools 5.2.8.Final
+// Generated Mar 16, 2018 4:43:45 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,7 +24,7 @@ public class Rights implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	private Integer lv;
+	private Integer level;
 	private Date createdAt;
 	private Date updatedAt;
 	private Set<User> users = new HashSet<User>(0);
@@ -32,9 +32,9 @@ public class Rights implements java.io.Serializable {
 	public Rights() {
 	}
 
-	public Rights(String name, Integer lv, Date createdAt, Date updatedAt, Set<User> users) {
+	public Rights(String name, Integer level, Date createdAt, Date updatedAt, Set<User> users) {
 		this.name = name;
-		this.lv = lv;
+		this.level = level;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.users = users;
@@ -61,13 +61,13 @@ public class Rights implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "lv")
-	public Integer getLv() {
-		return this.lv;
+	@Column(name = "level")
+	public Integer getLevel() {
+		return this.level;
 	}
 
-	public void setLv(Integer lv) {
-		this.lv = lv;
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
