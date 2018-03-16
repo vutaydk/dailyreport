@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
-
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
@@ -12,41 +11,25 @@
 	<div class="row">
 		<%-- import sidebar --%>
 		<jsp:include page="../layout/sidebar.jsp" />
-
 		<div class="col-9" id="report-list">
 			<div class="report-form">
 				<form method="post">
 					<div class="report-form-body">
-						<c:if test="${not empty map}">
-							<div class="auth-form-message text-center">
-								<c:forEach items="${map}" var="m">
-									<p class="text-danger">
-										<c:out value="${m.value}" />
-									</p>
-								</c:forEach>
-							</div>
-						</c:if>
-						<div class="form-group row">
-							<label for="taskCode"
-								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Task
-								Code</label>
-							<div class="col-sm-8 col-md-9 col-lg-10">
-								<input id="taskCode" type="text" name="txt_taskCode"
-									value="<c:out value="${param.txt_taskCode}"
+						<div class="form-group">
+							<label for="taskCode">Task Code</label>
+							<input id="taskCode" type="text" name="txt_taskCode"
+								value="<c:out value="${param.txt_taskCode}"
 													default="${project.taskCode}" />"
-									class="form-control">
-							</div>
+								class="form-control <c:if test="${not empty map.txt_taskCode}"><c:out value="is-invalid" /></c:if>">
+							<div class="invalid-feedback">${map.txt_taskCode}</div>
 						</div>
-						<div class="form-group row">
-							<label for="name"
-								class="col-sm-4 col-md-3 col-lg-2 col-form-label">Name
-								Task</label>
-							<div class="col-sm-8 col-md-9 col-lg-10">
-								<input id="name" type="text" name="txt_name"
-									value="<c:out value="${param.txt_name}"
+						<div class="form-group">
+							<label for="name">Name Task</label>
+							<input id="name" type="text" name="txt_name"
+								value="<c:out value="${param.txt_name}"
 													default="${project.name}" />"
-									class="form-control">
-							</div>
+								class="form-control <c:if test="${not empty map.txt_name}"><c:out value="is-invalid" /></c:if>">
+							<div class="invalid-feedback">${map.txt_name}</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-12 text-center">
@@ -60,7 +43,6 @@
 		</div>
 		<!-- ./create-report form -->
 	</div>
-
 </div>
 <%-- import footer --%>
 <jsp:include page="../layout/footer.jsp" />

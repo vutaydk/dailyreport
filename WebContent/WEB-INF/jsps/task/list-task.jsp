@@ -38,7 +38,7 @@
 									<td><c:out value="${row.name}" /></td>
 									<td><fmt:formatDate value="${row.updatedAt}"
 											pattern="dd/MM/yyyy" /></td>
-									<td><a href="project/edit?id=${row.id}"><i
+									<td><a href="task/edit?id=${row.id}"><i
 											class="fas fa-edit"></i></a></td>
 								</tr>
 							</c:forEach>
