@@ -6,10 +6,6 @@ import java.util.Date;
 
 public class Format {
 
-	public static void main(String[] args) {
-
-	}
-
 	public static String timeFb(Date date) {
 
 		Calendar calCurrent = Calendar.getInstance();
