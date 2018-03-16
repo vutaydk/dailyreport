@@ -18,8 +18,8 @@
 						<div class="row">
 							<div class="col-5">
 								<div class="form-group">
-									<label for="projectId">Select Project</label>
-									<select id="projectId" name="txt_projectId"
+									<label for="projectId">Select Project</label> <select
+										id="projectId" name="txt_projectId"
 										class="form-control <c:if test="${not empty map.txt_projectId}"><c:out value="is-invalid" /></c:if>">
 										<option value="">Choose...</option>
 										<c:forEach items="${listProject}" var="row">
@@ -32,24 +32,14 @@
 									<div class="invalid-feedback">${map.txt_projectId}</div>
 								</div>
 								<div class="form-group">
-									<fmt:formatDate var="workedAt" value="${report.workedAt}"
+									<fmt:formatDate var="timeWorked" value="${report.timeWorked}"
 										pattern="H" />
-									<label for="workedAt">Work At</label>
-									<input id="workedAt" type="text" name="txt_workedAt"
+									<label for="timeWorked">Time Worked</label> <input id="timeWorked"
+										type="text" name="txt_timeWorked"
 										value="<c:out
-										value="${param.txt_workedAt}" default="${workedAt}" />"
-										class="form-control <c:if test="${not empty map.txt_workedAt}"><c:out value="is-invalid" /></c:if>">
-									<div class="invalid-feedback">${map.txt_workedAt}</div>
-								</div>
-								<div class="form-group">
-									<fmt:formatDate var="workedTo" value="${report.workedTo}"
-										pattern="H" />
-									<label for="workedTo">Work To</label>
-									<input id="workedTo" type="text" name="txt_workedTo"
-										value="<c:out
-										value="${param.txt_workedTo}" default="${workedTo}" />"
-										class="form-control <c:if test="${not empty map.txt_workedTo}"><c:out value="is-invalid" /></c:if>">
-									<div class="invalid-feedback">${map.txt_workedTo}</div>
+										value="${param.txt_timeWorked}" default="${timeWorked}" />"
+										class="form-control <c:if test="${not empty map.txt_timeWorked}"><c:out value="is-invalid" /></c:if>">
+									<div class="invalid-feedback">${map.txt_timeWorked}</div>
 								</div>
 							</div>
 							<div class="col-7">

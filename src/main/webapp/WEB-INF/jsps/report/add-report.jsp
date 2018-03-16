@@ -30,7 +30,7 @@
 									<div class="invalid-feedback">${map.txt_projectId}</div>
 								</div>
 								<div class="form-group">
-									<label for="timeWorked">Time Work</label> <input
+									<label for="timeWorked">Time Worked</label> <input
 										id="timeWorked" type="text" name="txt_timeWorked"
 										value="${param.txt_timeWorked}"
 										class="form-control <c:if test="${not empty map.txt_timeWorked}"><c:out value="is-invalid" /></c:if>">
