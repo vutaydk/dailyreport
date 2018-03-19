@@ -12,14 +12,15 @@
 		<jsp:include page="../layout/sidebar.jsp" />
 		<div class="col-9" id="report-list">
 			<div class="report-form">
-				<form method="post">
+				<form method="post" id="addReportForm">
 					<div class="report-form-body">
 						<div class="row">
 							<div class="col-5">
 								<div class="form-group">
 									<label for="projectId">Select Project</label> <select
 										id="projectId" name="txt_projectId"
-										class="form-control <c:if test="${not empty map.txt_projectId}"><c:out value="is-invalid" /></c:if>">
+										class="form-control"
+										data-validation="[NOTEMPTY]">
 										<option value="">Choose...</option>
 										<c:forEach items="${listProject}" var="row">
 											<option value="${row.id}"
@@ -27,23 +28,23 @@
 													value="${row.name}" /></option>
 										</c:forEach>
 									</select>
-									<div class="invalid-feedback">${map.txt_projectId}</div>
 								</div>
 								<div class="form-group">
 									<label for="timeWorked">Time Worked</label> <input
 										id="timeWorked" type="text" name="txt_timeWorked"
 										value="${param.txt_timeWorked}"
-										class="form-control <c:if test="${not empty map.txt_timeWorked}"><c:out value="is-invalid" /></c:if>">
-									<div class="invalid-feedback">${map.txt_timeWorked}</div>
+										class="form-control"
+										data-validation="[INTEGER]" 
+										data-validation-message="Please enter project code.">
 								</div>
 							</div>
 							<div class="col-7">
 								<div class="form-group">
 									<label for="note">Note</label>
 									<textarea id="note" rows="9" cols="" name="txt_note"
-										class="form-control <c:if test="${not empty map.txt_note}"><c:out value="is-invalid" /></c:if>"><c:out
-											value="${param.txt_note}" /></textarea>
-									<div class="invalid-feedback">${map.txt_note}</div>
+										class="form-control" 
+										data-validation="[L>=10, NOTEMPTY]" 
+										data-validation-message="Please enter note. Not must be at least 10 characters."></textarea>
 								</div>
 							</div>
 						</div>
@@ -53,6 +54,34 @@
 								<button type="reset" class="btn btn-default">Reset</button>
 							</div>
 						</div>
+						<script>
+							$.alterValidationRules({
+								rule : 'DATE_DATEPICKER',
+								regex : /^\d{2}\/\d{2}\/\d{4}$/,
+								message : 'This field must use format DD/MM/YYYY to be valid.'
+							});
+	
+							$.validate({
+								submit : {
+									settings : {
+										form : '#addReportForm',
+										clear : false,
+										insertion : 'append',
+										allErrors : true,
+										errorClass : 'is-invalid',
+										errorListClass : 'invalid-feedback error-list',
+										inputContainer : '.form-group',
+										display : 'inline',
+										scrollToError : true
+									},
+									callback : {
+										onError : function(error) {
+											// alert(error.toString());
+										}
+									}
+								}
+							});
+						</script>
 					</div>
 				</form>
 			</div>
