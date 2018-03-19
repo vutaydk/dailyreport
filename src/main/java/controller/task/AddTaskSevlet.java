@@ -1,11 +1,12 @@
 package controller.task;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import model.entity.Task;
 
@@ -43,23 +44,16 @@ public class AddTaskSevlet extends TaskSevlet {
 		// update report
 		if (bool) {
 
-			if (taskDao.insert(task)) {
-
-				request.getSession().setAttribute("messagePopup", "Add success a new task.");
-			} else {
-
-				request.getSession().setAttribute("messagePopup", "Add error a new task.");
-			}
+			taskDao.insert(task);
 
 			// redirect to report page
-			response.sendRedirect(request.getContextPath() + "/task");
-			return;
-		} else {
-
-			request.setAttribute("map", getError());
+			// response.sendRedirect(request.getContextPath() + "/task");
+			// return;
 		}
 
-		doGet(request, response);
+		response.setContentType("application/json;charset=UTF-8");
+		Gson gson = new Gson();
+		response.getWriter().append(gson.toJson(getError()));
 	}
 
 }

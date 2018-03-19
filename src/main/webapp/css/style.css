@@ -125,3 +125,7 @@ body {
 .w-wrap {
 	word-wrap: break-word;
 }
+
+.error-list {
+    display: table-footer-group !important;
+}
