@@ -12,37 +12,40 @@
 		<jsp:include page="../layout/sidebar.jsp" />
 		<div class="col-9" id="report-list">
 			<div class="report-form">
-				<form method="post">
+				<form method="post" id="addProjectForm">
 					<div class="report-form-body">
 						<div class="row">
 							<div class="col-6">
 								<div class="form-group">
 									<label for="projectCode">Project Code</label>
 									<input id="projectCode" type="text" name="txt_projectCode"
-										value="${param.txt_projectCode}"
-										class="form-control <c:if test="${not empty map.txt_projectCode}"><c:out value="is-invalid" /></c:if>">
-									<div class="invalid-feedback">${map.txt_projectCode}</div>
+										value="${param.txt_projectCode}" class="form-control"
+										data-validation="[NOTEMPTY]"
+										data-validation-message="Please enter project code.">
 								</div>
 								<div class="form-group">
-									<label for="startAt">Start at </label>
-									<input id="startAt" type="text" name="txt_startAt"
-										value="${param.txt_startAt}"
-										class="<c:if test="${not empty map.txt_startAt}"><c:out value="is-invalid" /></c:if>">
-									<div class="invalid-feedback">${map.txt_startAt}</div>
+									<label for="startAt">
+										Start at
+										<input id="startAt" type="text" name="txt_startAt"
+											value="${param.txt_startAt}"
+											data-validation="[DATE_DATEPICKER]">
+									</label>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="form-group">
 									<label for="name">Name</label>
 									<input id="name" type="text" name="txt_name"
-										value="${param.txt_name}" class="form-control <c:if test="${not empty map.txt_name}"><c:out value="is-invalid" /></c:if>">
-										<div class="invalid-feedback">${map.txt_name}</div>
+										value="${param.txt_name}"
+										class="form-control"
+										data-validation="[L>=6, NOTEMPTY]" 
+                                    	data-validation-message="Please enter name. Name must be at least 6 characters">
 								</div>
 								<div class="form-group">
 									<label for="finishAt">Finish at </label>
 									<input id="finishAt" type="text" name="txt_finishAt"
-										value="${param.txt_finishAt}" class="<c:if test="${not empty map.txt_finishAt}"><c:out value="is-invalid" /></c:if>">
-										<div class="invalid-feedback">${map.txt_finishAt}</div>
+										value="${param.txt_finishAt}"
+										data-validation="[DATE_DATEPICKER]">
 								</div>
 							</div>
 						</div>
@@ -80,6 +83,33 @@
 													return $('#startAt').val();
 												}
 											});
+							
+							$.alterValidationRules({
+                                rule: 'DATE_DATEPICKER',
+                                regex: /^\d{2}\/\d{2}\/\d{4}$/,
+                                message: 'This field must use format DD/MM/YYYY to be valid.'
+                            });
+
+							$.validate({
+								submit : {
+									settings : {
+										form : '#addProjectForm',
+										clear : false,
+										insertion : 'append',
+										allErrors : true,
+										errorClass : 'is-invalid',
+										errorListClass : 'invalid-feedback error-list',
+										inputContainer : '.form-group',
+										display : 'inline',
+										scrollToError : true
+									},
+									callback : {
+										onError : function(error) {
+											// alert(error.toString());
+										}
+									}
+								}
+							});
 						</script>
 					</div>
 				</form>
