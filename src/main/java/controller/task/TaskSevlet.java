@@ -68,17 +68,17 @@ public class TaskSevlet extends HttpServlet {
 		hashMap = new HashMap<>();
 
 		// get request param
-		Optional<String> txt_taskCode = Optional.ofNullable(request.getParameter("txt_taskCode"));
-		if (!txt_taskCode.isPresent() || txt_taskCode.get().isEmpty()) {
-			hashMap.put("txt_taskCode", "Please enter task code.");
-			bool = false;
-		} else {
-			if (txt_taskCode.get().length() != 4) {
-				hashMap.put("txt_taskCode", "Task code length is 4 characters.");
-				bool = false;
-			} else
-				task.setTaskCode(txt_taskCode.get());
-		}
+//		Optional<String> txt_taskCode = Optional.ofNullable(request.getParameter("txt_taskCode"));
+//		if (!txt_taskCode.isPresent() || txt_taskCode.get().isEmpty()) {
+//			hashMap.put("txt_taskCode", "Please enter task code.");
+//			bool = false;
+//		} else {
+//			if (txt_taskCode.get().length() != 4) {
+//				hashMap.put("txt_taskCode", "Task code length is 4 characters.");
+//				bool = false;
+//			} else
+//				task.setTaskCode(txt_taskCode.get());
+//		}
 
 		Optional<String> txt_name = Optional.ofNullable(request.getParameter("txt_name"));
 		if (!txt_name.isPresent() || txt_name.get().isEmpty()) {

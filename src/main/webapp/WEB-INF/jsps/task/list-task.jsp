@@ -16,18 +16,32 @@
 		<div class="col-9" id="project-list">
 			<div class="project-form">
 				<div class="project-form-body">
-					<div>
+					<!-- <div>
 						<a href="task/add"><button type="button"
 								class="btn btn-primary">Create task</button> </a>
-					</div>
-					<table id="table" data-url="data/task" data-search="true"
-						data-pagination="true" data-show-refresh="true">
+					</div> -->
+					<form action="task/add" method="post">
+						<div class="input-group">
+							<input id="btn-input" type="text" name="txt_name"
+								class="form-control input-md" placeholder="Add new task" /> <span
+								class="input-group-btn">
+								<button class="btn btn-primary btn-md" id="btn-todo">Add</button>
+							</span>
+						</div>
+					</form>
+					<table id="table" data-toggle="table" data-url="data/task"
+						data-show-refresh="true" data-show-toggle="true"
+						data-show-columns="true" data-search="true"
+						data-select-item-name="toolbar1" data-pagination="true"
+						data-sort-name="id" data-sort-order="desc">
 						<thead>
 							<tr>
-								<th data-field="id" class="text-center"></th>
-								<th data-field="taskCode">Task Code</th>
-								<th data-field="name">Name Task</th>
-								<th data-field="createdAt">Updated At</th>
+								<th data-field="id" class="text-center" data-sortable="true"></th>
+								<th data-field="taskCode" data-sortable="true">Task Code</th>
+								<th data-field="name" data-sortable="true">Name Task</th>
+								<th data-field="createdAt" data-sortable="true"
+									data-formatter="formatDate" data-events="actionEvents">Updated
+									At</th>
 								<th data-field="action" data-formatter="actionFormatter"
 									data-events="actionEvents" class="text-center"></th>
 							</tr>
@@ -37,35 +51,11 @@
 					<script>
 						$('#table').bootstrapTable({
 							searchTimeOut : 0,
+							pageSize : 5
 						});
-						function actionFormatter(value, row, index) {
-							return [
-									'<a href="rights/edit?id=' + row.id + '">',
-									'<i class="fas fa-edit"></i></a>' ]
-									.join('');
-						}
-						function rData() {
-							$.ajax({
-								type : 'GET',
-								url : 'data/task',
-								data : {
-									get_param : 'value'
-								},
-								dataType : 'json',
-								success : function(data) {
-									$("#chat").empty();
-									$.each(data, function(index, row) {
-										$('#chat').append($('<div>', {
-											text : row.name
-										}));
-									});
-								}
-							});
-						}
-						setInterval(rData, 5000);
 					</script>
 					<%-- import sub --%>
-					<jsp:include page="../sub/edit-project.jsp" />
+					<jsp:include page="js.jsp" />
 				</div>
 			</div>
 			<!--/.modal detail -->

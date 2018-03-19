@@ -16,16 +16,16 @@
 				<form method="post">
 					<div class="report-form-body">
 						<div class="form-group">
-							<label for="taskCode">Task Code</label>
-							<input id="taskCode" type="text" name="txt_taskCode"
+							<label for="taskCode">Task Code</label> <input id="taskCode"
+								type="text" name="txt_taskCode"
 								value="<c:out value="${param.txt_taskCode}"
 													default="${project.taskCode}" />"
 								class="form-control <c:if test="${not empty map.txt_taskCode}"><c:out value="is-invalid" /></c:if>">
 							<div class="invalid-feedback">${map.txt_taskCode}</div>
 						</div>
 						<div class="form-group">
-							<label for="name">Name Task</label>
-							<input id="name" type="text" name="txt_name"
+							<label for="name">Name Task</label> <input id="name" type="text"
+								name="txt_name"
 								value="<c:out value="${param.txt_name}"
 													default="${project.name}" />"
 								class="form-control <c:if test="${not empty map.txt_name}"><c:out value="is-invalid" /></c:if>">

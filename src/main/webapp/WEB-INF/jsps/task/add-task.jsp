@@ -12,20 +12,17 @@
 		<jsp:include page="../layout/sidebar.jsp" />
 		<div class="col-9" id="report-list">
 			<div class="report-form">
-				<form method="post">
+				<form>
 					<div class="report-form-body">
 						<div class="form-group">
-							<label for="taskCode">Task
-								Code</label>
-							<input id="taskCode" type="text" name="txt_taskCode"
-								value="${param.txt_taskCode}"
+							<label for="taskCode">Task Code</label> <input id="taskCode"
+								type="text" name="txt_taskCode" value="${param.txt_taskCode}"
 								class="form-control <c:if test="${not empty map.txt_taskCode}"><c:out value="is-invalid" /></c:if>">
 							<div class="invalid-feedback">${map.txt_taskCode}</div>
 						</div>
 						<div class="form-group">
-							<label for="name">Name Task</label>
-							<input id="name" type="text" name="txt_name"
-								value="${param.txt_name}"
+							<label for="name">Name Task</label> <input id="name" type="text"
+								name="txt_name" value="${param.txt_name}"
 								class="form-control <c:if test="${not empty map.txt_name}"><c:out value="is-invalid" /></c:if>">
 							<div class="invalid-feedback">${map.txt_name}</div>
 						</div>
