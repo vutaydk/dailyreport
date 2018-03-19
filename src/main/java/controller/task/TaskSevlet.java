@@ -73,7 +73,11 @@ public class TaskSevlet extends HttpServlet {
 			hashMap.put("txt_taskCode", "Please enter task code.");
 			bool = false;
 		} else {
-			task.setTaskCode(txt_taskCode.get());
+			if (txt_taskCode.get().length() != 4) {
+				hashMap.put("txt_taskCode", "Task code length is 4 characters.");
+				bool = false;
+			} else
+				task.setTaskCode(txt_taskCode.get());
 		}
 
 		Optional<String> txt_name = Optional.ofNullable(request.getParameter("txt_name"));

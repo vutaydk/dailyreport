@@ -1,5 +1,5 @@
 package model.entity;
-// Generated Mar 15, 2018 9:13:02 AM by Hibernate Tools 5.2.8.Final
+// Generated Mar 16, 2018 4:43:45 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -52,7 +52,7 @@ public class Task implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "task_code", length = 18)
+	@Column(name = "task_code", length = 4)
 	public String getTaskCode() {
 		return this.taskCode;
 	}

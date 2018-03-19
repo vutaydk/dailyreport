@@ -59,7 +59,7 @@ public class ReportFilter implements Filter {
 								Optional<Rights> rights = Optional.ofNullable(user.get().getRights());
 
 								boolean bool = user.get().getId().equals(report.get().getUserByUserId().getId());
-								if ((rights.isPresent() && rights.get().getLv() > 0) || bool) {
+								if ((rights.isPresent() && rights.get().getLevel() > 0) || bool) {
 
 									chain.doFilter(request, response);
 									return;

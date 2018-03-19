@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
@@ -35,7 +35,7 @@
 								<tr>
 									<td><c:out value="${i.count}" /></td>
 									<td><c:out value="${row.name}" /></td>
-									<td><c:out value="${row.lv}" /></td>
+									<td><c:out value="${row.level}" /></td>
 									<td><fmt:formatDate value="${row.updatedAt}"
 											pattern="dd/MM/yyyy" /></td>
 									<td><a href="rights/edit?id=${row.id}"><i

@@ -1,5 +1,5 @@
 package model.entity;
-// Generated Mar 15, 2018 9:13:02 AM by Hibernate Tools 5.2.8.Final
+// Generated Mar 16, 2018 4:43:45 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -26,30 +26,26 @@ public class Report implements java.io.Serializable {
 	private Task task;
 	private User userByApprover;
 	private User userByUserId;
-	private Date workedAt;
-	private Date workedTo;
+	private Date timeWorked;
 	private String note;
+	private Date approvedAt;
 	private Date createdAt;
 	private Date updatedAt;
-	private Integer approvalStatus;
-	private Date approvedAt;
 
 	public Report() {
 	}
 
-	public Report(Project project, Task task, User userByApprover, User userByUserId, Date workedAt, Date workedTo,
-			String note, Date createdAt, Date updatedAt, Integer approvalStatus, Date approvedAt) {
+	public Report(Project project, Task task, User userByApprover, User userByUserId, Date timeWorked, String note,
+			Date approvedAt, Date createdAt, Date updatedAt) {
 		this.project = project;
 		this.task = task;
 		this.userByApprover = userByApprover;
 		this.userByUserId = userByUserId;
-		this.workedAt = workedAt;
-		this.workedTo = workedTo;
+		this.timeWorked = timeWorked;
 		this.note = note;
+		this.approvedAt = approvedAt;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.approvalStatus = approvalStatus;
-		this.approvedAt = approvedAt;
 	}
 
 	@Id
@@ -105,23 +101,13 @@ public class Report implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIME)
-	@Column(name = "worked_at", length = 16)
-	public Date getWorkedAt() {
-		return this.workedAt;
+	@Column(name = "time_worked", length = 16)
+	public Date getTimeWorked() {
+		return this.timeWorked;
 	}
 
-	public void setWorkedAt(Date workedAt) {
-		this.workedAt = workedAt;
-	}
-
-	@Temporal(TemporalType.TIME)
-	@Column(name = "worked_to", length = 16)
-	public Date getWorkedTo() {
-		return this.workedTo;
-	}
-
-	public void setWorkedTo(Date workedTo) {
-		this.workedTo = workedTo;
+	public void setTimeWorked(Date timeWorked) {
+		this.timeWorked = timeWorked;
 	}
 
 	@Column(name = "note")
@@ -131,6 +117,16 @@ public class Report implements java.io.Serializable {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "approved_at", length = 23)
+	public Date getApprovedAt() {
+		return this.approvedAt;
+	}
+
+	public void setApprovedAt(Date approvedAt) {
+		this.approvedAt = approvedAt;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -151,25 +147,6 @@ public class Report implements java.io.Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	@Column(name = "approval_status")
-	public Integer getApprovalStatus() {
-		return this.approvalStatus;
-	}
-
-	public void setApprovalStatus(Integer approvalStatus) {
-		this.approvalStatus = approvalStatus;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "approved_at", length = 23)
-	public Date getApprovedAt() {
-		return this.approvedAt;
-	}
-
-	public void setApprovedAt(Date approvedAt) {
-		this.approvedAt = approvedAt;
 	}
 
 }

@@ -26,52 +26,52 @@
 		match-schema="dbo">
 	</table-filter>
 	<table catalog="dailyreport" schema="dbo" name="projects"
-		class="com.dailyreport.model.Project">
+		class="model.entity.Project">
 		<column name="id"></column>
+		<column name="name"></column>
+		<column name="start_at"></column>
+		<column name="created_at"></column>
+		<column name="updated_at"></column>
 		<column name="project_code"></column>
 		<column name="finish_at"></column>
-		<column name="name"></column>
-		<column name="created_at"></column>
-		<column name="updated_at"></column>
-		<column name="start_at"></column>
 	</table>
 	<table catalog="dailyreport" schema="dbo" name="reports"
-		class="com.dailyreport.model.Report">
+		class="model.entity.Report">
 		<column name="id"></column>
-		<column name="worked_at"></column>
-		<column name="approval_status"></column>
-		<column name="approved_at"></column>
-		<column name="user_id"></column>
+		<column name="time_worked"></column>
 		<column name="updated_at"></column>
 		<column name="project_id"></column>
-		<column name="task_id"></column>
 		<column name="note"></column>
-		<column name="approver"></column>
+		<column name="approved_at"></column>
+		<column name="task_id"></column>
+		<column name="user_id"></column>
 		<column name="created_at"></column>
-		<column name="worked_to"></column>
+		<column name="approver"></column>
 	</table>
 	<table catalog="dailyreport" schema="dbo" name="rights"
-		class="com.dailyreport.model.Rights">
+		class="model.entity.Rights">
 		<column name="id"></column>
 		<column name="name"></column>
-		<column name="lv"></column>
+		<column name="level"></column>
 		<column name="created_at"></column>
 		<column name="updated_at"></column>
 	</table>
-	<table catalog="dailyreport" schema="dbo" name="tasks" class="com.dailyreport.model.Task">
+	<table catalog="dailyreport" schema="dbo" name="tasks"
+		class="model.entity.Task">
 		<column name="id"></column>
-		<column name="created_at"></column>
-		<column name="name"></column>
 		<column name="updated_at"></column>
 		<column name="task_code"></column>
-	</table>
-	<table catalog="dailyreport" schema="dbo" name="users" class="com.dailyreport.model.User">
-		<column name="id"></column>
-		<column name="employee_code"></column>
 		<column name="created_at"></column>
 		<column name="name"></column>
-		<column name="rights"></column>
-		<column name="password"></column>
+	</table>
+	<table catalog="dailyreport" schema="dbo" name="users"
+		class="model.entity.User">
+		<column name="id"></column>
 		<column name="updated_at"></column>
+		<column name="password"></column>
+		<column name="rights"></column>
+		<column name="created_at"></column>
+		<column name="employee_code"></column>
+		<column name="name"></column>
 	</table>
 </hibernate-reverse-engineering>

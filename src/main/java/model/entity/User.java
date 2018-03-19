@@ -1,5 +1,5 @@
 package model.entity;
-// Generated Mar 15, 2018 9:13:02 AM by Hibernate Tools 5.2.8.Final
+// Generated Mar 16, 2018 4:43:45 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -75,7 +75,7 @@ public class User implements java.io.Serializable {
 		this.rights = rights;
 	}
 
-	@Column(name = "employee_code", nullable = false, length = 18)
+	@Column(name = "employee_code", nullable = false, length = 12)
 	public String getEmployeeCode() {
 		return this.employeeCode;
 	}
