@@ -7,7 +7,8 @@
 		<property name="hibernate.connection.url">jdbc:sqlserver://localhost\SQLEXPRESS;databaseName=dailyreport</property>
 		<property name="hibernate.connection.username">sa</property>
 		<property name="hibernate.connection.password">123456789</property>
-		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.current_session_context_class">jta</property>
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
 		<mapping class="model.entity.Project"/>
 		<mapping class="model.entity.Report"/>
 		<mapping class="model.entity.Rights"/>
