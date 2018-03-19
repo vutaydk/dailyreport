@@ -21,7 +21,7 @@
 								class="btn btn-primary">Create task</button> </a>
 					</div>
 					<table id="table" data-url="data/task" data-search="true"
-						data-pagination="true">
+						data-pagination="true" data-show-refresh="true">
 						<thead>
 							<tr>
 								<th data-field="id" class="text-center"></th>
@@ -33,7 +33,7 @@
 							</tr>
 						</thead>
 					</table>
-					<div id="chat"> </div>
+					<div id="chat"></div>
 					<script>
 						$('#table').bootstrapTable({
 							searchTimeOut : 0,
@@ -46,22 +46,23 @@
 						}
 						function rData() {
 							$.ajax({
-										type : 'GET',
-										url : 'http://localhost:8080/daily_report/data/task',
-										data : {
-											get_param : 'value'
-										},
-										dataType : 'json',
-										success : function(data) {
-											$.each(data, function(index, row) {
-												$('#chat').html($('<div>', {
-													text : row.name
-												}));
-											});
-										}
+								type : 'GET',
+								url : 'data/task',
+								data : {
+									get_param : 'value'
+								},
+								dataType : 'json',
+								success : function(data) {
+									$("#chat").empty();
+									$.each(data, function(index, row) {
+										$('#chat').append($('<div>', {
+											text : row.name
+										}));
 									});
+								}
+							});
 						}
-						setInterval(rData, 3000);
+						setInterval(rData, 5000);
 					</script>
 					<%-- import sub --%>
 					<jsp:include page="../sub/edit-project.jsp" />
