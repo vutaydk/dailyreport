@@ -56,37 +56,34 @@
 							</div>
 						</div>
 						<script>
-							var today = new Date(new Date().getFullYear(),
-									new Date().getMonth(), new Date().getDate());
-							$('#startAt')
-									.datepicker(
-											{
-												uiLibrary : 'bootstrap',
-												format : 'dd-mm-yyyy',
-												minDate : today,
-												icons : {
-													rightIcon : '<i class="far fa-calendar-alt"></i>'
-												},
-												maxDate : function() {
-													return $('#finishAt').val();
-												}
-											});
-							$('#finishAt')
-									.datepicker(
-											{
-												uiLibrary : 'bootstrap',
-												format : 'dd-mm-yyyy',
-												icons : {
-													rightIcon : '<i class="far fa-calendar-alt"></i>'
-												},
-												minDate : function() {
-													return $('#startAt').val();
-												}
-											});
+							var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+							
+							$('#startAt').datepicker({
+								uiLibrary : 'bootstrap',
+								format : 'dd/mm/yyyy',
+								minDate : today,
+								icons : {
+									rightIcon : '<i class="far fa-calendar-alt"></i>'
+								},
+								maxDate : function() {
+									return $('#finishAt').val();
+								}
+							});
+							
+							$('#finishAt').datepicker({
+								uiLibrary : 'bootstrap',
+								format : 'dd/mm/yyyy',
+								icons : {
+									rightIcon : '<i class="far fa-calendar-alt"></i>'
+								},
+								minDate : function() {
+									return $('#startAt').val();
+								}
+							});
 							
 							$.alterValidationRules({
                                 rule: 'DATE_DATEPICKER',
-                                regex: /^\d{2}\/\d{2}\/\d{4}$/,
+                                regex: /^\s*(3[01]|[12][0-9]|0?[1-9])\/(1[012]|0?[1-9])\/((?:19|20)\d{2})\s*$/,
                                 message: 'This field must use format DD/MM/YYYY to be valid.'
                             });
 
