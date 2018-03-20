@@ -11,17 +11,12 @@ import model.entity.Rights;
 
 public class RightsRepo implements IRepository<Rights> {
 
-	@SuppressWarnings("unchecked")
 	public List<Rights> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Rights> list = null;
 		try {
-			session.beginTransaction();
-			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName());
+			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName(), Rights.class);
 			list = query.getResultList();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -30,24 +25,19 @@ public class RightsRepo implements IRepository<Rights> {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Rights find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Rights rights = null;
+		Rights object = null;
 		try {
-			session.beginTransaction();
-			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id");
+			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id", Rights.class);
 			query.setParameter("id", id);
-			rights = query.getSingleResult();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
+			object = query.getSingleResult();
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-		return rights;
+		return object;
 	}
 
 	public boolean insert(Rights object) {
