@@ -9,19 +9,14 @@ import org.hibernate.query.Query;
 import common.util.HibernateUtil;
 import model.entity.User;
 
-public class UserRepo implements IRepository<User>{
+public class UserRepo implements IRepository<User> {
 
-	@SuppressWarnings("unchecked")
 	public List<User> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<User> list = null;
 		try {
-			session.beginTransaction();
-			Query<User> query = session.createQuery("FROM " + User.class.getName());
+			Query<User> query = session.createQuery("FROM " + User.class.getName(), User.class);
 			list = query.getResultList();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -32,43 +27,34 @@ public class UserRepo implements IRepository<User>{
 
 	public User find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		User user = null;
+		User object = null;
 		try {
-			session.beginTransaction();
-			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id",User.class);
+			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
 			query.setParameter("id", id);
-			user = query.getSingleResult();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
+			object = query.getSingleResult();
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-		return user;
+		return object;
 	}
 
-	@SuppressWarnings("unchecked")
 	public User check(String em, String pwd) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		User user = null;
+		User object = null;
 		try {
-			session.beginTransaction();
-			Query<User> query = session
-					.createQuery("FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd");
+			Query<User> query = session.createQuery(
+					"FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
 			query.setParameter("em", em);
 			query.setParameter("pwd", pwd);
-			user = query.getSingleResult();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
+			object = query.getSingleResult();
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-		return user;
+		return object;
 	}
 
 	public boolean insert(User object) {

@@ -9,19 +9,14 @@ import org.hibernate.query.Query;
 import common.util.HibernateUtil;
 import model.entity.Report;
 
-public class ReportRepo implements IRepository<Report>{
+public class ReportRepo implements IRepository<Report> {
 
-	@SuppressWarnings("unchecked")
 	public List<Report> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Report> list = null;
 		try {
-			session.beginTransaction();
-			Query<Report> query = session.createQuery("FROM " + Report.class.getName());
+			Query<Report> query = session.createQuery("FROM " + Report.class.getName(), Report.class);
 			list = query.getResultList();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -30,24 +25,19 @@ public class ReportRepo implements IRepository<Report>{
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Report find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Report report = null;
+		Report object = null;
 		try {
-			session.beginTransaction();
-			Query<Report> query = session.createQuery("FROM " + Report.class.getName() + " WHERE id=:id");
+			Query<Report> query = session.createQuery("FROM " + Report.class.getName() + " WHERE id=:id", Report.class);
 			query.setParameter("id", id);
-			report = query.getSingleResult();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
+			object = query.getSingleResult();
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-		return report;
+		return object;
 	}
 
 	public boolean insert(Report object) {
@@ -101,6 +91,5 @@ public class ReportRepo implements IRepository<Report>{
 		}
 		return false;
 	}
-
 
 }

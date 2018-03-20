@@ -11,31 +11,12 @@ import model.entity.Project;
 
 public class ProjectRepo implements IRepository<Project> {
 
-	private final String TABLE = "FROM " + Project.class.getName();
-	private Query<Project> query;
-	private String select;
-
-	public ProjectRepo select(String[] array) {
-		select = "SELECT ";
-		for (String string : array) {
-			select = select + string + ", ";
-		}
-		System.out.println(select);
-
-		return this;
-	}
-
-	@SuppressWarnings("unchecked")
 	public List<Project> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Project> list = null;
 		try {
-			session.beginTransaction();
-			query = session.createQuery(TABLE);
+			Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
 			list = query.getResultList();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -44,24 +25,20 @@ public class ProjectRepo implements IRepository<Project> {
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Project find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Project project = null;
+		Project object = null;
 		try {
-			session.beginTransaction();
-			query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id");
+			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id",
+					Project.class);
 			query.setParameter("id", id);
-			project = query.getSingleResult();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
+			object = query.getSingleResult();
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-		return project;
+		return object;
 	}
 
 	public boolean insert(Project object) {

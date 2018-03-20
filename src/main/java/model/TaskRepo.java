@@ -9,21 +9,14 @@ import org.hibernate.query.Query;
 import common.util.HibernateUtil;
 import model.entity.Task;
 
-public class TaskRepo implements IRepository<Task>{
+public class TaskRepo implements IRepository<Task> {
 
-	private final String SELECT = "FROM " + Task.class.getName();
-	
-	@SuppressWarnings("unchecked")
 	public List<Task> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Task> list = null;
 		try {
-			session.beginTransaction();
-			Query<Task> query = session.createQuery(SELECT);
+			Query<Task> query = session.createQuery("FROM " + Task.class.getName(), Task.class);
 			list = query.getResultList();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
 		} finally {
 			if (session != null) {
 				session.close();
@@ -32,24 +25,19 @@ public class TaskRepo implements IRepository<Task>{
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Task find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Task project = null;
+		Task object = null;
 		try {
-			session.beginTransaction();
-			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id");
+			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id", Task.class);
 			query.setParameter("id", id);
-			project = query.getSingleResult();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
+			object = query.getSingleResult();
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-		return project;
+		return object;
 	}
 
 	public boolean insert(Task object) {
