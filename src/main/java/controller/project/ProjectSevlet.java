@@ -36,7 +36,7 @@ public class ProjectSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("listProject", projectDao.get());
+		request.setAttribute("listProject", projectDao.getAll());
 		request.getRequestDispatcher(VIEW_PATH + "/list-project.jsp").forward(request, response);
 	}
 

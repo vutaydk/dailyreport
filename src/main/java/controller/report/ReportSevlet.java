@@ -43,7 +43,7 @@ public class ReportSevlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setAttribute("listReport", reportDao.get());
+		request.setAttribute("listReport", reportDao.getAll());
 
 		// check id invalid number?
 		Optional<String> detailId = Optional.ofNullable(request.getParameter("detail"));
@@ -56,7 +56,7 @@ public class ReportSevlet extends HttpServlet {
 				if (report.isPresent()) {
 
 					request.setAttribute("detailReport", report.get());
-					request.setAttribute("listProject", projectDao.get());
+					request.setAttribute("listProject", projectDao.getAll());
 				} else {
 
 					request.setAttribute("messagePopup", "Not found data.");

@@ -29,7 +29,7 @@ public class DashBoardSevlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Optional<List<Project>> proOptional = Optional.ofNullable(projectDao.get());
+		Optional<List<Project>> proOptional = Optional.ofNullable(projectDao.getAll());
 		if (proOptional.isPresent())
 			request.setAttribute("listProject", proOptional.get());
 

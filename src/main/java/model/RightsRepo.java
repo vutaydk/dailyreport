@@ -11,7 +11,7 @@ import model.entity.Rights;
 
 public class RightsRepo implements IRepository<Rights> {
 
-	public List<Rights> get() {
+	public List<Rights> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Rights> list = null;
 		try {

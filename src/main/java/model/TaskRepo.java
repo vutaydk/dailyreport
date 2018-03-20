@@ -11,7 +11,7 @@ import model.entity.Task;
 
 public class TaskRepo implements IRepository<Task> {
 
-	public List<Task> get() {
+	public List<Task> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Task> list = null;
 		try {

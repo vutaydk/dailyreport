@@ -11,7 +11,7 @@ import model.entity.Project;
 
 public class ProjectRepo implements IRepository<Project> {
 
-	public List<Project> get() {
+	public List<Project> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Project> list = null;
 		try {

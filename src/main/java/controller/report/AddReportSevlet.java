@@ -28,7 +28,7 @@ public class AddReportSevlet extends ReportSevlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("listProject", projectDao.get());
+		request.setAttribute("listProject", projectDao.getAll());
 		request.getRequestDispatcher(VIEW_PATH + "/add-report.jsp").forward(request, response);
 	}
 

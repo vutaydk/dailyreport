@@ -11,7 +11,7 @@ import model.entity.User;
 
 public class UserRepo implements IRepository<User> {
 
-	public List<User> get() {
+	public List<User> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<User> list = null;
 		try {

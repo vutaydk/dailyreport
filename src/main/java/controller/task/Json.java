@@ -30,7 +30,7 @@ public class Json extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("application/json;charset=UTF-8");
 		Gson gson = new Gson();
-		List<Task> tasks = new TaskRepo().get();
+		List<Task> tasks = new TaskRepo().getAll();
 
 		response.getWriter().append(gson.toJson(tasks));
 	}

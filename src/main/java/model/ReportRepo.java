@@ -11,7 +11,7 @@ import model.entity.Report;
 
 public class ReportRepo implements IRepository<Report> {
 
-	public List<Report> get() {
+	public List<Report> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<Report> list = null;
 		try {

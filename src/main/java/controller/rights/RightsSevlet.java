@@ -34,7 +34,7 @@ public class RightsSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("listRights", rightsDao.get());
+		request.setAttribute("listRights", rightsDao.getAll());
 		request.getRequestDispatcher(VIEW_PATH + "/list-rights.jsp").forward(request, response);
 	}
 

@@ -64,7 +64,7 @@ public class LoginFilter implements Filter {
 
 	public void modelAttribute(HttpServletRequest request, HttpServletResponse response) {
 
-		Optional<List<Report>> reOptional = Optional.ofNullable(reportDao.get());
+		Optional<List<Report>> reOptional = Optional.ofNullable(reportDao.getAll());
 		if (reOptional.isPresent()) {
 
 			Optional<User> usOptional = Optional.ofNullable((User) request.getSession().getAttribute("user"));

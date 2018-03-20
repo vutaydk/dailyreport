@@ -33,7 +33,7 @@ public class TaskSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("listTask", taskDao.get());
+		request.setAttribute("listTask", taskDao.getAll());
 		request.getRequestDispatcher(VIEW_PATH + "/list-task.jsp").forward(request, response);
 	}
 

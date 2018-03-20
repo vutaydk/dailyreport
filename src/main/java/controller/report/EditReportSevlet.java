@@ -40,7 +40,7 @@ public class EditReportSevlet extends ReportSevlet {
 				if (report.isPresent()) {
 
 					request.setAttribute("report", report.get());
-					request.setAttribute("listProject", projectDao.get());
+					request.setAttribute("listProject", projectDao.getAll());
 				} else {
 
 					request.setAttribute("messagePopup", "Not found data.");
