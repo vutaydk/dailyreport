@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-table.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/fontawesome-all.css">
+
+    <!-- gijgo CSS -->
+    <link href="css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery.validation.js"></script>
+
+    <!-- gijgo JS -->
+    <script src="js/gijgo.min.js" type="text/javascript"></script>
+
+    <!-- bootstrap table js -->
+    <script src="js/bootstrap-table.js"></script>
+    <script src="js/bootstrap-table-vi-VN.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg header">
+            <a class="navbar-brand" href="index.html">
+                <img src="" width="30" height="30" alt="Daily report">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Employee code</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /.header -->
+
+        <nav class="navbar navbar-expand-lg  border mb-3 bg-white">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Personal report
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Project managerment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Employees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tasks</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- /.menu -->
+        <div class="row">
+            <div class="col-3">
+                <div class="sidebar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item p-1">
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <button class="btn btn-default" type="button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item p-1">
+                            <table class="table">
+                                <tr>
+                                    <td>001</td>
+                                    <td>Project 1</td>
+                                </tr>
+                                <tr>
+                                    <td>002</td>
+                                    <td>Project 2</td>
+                                </tr>
+                                <tr>
+                                    <td>003</td>
+                                    <td>Project 3</td>
+                                </tr>
+                                <tr>
+                                    <td>004</td>
+                                    <td>Project 4</td>
+                                </tr>
+                                <tr>
+                                    <td>005</td>
+                                    <td>Project 5</td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- ./sidebar -->
+            <div class="col-9" id="report-list">
+                <div class="project-form">
+                    <form action="" method="post" id="addProjectForm">
+                        <div class="project-form-body">
+                            <div class="form-group row">
+                                <label for="projectCode" class="col-2 col-form-label">Project code
+                                </label>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" name="txt_projectCode" data-validation="[NOTEMPTY]" data-validation-message="Please enter project code.">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-2 col-form-label">Name</label>
+                                <div class="col-10">
+                                    <input type="text" class="form-control" name="txt_name" data-validation="[L>=6, NOTEMPTY]" data-validation-message="Please enter name. Name must be at least 6 characters">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="startAt" class="col-2 col-form-label">Start at</label>
+                                <div class="col-3">
+                                    <input id="startAt" name="txt_startAt" data-validation="[DATE_DATEPICKER]">
+                                </div>
+                                <div class="col"></div>
+                                <label for="finishAt" class="col-2 col-form-label">Finish at</label>
+                                <div class="col-3">
+                                    <input id="finishAt" name="txt_finishAt" data-validation="[DATE_DATEPICKER]">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label">Project manager</label>
+                                <div class="col-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <button class="btn btn-default" type="button">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-primary" type="submit">Add project</button>
+                                </div>
+                            </div>
+
+                            <script>
+
+                                var today = new Date(new Date().getFullYear(), new Date()
+                                    .getMonth(), new Date().getDate());
+                                $('#startAt').datepicker({
+                                    uiLibrary: 'bootstrap',
+                                    iconsLibrary: 'fontawesome',
+                                    format: 'dd/mm/yyyy',
+                                    minDate: today,
+                                    maxDate: function () {
+                                        return $('#finishAt').val();
+                                    },
+                                    icons: {
+                                        rightIcon: '<i class="far fa-calendar-alt"></i>'
+                                    }
+                                });
+                                $('#finishAt').datepicker({
+                                    uiLibrary: 'bootstrap',
+                                    format: 'dd/mm/yyyy',
+                                    iconsLibrary: 'fontawesome',
+                                    minDate: function () {
+                                        return $('#startAt').val();
+                                    },
+                                    icons: {
+                                        rightIcon: '<i class="far fa-calendar-alt"></i>'
+                                    }
+                                });
+
+
+                                $.alterValidationRules({
+                                    rule: 'DATE_DATEPICKER',
+                                    // regex: /^\d{2}\/\d{2}\/\d{4}$/,
+                                    regex: /^\s*(3[01]|[12][0-9]|0?[1-9])\/(1[012]|0?[1-9])\/((?:19|20)\d{2})\s*$/,
+                                    message: 'This field must use format DD/MM/YYYY to be valid.'
+                                });
+                                $.validate({
+                                    submit: {
+                                        settings: {
+                                            form: '#addProjectForm',
+                                            clear: false,
+                                            insertion: 'append',
+                                            allErrors: true,
+                                            errorClass: 'is-invalid',
+                                            errorListClass: 'invalid-feedback error-list',
+                                            inputContainer: '.form-group',
+                                            display: 'inline',
+                                        },
+                                        callback: {
+                                            onError: function (error) {
+                                                // alert(error.toString());
+                                            }
+                                        }
+                                    }
+                                });
+
+
+                            </script>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- ./add-project form -->
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js" type="text/javascript"></script>
+
+</body>
+
+</html>
