@@ -16,7 +16,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ReportDao;
+import model.ReportRepo;
 import model.entity.Report;
 import model.entity.User;
 
@@ -28,10 +28,10 @@ import model.entity.User;
 })
 public class LoginFilter implements Filter {
 
-	private ReportDao reportDao;
+	private ReportRepo reportDao;
 
 	public LoginFilter() {
-		reportDao = new ReportDao();
+		reportDao = new ReportRepo();
 	}
 
 	/**

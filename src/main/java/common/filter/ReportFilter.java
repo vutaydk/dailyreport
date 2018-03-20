@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
-import model.ReportDao;
+import model.ReportRepo;
 import model.entity.Report;
 import model.entity.Rights;
 import model.entity.User;
@@ -25,10 +25,10 @@ import model.entity.User;
 @WebFilter("/report/*")
 public class ReportFilter implements Filter {
 
-	private ReportDao reportDao;
+	private ReportRepo reportDao;
 
 	public ReportFilter() {
-		reportDao = new ReportDao();
+		reportDao = new ReportRepo();
 	}
 
 	/**

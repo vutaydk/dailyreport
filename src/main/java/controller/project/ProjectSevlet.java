@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
-import model.ProjectDao;
+import model.ProjectRepo;
 import model.entity.Project;
 
 
@@ -23,12 +23,12 @@ public class ProjectSevlet extends HttpServlet {
 
 	protected final String VIEW_PATH = "/WEB-INF/jsps/project";
 
-	protected ProjectDao projectDao;
+	protected ProjectRepo projectDao;
 
 	private HashMap<String, String> hashMap;
 
 	public ProjectSevlet() {
-		projectDao = new ProjectDao();
+		projectDao = new ProjectRepo();
 	}
 
 	/**

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
-import model.RightsDao;
+import model.RightsRepo;
 import model.entity.Rights;
 
 @WebServlet("/rights")
@@ -21,12 +21,12 @@ public class RightsSevlet extends HttpServlet {
 
 	protected final String VIEW_PATH = "/WEB-INF/jsps/rights";
 
-	protected RightsDao rightsDao;
+	protected RightsRepo rightsDao;
 
 	private HashMap<String, String> hashMap;
 
 	public RightsSevlet() {
-		rightsDao = new RightsDao();
+		rightsDao = new RightsRepo();
 	}
 
 	/**

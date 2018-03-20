@@ -7,17 +7,17 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import common.util.HibernateUtil;
-import model.entity.Report;
+import model.entity.User;
 
-public class ReportDao {
+public class UserRepo implements IRepository{
 
 	@SuppressWarnings("unchecked")
-	public List<Report> get() {
+	public List<User> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Report> list = null;
+		List<User> list = null;
 		try {
 			session.beginTransaction();
-			Query<Report> query = session.createQuery("FROM " + Report.class.getName());
+			Query<User> query = session.createQuery("FROM " + User.class.getName());
 			list = query.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -31,14 +31,14 @@ public class ReportDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Report find(int id) {
+	public User find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Report report = null;
+		User user = null;
 		try {
 			session.beginTransaction();
-			Query<Report> query = session.createQuery("FROM " + Report.class.getName() + " WHERE id=:id");
+			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id");
 			query.setParameter("id", id);
-			report = query.getSingleResult();
+			user = query.getSingleResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -47,10 +47,32 @@ public class ReportDao {
 				session.close();
 			}
 		}
-		return report;
+		return user;
 	}
 
-	public boolean insert(Report object) {
+	@SuppressWarnings("unchecked")
+	public User check(String em, String pwd) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		User user = null;
+		try {
+			session.beginTransaction();
+			Query<User> query = session
+					.createQuery("FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd");
+			query.setParameter("em", em);
+			query.setParameter("pwd", pwd);
+			user = query.getSingleResult();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return user;
+	}
+
+	public boolean insert(User object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -68,7 +90,7 @@ public class ReportDao {
 		return false;
 	}
 
-	public boolean update(Report object) {
+	public boolean update(User object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -85,7 +107,7 @@ public class ReportDao {
 		return false;
 	}
 
-	public boolean delete(Report object) {
+	public boolean delete(User object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -100,6 +122,12 @@ public class ReportDao {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Object find() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

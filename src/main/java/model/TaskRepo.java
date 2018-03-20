@@ -7,22 +7,19 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import common.util.HibernateUtil;
-import model.entity.User;
+import model.entity.Task;
 
-public class UserDao {
+public class TaskRepo implements IRepository<Task>{
 
-	public static void main(String[] args) {
-		// System.out.println(new UserDao().insert(new User("hanh", null, "123", "Nguyễn
-		// Văn Hạnh", null, null, null, null)));
-	}
-
+	private final String SELECT = "FROM " + Task.class.getName();
+	
 	@SuppressWarnings("unchecked")
-	public List<User> get() {
+	public List<Task> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<User> list = null;
+		List<Task> list = null;
 		try {
 			session.beginTransaction();
-			Query<User> query = session.createQuery("FROM " + User.class.getName());
+			Query<Task> query = session.createQuery(SELECT);
 			list = query.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -36,14 +33,14 @@ public class UserDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public User find(int id) {
+	public Task find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		User user = null;
+		Task project = null;
 		try {
 			session.beginTransaction();
-			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id");
+			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id");
 			query.setParameter("id", id);
-			user = query.getSingleResult();
+			project = query.getSingleResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -52,32 +49,10 @@ public class UserDao {
 				session.close();
 			}
 		}
-		return user;
+		return project;
 	}
 
-	@SuppressWarnings("unchecked")
-	public User check(String em, String pwd) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		User user = null;
-		try {
-			session.beginTransaction();
-			Query<User> query = session
-					.createQuery("FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd");
-			query.setParameter("em", em);
-			query.setParameter("pwd", pwd);
-			user = query.getSingleResult();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-		return user;
-	}
-
-	public boolean insert(User object) {
+	public boolean insert(Task object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -95,7 +70,7 @@ public class UserDao {
 		return false;
 	}
 
-	public boolean update(User object) {
+	public boolean update(Task object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -112,7 +87,7 @@ public class UserDao {
 		return false;
 	}
 
-	public boolean delete(User object) {
+	public boolean delete(Task object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -127,6 +102,12 @@ public class UserDao {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Task find() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

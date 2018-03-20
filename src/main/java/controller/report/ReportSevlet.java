@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
-import model.ProjectDao;
-import model.ReportDao;
+import model.ProjectRepo;
+import model.ReportRepo;
 import model.entity.Project;
 import model.entity.Report;
 import model.entity.User;
@@ -27,14 +27,14 @@ public class ReportSevlet extends HttpServlet {
 
 	protected final String VIEW_PATH = "/WEB-INF/jsps/report";
 
-	protected ReportDao reportDao;
-	protected ProjectDao projectDao;
+	protected ReportRepo reportDao;
+	protected ProjectRepo projectDao;
 
 	private HashMap<String, String> hashMap;
 
 	public ReportSevlet() {
-		reportDao = new ReportDao();
-		projectDao = new ProjectDao();
+		reportDao = new ReportRepo();
+		projectDao = new ProjectRepo();
 	}
 
 	/**

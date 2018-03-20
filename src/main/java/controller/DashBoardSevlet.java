@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ProjectDao;
+import model.ProjectRepo;
 import model.entity.Project;
 
 @WebServlet("/home")
 public class DashBoardSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private ProjectDao projectDao;
+	private ProjectRepo projectDao;
 
 	public DashBoardSevlet() {
-		projectDao = new ProjectDao();
+		projectDao = new ProjectRepo();
 	}
 
 	/**

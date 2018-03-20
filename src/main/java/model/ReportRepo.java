@@ -7,43 +7,17 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import common.util.HibernateUtil;
-import model.entity.Project;
+import model.entity.Report;
 
-public class ProjectDao {
-
-	private final String TABLE = "FROM " + Project.class.getName();
-	private Query<Project> query;
-	private String select;
-
-	public ProjectDao select(String[] array) {
-		select = "SELECT ";
-		for (String string : array) {
-			select = select + string + ", ";
-		}
-		System.out.println(select);
-
-		return this;
-	}
-
-	public static void main(String[] args) {
-		String[] str = { "hanh", "hanh", "hanh" };
-		new ProjectDao().select(str);
-	}
-
-	// public ProjectDao where(HashMap<String, Object> map) {
-	//
-	// select = "SELECT " + opt.get();
-	//
-	// return this;
-	// }
+public class ReportRepo implements IRepository<Report>{
 
 	@SuppressWarnings("unchecked")
-	public List<Project> get() {
+	public List<Report> get() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Project> list = null;
+		List<Report> list = null;
 		try {
 			session.beginTransaction();
-			query = session.createQuery(TABLE);
+			Query<Report> query = session.createQuery("FROM " + Report.class.getName());
 			list = query.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -57,14 +31,14 @@ public class ProjectDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Project find(int id) {
+	public Report find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Project project = null;
+		Report report = null;
 		try {
 			session.beginTransaction();
-			query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id");
+			Query<Report> query = session.createQuery("FROM " + Report.class.getName() + " WHERE id=:id");
 			query.setParameter("id", id);
-			project = query.getSingleResult();
+			report = query.getSingleResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -73,10 +47,10 @@ public class ProjectDao {
 				session.close();
 			}
 		}
-		return project;
+		return report;
 	}
 
-	public boolean insert(Project object) {
+	public boolean insert(Report object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -94,7 +68,7 @@ public class ProjectDao {
 		return false;
 	}
 
-	public boolean update(Project object) {
+	public boolean update(Report object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -111,7 +85,7 @@ public class ProjectDao {
 		return false;
 	}
 
-	public boolean delete(Project object) {
+	public boolean delete(Report object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -126,6 +100,12 @@ public class ProjectDao {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Report find() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

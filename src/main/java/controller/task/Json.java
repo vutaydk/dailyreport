@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import model.TaskDao;
+import model.TaskRepo;
 import model.entity.Task;
 
 /**
@@ -30,7 +30,7 @@ public class Json extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("application/json;charset=UTF-8");
 		Gson gson = new Gson();
-		List<Task> tasks = new TaskDao().get();
+		List<Task> tasks = new TaskRepo().get();
 
 		response.getWriter().append(gson.toJson(tasks));
 	}

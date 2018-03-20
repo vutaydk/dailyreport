@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.TaskDao;
+import model.TaskRepo;
 import model.entity.Task;
 
 @WebServlet("/task")
@@ -20,12 +20,12 @@ public class TaskSevlet extends HttpServlet {
 
 	protected final String VIEW_PATH = "/WEB-INF/jsps/task";
 
-	protected TaskDao taskDao;
+	protected TaskRepo taskDao;
 
 	private HashMap<String, String> hashMap;
 
 	public TaskSevlet() {
-		taskDao = new TaskDao();
+		taskDao = new TaskRepo();
 	}
 
 	/**

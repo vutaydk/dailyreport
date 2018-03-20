@@ -9,7 +9,7 @@ import org.hibernate.query.Query;
 import common.util.HibernateUtil;
 import model.entity.Rights;
 
-public class RightsDao {
+public class RightsRepo implements IRepository<Rights> {
 
 	@SuppressWarnings("unchecked")
 	public List<Rights> get() {
@@ -100,6 +100,12 @@ public class RightsDao {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Rights find() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
