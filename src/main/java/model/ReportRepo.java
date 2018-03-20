@@ -102,10 +102,5 @@ public class ReportRepo implements IRepository<Report>{
 		return false;
 	}
 
-	@Override
-	public Report find() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

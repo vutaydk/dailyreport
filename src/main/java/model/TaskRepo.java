@@ -104,10 +104,4 @@ public class TaskRepo implements IRepository<Task>{
 		return false;
 	}
 
-	@Override
-	public Task find() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -102,10 +102,4 @@ public class RightsRepo implements IRepository<Rights> {
 		return false;
 	}
 
-	@Override
-	public Rights find() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

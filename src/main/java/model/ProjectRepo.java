@@ -116,9 +116,4 @@ public class ProjectRepo implements IRepository<Project> {
 		return false;
 	}
 
-	public Project find() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

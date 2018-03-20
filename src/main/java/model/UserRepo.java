@@ -9,7 +9,7 @@ import org.hibernate.query.Query;
 import common.util.HibernateUtil;
 import model.entity.User;
 
-public class UserRepo implements IRepository{
+public class UserRepo implements IRepository<User>{
 
 	@SuppressWarnings("unchecked")
 	public List<User> get() {
@@ -30,13 +30,12 @@ public class UserRepo implements IRepository{
 		return list;
 	}
 
-	@SuppressWarnings("unchecked")
 	public User find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		User user = null;
 		try {
 			session.beginTransaction();
-			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id");
+			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id",User.class);
 			query.setParameter("id", id);
 			user = query.getSingleResult();
 			session.getTransaction().commit();
@@ -122,12 +121,6 @@ public class UserRepo implements IRepository{
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public Object find() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

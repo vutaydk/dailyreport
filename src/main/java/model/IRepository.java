@@ -6,9 +6,10 @@ public interface IRepository<T> {
 
 	List<T> get();
 	
-	T find();
+	boolean insert(T t);
 	
+	boolean update(T t);
 	
-	
+	boolean delete(T t);
 	
 }
