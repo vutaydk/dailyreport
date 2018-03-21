@@ -4,9 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.google.gson.Gson;
+
 public class Format {
 
-	public static Date convertDate(String str) {
+	public static String toJson(Object object) {
+		Gson gson = new Gson();
+		return gson.toJson(object);
+	}
+
+	public static Date toDate(String str) {
 		Date date = null;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
