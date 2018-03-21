@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="col-3">
@@ -23,9 +21,9 @@
 				var currentDate = new Date().toLocaleDateString('en-US');
 				$('#datepicker').datepicker({
 					value : currentDate,
-					icons: {
-                        rightIcon: '<i class="far fa-calendar-alt"></i>'
-                    },
+					icons : {
+						rightIcon : '<i class="far fa-calendar-alt"></i>'
+					},
 				});
 			</script>
 		</div>

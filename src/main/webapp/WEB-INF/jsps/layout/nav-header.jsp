@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <nav class="navbar navbar-expand-lg header">
 	<a class="navbar-brand" href=""><b>Daily report</b></a>
@@ -24,3 +22,19 @@
 	</div>
 </nav>
 <!-- /.nav header -->
+
+<nav class="navbar navbar-expand-lg  border mb-3 bg-white">
+	<div class="collapse navbar-collapse">
+		<ul class="navbar-nav">
+			<li class="nav-item active"><a class="nav-link" href="report">Personal
+					report <span class="sr-only">(current)</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="project">Project
+					managerment</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">Employees</a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="task">Tasks</a></li>
+		</ul>
+	</div>
+</nav>
+<!-- /.menu -->

@@ -11,53 +11,72 @@
 	<!-- /.header -->
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="../layout/sidebar.jsp" />
+		<jsp:include page="sidebar.jsp" />
 
-		<div class="col-9" id="project-list">
+		<div class="col-9" id="report-list">
 			<div class="project-form">
-				<div class="project-form-body">
-					<div>
-						<a href="project/add"><button type="button"
-								class="btn btn-primary">Create project</button> </a>
+				<form action="project/add" method="post">
+					<div class="project-form-body">
+						<div class="form-group row">
+							<label for="projectCode" class="col-2 col-form-label">Project
+								code </label>
+							<div class="col-2">
+								<input type="text" maxlength="4" class="form-control"
+									name="txt_projectCode" value="${param.txt_projectCode}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="name" class="col-2 col-form-label">Name</label>
+							<div class="col-6">
+								<input type="text" maxlength="50" class="form-control"
+									name="txt_name" value="${param.txt_name}">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="startAt" class="col-2 col-form-label">Start
+								at</label>
+							<div class="col-3">
+								<input id="startAt" name="txt_startAt"
+									value="${param.txt_startAt}">
+							</div>
+							<div class="col"></div>
+							<label for="finishAt" class="col-2 col-form-label">Finish
+								at</label>
+							<div class="col-3">
+								<input id="finishAt" name="txt_finishAt"
+									value="${param.txt_finishAt}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-2 col-form-label">Project manager</label>
+							<div class="col-4">
+								<div class="input-group">
+									<input type="text" class="form-control">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<button class="btn btn-default" type="button">
+												<i class="fas fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="reset" class="btn btn-default">Reset</button>
+							</div>
+						</div>
 					</div>
-					<table id="table" data-search="true" data-pagination="true">
-						<thead>
-							<tr>
-								<th>Project Code</th>
-								<th>Name</th>
-								<th>Start At</th>
-								<th>Finish At</th>
-								<th class="text-center"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${listProject}" var="row" varStatus="i">
-								<tr>
-									<td><c:out value="${row.projectCode}" /></td>
-									<td><c:out value="${row.name}" /></td>
-									<td><fmt:formatDate value="${row.startAt}"
-											pattern="dd-MM-yyyy" /></td>
-									<td><fmt:formatDate value="${row.finishAt}"
-											pattern="dd-MM-yyyy" /></td>
-									<td><a href="project?id=${row.id}"><i
-											class="fas fa-search"></i></a> - <a
-										href="project/edit?id=${row.id}"><i class="fas fa-edit"></i></a></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<script>
-						$('#table').bootstrapTable({
-							searchTimeOut : 0,
-						});
-					</script>
-					<%-- import sub --%>
-					<jsp:include page="../sub/edit-project.jsp" />
-				</div>
+				</form>
 			</div>
-			<!--/.modal detail -->
 		</div>
 		<!-- ./create-project form -->
+
+		<%-- import footer --%>
+		<jsp:include page="js.jsp" />
 	</div>
 
 </div>

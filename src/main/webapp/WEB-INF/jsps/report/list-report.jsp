@@ -10,72 +10,189 @@
 	<!-- /.header -->
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="../layout/sidebar.jsp" />
-		<div class="col-9" id="report-list">
-			<div class="report-form">
-				<div class="report-form-body">
-					<div>
-						<a href="report/add">
-							<button type="button" class="btn btn-primary">Create
-								report</button>
-						</a>
-					</div>
-					<table id="table" data-search="true" data-pagination="true"
-						class="report-table">
-						<thead>
-							<tr>
-								<th class="text-center"></th>
-								<th>User</th>
-								<th>Reported</th>
-								<th data-width="50%">Note</th>
-								<th class="text-center"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${listReport}" var="row">
-								<tr>
-									<td>
-										<c:choose>
-											<c:when test="${not empty row.userByApprover}">
-												<i class="fas fa-check text-success"></i>
-											</c:when>
-											<c:otherwise>
-												<i class="fas fa-times text-danger"></i>
-											</c:otherwise>
-										</c:choose>
-									</td>
-									<td>
-										<c:out value="${row.userByUserId.name}" />
-									</td>
-									<td>
-										<fmt:formatDate value="${row.createdAt}" pattern="dd/MM/yyyy" />
-									</td>
-									<td>
-										<c:out value="${row.note}" />
-									</td>
-									<td>
-										<a href="report?detail=${row.id}">
-											<i class="fas fa-search"></i>
-										</a>
-										-
-										<a href="report/edit?id=${row.id}">
-											<i class="fas fa-edit"></i>
-										</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<script>
-						$('#table').bootstrapTable({
-							searchTimeOut : 0,
-						});
-					</script>
-					<%-- import sub --%>
-					<jsp:include page="../sub/edit-report.jsp" />
-					<!--/.modal detail -->
+		<jsp:include page="sidebar.jsp" />
+
+		<div class="col-9">
+			<div id="list-report" class="list-report">
+				<div class="report-form">
+					<form id="addReportForm" method="post">
+						<div class="report-form-body">
+							<div class="row">
+								<div class="col-10">
+									<div class="form-group row">
+										<label for="projectCode" class="col-3 col-form-label">Project
+											code</label>
+										<div class="col-9">
+											<select id="projectCode" class="form-control"
+												name="projectCode" data-validation="[NOTEMPTY]"
+												data-validation-message="Please choose project.">
+												<option value="">Choose...</option>
+												<option value="Project1">Project 1</option>
+												<option value="Project2">Project 2</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="taskCode" class="col-3 col-form-label">Task
+											code</label>
+										<div class="col-9">
+											<select id="taskCode" class="form-control" name="taskCode"
+												data-validation="[NOTEMPTY]"
+												data-validation-message="Please choose task.">
+												<option value="">Choose...</option>
+												<option value="Task1">Task 1</option>
+												<option value="Task2">Task 2</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="timeWork" class="col-3 col-form-label">Time
+											work</label>
+										<div class="col-9">
+											<input type="text" class="form-control" id="timeWork"
+												name="txt_timeWork" placeholder="Hour"
+												data-validation="[NOTEMPTY, INTEGER]"
+												data-validation-message="Please enter working time.">
+										</div>
+									</div>
+								</div>
+								<div class="col-2">
+									<div class="row">
+										<button class="btn btn-outline-danger ml-2" type="button">
+											<i class="fas fa-trash-alt"></i>
+										</button>
+										<button id="toggle-note" class="btn btn-outline-dark  ml-2"
+											type="button" data-toggle="collapse"
+											data-target="#report-note" aria-controls="report-note"
+											aria-expanded="false" aria-label="Toggle report note">
+											<i class="fas fa-minus"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div id="report-note">
+								<div class="form-group">
+									<label for="content">Note</label>
+									<div class="col-12">
+										<textarea class="form-control" rows="10" cols="" id="content"
+											name="txt_note" data-validation="[L>=10, NOTEMPTY]"
+											data-validation-message="Please enter note. Not must be at least 10 characters."></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<button type="button" id="addWork"
+											class="btn btn-outline-dark">Add work</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
+			<script>
+
+                    $.validate({
+                        submit: {
+                            settings: {
+                                form: '#addReportForm',
+                                clear: false,
+                                insertion: 'append',
+                                allErrors: true,
+                                errorClass: 'is-invalid',
+                                errorListClass: 'invalid-feedback error-list',
+                                inputContainer: '.form-group',
+                                display: 'inline',
+                                scrollToError: true
+                            },
+                            callback: {
+                                onError: function (error) {
+                                    // alert(error.toString());
+                                }
+                            }
+                        }
+                    });
+
+                    $(document).ready(function () {
+
+                        $('#report-note').on('hidden.bs.collapse', function () {
+                            $('#toggle-note').children().replaceWith('<i class="fas fa-plus"></i>');
+                        });
+
+                        $('#report-note').on('shown.bs.collapse', function () {
+                            $('#toggle-note').children().replaceWith('<i class="fas fa-minus"></i>');
+                        });
+
+
+                        $("#addWork").click(function () {
+                            $("#list-report").append(`
+
+                        <div class="report-form">
+                        <form id="addReportForm" method="post">
+                            <div class="report-form-body">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="form-group row">
+                                            <label for="projectCode" class="col-3 col-form-label">Project code</label>
+                                            <div class="col-9">
+                                                <select id="projectCode" class="form-control" name="projectCode" data-validation="[NOTEMPTY]" data-validation-message="Please choose project.">
+                                                    <option value="">Choose...</option>
+                                                    <option value="Project1">Project 1</option>
+                                                    <option value="Project2">Project 2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="taskCode" class="col-3 col-form-label">Task code</label>
+                                            <div class="col-9">
+                                                <select id="taskCode" class="form-control" name="taskCode" data-validation="[NOTEMPTY]" data-validation-message="Please choose task.">
+                                                    <option value="">Choose...</option>
+                                                    <option value="Task1">Task 1</option>
+                                                    <option value="Task2">Task 2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="timeWork" class="col-3 col-form-label">Time work</label>
+                                            <div class="col-9">
+                                                <input type="text" class="form-control" id="timeWork" name="txt_timeWork" placeholder="Hour" data-validation="[NOTEMPTY, INTEGER]"
+                                                    data-validation-message="Please enter working time.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="row">
+                                            <button class="btn btn-outline-danger ml-2">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <button class="btn btn-outline-dark  ml-2">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="content">Note</label>
+                                    <div class="col-12">
+                                        <textarea class="form-control" rows="10" cols="" id="content" name="txt_note" data-validation="[L>=10, NOTEMPTY]" data-validation-message="Please enter note. Not must be at least 10 characters."></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="button" id="addWork" class="btn btn-outline-dark">
+                                            Add work
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                            `);
+                        });
+                    });
+
+
+                </script>
 		</div>
 		<!-- ./create-report form -->
 	</div>

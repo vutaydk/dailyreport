@@ -11,7 +11,7 @@
 	<!-- /.header -->
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="../layout/sidebar.jsp" />
+		<jsp:include page="sidebar.jsp" />
 
 		<div class="col-9" id="project-list">
 			<div class="project-form">

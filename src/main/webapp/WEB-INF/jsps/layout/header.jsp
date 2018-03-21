@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Daily Report</title>
 
-<base href="<%= request.getContextPath() %>/" />
+<base href="<%=request.getContextPath()%>/" />
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -33,6 +31,8 @@
 <link rel="stylesheet" href="css/bootstrap-table.css">
 <script src="js/bootstrap-table.js"></script>
 <script src="js/bootstrap-table-vi-VN.js"></script>
+
+<script src="js/Chart.js"></script>
 </head>
 
 <body>
