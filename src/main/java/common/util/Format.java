@@ -6,6 +6,17 @@ import java.util.Date;
 
 public class Format {
 
+	public static Date convertDate(String str) {
+		Date date = null;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			date = dateFormat.parse(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+
 	public static String timeFb(Date date) {
 
 		Calendar calCurrent = Calendar.getInstance();

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class DataValidation {
 
-	private final static String DATE_FORMAT = "dd-MM-yyyy";
+	private final static String DATE_FORMAT = "dd/MM/yyyy";
 	private final static Pattern NUMBER_PATTERN = Pattern.compile("[+-]?\\d*\\.?\\d+");
 
 	public static boolean isValidDate(String date) {
