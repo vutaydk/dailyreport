@@ -1,7 +1,6 @@
 package controller.project;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -12,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
+import common.util.Format;
 import model.ProjectRepo;
 import model.entity.Project;
-
 
 @WebServlet("/project")
 public class ProjectSevlet extends HttpServlet {
@@ -103,11 +102,7 @@ public class ProjectSevlet extends HttpServlet {
 				bool = false;
 			} else {
 
-				try {
-					project.setStartAt(new SimpleDateFormat("dd-MM-yyyy").parse(txt_startAt.get()));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				Format.convertDate(txt_startAt.get());
 			}
 		}
 
@@ -122,21 +117,7 @@ public class ProjectSevlet extends HttpServlet {
 				bool = false;
 			} else {
 
-				// if (Check.isDateValid(txt_startAt.get())) {
-				//
-				// if (new SimpleDateFormat("dd-MM-yyyy").parse(txt_finishAt.get()) < new
-				// SimpleDateFormat("dd-MM-yyyy").parse(txt_finishAt.get()).getTime()) {
-				// hashMap.put("txt_finishAt", "Invalid startAt.");
-				// bool = false;
-				// } else {
-
-				try {
-					project.setFinishAt(new SimpleDateFormat("dd-MM-yyyy").parse(txt_finishAt.get()));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				// }
-				// }
+				Format.convertDate(txt_finishAt.get());
 			}
 		}
 
