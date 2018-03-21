@@ -100,8 +100,8 @@
                             </div>
                         </li>
                         <li class="nav-item p-1">
-                            <table class="table">
-                                <tr>
+                            <table id="table" class="table">
+                                <!-- <tr>
                                     <td>001</td>
                                     <td>Task 1</td>
                                 </tr>
@@ -120,12 +120,53 @@
                                 <tr>
                                     <td>005</td>
                                     <td>Task 5</td>
-                                </tr>
+                                </tr> -->
                             </table>
                         </li>
                     </ul>
                 </div>
             </div>
+            <script>
+                $('#table').bootstrapTable({
+                    columns: [
+                        { field: "col1", title: "Task code" },
+                        { field: "col2", title: "Name" },
+                    ],
+                    data: [
+                        {
+                            col1: "001",
+                            col2: "Task 1",
+                        },
+                        {
+                            col1: "002",
+                            col2: "Task 2",
+                        },
+                        {
+                            col1: "003",
+                            col2: "Task 3",
+                        },
+                        {
+                            col1: "004",
+                            col2: "Task 4",
+                        },
+                        {
+                            col1: "005",
+                            col2: "Task 5",
+                        },
+                    ],
+                });
+
+                $('#table').on('click-row.bs.table', function (item, $element, field) {
+                    $.each(field, function (key, value) {
+                        $('.text-danger').removeClass('text-danger');
+                        $('.font-weight-bold').removeClass('font-weight-bold');
+                        $(this).addClass("text-danger font-weight-bold");
+                    });
+                    $.each($element, function (key, value) {
+                        $('#addProjectForm').attr('action', "/" + value).submit();
+                    })
+                });
+            </script>
             <!-- ./sidebar -->
 
             <div class="col-9" id="report-list">
