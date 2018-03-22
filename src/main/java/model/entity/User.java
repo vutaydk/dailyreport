@@ -17,11 +17,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.google.gson.annotations.Expose;
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Data;
-
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -55,12 +55,10 @@ public class User {
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
 
-	@Expose
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "approver")
-	private Set<Report> reportsForApproverId;
+	private transient Set<Report> reportsForApproverId;
 
-	@Expose
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<Report> reportsForUserId;
+	private transient Set<Report> reportsForUserId;
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import model.repo.ProjectRepo;
 
@@ -22,16 +23,18 @@ public class Json extends HttpServlet {
 
 	private ProjectRepo projectRepo;
 	private Gson gson;
+	GsonBuilder builder;
 
 	public Json() {
-		gson = new Gson();
 		projectRepo = new ProjectRepo();
+		gson = new Gson();
+		builder = new GsonBuilder();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json;charset=UTF-8");
-		response.getWriter().append(gson.toJson(projectRepo.getAll()));
+		response.getWriter().append(builder.create().toJson(projectRepo.getAll()));
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
