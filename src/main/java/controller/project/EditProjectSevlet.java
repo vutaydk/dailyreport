@@ -41,13 +41,12 @@ public class EditProjectSevlet extends ProjectSevlet {
 		response.setContentType("application/json;charset=UTF-8");
 		HashMap<String, Object> map = new HashMap<>();
 
-		// check id invalid number?
+		// check invalid id
 		Optional<String> id = Optional.ofNullable(request.getParameter("id"));
-		if (id.isPresent()) {
-
+		if (id.isPresent())
 			if (DataValidation.isNumber(id.get())) {
 
-				// check row report exist?
+				// check report row exist
 				Optional<Project> project = Optional.ofNullable(projectDao.find(Integer.valueOf(id.get())));
 				if (project.isPresent()) {
 
@@ -65,11 +64,10 @@ public class EditProjectSevlet extends ProjectSevlet {
 					} else
 						map.put("error", getError());
 				}
-			}
 
-			response.getWriter().append(Format.toJson(map));
-			return;
-		}
+				response.getWriter().append(Format.toJson(map));
+				return;
+			}
 
 		response.sendError(404);
 	}

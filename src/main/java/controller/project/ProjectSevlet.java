@@ -100,7 +100,7 @@ public class ProjectSevlet extends HttpServlet {
 				bool = false;
 			} else {
 
-				Format.toDate(txt_startAt.get());
+				project.setStartAt(Format.toDate(txt_startAt.get()));
 			}
 		}
 
@@ -115,7 +115,7 @@ public class ProjectSevlet extends HttpServlet {
 				bool = false;
 			} else {
 
-				Format.toDate(txt_finishAt.get());
+				project.setFinishAt(Format.toDate(txt_finishAt.get()));
 			}
 		}
 
