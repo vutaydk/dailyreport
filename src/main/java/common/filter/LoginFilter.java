@@ -54,7 +54,7 @@ public class LoginFilter implements Filter {
 			user = Optional.ofNullable(userRepo.find(user.get().getId()));
 			if (user.isPresent()) {
 
-				req.setAttribute("user", user);
+				req.setAttribute("user", user.get());
 				chain.doFilter(req, res);
 				return;
 			}
