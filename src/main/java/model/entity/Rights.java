@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.gson.annotations.Expose;
+
 import lombok.Data;
 
 @Data
@@ -41,6 +43,7 @@ public class Rights {
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
 
+	@Expose
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rights")
 	private Set<User> users;
 
