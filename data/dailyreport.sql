@@ -3,7 +3,7 @@ GO
 
 --Delete the dailyreport database if it exists.  
 IF EXISTS(SELECT * from sys.databases WHERE name='dailyreport')  
-BEGIN  
+BEGIN
 	ALTER DATABASE dailyreport SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
     DROP DATABASE dailyreport;  
 END
@@ -11,9 +11,10 @@ END
 
 --Create a new database called dailyreport.  
 CREATE DATABASE dailyreport;  
+GO
 
 USE dailyreport;  
-GO 
+GO
 
 -- CREATE TABLE RIGHTS
 CREATE TABLE rights (
