@@ -55,7 +55,7 @@ public class Report {
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
-	private transient Set<TaskDetail> taskDetails;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "report")
+	private Set<TaskDetail> taskDetails;
 
 }

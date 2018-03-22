@@ -52,6 +52,6 @@ public class Project {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	private transient Set<Report> reports;
+	private Set<Report> reports;
 
 }

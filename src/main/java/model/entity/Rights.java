@@ -44,6 +44,6 @@ public class Rights {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rights")
-	private transient Set<User> users;
+	private Set<User> users;
 
 }

@@ -44,6 +44,6 @@ public class Task {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
-	private transient Set<TaskDetail> taskDetails;
+	private Set<TaskDetail> taskDetails;
 
 }

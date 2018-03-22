@@ -56,9 +56,9 @@ public class User {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "approver")
-	private transient Set<Report> reportsForApproverId;
+	private Set<Report> reportsForApproverId;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private transient Set<Report> reportsForUserId;
+	private Set<Report> reportsForUserId;
 
 }

@@ -44,6 +44,6 @@ public class Department {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-	private transient Set<DepartmentDetail> departmentDetails;
+	private Set<DepartmentDetail> departmentDetails;
 
 }
