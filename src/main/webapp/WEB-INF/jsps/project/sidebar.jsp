@@ -6,7 +6,7 @@
 					data-search="true" data-sort-name="id" data-sort-order="desc">
 					<thead>
 						<tr>
-							<th data-field="taskProject" data-sortable="true">Project
+							<th data-field="projectCode" data-sortable="true">Project
 								Code</th>
 							<th data-field="name" data-sortable="true">Name Project</th>
 						</tr>

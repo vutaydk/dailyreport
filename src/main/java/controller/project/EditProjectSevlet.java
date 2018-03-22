@@ -67,11 +67,11 @@ public class EditProjectSevlet extends ProjectSevlet {
 				}
 			}
 
-			response.sendError(404);
+			response.getWriter().append(Format.toJson(map));
 			return;
 		}
 
-		response.getWriter().append(Format.toJson(map));
+		response.sendError(404);
 	}
 
 }
