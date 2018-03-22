@@ -1,10 +1,8 @@
 package common.filter;
 
 import java.io.IOException;
-import java.util.List;
+
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -15,10 +13,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import model.entity.Report;
 import model.entity.User;
-import model.repo.ReportRepo;
+import model.repo.UserRepo;
 
 /**
  * Servlet Filter implementation class LoginFiter
@@ -28,55 +26,42 @@ import model.repo.ReportRepo;
 })
 public class LoginFilter implements Filter {
 
-	private ReportRepo reportDao;
+	private UserRepo userRepo;
 
 	public LoginFilter() {
-		reportDao = new ReportRepo();
+		userRepo = new UserRepo();
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
-		// request + response
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
+		// request + response + session
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) res;
+		HttpSession session = request.getSession();
 
 		// URI login page
-		String loginURI = req.getContextPath() + "/login";
+		String loginURI = request.getContextPath() + "/login";
 
-		// Check user isPresent
-		Optional<User> user = Optional.ofNullable((User) req.getSession().getAttribute("user"));
+		// check user session exist
+		Optional<User> user = Optional.ofNullable((User) session.getAttribute("user"));
 		if (user.isPresent()) {
 
-			// model attribute
-			modelAttribute(req, res);
+			// check user exist in database
+			user = Optional.ofNullable(userRepo.find(user.get().getId()));
+			if (user.isPresent()) {
 
-			chain.doFilter(request, response);
-			return;
+				req.setAttribute("user", user.get());
+				chain.doFilter(req, res);
+				return;
+			}
 		}
 
 		// redirect to login page
-		res.sendRedirect(loginURI);
-	}
-
-	public void modelAttribute(HttpServletRequest request, HttpServletResponse response) {
-
-		Optional<List<Report>> reOptional = Optional.ofNullable(reportDao.getAll());
-		if (reOptional.isPresent()) {
-
-			Optional<User> usOptional = Optional.ofNullable((User) request.getSession().getAttribute("user"));
-			if (usOptional.isPresent()) {
-
-				Stream<Report> stream = reOptional.get().stream()
-						.filter(r -> usOptional.get().getId().equals(r.getUser().getId()));
-				request.setAttribute("listOwn", stream.collect(Collectors.toList()));
-			} else {
-				request.setAttribute("listOwn", reOptional.get());
-			}
-		}
+		response.sendRedirect(loginURI);
 	}
 
 	/**
