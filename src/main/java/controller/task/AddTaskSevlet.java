@@ -27,7 +27,7 @@ public class AddTaskSevlet extends TaskSevlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(VIEW_PATH + "/add-task.jsp").forward(request, response);
+		request.getRequestDispatcher(VIEW_PATH + "/add.jsp").forward(request, response);
 	}
 
 	/**

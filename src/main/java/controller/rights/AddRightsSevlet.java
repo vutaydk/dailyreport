@@ -28,7 +28,7 @@ public class AddRightsSevlet extends RightsSevlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(VIEW_PATH + "/add-rights.jsp").forward(request, response);
+		request.getRequestDispatcher(VIEW_PATH + "/add.jsp").forward(request, response);
 	}
 
 	/**

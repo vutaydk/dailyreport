@@ -53,7 +53,7 @@ public class EditTaskSevlet extends TaskSevlet {
 			request.setAttribute("messagePopup", "URL invalid.");
 		}
 
-		request.getRequestDispatcher(VIEW_PATH + "/edit-task.jsp").forward(request, response);
+		request.getRequestDispatcher(VIEW_PATH + "/edit.jsp").forward(request, response);
 	}
 
 	/**

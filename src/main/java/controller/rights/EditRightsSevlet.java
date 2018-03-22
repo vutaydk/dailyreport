@@ -53,7 +53,7 @@ public class EditRightsSevlet extends RightsSevlet {
 			request.setAttribute("messagePopup", "URL invalid.");
 		}
 
-		request.getRequestDispatcher(VIEW_PATH + "/edit-rights.jsp").forward(request, response);
+		request.getRequestDispatcher(VIEW_PATH + "/edit.jsp").forward(request, response);
 	}
 
 	/**

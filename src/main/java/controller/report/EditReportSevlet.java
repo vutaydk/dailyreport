@@ -54,7 +54,7 @@ public class EditReportSevlet extends ReportSevlet {
 			request.setAttribute("messagePopup", "URL invalid.");
 		}
 
-		request.getRequestDispatcher(VIEW_PATH + "/edit-report.jsp").forward(request, response);
+		request.getRequestDispatcher(VIEW_PATH + "/edit.jsp").forward(request, response);
 	}
 
 	/**
