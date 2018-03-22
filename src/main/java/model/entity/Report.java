@@ -17,11 +17,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "reports")
 public class Report {
@@ -56,6 +54,6 @@ public class Report {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
-	private transient Set<TaskDetail> taskDetails;
+	private Set<TaskDetail> taskDetails;
 
 }

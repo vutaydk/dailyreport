@@ -15,11 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "rights")
 public class Rights {
@@ -44,6 +42,6 @@ public class Rights {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rights")
-	private transient Set<User> users;
+	private Set<User> users;
 
 }
