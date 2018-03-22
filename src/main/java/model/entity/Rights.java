@@ -1,10 +1,10 @@
 package model.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +27,7 @@ public class Rights {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "name")
+	@Column(name = "name", length = 50)
 	private String name;
 
 	@Column(name = "level")
@@ -42,6 +42,6 @@ public class Rights {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rights")
-	private Set<User> users = new HashSet<User>(0);
+	private Set<User> users;
 
 }

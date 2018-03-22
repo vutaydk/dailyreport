@@ -1,10 +1,10 @@
 package model.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +30,7 @@ public class Task {
 	@Column(name = "task_code", length = 4)
 	private String taskCode;
 
-	@Column(name = "name")
+	@Column(name = "name", length = 50)
 	private String name;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -42,6 +42,6 @@ public class Task {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
-	private Set<Report> reports = new HashSet<Report>(0);
+	private Set<TaskDetail> taskDetails;
 
 }

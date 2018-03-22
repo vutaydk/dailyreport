@@ -1,10 +1,10 @@
 package model.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,7 +39,10 @@ public class User {
 	@Column(name = "password", length = 18)
 	private String password;
 
-	@Column(name = "name")
+	@Column(name = "email", length = 120)
+	private String email;
+
+	@Column(name = "name", length = 50)
 	private String name;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -50,10 +53,10 @@ public class User {
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByApprover")
-	private Set<Report> reportsForApprover = new HashSet<Report>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "approver")
+	private Set<Report> reportsForApproverId;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUserId")
-	private Set<Report> reportsForUserId = new HashSet<Report>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Report> reportsForUserId;
 
 }

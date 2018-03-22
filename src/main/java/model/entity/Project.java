@@ -1,10 +1,10 @@
 package model.entity;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +30,7 @@ public class Project {
 	@Column(name = "project_code", nullable = false, length = 4)
 	private String projectCode;
 
-	@Column(name = "name")
+	@Column(name = "name", length = 50)
 	private String name;
 
 	@Temporal(TemporalType.DATE)
@@ -49,7 +49,7 @@ public class Project {
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	private Set<Report> reports = new HashSet<Report>(0);
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+//	private Set<Report> reports;
 
 }

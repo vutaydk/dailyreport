@@ -3,7 +3,6 @@ package model.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,8 +21,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "reports")
-public class Report {
+@Table(name = "department_details")
+public class DepartmentDetail {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -30,20 +30,12 @@ public class Report {
 	private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id")
-	private Project project;
+	@JoinColumn(name = "department_id")
+	private Department department;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "approver_id")
-	private User approver;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	private User user;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "approved_at", length = 23)
-	private Date approvedAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", length = 23)
@@ -52,8 +44,5 @@ public class Report {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
-	private Set<TaskDetail> taskDetails;
 
 }
