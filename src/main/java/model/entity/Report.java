@@ -18,9 +18,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "reports")
 public class Report {
@@ -30,15 +32,15 @@ public class Report {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id")
 	private Project project;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "approver_id")
 	private User approver;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
@@ -54,7 +56,7 @@ public class Report {
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "report")
 	private Set<TaskDetail> taskDetails = new HashSet<>(0);
 
 }
