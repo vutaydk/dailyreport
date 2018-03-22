@@ -3,6 +3,7 @@ package model.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -54,9 +55,9 @@ public class User {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "approver")
-	private Set<Report> reportsForApproverId;
+	private Set<Report> reportsForApproverId = new HashSet<>(0);
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<Report> reportsForUserId;
+	private Set<Report> reportsForUserId = new HashSet<>(0);
 
 }

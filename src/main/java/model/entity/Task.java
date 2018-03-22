@@ -3,6 +3,7 @@ package model.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -42,6 +43,6 @@ public class Task {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
-	private Set<TaskDetail> taskDetails;
+	private Set<TaskDetail> taskDetails = new HashSet<>(0);
 
 }

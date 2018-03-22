@@ -3,6 +3,7 @@ package model.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -50,6 +51,6 @@ public class Project {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	private Set<Report> reports;
+	private Set<Report> reports = new HashSet<>(0);
 
 }
