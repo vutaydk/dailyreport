@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ProjectRepo;
 import model.entity.Project;
+import model.repo.ProjectRepo;
 
 @WebServlet("/home")
 public class DashBoardSevlet extends HttpServlet {

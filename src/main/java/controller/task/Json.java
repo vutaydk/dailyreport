@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import model.TaskRepo;
 import model.entity.Task;
+import model.repo.TaskRepo;
 
 /**
  * Servlet implementation class Json

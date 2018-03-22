@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.TaskRepo;
 import model.entity.Task;
+import model.repo.TaskRepo;
 
 @WebServlet("/task")
 public class TaskSevlet extends HttpServlet {

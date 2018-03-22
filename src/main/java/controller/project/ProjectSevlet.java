@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
 import common.util.Format;
-import model.ProjectRepo;
 import model.entity.Project;
+import model.repo.ProjectRepo;
 
 @WebServlet("/project")
 public class ProjectSevlet extends HttpServlet {

@@ -1,4 +1,4 @@
-package model;
+package model.repo;
 
 import java.util.Date;
 import java.util.List;
@@ -7,15 +7,15 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import common.util.HibernateUtil;
-import model.entity.Project;
+import model.entity.User;
 
-public class ProjectRepo implements IRepository<Project> {
+public class UserRepo implements IRepository<User> {
 
-	public List<Project> getAll() {
+	public List<User> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Project> list = null;
+		List<User> list = null;
 		try {
-			Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
+			Query<User> query = session.createQuery("FROM " + User.class.getName(), User.class);
 			list = query.getResultList();
 		} finally {
 			if (session != null) {
@@ -25,12 +25,11 @@ public class ProjectRepo implements IRepository<Project> {
 		return list;
 	}
 
-	public Project find(int id) {
+	public User find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Project object = null;
+		User object = null;
 		try {
-			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id",
-					Project.class);
+			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
 			query.setParameter("id", id);
 			object = query.getSingleResult();
 		} finally {
@@ -41,7 +40,24 @@ public class ProjectRepo implements IRepository<Project> {
 		return object;
 	}
 
-	public boolean insert(Project object) {
+	public User check(String em, String pwd) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		User object = null;
+		try {
+			Query<User> query = session.createQuery(
+					"FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
+			query.setParameter("em", em);
+			query.setParameter("pwd", pwd);
+			object = query.getSingleResult();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return object;
+	}
+
+	public boolean insert(User object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -59,7 +75,7 @@ public class ProjectRepo implements IRepository<Project> {
 		return false;
 	}
 
-	public boolean update(Project object) {
+	public boolean update(User object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -76,7 +92,7 @@ public class ProjectRepo implements IRepository<Project> {
 		return false;
 	}
 
-	public boolean delete(Project object) {
+	public boolean delete(User object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();

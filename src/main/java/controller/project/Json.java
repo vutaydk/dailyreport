@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import model.ProjectRepo;
+import model.repo.ProjectRepo;
 
 /**
  * Servlet implementation class Json

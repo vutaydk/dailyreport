@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
-import model.ReportRepo;
 import model.entity.Report;
 import model.entity.Rights;
 import model.entity.User;
+import model.repo.ReportRepo;
 
 /**
  * Servlet Filter implementation class LoginFiter
