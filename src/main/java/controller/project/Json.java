@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import model.repo.ProjectRepo;
@@ -22,12 +21,10 @@ public class Json extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ProjectRepo projectRepo;
-	private Gson gson;
-	GsonBuilder builder;
+	private GsonBuilder builder;
 
 	public Json() {
 		projectRepo = new ProjectRepo();
-		gson = new Gson();
 		builder = new GsonBuilder();
 	}
 

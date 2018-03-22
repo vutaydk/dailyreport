@@ -49,7 +49,7 @@ public class Project {
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-//	private Set<Report> reports;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	private Set<Report> reports;
 
 }
