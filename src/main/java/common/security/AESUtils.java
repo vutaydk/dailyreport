@@ -11,6 +11,7 @@ import org.apache.commons.codec.binary.Base64;
 import common.util.SystemConfig;
 
 public class AESUtils {
+
 	private static String key = "abcdefghijklmopa";
 	private static SecretKeySpec keySpec;
 	private static IvParameterSpec ivSpec;
