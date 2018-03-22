@@ -1,9 +1,7 @@
 package controller.report;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -64,7 +62,7 @@ public class ReportSevlet extends HttpServlet {
 			}
 		}
 
-		request.getRequestDispatcher(VIEW_PATH + "/list-report.jsp").forward(request, response);
+		request.getRequestDispatcher(VIEW_PATH + "/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -87,7 +85,8 @@ public class ReportSevlet extends HttpServlet {
 					Optional<User> user = Optional.ofNullable((User) request.getSession().getAttribute("user"));
 					if (user.isPresent())
 						opt.get().setApprover(user.get());
-					opt.get().setApprovedAt(new Date());
+
+					opt.get().setApprovedAt(new Date(0));
 
 					// update report
 					if (reportDao.update(opt.get())) {
@@ -162,27 +161,30 @@ public class ReportSevlet extends HttpServlet {
 					hashMap.put("txt_timeWorked", "Invalid date format.");
 					bool = false;
 				} else {
-//					try {
-//						//report.setTimeWorked(new SimpleDateFormat("HH").parse(txt_timeWorked.get()));
-//					} catch (ParseException e) {
-//						e.printStackTrace();
-//					}
+					// try {
+					// //report.setTimeWorked(new
+					// SimpleDateFormat("HH").parse(txt_timeWorked.get()));
+					// } catch (ParseException e) {
+					// e.printStackTrace();
+					// }
 				}
 			}
 		}
 
-//		Optional<String> txt_note = Optional.ofNullable(request.getParameter("txt_note"));
-//		if (!txt_note.isPresent() || txt_note.get().isEmpty()) {
-//			hashMap.put("txt_note", "Please enter note.");
-//			bool = false;
-//		} else {
-//
-//			if (txt_note.get().length() < 10) {
-//				hashMap.put("txt_note", "Note length is too short (requires 10 characters).");
-//				bool = false;
-//			} else
-//				report.setNote(txt_note.get());
-//		}
+		// Optional<String> txt_note =
+		// Optional.ofNullable(request.getParameter("txt_note"));
+		// if (!txt_note.isPresent() || txt_note.get().isEmpty()) {
+		// hashMap.put("txt_note", "Please enter note.");
+		// bool = false;
+		// } else {
+		//
+		// if (txt_note.get().length() < 10) {
+		// hashMap.put("txt_note", "Note length is too short (requires 10
+		// characters).");
+		// bool = false;
+		// } else
+		// report.setNote(txt_note.get());
+		// }
 
 		return bool;
 	}
