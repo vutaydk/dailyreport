@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
-
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
@@ -12,7 +11,6 @@
 	<div class="row">
 		<%-- import sidebar --%>
 		<jsp:include page="sidebar.jsp" />
-
 		<div class="col-9" id="project-list">
 			<div class="project-form">
 				<div class="project-form-body">
@@ -23,17 +21,13 @@
 					<form action="task/add" method="post">
 						<div class="input-group">
 							<input id="btn-input" type="text" name="txt_name"
-								class="form-control input-md" placeholder="Add new task" /> <span
-								class="input-group-btn">
+								class="form-control input-md" placeholder="Add new task" />
+							<span class="input-group-btn">
 								<button class="btn btn-primary btn-md" id="btn-todo">Add</button>
 							</span>
 						</div>
 					</form>
-					<table id="table" data-toggle="table" data-url="data/task"
-						data-show-refresh="true" data-show-toggle="true"
-						data-show-columns="true" data-search="true"
-						data-select-item-name="toolbar1" data-pagination="true"
-						data-sort-name="id" data-sort-order="desc">
+					<table id="task-list-table" data-toggle="table" data-url="data/task" data-sort-name="id">
 						<thead>
 							<tr>
 								<th data-field="id" class="text-center" data-sortable="true"></th>
@@ -48,12 +42,6 @@
 						</thead>
 					</table>
 					<div id="chat"></div>
-					<script>
-						$('#table').bootstrapTable({
-							searchTimeOut : 0,
-							pageSize : 5
-						});
-					</script>
 					<%-- import sub --%>
 					<jsp:include page="js.jsp" />
 				</div>
@@ -62,7 +50,6 @@
 		</div>
 		<!-- ./create-project form -->
 	</div>
-
 </div>
 <%-- import footer --%>
 <jsp:include page="../layout/footer.jsp" />

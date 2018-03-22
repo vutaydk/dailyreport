@@ -1,4 +1,22 @@
 <script type="text/javascript">
+	$('#task-list-table').bootstrapTable({
+		searchTimeOut : 0,
+		pageSize : 5,
+		search: true,
+		showToggle : true,
+		showRefresh: true,
+		showColumns: true,
+		sortOrder: 'desc',
+		pagination: true,
+		iconsPrefix : 'fa',
+		icons : {
+			toggle : 'fas fa-list-alt',
+			refresh : 'fas fa-sync',
+			paginationSwitchUp :'fas fa-sort-up',
+			paginationSwitchDown :'fas fa-sort-down',
+		}
+	});
+
 	function actionFormatter(value, row, index) {
 		return [ '<a href="task/edit?id=' + row.id + '">',
 				'<i class="fas fa-edit"></i></a>' ].join('');
