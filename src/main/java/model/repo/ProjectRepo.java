@@ -1,4 +1,4 @@
-package model;
+package model.repo;
 
 import java.util.Date;
 import java.util.List;
@@ -7,15 +7,15 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import common.util.HibernateUtil;
-import model.entity.Task;
+import model.entity.Project;
 
-public class TaskRepo implements IRepository<Task> {
+public class ProjectRepo implements IRepository<Project> {
 
-	public List<Task> getAll() {
+	public List<Project> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Task> list = null;
+		List<Project> list = null;
 		try {
-			Query<Task> query = session.createQuery("FROM " + Task.class.getName(), Task.class);
+			Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
 			list = query.getResultList();
 		} finally {
 			if (session != null) {
@@ -25,11 +25,12 @@ public class TaskRepo implements IRepository<Task> {
 		return list;
 	}
 
-	public Task find(int id) {
+	public Project find(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Task object = null;
+		Project object = null;
 		try {
-			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id", Task.class);
+			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id",
+					Project.class);
 			query.setParameter("id", id);
 			object = query.getSingleResult();
 		} finally {
@@ -40,7 +41,7 @@ public class TaskRepo implements IRepository<Task> {
 		return object;
 	}
 
-	public boolean insert(Task object) {
+	public boolean insert(Project object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -58,7 +59,7 @@ public class TaskRepo implements IRepository<Task> {
 		return false;
 	}
 
-	public boolean update(Task object) {
+	public boolean update(Project object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
@@ -75,7 +76,7 @@ public class TaskRepo implements IRepository<Task> {
 		return false;
 	}
 
-	public boolean delete(Task object) {
+	public boolean delete(Project object) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();

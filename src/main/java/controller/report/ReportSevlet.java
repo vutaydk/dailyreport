@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
-import model.ProjectRepo;
-import model.ReportRepo;
 import model.entity.Project;
 import model.entity.Report;
 import model.entity.User;
+import model.repo.ProjectRepo;
+import model.repo.ReportRepo;
 
 @WebServlet("/report")
 public class ReportSevlet extends HttpServlet {

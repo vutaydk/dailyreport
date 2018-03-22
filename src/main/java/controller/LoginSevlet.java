@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.UserRepo;
 import model.entity.User;
+import model.repo.UserRepo;
 
 /**
  * Servlet implementation class LoginSevlet

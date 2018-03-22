@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
-import model.RightsRepo;
 import model.entity.Rights;
+import model.repo.RightsRepo;
 
 @WebServlet("/rights")
 public class RightsSevlet extends HttpServlet {

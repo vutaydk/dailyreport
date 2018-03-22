@@ -16,9 +16,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ReportRepo;
 import model.entity.Report;
 import model.entity.User;
+import model.repo.ReportRepo;
 
 /**
  * Servlet Filter implementation class LoginFiter
