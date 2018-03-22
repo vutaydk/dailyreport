@@ -50,7 +50,7 @@ public class ReportFilter implements Filter {
 					Optional<Report> report = Optional.ofNullable(reportDao.find(Integer.valueOf(id.get())));
 					if (report.isPresent()) {
 
-						Optional<User> userApprover = Optional.ofNullable(report.get().getUserByApprover());
+						Optional<User> userApprover = Optional.ofNullable(report.get().getApprover());
 						if (!userApprover.isPresent()) {
 
 							Optional<User> user = Optional.ofNullable((User) req.getSession().getAttribute("user"));
@@ -58,7 +58,7 @@ public class ReportFilter implements Filter {
 
 								Optional<Rights> rights = Optional.ofNullable(user.get().getRights());
 
-								boolean bool = user.get().getId().equals(report.get().getUserByUserId().getId());
+								boolean bool = user.get().getId().equals(report.get().getUser().getId());
 								if ((rights.isPresent() && rights.get().getLevel() > 0) || bool) {
 
 									chain.doFilter(request, response);

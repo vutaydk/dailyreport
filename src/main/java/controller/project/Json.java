@@ -1,68 +1,42 @@
 package controller.project;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import common.util.DataValidation;
-import model.entity.Project;
+import model.ProjectRepo;
 
 /**
- * Servlet implementation class EditReportSevlet
+ * Servlet implementation class Json
  */
-@WebServlet("/json/project")
-public class Json extends ProjectSevlet {
+@WebServlet("/data/project")
+public class Json extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	private ProjectRepo projectRepo;
+	private Gson gson;
+
 	public Json() {
-		super();
+		gson = new Gson();
+		projectRepo = new ProjectRepo();
 	}
 
-	/**
-	 * GET
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// redirect to project page
-		response.sendRedirect(request.getContextPath() + "/project");
-		return;
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().append(gson.toJson(projectRepo.getAll()));
 	}
 
-	/**
-	 * POST
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.setContentType("application/json;charset=UTF-8");
-		Gson gson = new Gson();
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("message", "");
-		map.put("error", "");
-
-		// check id invalid number?
-		Optional<String> id = Optional.ofNullable(request.getParameter("id"));
-		if (id.isPresent()) {
-
-			if (DataValidation.isNumber(id.get())) {
-
-				// check row report exist?
-				Optional<Project> project = Optional.ofNullable(projectDao.find(Integer.valueOf(id.get())));
-				if (project.isPresent()) {
-					map.put("error", getError());
-				}
-			}
-		}
-
-		response.getWriter().append(gson.toJson(map));
+		doGet(request, response);
 	}
 
 }

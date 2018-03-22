@@ -86,7 +86,7 @@ public class ReportSevlet extends HttpServlet {
 					// set model
 					Optional<User> user = Optional.ofNullable((User) request.getSession().getAttribute("user"));
 					if (user.isPresent())
-						opt.get().setUserByApprover(user.get());
+						opt.get().setApprover(user.get());
 					opt.get().setApprovedAt(new Date());
 
 					// update report
@@ -162,27 +162,27 @@ public class ReportSevlet extends HttpServlet {
 					hashMap.put("txt_timeWorked", "Invalid date format.");
 					bool = false;
 				} else {
-					try {
-						report.setTimeWorked(new SimpleDateFormat("HH").parse(txt_timeWorked.get()));
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
+//					try {
+//						//report.setTimeWorked(new SimpleDateFormat("HH").parse(txt_timeWorked.get()));
+//					} catch (ParseException e) {
+//						e.printStackTrace();
+//					}
 				}
 			}
 		}
 
-		Optional<String> txt_note = Optional.ofNullable(request.getParameter("txt_note"));
-		if (!txt_note.isPresent() || txt_note.get().isEmpty()) {
-			hashMap.put("txt_note", "Please enter note.");
-			bool = false;
-		} else {
-
-			if (txt_note.get().length() < 10) {
-				hashMap.put("txt_note", "Note length is too short (requires 10 characters).");
-				bool = false;
-			} else
-				report.setNote(txt_note.get());
-		}
+//		Optional<String> txt_note = Optional.ofNullable(request.getParameter("txt_note"));
+//		if (!txt_note.isPresent() || txt_note.get().isEmpty()) {
+//			hashMap.put("txt_note", "Please enter note.");
+//			bool = false;
+//		} else {
+//
+//			if (txt_note.get().length() < 10) {
+//				hashMap.put("txt_note", "Note length is too short (requires 10 characters).");
+//				bool = false;
+//			} else
+//				report.setNote(txt_note.get());
+//		}
 
 		return bool;
 	}

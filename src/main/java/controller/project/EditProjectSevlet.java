@@ -1,6 +1,7 @@
 package controller.project;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.util.DataValidation;
+import common.util.Format;
 import model.entity.Project;
 
 /**
@@ -28,32 +30,7 @@ public class EditProjectSevlet extends ProjectSevlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		// check id invalid number?
-		Optional<String> id = Optional.ofNullable(request.getParameter("id"));
-		if (id.isPresent()) {
-
-			if (DataValidation.isNumber(id.get())) {
-
-				// check row report exist?
-				Optional<Project> project = Optional.ofNullable(projectDao.find(Integer.valueOf(id.get())));
-				if (project.isPresent()) {
-
-					request.setAttribute("project", project.get());
-				} else {
-
-					request.setAttribute("messagePopup", "Not found data.");
-				}
-			} else {
-
-				request.setAttribute("messagePopup", "URL invalid.");
-			}
-		} else {
-
-			request.setAttribute("messagePopup", "URL invalid.");
-		}
-
-		request.getRequestDispatcher(VIEW_PATH + "/edit-project.jsp").forward(request, response);
+		response.sendError(404);
 	}
 
 	/**
@@ -61,6 +38,8 @@ public class EditProjectSevlet extends ProjectSevlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("application/json;charset=UTF-8");
+		HashMap<String, Object> map = new HashMap<>();
 
 		// check id invalid number?
 		Optional<String> id = Optional.ofNullable(request.getParameter("id"));
@@ -78,30 +57,21 @@ public class EditProjectSevlet extends ProjectSevlet {
 					// update report
 					if (bool) {
 
-						if (projectDao.update(project.get())) {
+						if (projectDao.update(project.get()))
+							map.put("message", "Edit success current project.");
+						else
+							map.put("message", "Edit error current project.");
 
-							request.getSession().setAttribute("messagePopup", "Edit success current project.");
-
-						} else {
-
-							request.getSession().setAttribute("messagePopup", "Edit error current project.");
-						}
-
-						// redirect to report page
-						response.sendRedirect(request.getContextPath() + "/project");
-						return;
-					} else {
-
-						request.setAttribute("map", getError());
-					}
-				} else {
-
-					request.setAttribute("messagePopup", "Not found data.");
+					} else
+						map.put("error", getError());
 				}
 			}
+
+			response.sendError(404);
+			return;
 		}
 
-		doGet(request, response);
+		response.getWriter().append(Format.toJson(map));
 	}
 
 }

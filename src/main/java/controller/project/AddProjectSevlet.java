@@ -8,8 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
+import common.util.Format;
 import model.entity.Project;
 
 /**
@@ -29,9 +28,7 @@ public class AddProjectSevlet extends ProjectSevlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// redirect to project page
-		response.sendRedirect(request.getContextPath() + "/project");
-		return;
+		response.sendError(404);
 	}
 
 	/**
@@ -39,10 +36,9 @@ public class AddProjectSevlet extends ProjectSevlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		response.setContentType("application/json;charset=UTF-8");
 		Project project = new Project();
 		HashMap<String, Object> map = new HashMap<>();
-		Gson gson = new Gson();
 
 		// validate form
 		boolean bool = validate(request, response, project);
@@ -58,8 +54,7 @@ public class AddProjectSevlet extends ProjectSevlet {
 		} else
 			map.put("error", getError());
 
-		response.setContentType("application/json;charset=UTF-8");
-		response.getWriter().append(gson.toJson(map));
+		response.getWriter().append(Format.toJson(map));
 	}
 
 }

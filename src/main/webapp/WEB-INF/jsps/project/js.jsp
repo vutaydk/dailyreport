@@ -1,4 +1,22 @@
 <script>
+	$('#table').bootstrapTable({
+		searchTimeOut : 0,
+		pageSize : 5
+	});
+
+	$('#table').on('click-row.bs.table', function(item, $element, field) {
+		$.each(field, function() {
+			$('.text-danger').removeClass('text-danger');
+			$('.font-weight-bold').removeClass('font-weight-bold');
+			$(this).addClass("text-danger font-weight-bold");
+		});
+		$('form').attr('action', "project/edit?id=" + $element.id);
+		$.each($element, function(index, row) {
+			$('input[name="txt_' + index + '"]').val(row);
+			alert(row);
+		});
+	});
+
 	var today = new Date();
 
 	$('#startAt').datepicker({
@@ -37,6 +55,7 @@
 						if (jQuery.isEmptyObject(result.message) === false) { // message success
 							alert(result.message);
 							$('form :input').val('');
+							location.reload();
 						}
 
 						if (jQuery.isEmptyObject(result.error) === false) // error validate
@@ -47,6 +66,7 @@
 				},
 				error : function() {
 					alert("error");
+					location.reload();
 				}
 			})
 			return false;

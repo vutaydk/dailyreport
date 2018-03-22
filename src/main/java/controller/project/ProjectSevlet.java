@@ -20,14 +20,12 @@ public class ProjectSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected final String VIEW_PATH = "/WEB-INF/jsps/project";
-
 	protected ProjectRepo projectDao;
-
 	private HashMap<String, String> hashMap;
 
 	public ProjectSevlet() {
 		projectDao = new ProjectRepo();
+		hashMap = new HashMap<>();
 	}
 
 	/**
@@ -36,7 +34,7 @@ public class ProjectSevlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setAttribute("listProject", projectDao.getAll());
-		request.getRequestDispatcher(VIEW_PATH + "/list-project.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsps/project/list-project.jsp").forward(request, response);
 	}
 
 	/**
@@ -67,7 +65,7 @@ public class ProjectSevlet extends HttpServlet {
 	protected boolean validate(HttpServletRequest request, HttpServletResponse response, Project project) {
 
 		boolean bool = true;
-		hashMap = new HashMap<>();
+		hashMap.clear();
 
 		// get request param
 		Optional<String> txt_projectCode = Optional.ofNullable(request.getParameter("txt_projectCode"));
@@ -102,7 +100,7 @@ public class ProjectSevlet extends HttpServlet {
 				bool = false;
 			} else {
 
-				Format.convertDate(txt_startAt.get());
+				Format.toDate(txt_startAt.get());
 			}
 		}
 
@@ -117,7 +115,7 @@ public class ProjectSevlet extends HttpServlet {
 				bool = false;
 			} else {
 
-				Format.convertDate(txt_finishAt.get());
+				Format.toDate(txt_finishAt.get());
 			}
 		}
 

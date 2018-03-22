@@ -66,7 +66,8 @@
 						<div class="form-group row">
 							<div class="col-12 text-center">
 								<button type="submit" class="btn btn-primary">Submit</button>
-								<button type="reset" class="btn btn-default">Reset</button>
+								<button type="reset" class="btn btn-default"
+									onclick="location.reload();">Reset</button>
 							</div>
 						</div>
 					</div>

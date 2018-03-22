@@ -71,7 +71,7 @@ public class LoginFilter implements Filter {
 			if (usOptional.isPresent()) {
 
 				Stream<Report> stream = reOptional.get().stream()
-						.filter(r -> usOptional.get().getId().equals(r.getUserByUserId().getId()));
+						.filter(r -> usOptional.get().getId().equals(r.getUser().getId()));
 				request.setAttribute("listOwn", stream.collect(Collectors.toList()));
 			} else {
 				request.setAttribute("listOwn", reOptional.get());

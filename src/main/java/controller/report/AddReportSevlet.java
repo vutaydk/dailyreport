@@ -48,7 +48,7 @@ public class AddReportSevlet extends ReportSevlet {
 
 			Optional<User> user = Optional.ofNullable((User) request.getSession().getAttribute("user"));
 			if (user.isPresent())
-				report.setUserByUserId(user.get());
+				report.setUser(user.get());
 
 			if (reportDao.insert(report)) {
 
