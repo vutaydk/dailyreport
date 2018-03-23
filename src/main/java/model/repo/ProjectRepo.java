@@ -10,10 +10,8 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
-import lombok.extern.log4j.Log4j;
 import model.entity.Project;
 
-@Log4j
 public class ProjectRepo implements IRepository<Project> {
 
 	public List<Project> getAll() {
@@ -25,7 +23,7 @@ public class ProjectRepo implements IRepository<Project> {
 			projects = query.getResultList();
 		} catch (Exception e) {
 			projects = new ArrayList<>();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return projects;
@@ -42,7 +40,7 @@ public class ProjectRepo implements IRepository<Project> {
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
 			optional = Optional.empty();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return optional;
@@ -57,7 +55,7 @@ public class ProjectRepo implements IRepository<Project> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
@@ -71,7 +69,7 @@ public class ProjectRepo implements IRepository<Project> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
@@ -85,7 +83,7 @@ public class ProjectRepo implements IRepository<Project> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);

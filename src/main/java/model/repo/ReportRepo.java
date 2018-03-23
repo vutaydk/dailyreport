@@ -10,10 +10,8 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
-import lombok.extern.log4j.Log4j;
 import model.entity.Report;
 
-@Log4j
 public class ReportRepo implements IRepository<Report> {
 
 	public List<Report> getAll() {
@@ -24,7 +22,7 @@ public class ReportRepo implements IRepository<Report> {
 			Query<Report> query = session.createQuery("FROM " + Report.class.getName(), Report.class);
 			reports = query.getResultList();
 		} catch (Exception e) {
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return reports;
@@ -39,7 +37,7 @@ public class ReportRepo implements IRepository<Report> {
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return optional;
@@ -54,7 +52,7 @@ public class ReportRepo implements IRepository<Report> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
@@ -68,7 +66,7 @@ public class ReportRepo implements IRepository<Report> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
@@ -82,7 +80,7 @@ public class ReportRepo implements IRepository<Report> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);

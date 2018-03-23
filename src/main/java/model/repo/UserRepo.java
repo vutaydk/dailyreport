@@ -10,10 +10,8 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
-import lombok.extern.log4j.Log4j;
 import model.entity.User;
 
-@Log4j
 public class UserRepo implements IRepository<User> {
 
 	public List<User> getAll() {
@@ -25,7 +23,7 @@ public class UserRepo implements IRepository<User> {
 			users = query.getResultList();
 		} catch (Exception e) {
 			users = new ArrayList<>();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return users;
@@ -41,7 +39,7 @@ public class UserRepo implements IRepository<User> {
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
 			optional = Optional.empty();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return optional;
@@ -59,7 +57,7 @@ public class UserRepo implements IRepository<User> {
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
 			optional = Optional.empty();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return optional;
@@ -74,7 +72,7 @@ public class UserRepo implements IRepository<User> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
@@ -88,7 +86,7 @@ public class UserRepo implements IRepository<User> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
@@ -102,7 +100,7 @@ public class UserRepo implements IRepository<User> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);

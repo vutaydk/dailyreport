@@ -10,10 +10,8 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
-import lombok.extern.log4j.Log4j;
 import model.entity.Rights;
 
-@Log4j
 public class RightsRepo implements IRepository<Rights> {
 
 	public List<Rights> getAll() {
@@ -25,7 +23,7 @@ public class RightsRepo implements IRepository<Rights> {
 			rights = query.getResultList();
 		} catch (Exception e) {
 			rights = new ArrayList<>();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return rights;
@@ -41,7 +39,7 @@ public class RightsRepo implements IRepository<Rights> {
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
 			optional = Optional.empty();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return optional;
@@ -56,7 +54,7 @@ public class RightsRepo implements IRepository<Rights> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
@@ -70,7 +68,7 @@ public class RightsRepo implements IRepository<Rights> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
@@ -84,7 +82,7 @@ public class RightsRepo implements IRepository<Rights> {
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			log.debug(e);
+			e.printStackTrace();
 		}
 
 		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
