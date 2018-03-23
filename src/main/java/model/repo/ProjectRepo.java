@@ -14,77 +14,94 @@ import model.entity.Project;
 
 public class ProjectRepo implements IRepository<Project> {
 
-	public List<Project> getAll() {
-		Session session = HibernateUtil.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		List<Project> projects;
-		Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
-		projects = query.getResultList();
-		transaction.commit();
+	public static ProjectRepo model;
+	static {
+		model = new ProjectRepo();
+	}
 
-		return projects;
+	public List<Project> getAll() {
+		Session session = HibernateUtil.getSession();
+		try {
+			Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
+			return query.getResultList();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 	}
 
 	public Optional<Project> find(int id) {
-		Session session = HibernateUtil.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		Optional<Project> optional;
+		Session session = HibernateUtil.getSession();
 		try {
 			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id",
 					Project.class);
 			query.setParameter("id", id);
-			optional = Optional.ofNullable(query.getSingleResult());
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			optional = Optional.empty();
-			e.printStackTrace();
+			if (query.getResultList().size() > 0)
+				return Optional.ofNullable(query.getSingleResult());
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 
-		return optional;
+		return Optional.empty();
+
 	}
 
 	public boolean insert(Project project) {
-		Session session = HibernateUtil.getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			project.setCreatedAt(new Date());
 			session.save(project);
-			session.getTransaction().commit();
-		} catch (Exception e) {
 			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 
-		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
+		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 	public boolean update(Project project) {
-		Session session = HibernateUtil.getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			session.update(project);
-			session.getTransaction().commit();
-		} catch (Exception e) {
 			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 
-		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
+		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 	public boolean delete(Project project) {
-		Session session = HibernateUtil.getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			session.delete(project);
-			session.getTransaction().commit();
-		} catch (Exception e) {
 			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 
-		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
+		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 }

@@ -33,13 +33,13 @@ public class ProjectCRUD {
 		List<Project> projects = projectRepo.getAll();
 		for (Project p : projects) {
 			HashMap<String, Object> project = new HashMap<>();
-				project.put("id", p.getId());
-				project.put("code", p.getProjectCode());
-				project.put("name", p.getName());
-				project.put("startAt", p.getStartAt());
-				project.put("finishAt", p.getFinishAt());
-				list.add(project);
-			}
+			project.put("id", p.getId());
+			project.put("code", p.getProjectCode());
+			project.put("name", p.getName());
+			project.put("startAt", p.getStartAt());
+			project.put("finishAt", p.getFinishAt());
+			list.add(project);
+		}
 		return Format.toJson(list);
 	}
 

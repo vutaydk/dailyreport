@@ -1,6 +1,5 @@
 package model.repo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,75 +14,92 @@ import model.entity.Report;
 
 public class ReportRepo implements IRepository<Report> {
 
-	public List<Report> getAll() {
-		Session session = HibernateUtil.getCurrentSession();
-		List<Report> reports = new ArrayList<>();
-		Transaction transaction = session.beginTransaction();
-		Query<Report> query = session.createQuery("FROM " + Report.class.getName(), Report.class);
-		reports = query.getResultList();
-		transaction.commit();
+	public static ReportRepo model;
+	static {
+		model = new ReportRepo();
+	}
 
-		return reports;
+	public List<Report> getAll() {
+		Session session = HibernateUtil.getSession();
+		try {
+			Query<Report> query = session.createQuery("FROM " + Report.class.getName(), Report.class);
+			return query.getResultList();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 	}
 
 	public Optional<Report> find(int id) {
-		Session session = HibernateUtil.getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		Optional<Report> optional = Optional.empty();
+		Session session = HibernateUtil.getSession();
 		try {
 			Query<Report> query = session.createQuery("FROM " + Report.class.getName() + " WHERE id=:id", Report.class);
 			query.setParameter("id", id);
-			optional = Optional.ofNullable(query.getSingleResult());
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
+			if (query.getResultList().size() > 0)
+				return Optional.ofNullable(query.getSingleResult());
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 
-		return optional;
+		return Optional.empty();
 	}
 
 	public boolean insert(Report report) {
-		Session session = HibernateUtil.getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			report.setCreatedAt(new Date());
 			session.save(report);
-			session.getTransaction().commit();
-		} catch (Exception e) {
 			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 
-		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
+		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 	public boolean update(Report report) {
-		Session session = HibernateUtil.getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			session.update(report);
-			session.getTransaction().commit();
-		} catch (Exception e) {
 			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 
-		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
+		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 	public boolean delete(Report object) {
-		Session session = HibernateUtil.getCurrentSession();
+		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
 			session.delete(object);
-			session.getTransaction().commit();
-		} catch (Exception e) {
 			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
 			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
 
-		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
+		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 }

@@ -13,6 +13,5 @@ public class ErrorMessage {
 	protected ErrorMessage() {
 
 	}
-	
-	
+
 }
