@@ -7,8 +7,8 @@
 					data-sort-name="id" data-sort-order="desc">
 					<thead>
 						<tr>
-							<th data-field="name" data-sortable="true" class="text-center">Name
-								Project</th>
+							<th data-field="projectCode" data-sortable="true">Project
+								Code</th>
 						</tr>
 					</thead>
 				</table>

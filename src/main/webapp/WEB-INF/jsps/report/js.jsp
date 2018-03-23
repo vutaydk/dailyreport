@@ -1,20 +1,7 @@
 <script>
-	$('#report-list-table').bootstrapTable({
+	$('#table').bootstrapTable({
 		searchTimeOut : 0,
-		pageSize : 5,
-		search : true,
-		showToggle : true,
-		showRefresh : true,
-		showColumns : true,
-		sortOrder : 'desc',
-		pagination : true,
-		iconsPrefix : 'fa',
-		icons : {
-			toggle : 'fas fa-list-alt',
-			refresh : 'fas fa-sync',
-			paginationSwitchUp : 'fas fa-sort-up',
-			paginationSwitchDown : 'fas fa-sort-down',
-		}
+		pageSize : 5
 	});
 
 	function formatDate(date) {

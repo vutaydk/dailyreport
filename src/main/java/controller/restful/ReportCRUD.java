@@ -16,19 +16,14 @@ import model.repo.ReportRepo;
 @Path("/report")
 public class ReportCRUD {
 
-	private ReportRepo reportRepo;
-
-	public ReportCRUD() {
-		reportRepo = new ReportRepo();
-	}
-
 	@GET
 	@Path("get-all")
 	@Produces("application/json")
 	public String getAll() {
 		List<Object> list = new ArrayList<>();
-		for (Report r : reportRepo.getAll()) {
+		for (Report r : ReportRepo.model.getAll()) {
 			HashMap<String, Object> report = new HashMap<>();
+			report.put("id", r.getId());
 			report.put("employeeCode", r.getUser().getEmployeeCode());
 			report.put("employeeName", r.getUser().getName());
 			List<Object> tasks = new ArrayList<>();

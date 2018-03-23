@@ -19,22 +19,16 @@ import model.repo.ProjectRepo;
 @Path("/project")
 public class ProjectCRUD {
 
-	private ProjectRepo projectRepo;
-
-	public ProjectCRUD() {
-		projectRepo = new ProjectRepo();
-	}
-
 	@GET
 	@Path("get-all")
 	@Produces("application/json")
 	public String getAll() {
 		List<Object> list = new ArrayList<>();
-		List<Project> projects = projectRepo.getAll();
+		List<Project> projects = ProjectRepo.model.getAll();
 		for (Project p : projects) {
 			HashMap<String, Object> project = new HashMap<>();
 			project.put("id", p.getId());
-			project.put("code", p.getProjectCode());
+			project.put("projectCode", p.getProjectCode());
 			project.put("name", p.getName());
 			project.put("startAt", p.getStartAt());
 			project.put("finishAt", p.getFinishAt());

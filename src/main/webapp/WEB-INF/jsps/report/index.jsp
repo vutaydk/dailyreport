@@ -4,11 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
-
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
-
 	<div class="row">
 		<div class="col-12">
 			<div class="project-form">
@@ -38,7 +36,6 @@
 									class="btn btn-outline-dark">
 							</div>
 						</div>
-
 						<div class="form-row mt-3">
 							<div class="col-4">
 								<div class="input-group">
@@ -55,9 +52,8 @@
 							</div>
 						</div>
 					</form>
-
 					<table id="report-list-table" data-toggle="table"
-						data-url="data/report" data-sort-name="id">
+						data-url="rest/report/get-all" data-sort-name="id">
 						<thead>
 							<tr>
 								<th data-field="employeeCode" data-sortable="true">Employee
@@ -76,11 +72,9 @@
 			</div>
 		</div>
 		<!-- ./add-project form -->
-
-		<%-- import js --%>
-		<jsp:include page="js.jsp" />
 	</div>
-
 </div>
+<%-- import js --%>
+<jsp:include page="js.jsp" />
 <%-- import footer --%>
 <jsp:include page="../layout/footer.jsp" />

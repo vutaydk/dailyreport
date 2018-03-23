@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
 <div class="container">
@@ -9,85 +10,90 @@
 	<!-- /.header -->
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="../layout/sidebar.jsp" />
-		<div class="col-9" id="report-list">
-			<div class="report-form">
-				<form method="post" id="addReportForm">
-					<div class="report-form-body">
-						<div class="row">
-							<div class="col-5">
-								<div class="form-group">
-									<label for="projectId">Select Project</label> <select
-										id="projectId" name="txt_projectId"
-										class="form-control"
-										data-validation="[NOTEMPTY]">
-										<option value="">Choose...</option>
-										<c:forEach items="${listProject}" var="row">
-											<option value="${row.id}"
-												${param.txt_projectId==row.id?'selected':''}><c:out
-													value="${row.name}" /></option>
-										</c:forEach>
-									</select>
+		<jsp:include page="sidebar.jsp" />
+		<div class="col-9">
+			<div id="list-report" class="list-report">
+				<div class="report-form">
+					<form id="addReportForm" method="post">
+						<div class="report-form-body">
+							<div class="row">
+								<div class="col-10">
+									<div class="form-group row">
+										<label for="projectCode" class="col-3 col-form-label">Project
+											code</label>
+										<div class="col-9">
+											<select id="projectCode" class="form-control"
+												name="projectCode" data-validation="[NOTEMPTY]"
+												data-validation-message="Please choose project.">
+												<option value="">Choose...</option>
+												<option value="Project1">Project 1</option>
+												<option value="Project2">Project 2</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="taskCode" class="col-3 col-form-label">Task
+											code</label>
+										<div class="col-9">
+											<select id="taskCode" class="form-control" name="taskCode"
+												data-validation="[NOTEMPTY]"
+												data-validation-message="Please choose task.">
+												<option value="">Choose...</option>
+												<option value="Task1">Task 1</option>
+												<option value="Task2">Task 2</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="timeWork" class="col-3 col-form-label">Time
+											work</label>
+										<div class="col-9">
+											<input type="text" class="form-control" id="timeWork"
+												name="txt_timeWork" placeholder="Hour"
+												data-validation="[NOTEMPTY, INTEGER]"
+												data-validation-message="Please enter working time.">
+										</div>
+									</div>
 								</div>
-								<div class="form-group">
-									<label for="timeWorked">Time Worked</label> <input
-										id="timeWorked" type="text" name="txt_timeWorked"
-										value="${param.txt_timeWorked}"
-										class="form-control"
-										data-validation="[INTEGER]" 
-										data-validation-message="Please enter project code.">
+								<div class="col-2">
+									<div class="row">
+										<button class="btn btn-outline-danger ml-2" type="button">
+											<i class="fas fa-trash-alt"></i>
+										</button>
+										<button id="toggle-note" class="btn btn-outline-dark  ml-2"
+											type="button" data-toggle="collapse"
+											data-target="#report-note" aria-controls="report-note"
+											aria-expanded="false" aria-label="Toggle report note">
+											<i class="fas fa-minus"></i>
+										</button>
+									</div>
 								</div>
 							</div>
-							<div class="col-7">
+							<div id="report-note">
 								<div class="form-group">
-									<label for="note">Note</label>
-									<textarea id="note" rows="9" cols="" name="txt_note"
-										class="form-control" 
-										data-validation="[L>=10, NOTEMPTY]" 
-										data-validation-message="Please enter note. Not must be at least 10 characters."></textarea>
+									<label for="content">Note</label>
+									<div class="col-12">
+										<textarea class="form-control" rows="10" cols="" id="content"
+											name="txt_note" data-validation="[L>=10, NOTEMPTY]"
+											data-validation-message="Please enter note. Not must be at least 10 characters."></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<button type="button" id="addWork"
+											class="btn btn-outline-dark">Add work</button>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="form-group row">
-							<div class="col-12 text-center">
-								<button type="submit" class="btn btn-primary">Submit</button>
-								<button type="reset" class="btn btn-default">Reset</button>
-							</div>
-						</div>
-						<script>
-							$.alterValidationRules({
-								rule : 'DATE_DATEPICKER',
-								regex : /^\d{2}\/\d{2}\/\d{4}$/,
-								message : 'This field must use format DD/MM/YYYY to be valid.'
-							});
-	
-							$.validate({
-								submit : {
-									settings : {
-										form : '#addReportForm',
-										clear : false,
-										insertion : 'append',
-										allErrors : true,
-										errorClass : 'is-invalid',
-										errorListClass : 'invalid-feedback error-list',
-										inputContainer : '.form-group',
-										display : 'inline',
-										scrollToError : true
-									},
-									callback : {
-										onError : function(error) {
-											// alert(error.toString());
-										}
-									}
-								}
-							});
-						</script>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 		<!-- ./create-report form -->
 	</div>
 </div>
+<%-- import js --%>
+<jsp:include page="js-add.jsp" />
 <%-- import footer --%>
 <jsp:include page="../layout/footer.jsp" />

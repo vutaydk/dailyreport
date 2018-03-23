@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
-
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
@@ -12,7 +11,6 @@
 	<div class="row">
 		<%-- import sidebar --%>
 		<jsp:include page="sidebar.jsp" />
-
 		<div class="col-9" id="report-list">
 			<div class="project-form">
 				<form action="rest/project/add" method="post">
@@ -74,11 +72,9 @@
 			</div>
 		</div>
 		<!-- ./create-project form -->
-
-		<%-- import js --%>
-		<jsp:include page="js.jsp" />
 	</div>
-
 </div>
+<%-- import js --%>
+<jsp:include page="js.jsp" />
 <%-- import footer --%>
 <jsp:include page="../layout/footer.jsp" />

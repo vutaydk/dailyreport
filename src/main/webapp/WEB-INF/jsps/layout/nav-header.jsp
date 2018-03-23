@@ -29,10 +29,10 @@
 			<li class="nav-item active"><a class="nav-link" href="report">Personal
 					report <span class="sr-only">(current)</span>
 			</a></li>
+			<li class="nav-item"><a class="nav-link" href="report/add">Report
+					Add</a></li>
 			<li class="nav-item"><a class="nav-link" href="project">Project
 					managerment</a></li>
-			<li class="nav-item"><a class="nav-link" href="user">Employees</a>
-			</li>
 			<li class="nav-item"><a class="nav-link" href="task">Tasks</a></li>
 		</ul>
 	</div>

@@ -18,7 +18,6 @@
 	});
 
 	var today = new Date();
-
 	$('#startAt').datepicker({
 		uiLibrary : 'bootstrap',
 		format : 'dd/mm/yyyy',
