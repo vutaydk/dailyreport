@@ -1,5 +1,6 @@
 package model.repo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,23 +16,25 @@ import model.entity.Report;
 @Log4j
 public class ReportRepo implements IRepository<Report> {
 
-	public Optional<List<Report>> getAll() {
+	public List<Report> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<List<Report>> optional = Optional.empty();
+		List<Report> reports = new ArrayList<>();
 		try {
+			session.beginTransaction();
 			Query<Report> query = session.createQuery("FROM " + Report.class.getName(), Report.class);
-			optional = Optional.ofNullable(query.getResultList());
+			reports = query.getResultList();
 		} catch (Exception e) {
 			log.debug(e);
 		}
 
-		return optional;
+		return reports;
 	}
 
 	public Optional<Report> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
 		Optional<Report> optional = Optional.empty();
 		try {
+			session.beginTransaction();
 			Query<Report> query = session.createQuery("FROM " + Report.class.getName() + " WHERE id=:id", Report.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());

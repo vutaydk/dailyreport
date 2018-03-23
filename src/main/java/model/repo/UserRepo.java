@@ -1,5 +1,6 @@
 package model.repo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,27 +16,31 @@ import model.entity.User;
 @Log4j
 public class UserRepo implements IRepository<User> {
 
-	public Optional<List<User>> getAll() {
+	public List<User> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<List<User>> optional = Optional.empty();
+		List<User> users;
 		try {
+			session.beginTransaction();
 			Query<User> query = session.createQuery("FROM " + User.class.getName(), User.class);
-			optional = Optional.ofNullable(query.getResultList());
+			users = query.getResultList();
 		} catch (Exception e) {
+			users = new ArrayList<>();
 			log.debug(e);
 		}
 
-		return optional;
+		return users;
 	}
 
 	public Optional<User> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<User> optional = Optional.empty();
+		Optional<User> optional;
 		try {
+			session.beginTransaction();
 			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
+			optional = Optional.empty();
 			log.debug(e);
 		}
 
@@ -44,14 +49,16 @@ public class UserRepo implements IRepository<User> {
 
 	public Optional<User> check(String em, String pwd) {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<User> optional = Optional.empty();
+		Optional<User> optional;
 		try {
+			session.beginTransaction();
 			Query<User> query = session.createQuery(
 					"FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
 			query.setParameter("em", em);
 			query.setParameter("pwd", pwd);
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
+			optional = Optional.empty();
 			log.debug(e);
 		}
 

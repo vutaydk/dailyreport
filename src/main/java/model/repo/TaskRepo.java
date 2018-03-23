@@ -1,5 +1,6 @@
 package model.repo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,27 +16,31 @@ import model.entity.Task;
 @Log4j
 public class TaskRepo implements IRepository<Task> {
 
-	public Optional<List<Task>> getAll() {
+	public List<Task> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<List<Task>> optional = Optional.empty();
+		List<Task> tasks;
 		try {
+			session.beginTransaction();
 			Query<Task> query = session.createQuery("FROM " + Task.class.getName(), Task.class);
-			optional = Optional.ofNullable(query.getResultList());
+			tasks = query.getResultList();
 		} catch (Exception e) {
+			tasks = new ArrayList<>();
 			log.debug(e);
 		}
 
-		return optional;
+		return tasks;
 	}
 
 	public Optional<Task> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<Task> optional = Optional.empty();
+		Optional<Task> optional;
 		try {
+			session.beginTransaction();
 			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id", Task.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
+			optional = Optional.empty();
 			log.debug(e);
 		}
 

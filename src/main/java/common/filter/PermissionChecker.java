@@ -19,9 +19,7 @@ import model.entity.User;
 /**
  * Servlet Filter implementation class LoginFiter
  */
-@WebFilter({
-		"/rights/*", "/task/*", "/project/*"
-})
+@WebFilter({ "/rights/*", "/task/*", "/project/*" })
 public class PermissionChecker implements Filter {
 
 	/**

@@ -13,8 +13,8 @@
 				class="nav-link dropdown-toggle" href="#"
 				id="navbarDropdownMenuLink" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false"><c:out
-						value="${sessionScope.user.name}" default="Admin" /> ( <c:out
-						value="${sessionScope.user.rights.name}" default="Employee" /> )</a>
+						value="${user.name}" default="Admin" /> ( <c:out
+						value="${user.rights.name}" default="Employee" /> )</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="logout">Logout</a>
 				</div></li>
@@ -31,7 +31,7 @@
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="project">Project
 					managerment</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Employees</a>
+			<li class="nav-item"><a class="nav-link" href="user">Employees</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="task">Tasks</a></li>
 		</ul>

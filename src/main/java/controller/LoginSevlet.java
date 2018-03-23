@@ -15,9 +15,7 @@ import model.repo.UserRepo;
 /**
  * Servlet implementation class LoginSevlet
  */
-@WebServlet({
-		"/login", "/logout"
-})
+@WebServlet({ "/login", "/logout" })
 public class LoginSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -74,7 +72,7 @@ public class LoginSevlet extends HttpServlet {
 			} else if (!pwd.isPresent()) {
 				request.setAttribute("message", "Please enter password.");
 			} else {
-				Optional<User> user = Optional.ofNullable(userDao.check(em.get(), pwd.get()));
+				Optional<User> user = userDao.check(em.get(), pwd.get());
 
 				// set to user session
 				if (user.isPresent()) {

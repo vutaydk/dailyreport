@@ -1,5 +1,6 @@
 package model.repo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,27 +16,31 @@ import model.entity.Rights;
 @Log4j
 public class RightsRepo implements IRepository<Rights> {
 
-	public Optional<List<Rights>> getAll() {
+	public List<Rights> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<List<Rights>> optional = Optional.empty();
+		List<Rights> rights;
 		try {
+			session.beginTransaction();
 			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName(), Rights.class);
-			optional = Optional.ofNullable(query.getResultList());
+			rights = query.getResultList();
 		} catch (Exception e) {
+			rights = new ArrayList<>();
 			log.debug(e);
 		}
 
-		return optional;
+		return rights;
 	}
 
 	public Optional<Rights> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<Rights> optional = Optional.empty();
+		Optional<Rights> optional;
 		try {
+			session.beginTransaction();
 			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id", Rights.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
+			optional = Optional.empty();
 			log.debug(e);
 		}
 

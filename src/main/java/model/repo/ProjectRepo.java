@@ -1,5 +1,6 @@
 package model.repo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -15,28 +16,32 @@ import model.entity.Project;
 @Log4j
 public class ProjectRepo implements IRepository<Project> {
 
-	public Optional<List<Project>> getAll() {
+	public List<Project> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<List<Project>> optional = Optional.empty();
+		List<Project> projects;
 		try {
+			session.beginTransaction();
 			Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
-			optional = Optional.ofNullable(query.getResultList());
+			projects = query.getResultList();
 		} catch (Exception e) {
+			projects = new ArrayList<>();
 			log.debug(e);
 		}
 
-		return optional;
+		return projects;
 	}
 
 	public Optional<Project> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
-		Optional<Project> optional = Optional.empty();
+		Optional<Project> optional;
 		try {
+			session.beginTransaction();
 			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id",
 					Project.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
+			optional = Optional.empty();
 			log.debug(e);
 		}
 

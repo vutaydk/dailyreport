@@ -13,6 +13,9 @@ public class DataValidation {
 
 	public static boolean isValidDate(String date) {
 		try {
+			if (date == null)
+				throw new RuntimeException("Can't format Date with value: " + date);
+
 			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 			df.setLenient(false);
 			df.parse(date);

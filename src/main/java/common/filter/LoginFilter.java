@@ -21,9 +21,7 @@ import model.repo.UserRepo;
 /**
  * Servlet Filter implementation class LoginFiter
  */
-@WebFilter({
-		"/home/*", "/report/*", "/project/*", "/rights/*", "/task/*"
-})
+@WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*", "/rest/*" })
 public class LoginFilter implements Filter {
 
 	private UserRepo userRepo;
@@ -51,7 +49,7 @@ public class LoginFilter implements Filter {
 		if (user.isPresent()) {
 
 			// check user exist in database
-			user = Optional.ofNullable(userRepo.find(user.get().getId()));
+			user = userRepo.find(user.get().getId());
 			if (user.isPresent()) {
 
 				req.setAttribute("user", user.get());

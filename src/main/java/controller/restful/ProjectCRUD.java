@@ -30,9 +30,9 @@ public class ProjectCRUD {
 	@Produces("application/json")
 	public String getAll() {
 		List<Object> list = new ArrayList<>();
-		if (projectRepo.getAll().isPresent()) {
-			for (Project p : projectRepo.getAll().get()) {
-				HashMap<String, Object> project = new HashMap<>();
+		List<Project> projects = projectRepo.getAll();
+		for (Project p : projects) {
+			HashMap<String, Object> project = new HashMap<>();
 				project.put("id", p.getId());
 				project.put("code", p.getProjectCode());
 				project.put("name", p.getName());
@@ -40,7 +40,6 @@ public class ProjectCRUD {
 				project.put("finishAt", p.getFinishAt());
 				list.add(project);
 			}
-		}
 		return Format.toJson(list);
 	}
 
