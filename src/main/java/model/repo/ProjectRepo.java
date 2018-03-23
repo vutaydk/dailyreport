@@ -1,6 +1,5 @@
 package model.repo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +19,7 @@ public class ProjectRepo implements IRepository<Project> {
 		Transaction transaction = session.beginTransaction();
 		List<Project> projects;
 		Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
-		projects = query.list();
+		projects = query.getResultList();
 		transaction.commit();
 
 		return projects;
@@ -28,14 +27,16 @@ public class ProjectRepo implements IRepository<Project> {
 
 	public Optional<Project> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		Optional<Project> optional;
 		try {
-			session.beginTransaction();
 			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id",
 					Project.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
+			transaction.commit();
 		} catch (Exception e) {
+			transaction.rollback();
 			optional = Optional.empty();
 			e.printStackTrace();
 		}
@@ -45,13 +46,13 @@ public class ProjectRepo implements IRepository<Project> {
 
 	public boolean insert(Project project) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			project.setCreatedAt(new Date());
 			session.save(project);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
@@ -60,12 +61,12 @@ public class ProjectRepo implements IRepository<Project> {
 
 	public boolean update(Project project) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			session.update(project);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
@@ -74,12 +75,12 @@ public class ProjectRepo implements IRepository<Project> {
 
 	public boolean delete(Project project) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			session.delete(project);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 

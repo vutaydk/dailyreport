@@ -1,6 +1,5 @@
 package model.repo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,13 +27,14 @@ public class UserRepo implements IRepository<User> {
 
 	public Optional<User> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		Optional<User> optional;
 		try {
-			session.beginTransaction();
 			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
 		} catch (Exception e) {
+			transaction.rollback();
 			optional = Optional.empty();
 			e.printStackTrace();
 		}
@@ -44,15 +44,17 @@ public class UserRepo implements IRepository<User> {
 
 	public Optional<User> check(String em, String pwd) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		Optional<User> optional;
 		try {
-			session.beginTransaction();
 			Query<User> query = session.createQuery(
 					"FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
 			query.setParameter("em", em);
 			query.setParameter("pwd", pwd);
 			optional = Optional.ofNullable(query.getSingleResult());
+			transaction.commit();
 		} catch (Exception e) {
+			transaction.rollback();
 			optional = Optional.empty();
 			e.printStackTrace();
 		}
@@ -62,13 +64,13 @@ public class UserRepo implements IRepository<User> {
 
 	public boolean insert(User user) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			user.setCreatedAt(new Date());
 			session.save(user);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
@@ -77,12 +79,12 @@ public class UserRepo implements IRepository<User> {
 
 	public boolean update(User user) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			session.update(user);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
@@ -91,12 +93,12 @@ public class UserRepo implements IRepository<User> {
 
 	public boolean delete(User user) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			session.delete(user);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 

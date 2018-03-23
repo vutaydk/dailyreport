@@ -1,6 +1,5 @@
 package model.repo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,13 +27,15 @@ public class RightsRepo implements IRepository<Rights> {
 
 	public Optional<Rights> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		Optional<Rights> optional;
 		try {
-			session.beginTransaction();
 			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id", Rights.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
+			transaction.commit();
 		} catch (Exception e) {
+			transaction.rollback();
 			optional = Optional.empty();
 			e.printStackTrace();
 		}
@@ -44,13 +45,13 @@ public class RightsRepo implements IRepository<Rights> {
 
 	public boolean insert(Rights rights) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			rights.setCreatedAt(new Date());
 			session.save(rights);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
@@ -59,12 +60,12 @@ public class RightsRepo implements IRepository<Rights> {
 
 	public boolean update(Rights rights) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			session.update(rights);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
@@ -73,12 +74,12 @@ public class RightsRepo implements IRepository<Rights> {
 
 	public boolean delete(Rights rights) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			session.delete(rights);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 

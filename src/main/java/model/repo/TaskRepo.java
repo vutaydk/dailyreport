@@ -1,6 +1,5 @@
 package model.repo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,13 +27,15 @@ public class TaskRepo implements IRepository<Task> {
 
 	public Optional<Task> find(int id) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		Optional<Task> optional;
 		try {
-			session.beginTransaction();
 			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id", Task.class);
 			query.setParameter("id", id);
 			optional = Optional.ofNullable(query.getSingleResult());
+			transaction.commit();
 		} catch (Exception e) {
+			transaction.rollback();
 			optional = Optional.empty();
 			e.printStackTrace();
 		}
@@ -44,13 +45,13 @@ public class TaskRepo implements IRepository<Task> {
 
 	public boolean insert(Task task) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			task.setCreatedAt(new Date());
 			session.save(task);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
@@ -59,12 +60,12 @@ public class TaskRepo implements IRepository<Task> {
 
 	public boolean update(Task task) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			session.update(task);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
@@ -73,12 +74,12 @@ public class TaskRepo implements IRepository<Task> {
 
 	public boolean delete(Task task) {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			session.beginTransaction();
 			session.delete(task);
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			session.getTransaction().rollback();
+			transaction.commit();
 			e.printStackTrace();
 		}
 
