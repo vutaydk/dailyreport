@@ -1,4 +1,4 @@
-package controller;
+package controller.dispatcher;
 
 import java.io.IOException;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package controller.dispatcher.rights;
+package controller.dispatcher;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,23 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.util.DataValidation;
-import model.entity.Rights;
-import model.repo.RightsRepo;
+import model.entity.Task;
+import model.repo.TaskRepo;
 
-@WebServlet("/rights")
-public class RightsSevlet extends HttpServlet {
+@WebServlet("/task")
+public class TaskSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected final String VIEW_PATH = "/WEB-INF/jsps/rights";
+	protected final String VIEW_PATH = "/WEB-INF/jsps/task";
 
-	protected RightsRepo rightsDao;
+	protected TaskRepo taskDao;
 
 	private HashMap<String, String> hashMap;
 
-	public RightsSevlet() {
-		rightsDao = new RightsRepo();
+	public TaskSevlet() {
+		taskDao = new TaskRepo();
 	}
 
 	/**
@@ -34,7 +33,7 @@ public class RightsSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("listRights", rightsDao.getAll());
+		request.setAttribute("listTask", taskDao.getAll());
 		request.getRequestDispatcher(VIEW_PATH + "/index.jsp").forward(request, response);
 	}
 
@@ -60,38 +59,39 @@ public class RightsSevlet extends HttpServlet {
 	 * 
 	 * @param request
 	 * @param response
-	 * @param rights
+	 * @param task
 	 * @return boolean
 	 */
-	protected boolean validate(HttpServletRequest request, HttpServletResponse response, Rights rights) {
+	protected boolean validate(HttpServletRequest request, HttpServletResponse response, Task task) {
 
 		boolean bool = true;
 		hashMap = new HashMap<>();
 
 		// get request param
+		// Optional<String> txt_taskCode =
+		// Optional.ofNullable(request.getParameter("txt_taskCode"));
+		// if (!txt_taskCode.isPresent() || txt_taskCode.get().isEmpty()) {
+		// hashMap.put("txt_taskCode", "Please enter task code.");
+		// bool = false;
+		// } else {
+		// if (txt_taskCode.get().length() != 4) {
+		// hashMap.put("txt_taskCode", "Task code length is 4 characters.");
+		// bool = false;
+		// } else
+		// task.setTaskCode(txt_taskCode.get());
+		// }
+
 		Optional<String> txt_name = Optional.ofNullable(request.getParameter("txt_name"));
 		if (!txt_name.isPresent() || txt_name.get().isEmpty()) {
-			hashMap.put("txt_name", "Please enter name position.");
+			hashMap.put("txt_name", "Please enter name.");
 			bool = false;
 		} else {
+
 			if (txt_name.get().length() < 3) {
-				hashMap.put("txt_name", "Name position length is too short (requires 3 characters).");
+				hashMap.put("txt_name", "Name length is too short (requires 3 characters).");
 				bool = false;
 			} else
-				rights.setName(txt_name.get());
-		}
-
-		Optional<String> txt_lv = Optional.ofNullable(request.getParameter("txt_lv"));
-		if (!txt_lv.isPresent() || txt_lv.get().isEmpty()) {
-			hashMap.put("txt_lv", "Please enter level.");
-			bool = false;
-		} else {
-
-			if (!DataValidation.isNumber(txt_lv.get())) {
-				hashMap.put("txt_lv", "Invalid level.");
-				bool = false;
-			} else
-				rights.setLevel(Integer.valueOf(txt_lv.get()));
+				task.setName(txt_name.get());
 		}
 
 		return bool;
