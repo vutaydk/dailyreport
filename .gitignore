@@ -5,3 +5,4 @@
 *.class
 /target/
 *.project
+src/main/java/common/util/HibernateUtil.java
