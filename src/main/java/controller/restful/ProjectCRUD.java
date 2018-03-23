@@ -30,14 +30,16 @@ public class ProjectCRUD {
 	@Produces("application/json")
 	public String getAll() {
 		List<Object> list = new ArrayList<>();
-		for (Project p : projectRepo.getAll()) {
-			HashMap<String, Object> project = new HashMap<>();
-			project.put("id", p.getId());
-			project.put("code", p.getProjectCode());
-			project.put("name", p.getName());
-			project.put("startAt", p.getStartAt());
-			project.put("finishAt", p.getFinishAt());
-			list.add(project);
+		if (projectRepo.getAll().isPresent()) {
+			for (Project p : projectRepo.getAll().get()) {
+				HashMap<String, Object> project = new HashMap<>();
+				project.put("id", p.getId());
+				project.put("code", p.getProjectCode());
+				project.put("name", p.getName());
+				project.put("startAt", p.getStartAt());
+				project.put("finishAt", p.getFinishAt());
+				list.add(project);
+			}
 		}
 		return Format.toJson(list);
 	}

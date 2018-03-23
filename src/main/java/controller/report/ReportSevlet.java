@@ -50,7 +50,7 @@ public class ReportSevlet extends HttpServlet {
 			if (DataValidation.isNumber(detailId.get())) {
 
 				// check row report exist?
-				Optional<Report> report = Optional.ofNullable(reportDao.find(Integer.valueOf(detailId.get())));
+				Optional<Report> report = reportDao.find(Integer.valueOf(detailId.get()));
 				if (report.isPresent()) {
 
 					request.setAttribute("detailReport", report.get());
@@ -78,7 +78,7 @@ public class ReportSevlet extends HttpServlet {
 			if (DataValidation.isNumber(detailId.get())) {
 
 				// check row report exist?
-				Optional<Report> opt = Optional.ofNullable(reportDao.find(Integer.valueOf(detailId.get())));
+				Optional<Report> opt = reportDao.find(Integer.valueOf(detailId.get()));
 				if (opt.isPresent()) {
 
 					// set model
@@ -137,7 +137,7 @@ public class ReportSevlet extends HttpServlet {
 				bool = false;
 			} else {
 
-				Optional<Project> proOpt = Optional.ofNullable(projectDao.find(Integer.valueOf(txt_projectId.get())));
+				Optional<Project> proOpt = projectDao.find(Integer.valueOf(txt_projectId.get()));
 				if (!proOpt.isPresent()) {
 					hashMap.put("txt_projectId", "Invalid project.");
 					bool = false;

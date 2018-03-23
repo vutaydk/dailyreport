@@ -1,10 +1,11 @@
 package model.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IRepository<T> {
 
-	List<T> getAll();
+	Optional<List<T>> getAll();
 
 	boolean insert(T t);
 

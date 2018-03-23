@@ -2,94 +2,87 @@ package model.repo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
+import lombok.extern.log4j.Log4j;
 import model.entity.Task;
 
+@Log4j
 public class TaskRepo implements IRepository<Task> {
 
-	public List<Task> getAll() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Task> list = null;
+	public Optional<List<Task>> getAll() {
+		Session session = HibernateUtil.getCurrentSession();
+		Optional<List<Task>> optional = Optional.empty();
 		try {
 			Query<Task> query = session.createQuery("FROM " + Task.class.getName(), Task.class);
-			list = query.getResultList();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			optional = Optional.ofNullable(query.getResultList());
+		} catch (Exception e) {
+			log.debug(e);
 		}
-		return list;
+
+		return optional;
 	}
 
-	public Task find(int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Task object = null;
+	public Optional<Task> find(int id) {
+		Session session = HibernateUtil.getCurrentSession();
+		Optional<Task> optional = Optional.empty();
 		try {
 			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id", Task.class);
 			query.setParameter("id", id);
-			object = query.getSingleResult();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			optional = Optional.ofNullable(query.getSingleResult());
+		} catch (Exception e) {
+			log.debug(e);
 		}
-		return object;
+
+		return optional;
 	}
 
-	public boolean insert(Task object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean insert(Task task) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			object.setCreatedAt(new Date());
-			session.save(object);
+			task.setCreatedAt(new Date());
+			session.save(task);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
-	public boolean update(Task object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean update(Task task) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.update(object);
+			session.update(task);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
-	public boolean delete(Task object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean delete(Task task) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.delete(object);
+			session.delete(task);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 }
