@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
@@ -16,15 +17,11 @@ public class ProjectRepo implements IRepository<Project> {
 
 	public List<Project> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		List<Project> projects;
-		try {
-			session.beginTransaction();
-			Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
-			projects = query.getResultList();
-		} catch (Exception e) {
-			projects = new ArrayList<>();
-			e.printStackTrace();
-		}
+		Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
+		projects = query.list();
+		transaction.commit();
 
 		return projects;
 	}

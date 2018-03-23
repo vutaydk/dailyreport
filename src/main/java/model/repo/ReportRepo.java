@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
@@ -17,13 +18,10 @@ public class ReportRepo implements IRepository<Report> {
 	public List<Report> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
 		List<Report> reports = new ArrayList<>();
-		try {
-			session.beginTransaction();
-			Query<Report> query = session.createQuery("FROM " + Report.class.getName(), Report.class);
-			reports = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Transaction transaction = session.beginTransaction();
+		Query<Report> query = session.createQuery("FROM " + Report.class.getName(), Report.class);
+		reports = query.getResultList();
+		transaction.commit();
 
 		return reports;
 	}

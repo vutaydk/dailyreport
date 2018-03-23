@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
@@ -17,14 +18,10 @@ public class TaskRepo implements IRepository<Task> {
 	public List<Task> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
 		List<Task> tasks;
-		try {
-			session.beginTransaction();
-			Query<Task> query = session.createQuery("FROM " + Task.class.getName(), Task.class);
-			tasks = query.getResultList();
-		} catch (Exception e) {
-			tasks = new ArrayList<>();
-			e.printStackTrace();
-		}
+		Transaction transaction = session.beginTransaction();
+		Query<Task> query = session.createQuery("FROM " + Task.class.getName(), Task.class);
+		tasks = query.getResultList();
+		transaction.commit();
 
 		return tasks;
 	}

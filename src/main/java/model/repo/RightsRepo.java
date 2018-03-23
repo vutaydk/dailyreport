@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
@@ -17,14 +18,10 @@ public class RightsRepo implements IRepository<Rights> {
 	public List<Rights> getAll() {
 		Session session = HibernateUtil.getCurrentSession();
 		List<Rights> rights;
-		try {
-			session.beginTransaction();
-			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName(), Rights.class);
-			rights = query.getResultList();
-		} catch (Exception e) {
-			rights = new ArrayList<>();
-			e.printStackTrace();
-		}
+		Transaction transaction = session.beginTransaction();
+		Query<Rights> query = session.createQuery("FROM " + Rights.class.getName(), Rights.class);
+		rights = query.getResultList();
+		transaction.commit();
 
 		return rights;
 	}
