@@ -1,4 +1,4 @@
-package restfulcrud;
+package controller.restful;
 
 import java.util.ArrayList;
 import java.util.HashMap;
