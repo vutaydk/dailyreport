@@ -1,4 +1,4 @@
-package controller.rights;
+package controller;
 
 import java.io.IOException;
 import java.util.HashMap;

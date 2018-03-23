@@ -10,7 +10,7 @@
 			$('.font-weight-bold').removeClass('font-weight-bold');
 			$(this).addClass("text-danger font-weight-bold");
 		});
-		$('form').attr('action', "project/edit?id=" + $element.id);
+		$('form').attr('action', "rest/project/edit/" + $element.id);
 		$.each($element, function(index, row) {
 			$('input[name="txt_' + index + '"]').val(row);
 			alert(row);
@@ -50,16 +50,14 @@
 				dataType : 'json', // data type
 				data : $(this).serialize(), // post data || get data
 				success : function(result) {
-					if (jQuery.isEmptyObject(result) === false) {
-
-						if (jQuery.isEmptyObject(result.message) === false) { // message success
-							alert(result.message);
-							$('form :input').val('');
+					if (!jQuery.isEmptyObject(result)) {
+						if (!$.isPlainObject(result)) { // message
+							alert(result);
 							location.reload();
 						}
 
-						if (jQuery.isEmptyObject(result.error) === false) // error validate
-							$.each(result.error, function(key, value) {
+						if ($.isPlainObject(result)) // error validate
+							$.each(result, function(key, value) {
 								alert(key + ': ' + value);
 							})
 					}

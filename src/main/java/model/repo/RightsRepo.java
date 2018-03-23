@@ -2,94 +2,87 @@ package model.repo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
+import lombok.extern.log4j.Log4j;
 import model.entity.Rights;
 
+@Log4j
 public class RightsRepo implements IRepository<Rights> {
 
-	public List<Rights> getAll() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Rights> list = null;
+	public Optional<List<Rights>> getAll() {
+		Session session = HibernateUtil.getCurrentSession();
+		Optional<List<Rights>> optional = Optional.empty();
 		try {
 			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName(), Rights.class);
-			list = query.getResultList();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			optional = Optional.ofNullable(query.getResultList());
+		} catch (Exception e) {
+			log.debug(e);
 		}
-		return list;
+
+		return optional;
 	}
 
-	public Rights find(int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Rights object = null;
+	public Optional<Rights> find(int id) {
+		Session session = HibernateUtil.getCurrentSession();
+		Optional<Rights> optional = Optional.empty();
 		try {
 			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id", Rights.class);
 			query.setParameter("id", id);
-			object = query.getSingleResult();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			optional = Optional.ofNullable(query.getSingleResult());
+		} catch (Exception e) {
+			log.debug(e);
 		}
-		return object;
+
+		return optional;
 	}
 
-	public boolean insert(Rights object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean insert(Rights rights) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			object.setCreatedAt(new Date());
-			session.save(object);
+			rights.setCreatedAt(new Date());
+			session.save(rights);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
-	public boolean update(Rights object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean update(Rights rights) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.update(object);
+			session.update(rights);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
-	public boolean delete(Rights object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean delete(Rights rights) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.delete(object);
+			session.delete(rights);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 }

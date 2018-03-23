@@ -2,111 +2,103 @@ package model.repo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
+import lombok.extern.log4j.Log4j;
 import model.entity.User;
 
+@Log4j
 public class UserRepo implements IRepository<User> {
 
-	public List<User> getAll() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<User> list = null;
+	public Optional<List<User>> getAll() {
+		Session session = HibernateUtil.getCurrentSession();
+		Optional<List<User>> optional = Optional.empty();
 		try {
 			Query<User> query = session.createQuery("FROM " + User.class.getName(), User.class);
-			list = query.getResultList();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			optional = Optional.ofNullable(query.getResultList());
+		} catch (Exception e) {
+			log.debug(e);
 		}
-		return list;
+
+		return optional;
 	}
 
-	public User find(int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		User object = null;
+	public Optional<User> find(int id) {
+		Session session = HibernateUtil.getCurrentSession();
+		Optional<User> optional = Optional.empty();
 		try {
 			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
 			query.setParameter("id", id);
-			object = query.getSingleResult();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			optional = Optional.ofNullable(query.getSingleResult());
+		} catch (Exception e) {
+			log.debug(e);
 		}
-		return object;
+
+		return optional;
 	}
 
-	public User check(String em, String pwd) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		User object = null;
+	public Optional<User> check(String em, String pwd) {
+		Session session = HibernateUtil.getCurrentSession();
+		Optional<User> optional = Optional.empty();
 		try {
 			Query<User> query = session.createQuery(
 					"FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
 			query.setParameter("em", em);
 			query.setParameter("pwd", pwd);
-			object = query.getSingleResult();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			optional = Optional.ofNullable(query.getSingleResult());
+		} catch (Exception e) {
+			log.debug(e);
 		}
-		return object;
+
+		return optional;
 	}
 
-	public boolean insert(User object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean insert(User user) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			object.setCreatedAt(new Date());
-			session.save(object);
+			user.setCreatedAt(new Date());
+			session.save(user);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
-	public boolean update(User object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean update(User user) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.update(object);
+			session.update(user);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
-	public boolean delete(User object) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public boolean delete(User user) {
+		Session session = HibernateUtil.getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.delete(object);
+			session.delete(user);
 			session.getTransaction().commit();
-			return true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			log.debug(e);
 		}
-		return false;
+
+		return session.getTransaction().getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 }

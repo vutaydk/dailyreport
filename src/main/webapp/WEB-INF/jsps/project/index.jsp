@@ -15,7 +15,7 @@
 
 		<div class="col-9" id="report-list">
 			<div class="project-form">
-				<form action="project/add" method="post">
+				<form action="rest/project/add" method="post">
 					<div class="project-form-body">
 						<div class="form-group row">
 							<label for="projectCode" class="col-2 col-form-label">Project
@@ -32,7 +32,6 @@
 									name="txt_name" value="${param.txt_name}">
 							</div>
 						</div>
-
 						<div class="form-group row">
 							<label for="startAt" class="col-2 col-form-label">Start
 								at</label>
@@ -76,7 +75,7 @@
 		</div>
 		<!-- ./create-project form -->
 
-		<%-- import footer --%>
+		<%-- import js --%>
 		<jsp:include page="js.jsp" />
 	</div>
 

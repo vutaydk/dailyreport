@@ -47,7 +47,7 @@ public class ReportFilter implements Filter {
 
 				if (DataValidation.isNumber(id.get())) {
 
-					Optional<Report> report = Optional.ofNullable(reportDao.find(Integer.valueOf(id.get())));
+					Optional<Report> report = reportDao.find(Integer.valueOf(id.get()));
 					if (report.isPresent()) {
 
 						Optional<User> userApprover = Optional.ofNullable(report.get().getApprover());
