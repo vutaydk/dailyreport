@@ -1,7 +1,7 @@
 <script>
-	$.getJSON("rest/task/get-all", function(data) {
+	$.getJSON("rest/rights/get-all", function(data) {
 		$.each(data, function(i, value) {
-			$("#list-task").append(
+			$("#list-rights").append(
 					'<li class="list-group-item"><span class="badge badge-secondary">'+ value.id +'</span> ' + value.name + '</li>');
 		});
 	})

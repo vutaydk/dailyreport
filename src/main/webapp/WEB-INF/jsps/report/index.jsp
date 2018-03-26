@@ -9,8 +9,8 @@
 	<jsp:include page="../layout/nav-header.jsp" />
 	<div class="row">
 		<div class="col-12">
-			<div class="project-form">
-				<div class="project-form-body">
+			<div class="box">
+				<div class="box-body">
 					<form action="" method="post" class="mb-3">
 						<div class="form-row">
 							<div class="col-5">

@@ -12,9 +12,10 @@
 		<%-- import sidebar --%>
 		<jsp:include page="sidebar.jsp" />
 		<div class="col-9" id="report-list">
-			<div class="project-form">
+			<div class="box">
 				<form action="rest/project/add" method="post">
-					<div class="project-form-body">
+					<div class="box-body">
+					
 						<div class="form-group row">
 							<label for="projectCode" class="col-2 col-form-label">Project
 								code </label>
@@ -23,6 +24,7 @@
 									name="txt_projectCode" value="${param.txt_projectCode}">
 							</div>
 						</div>
+						
 						<div class="form-group row">
 							<label for="name" class="col-2 col-form-label">Name</label>
 							<div class="col-6">
@@ -30,6 +32,7 @@
 									name="txt_name" value="${param.txt_name}">
 							</div>
 						</div>
+						
 						<div class="form-group row">
 							<label for="startAt" class="col-2 col-form-label">Start
 								at</label>
@@ -45,6 +48,7 @@
 									value="${param.txt_finishAt}">
 							</div>
 						</div>
+						
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Project manager</label>
 							<div class="col-4">
@@ -60,6 +64,7 @@
 								</div>
 							</div>
 						</div>
+						
 						<div class="form-group row">
 							<div class="col-12 text-center">
 								<button type="submit" class="btn btn-primary">Submit</button>
@@ -67,6 +72,7 @@
 									onclick="location.reload();">Reset</button>
 							</div>
 						</div>
+						
 					</div>
 				</form>
 			</div>
