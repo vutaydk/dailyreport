@@ -121,12 +121,12 @@ INSERT INTO users(employee_code, password, email, name)
 VALUES ('giaduc', '1111', 'giaduc@gmail.com', 'Gia Duc');
 
 -- INSERT INTO PROJECT
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('abc3', 'Du an 1', CAST(N'2018-03-25' AS DateTime), CAST(N'2018-03-30' AS DateTime));
 INSERT INTO projects(project_code, name)
-VALUES ('abc3', 'Du an 1');
+VALUES ('f6c1', 'Du an 2', CAST(N'2018-03-25' AS DateTime), CAST(N'2018-03-30' AS DateTime));
 INSERT INTO projects(project_code, name)
-VALUES ('f6c1', 'Du an 2');
-INSERT INTO projects(project_code, name)
-VALUES ('gbg8', 'Du an 3');
+VALUES ('gbg8', 'Du an 3', CAST(N'2018-03-25' AS DateTime), CAST(N'2018-03-30' AS DateTime));
 
 -- INSERT INTO DEPARTMENT
 INSERT INTO departments(department_code, name)
@@ -145,14 +145,14 @@ INSERT INTO tasks(task_code, name)
 VALUES ('mnyt', 'Task 3');
 
 -- INSERT INTO REPORT
-INSERT INTO reports(project_id, user_id)
-VALUES (1, 1);
-INSERT INTO reports(project_id, user_id)
-VALUES (2, 1);
-INSERT INTO reports(project_id, user_id)
-VALUES (2, 2);
-INSERT INTO reports(project_id, user_id)
-VALUES (3, 2);
+INSERT INTO reports(project_id, user_id, created_at)
+VALUES (1, 1, CAST(N'2018-03-25' AS DateTime));
+INSERT INTO reports(project_id, user_id, created_at)
+VALUES (2, 1, CAST(N'2018-03-25' AS DateTime));
+INSERT INTO reports(project_id, user_id, created_at)
+VALUES (2, 2, CAST(N'2018-03-26' AS DateTime));
+INSERT INTO reports(project_id, user_id, created_at)
+VALUES (3, 2, CAST(N'2018-03-26' AS DateTime));
 
 -- INSERT INTO REPORT_DETAIL
 INSERT INTO report_details(report_id, task_id, note)
