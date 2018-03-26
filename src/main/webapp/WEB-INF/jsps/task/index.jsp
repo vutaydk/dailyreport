@@ -13,23 +13,27 @@
 		<jsp:include page="sidebar.jsp" />
 		<div class="col-9" id="report-list">
 			<div class="project-form">
-				<form method="post">
+				<form action="rest/task/add" method="post">
 					<div class="project-form-body">
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Task code</label>
 							<div class="col-4">
-								<input type="text" class="form-control" name="txt_taskCode">
+								<input type="text" maxlength="4" class="form-control"
+									name="txt_taskCode">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Name</label>
 							<div class="col-10">
-								<input type="text" class="form-control" name="txt_name">
+								<input type="text" maxlength="50" class="form-control"
+									name="txt_name">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-12 text-center">
-								<button class="btn btn-primary" type="submit">Add task</button>
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="reset" class="btn btn-default"
+									onclick="location.reload();">Reset</button>
 							</div>
 						</div>
 					</div>
