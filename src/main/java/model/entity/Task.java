@@ -45,6 +45,6 @@ public class Task {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
-	private Set<TaskDetail> taskDetails = new HashSet<>(0);
+	private Set<ReportDetail> reportDetails = new HashSet<>(0);
 
 }

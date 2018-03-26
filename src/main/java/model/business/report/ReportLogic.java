@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import common.util.Format;
 import lombok.Getter;
 import model.business.ErrorMap;
 import model.entity.Report;
-import model.entity.TaskDetail;
+import model.entity.ReportDetail;
 import model.repo.ReportRepo;
 
 public class ReportLogic extends ErrorMap {
@@ -43,7 +44,7 @@ public class ReportLogic extends ErrorMap {
 			report.put("employeeCode", r.getUser().getEmployeeCode());
 			report.put("employeeName", r.getUser().getName());
 			List<Object> tasks = new ArrayList<>();
-			for (TaskDetail td : r.getTaskDetails()) {
+			for (ReportDetail td : r.getReportDetails()) {
 				HashMap<String, Object> task = new HashMap<>();
 				task.put("code", td.getTask().getTaskCode());
 				task.put("name", td.getTask().getName());
@@ -52,7 +53,7 @@ public class ReportLogic extends ErrorMap {
 				tasks.add(task);
 			}
 			report.put("tasks", tasks);
-			report.put("date", r.getCreatedAt());
+			report.put("date", Format.toDate(r.getCreatedAt()));
 			list.add(report);
 		}
 		return list;

@@ -21,8 +21,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "task_details")
-public class TaskDetail {
+@Table(name = "report_details")
+public class ReportDetail {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -36,10 +36,6 @@ public class TaskDetail {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "task_id")
 	private Task task;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
 
 	@Temporal(TemporalType.TIME)
 	@Column(name = "time_worked", length = 16)

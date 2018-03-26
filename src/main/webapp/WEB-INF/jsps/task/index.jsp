@@ -10,21 +10,21 @@
 	<!-- /.header -->
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="sidebar.jsp" />
+		<jsp:include page="../layout/sidebar.jsp" />
 		<div class="col-9" id="report-list">
 			<div class="box">
 				<form action="rest/task/add" method="post">
 					<div class="box-body">
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Task code</label>
-							<div class="col-4">
+							<div class="col-2">
 								<input type="text" maxlength="4" class="form-control"
 									name="txt_taskCode">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Name</label>
-							<div class="col-10">
+							<div class="col-6">
 								<input type="text" maxlength="50" class="form-control"
 									name="txt_name">
 							</div>

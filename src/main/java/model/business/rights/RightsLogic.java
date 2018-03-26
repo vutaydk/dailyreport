@@ -64,6 +64,11 @@ public class RightsLogic extends ErrorMap {
 	public boolean isValidData() {
 		boolean bool = true;
 
+		if (entity.getName() == null || entity.getName().length() < 6) {
+			setError("txt_name", "Name length is too short (requires 6 characters).");
+			bool = false;
+		}
+		
 		return bool;
 	}
 

@@ -1,22 +1,4 @@
 <script>
-	$('#table').bootstrapTable({
-		searchTimeOut : 0,
-		pageSize : 5
-	});
-
-	$('#table').on('click-row.bs.table', function(item, $element, field) {
-		$.each(field, function() {
-			$('.text-danger').removeClass('text-danger');
-			$('.font-weight-bold').removeClass('font-weight-bold');
-			$(this).addClass("text-danger font-weight-bold");
-		});
-		$('form').attr('action', "rest/project/edit/" + $element.id);
-		$.each($element, function(index, row) {
-			$('input[name="txt_' + index + '"]').val(row);
-			alert(row);
-		});
-	});
-
 	var today = new Date();
 	$('#startAt').datepicker({
 		uiLibrary : 'bootstrap',
@@ -41,7 +23,41 @@
 		}
 	});
 
+	var dataJson;
+	$.getJSON("rest/project/get-all", function(data) {
+		dataJson = data;
+		$.each(data, function(i, value) {
+			$("#list").append(
+					'<li class="list-group-item"><span class="badge badge-secondary">'
+							+ value.id + '</span> ' + value.name + '</li>');
+		});
+	})
+
 	$(document).ready(function() {
+
+		$('#list li').click(function() {
+			var i = $(this).index();
+			$('form').attr('action', "rest/project/edit/" + dataJson[i].id);
+			$.each(dataJson[i], function(key, value) {
+				$('input[name="txt_' + key + '"]').val(value);
+			});
+			$('#list li').removeClass('active');
+			$(this).addClass('active');
+		});
+
+		$("#search").keyup(function() {
+			var filter;
+			filter = $("#search").val().toLowerCase(); // get search input
+
+			// Just a shorter version
+			$('#list li').hide().has(':contains(' + filter + ')').show();
+
+			// case insensitive searching with animation
+			$("#list li").slideUp().filter(function() {
+				return $(this).text().toLowerCase().indexOf(filter) > -1
+			}).stop(true).fadeIn();
+		});
+
 		$("form").submit(function() {
 			$.ajax({
 				url : $(this).attr('action'), // url where to submit the request

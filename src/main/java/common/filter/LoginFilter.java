@@ -21,7 +21,7 @@ import model.repo.UserRepo;
 /**
  * Servlet Filter implementation class LoginFiter
  */
-@WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*", "/rest/*" })
+@WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*"/*, "/rest/*"*/ })
 public class LoginFilter implements Filter {
 
 	private UserRepo userRepo;

@@ -63,8 +63,7 @@
 								<th>Task 1</th>
 								<th>Task 2</th>
 								<th>Task 3</th>
-								<th data-field="date" data-sortable="true"
-									data-formatter="formatDate" data-events="actionEvents">Date</th>
+								<th data-field="date" data-sortable="true">Date</th>
 							</tr>
 						</thead>
 					</table>

@@ -10,7 +10,7 @@
 	<!-- /.header -->
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="sidebar.jsp" />
+		<jsp:include page="../layout/sidebar.jsp" />
 		<div class="col-9">
 			<div id="list-report" class="list-report">
 				<div class="box">
@@ -18,7 +18,7 @@
 						<div class="box-body">
 							<div class="row">
 								<div class="col-10">
-								
+
 									<div class="form-group row">
 										<label for="projectCode" class="col-3 col-form-label">Project
 											code</label>
@@ -31,7 +31,7 @@
 											</select>
 										</div>
 									</div>
-									
+
 									<div class="form-group row">
 										<label for="taskCode" class="col-3 col-form-label">Task
 											code</label>
@@ -43,7 +43,7 @@
 											</select>
 										</div>
 									</div>
-									
+
 									<div class="form-group row">
 										<label for="timeWork" class="col-3 col-form-label">Time
 											work</label>

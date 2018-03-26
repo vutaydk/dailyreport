@@ -16,13 +16,10 @@
 	var today = new Date(new Date().getFullYear(), new Date().getMonth(),
 			new Date().getDate());
 	$('#startAt').datepicker({
+		change : onChange,
 		uiLibrary : 'bootstrap',
 		iconsLibrary : 'fontawesome',
 		format : 'dd/mm/yyyy',
-		minDate : today,
-		maxDate : function() {
-			return $('#finishAt').val();
-		},
 		icons : {
 			rightIcon : '<i class="far fa-calendar-alt"></i>'
 		}
@@ -32,11 +29,27 @@
 		uiLibrary : 'bootstrap',
 		format : 'dd/mm/yyyy',
 		iconsLibrary : 'fontawesome',
-		minDate : function() {
-			return $('#startAt').val();
-		},
 		icons : {
 			rightIcon : '<i class="far fa-calendar-alt"></i>'
 		}
+	});
+
+	function onChange() {
+		var filter;
+		filter = $("#startAt").val().toLowerCase(); // get search input
+
+		// Just a shorter version
+		$('tbody tr').hide().has(':contains(' + filter + ')').show();
+
+		// case insensitive searching with animation
+		$("tbody tr").slideUp().filter(function() {
+			return $(this).text().toLowerCase().indexOf(filter) > -1
+		}).stop(true).show();
+	}
+
+	$(document).ready(function() {
+		$("#startAt").keyup(function() {
+			onChange();
+		});
 	});
 </script>

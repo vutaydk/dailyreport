@@ -14,6 +14,10 @@ public class Format {
 	}
 
 	public static Date toDate(String str) {
+
+		if (str == null)
+			return null;
+
 		Date date = null;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		try {
@@ -22,6 +26,21 @@ public class Format {
 			e.printStackTrace();
 		}
 		return date;
+	}
+
+	public static String toDate(Date date) {
+
+		if (date == null)
+			return null;
+
+		String str = null;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			str = dateFormat.format(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return str;
 	}
 
 	public static String timeFb(Date date) {

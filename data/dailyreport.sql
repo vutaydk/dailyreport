@@ -92,14 +92,13 @@ CREATE TABLE tasks (
 );
 GO
 
--- CREATE TABLE TASK_DETAILS
-CREATE TABLE task_details (
+-- CREATE TABLE REPORT_DETAILS
+CREATE TABLE report_details (
     id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	time_worked time(7),
 	note nvarchar(500),
-    task_id int FOREIGN KEY REFERENCES tasks(id),
 	report_id int FOREIGN KEY REFERENCES reports(id),
-    user_id int FOREIGN KEY REFERENCES users(id),
+    task_id int FOREIGN KEY REFERENCES tasks(id),
     created_at datetime,
     updated_at datetime
 );
@@ -115,7 +114,7 @@ VALUES ('Quan Ly', 2);
 INSERT INTO rights(name, level)
 VALUES ('Truong Nhom', 3);
 
--- INSERT INTO USERS
+-- INSERT INTO USER
 INSERT INTO users(employee_code, password, rights, email, name)
 VALUES ('hanh', '1111', 1, 'hanh.cho.do@gmail.com', 'Nguyen Hanh');
 INSERT INTO users(employee_code, password, email, name)
@@ -136,3 +135,31 @@ INSERT INTO departments(department_code, name)
 VALUES ('jd28', 'Phong ban 2');
 INSERT INTO departments(department_code, name)
 VALUES ('1jk0', 'Phong ban 3');
+
+-- INSERT INTO TASK
+INSERT INTO tasks(task_code, name)
+VALUES ('aksd', 'Task 1');
+INSERT INTO tasks(task_code, name)
+VALUES ('kgtd', 'Task 2');
+INSERT INTO tasks(task_code, name)
+VALUES ('mnyt', 'Task 3');
+
+-- INSERT INTO REPORT
+INSERT INTO reports(project_id, user_id)
+VALUES (1, 1);
+INSERT INTO reports(project_id, user_id)
+VALUES (2, 1);
+INSERT INTO reports(project_id, user_id)
+VALUES (2, 2);
+INSERT INTO reports(project_id, user_id)
+VALUES (3, 2);
+
+-- INSERT INTO REPORT_DETAIL
+INSERT INTO report_details(report_id, task_id, note)
+VALUES (1, 1, 'NOTE 1');
+INSERT INTO report_details(report_id, task_id, note)
+VALUES (1, 2, 'NOTE 2');
+INSERT INTO report_details(report_id, task_id, note)
+VALUES (2, 2, 'NOTE 3');
+INSERT INTO report_details(report_id, task_id, note)
+VALUES (2, 3, 'NOTE 5');

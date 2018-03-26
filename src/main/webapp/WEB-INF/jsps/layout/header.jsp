@@ -23,11 +23,11 @@
 
 <!-- jQuery -->
 <script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/jquery.validation.js"></script>
 
 <!-- gijgo JS -->
 <script src="js/gijgo.min.js" type="text/javascript"></script>
 
+<!-- Bootstrap table -->
 <link rel="stylesheet" href="css/bootstrap-table.css">
 <script src="js/bootstrap-table.js"></script>
 <script src="js/bootstrap-table-vi-VN.js"></script>

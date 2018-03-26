@@ -43,8 +43,8 @@ public class ProjectLogic extends ErrorMap {
 			project.put("id", p.getId());
 			project.put("projectCode", p.getProjectCode());
 			project.put("name", p.getName());
-			project.put("startAt", p.getStartAt());
-			project.put("finishAt", p.getFinishAt());
+			project.put("startAt", Format.toDate(p.getStartAt()));
+			project.put("finishAt", Format.toDate(p.getFinishAt()));
 			list.add(project);
 		}
 		return list;

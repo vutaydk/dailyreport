@@ -57,6 +57,6 @@ public class Report {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "report")
-	private Set<TaskDetail> taskDetails = new HashSet<>(0);
+	private Set<ReportDetail> reportDetails = new HashSet<>(0);
 
 }
