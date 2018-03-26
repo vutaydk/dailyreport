@@ -95,7 +95,7 @@ GO
 -- CREATE TABLE REPORT_DETAILS
 CREATE TABLE report_details (
     id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	time_worked time(7),
+	time_worked float,
 	note nvarchar(500),
 	report_id int FOREIGN KEY REFERENCES reports(id),
     task_id int FOREIGN KEY REFERENCES tasks(id),
@@ -123,9 +123,9 @@ VALUES ('giaduc', '1111', 'giaduc@gmail.com', 'Gia Duc');
 -- INSERT INTO PROJECT
 INSERT INTO projects(project_code, name, start_at, finish_at)
 VALUES ('abc3', 'Du an 1', CAST(N'2018-03-25' AS DateTime), CAST(N'2018-03-30' AS DateTime));
-INSERT INTO projects(project_code, name)
+INSERT INTO projects(project_code, name, start_at, finish_at)
 VALUES ('f6c1', 'Du an 2', CAST(N'2018-03-25' AS DateTime), CAST(N'2018-03-30' AS DateTime));
-INSERT INTO projects(project_code, name)
+INSERT INTO projects(project_code, name, start_at, finish_at)
 VALUES ('gbg8', 'Du an 3', CAST(N'2018-03-25' AS DateTime), CAST(N'2018-03-30' AS DateTime));
 
 -- INSERT INTO DEPARTMENT
@@ -155,11 +155,11 @@ INSERT INTO reports(project_id, user_id, created_at)
 VALUES (3, 2, CAST(N'2018-03-26' AS DateTime));
 
 -- INSERT INTO REPORT_DETAIL
-INSERT INTO report_details(report_id, task_id, note)
-VALUES (1, 1, 'NOTE 1');
-INSERT INTO report_details(report_id, task_id, note)
-VALUES (1, 2, 'NOTE 2');
-INSERT INTO report_details(report_id, task_id, note)
-VALUES (2, 2, 'NOTE 3');
-INSERT INTO report_details(report_id, task_id, note)
-VALUES (2, 3, 'NOTE 5');
+INSERT INTO report_details(report_id, task_id, time_worked, note)
+VALUES (1, 1, 5, 'NOTE 1');
+INSERT INTO report_details(report_id, task_id, time_worked, note)
+VALUES (1, 2, 5, 'NOTE 2');
+INSERT INTO report_details(report_id, task_id, time_worked, note)
+VALUES (2, 2, 5, 'NOTE 3');
+INSERT INTO report_details(report_id, task_id, time_worked, note)
+VALUES (2, 3, 5, 'NOTE 5');

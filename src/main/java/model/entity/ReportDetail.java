@@ -37,9 +37,8 @@ public class ReportDetail {
 	@JoinColumn(name = "task_id")
 	private Task task;
 
-	@Temporal(TemporalType.TIME)
-	@Column(name = "time_worked", length = 16)
-	private Date timeWorked;
+	@Column(name = "time_worked")
+	private Float timeWorked;
 
 	@Column(name = "note")
 	private String note;
