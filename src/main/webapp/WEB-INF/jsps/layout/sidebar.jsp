@@ -17,16 +17,13 @@
 <script>
 	$(function() {
 		$("#search-bar").keyup(function() {
-			var filter = $(this).val().toLowerCase(); // get search input
+			var filter = locdau($(this).val().replace(/\s+/g, '')); // get search input
 
 			var $listBar = $("#list-bar").find("li");
 
-			// Just a shorter version
-			$listBar.hide().has(':contains(' + filter + ')').show();
-
 			// case insensitive searching with animation
-			$listBar.slideUp().filter(function() {
-				return $(this).text().toLowerCase().indexOf(filter) > -1
+			$listBar.hide().filter(function() {
+				return locdau($(this).text().replace(/\s+/g, '')).search(new RegExp(filter, "i")) > -1
 			}).stop(true).fadeIn();
 		});
 	});
