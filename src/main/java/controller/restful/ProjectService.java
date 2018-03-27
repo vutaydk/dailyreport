@@ -22,6 +22,13 @@ public class ProjectService {
 		return Format.toJson(ProjectLogic.getJson());
 	}
 
+	@GET
+	@Path("get-chart")
+	@Produces("application/json")
+	public String getForChart() {
+		return Format.toJson(ProjectLogic.getJsonForChart());
+	}
+
 	@POST
 	@Path("add")
 	@Produces("application/json")

@@ -10,6 +10,8 @@ import common.util.Format;
 import lombok.Getter;
 import model.business.ErrorMap;
 import model.entity.Project;
+import model.entity.Report;
+import model.entity.ReportDetail;
 import model.repo.ProjectRepo;
 
 public class ProjectLogic extends ErrorMap {
@@ -45,6 +47,28 @@ public class ProjectLogic extends ErrorMap {
 			project.put("name", p.getName());
 			project.put("startAt", Format.toDate(p.getStartAt()));
 			project.put("finishAt", Format.toDate(p.getFinishAt()));
+			list.add(project);
+		}
+		return list;
+	}
+
+	public static List<Object> getJsonForChart() {
+		List<Object> list = new ArrayList<>();
+		for (Project p : ProjectRepo.model.getAll()) {
+			HashMap<String, Object> project = new HashMap<>();
+			project.put("id", p.getId());
+			project.put("name", p.getName());
+			List<Object> reports = new ArrayList<>();
+			for (Report r : p.getReports()) {
+				for (ReportDetail rd : r.getReportDetails()) {
+					HashMap<String, Object> reportDetail = new HashMap<>();
+					reportDetail.put("taskId", rd.getTask().getId());
+					reportDetail.put("taskName", rd.getTask().getName());
+					reportDetail.put("timeWorked", rd.getTimeWorked());
+					reports.add(reportDetail);
+				}
+			}
+			project.put("reports", reports);
 			list.add(project);
 		}
 		return list;
