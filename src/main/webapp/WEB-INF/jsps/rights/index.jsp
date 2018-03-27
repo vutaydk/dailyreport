@@ -13,8 +13,8 @@
 		<jsp:include page="../layout/sidebar.jsp" />
 		<div class="col-9" id="report-list">
 			<div class="box">
-				<form action="rest/rights/add" method="post">
-					<div class="box-body">
+				<div class="box-body">
+					<form action="rest/rights/add" method="post">
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Name</label>
 							<div class="col-6">
@@ -36,8 +36,8 @@
 									onclick="location.reload();">Reset</button>
 							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 		<!-- ./create-project form -->
