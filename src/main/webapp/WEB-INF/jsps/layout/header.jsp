@@ -35,6 +35,6 @@
 <script src="js/Chart.js"></script>
 </head>
 
-<body>
+<body class="w-wrap">
 	<%-- import message --%>
 	<jsp:include page="message.jsp" />

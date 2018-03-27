@@ -10,15 +10,15 @@
 						+ value.id + '</span> ' + value.name + '</li>');
 	});
 
-	$(document).ready(function() {
-
-		$('#list li').click(function() {
+	$(function() {
+		var $listItem = $("#list").find("li");
+		$listItem.click(function() {
 			var i = $(this).index();
 			$('form').attr('action', "rest/task/edit/" + dataJson[i].id);
 			$.each(dataJson[i], function(key, value) {
 				$('input[name="txt_' + key + '"]').val(value);
 			});
-			$('#list li').removeClass('active');
+			$listItem.removeClass('active');
 			$(this).addClass('active');
 		});
 
@@ -27,10 +27,10 @@
 			filter = $("#search").val().toLowerCase(); // get search input
 
 			// Just a shorter version
-			$('#list li').hide().has(':contains(' + filter + ')').show();
+			$listItem.hide().has(':contains(' + filter + ')').show();
 
 			// case insensitive searching with animation
-			$("#list li").slideUp().filter(function() {
+			$listItem.slideUp().filter(function() {
 				return $(this).text().toLowerCase().indexOf(filter) > -1
 			}).stop(true).fadeIn();
 		});
