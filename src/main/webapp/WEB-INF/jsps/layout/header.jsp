@@ -12,27 +12,27 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 
-<!-- Custom CSS -->
-<link rel="stylesheet" href="css/style.css" />
-
 <!-- Font Awesome -->
 <link rel="stylesheet" href="css/fontawesome-all.css" />
 
 <!-- gijgo CSS -->
 <link href="css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<!-- gijgo JS -->
+<script src="js/gijgo.min.js" type="text/javascript"></script>
 
 <!-- jQuery -->
 <script src="js/jquery-3.3.1.min.js"></script>
-
-<!-- gijgo JS -->
-<script src="js/gijgo.min.js" type="text/javascript"></script>
 
 <!-- Bootstrap table -->
 <link rel="stylesheet" href="css/bootstrap-table.css">
 <script src="js/bootstrap-table.js"></script>
 <script src="js/bootstrap-table-vi-VN.js"></script>
 
+<!-- Chart -->
 <script src="js/Chart.js"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body class="w-wrap">

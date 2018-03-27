@@ -14,4 +14,20 @@
 		</ul>
 	</div>
 </div>
+<script>
+	$(function() {
+		var $listItem = $("#list").find("li");
+		$("#search").keyup(function() {
+			var filter = $("#search").val().toLowerCase(); // get search input
+
+			// Just a shorter version
+			$listItem.hide().has(':contains(' + filter + ')').show();
+
+			// case insensitive searching with animation
+			$listItem.slideUp().filter(function() {
+				return $(this).text().toLowerCase().indexOf(filter) > -1
+			}).stop(true).fadeIn();
+		});
+	});
+</script>
 <!-- ./sidebar -->

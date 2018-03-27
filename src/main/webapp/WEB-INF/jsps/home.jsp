@@ -3,10 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%-- import header --%>
 <jsp:include page="layout/header.jsp" />
+
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="layout/nav-header.jsp" />
-	<!-- /.header -->
+
 	<div class="row">
 		<div class="col-12">
 			<div class="box">
@@ -58,7 +59,6 @@
 						</tfoot>
 					</table>
 				</div>
-				<!-- ./add-project form -->
 			</div>
 		</div>
 	</div>

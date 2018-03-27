@@ -4,14 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
+
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
+
 	<div class="row">
 		<div class="col-12">
 			<div class="box">
 				<div class="box-body">
 					<form action="" method="post" class="mb-3">
+
 						<div class="form-row">
 							<div class="col-5">
 								<div class="row">
@@ -22,6 +25,7 @@
 									</div>
 								</div>
 							</div>
+
 							<div class="col-5">
 								<div class="row">
 									<label for="finishAt" class="col-3 col-form-label">Finish
@@ -31,6 +35,7 @@
 									</div>
 								</div>
 							</div>
+
 							<div class="col">
 								<input type="button" value="Process"
 									class="btn btn-outline-dark">
@@ -38,6 +43,7 @@
 						</div>
 						<div class="form-row mt-3">
 							<div class="col-4">
+
 								<div class="input-group">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
@@ -49,9 +55,11 @@
 									<input id="employeeSearch" type="text" class="form-control"
 										placeholder="Select employee">
 								</div>
+
 								<div class="result list-group"></div>
 							</div>
 						</div>
+
 					</form>
 					<table id="table" data-url="rest/report/get-all"
 						data-sort-name="id">
