@@ -47,9 +47,43 @@
 		}).stop(true).show();
 	}
 
-	$(document).ready(function() {
-		$("#startAt").keyup(function() {
+	$(function() {
+		
+		
+		// on result item click
+		function onItemClick(){
+			$("div").find(".result").html("");
+			 console.log($(this).text());
+			 $("#employeeSearch").val($(this).text());
+		}
+		
+		// employee search
+		$("#employeeSearch").keyup(function(){
+			var $searchInput, $resultContainer;
+			
+			$searchInput = $("#employeeSearch").val().toLowerCase(); // get search input
+			$resultContainer = $("div").find(".result");
+			$resultContainer.html("");
+			
+			$.getJSON("rest/report/get-all", function(data) {
+				$(data).each(function(key, value){
+					if(value.employeeName.toLowerCase().search($searchInput) != -1){
+						$resultContainer.append('<li class="list-group-item list-group-item-action">'+ value.employeeName +'</li>');
+					}
+				});
+			});
+			
+		});
+		
+		$("#employeeSearch").change(function() {
+			console.log($(this).val());
+		});
+		
+		 $('.result').on('click', 'li', onItemClick);
+		 
+		 $("#startAt").keyup(function() {
 			onChange();
 		});
+		
 	});
 </script>

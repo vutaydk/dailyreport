@@ -46,9 +46,10 @@
 											</button>
 										</div>
 									</div>
-									<input type="text" class="form-control"
+									<input id="employeeSearch" type="text" class="form-control"
 										placeholder="Select employee">
 								</div>
+								<div class="result list-group"></div>
 							</div>
 						</div>
 					</form>
