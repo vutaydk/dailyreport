@@ -1,7 +1,20 @@
 <script>
 	$('#table').bootstrapTable({
 		searchTimeOut : 0,
-		pageSize : 5
+		pageSize : 5,
+		search : true,
+		showToggle : true,
+		showRefresh : true,
+		showColumns : true,
+		sortOrder : 'desc',
+		pagination : true,
+		iconsPrefix : 'fa',
+		icons : {
+			toggle : 'fas fa-list-alt',
+			refresh : 'fas fa-sync',
+			paginationSwitchUp : 'fas fa-sort-up',
+			paginationSwitchDown : 'fas fa-sort-down',
+		}
 	});
 
 	function formatDate(date) {
