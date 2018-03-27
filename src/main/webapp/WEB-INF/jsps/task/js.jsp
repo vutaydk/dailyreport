@@ -1,12 +1,13 @@
 <script>
-	var dataJson;
-	$.getJSON("rest/task/get-all", function(data) {
-		dataJson = data;
-		$.each(data, function(i, value) {
-			$("#list").append(
-					'<li class="list-group-item"><span class="badge badge-secondary">'
-							+ value.id + '</span> ' + value.name + '</li>');
-		});
+	var dataJson = JSON.parse($.getJSON({
+		'url' : "rest/task/get-all",
+		'async' : false
+	}).responseText);
+
+	$.each(dataJson, function(i, value) {
+		$("#list").append(
+				'<li class="list-group-item"><span class="badge badge-secondary">'
+						+ value.id + '</span> ' + value.name + '</li>');
 	});
 
 	$(document).ready(function() {
@@ -53,6 +54,7 @@
 							})
 					}
 				},
+
 				error : function() {
 					alert("error");
 					location.reload();

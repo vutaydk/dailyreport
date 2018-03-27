@@ -1,13 +1,14 @@
 <script>
-	var dataJson;
-	$.getJSON("rest/rights/get-all", function(data) {
-		dataJson = data;
-		$.each(data, function(i, value) {
-			$("#list").append(
-					'<li class="list-group-item"><span class="badge badge-secondary">'
-							+ value.id + '</span> ' + value.name + '</li>');
-		});
-	})
+	var dataJson = JSON.parse($.getJSON({
+		'url' : "rest/rights/get-all",
+		'async' : false
+	}).responseText);
+
+	$.each(dataJson, function(i, value) {
+		$("#list").append(
+				'<li class="list-group-item"><span class="badge badge-secondary">'
+						+ value.id + '</span> ' + value.name + '</li>');
+	});
 
 	$(document).ready(function() {
 
