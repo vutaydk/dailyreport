@@ -43,19 +43,15 @@
 						</div>
 						<div class="form-row mt-3">
 							<div class="col-4">
-
 								<div class="input-group">
 									<div class="input-group-prepend">
-										<div class="input-group-text">
-											<button class="btn btn-default" type="button">
-												<i class="fas fa-user-plus"></i>
-											</button>
-										</div>
+										<button class="btn btn-outline-secondary" type="button">
+											<i class="fas fa-user-plus"></i>
+										</button>
 									</div>
 									<input id="employeeSearch" type="text" class="form-control"
 										placeholder="Select employee">
 								</div>
-
 								<div class="result list-group"></div>
 							</div>
 						</div>

@@ -55,11 +55,9 @@
 								<div class="input-group">
 									<input type="text" class="form-control">
 									<div class="input-group-prepend">
-										<div class="input-group-text">
-											<button class="btn btn-default" type="button">
-												<i class="fas fa-search"></i>
-											</button>
-										</div>
+										<button class="btn btn-outline-secondary" type="button">
+											<i class="fas fa-search"></i>
+										</button>
 									</div>
 								</div>
 							</div>

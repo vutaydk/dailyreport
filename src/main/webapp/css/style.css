@@ -118,3 +118,11 @@ body {
    box-sizing: border-box;
    z-index: 1001;
   }
+
+.form-control {
+	
+}
+  
+.form-control:focus {
+	box-shadow: none !important;
+}
