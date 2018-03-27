@@ -18,7 +18,7 @@
 			$.each(dataJson[i], function(key, value) {
 				$('input[name="txt_' + key + '"]').val(value);
 			});
-			$(this).removeClass('active');
+			$listBar.removeClass('active');
 			$(this).addClass('active');
 		});
 	});
