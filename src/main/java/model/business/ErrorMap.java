@@ -7,7 +7,7 @@ import lombok.Getter;
 public class ErrorMap {
 
 	/**
-	 * Variable error value
+	 * Variable errors
 	 */
 	@Getter
 	private HashMap<String, String> errorMap = new HashMap<>();

@@ -21,7 +21,7 @@ public class RightsLogic extends ErrorMap {
 	private Optional<Rights> rights = Optional.empty();
 
 	/**
-	 * Contructer
+	 * Constructor
 	 * 
 	 * @param entity
 	 */
@@ -68,7 +68,7 @@ public class RightsLogic extends ErrorMap {
 			setError("txt_name", "Name length is too short (requires 6 characters).");
 			bool = false;
 		}
-		
+
 		return bool;
 	}
 

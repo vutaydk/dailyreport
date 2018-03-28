@@ -23,7 +23,7 @@ public class ReportLogic extends ErrorMap {
 	private Optional<Report> report = Optional.empty();
 
 	/**
-	 * Contructer
+	 * Constructor
 	 * 
 	 * @param entity
 	 */

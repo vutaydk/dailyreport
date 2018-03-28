@@ -25,7 +25,7 @@ public class ProjectLogic extends ErrorMap {
 	private Optional<Project> project = Optional.empty();
 
 	/**
-	 * Contructer
+	 * Constructor
 	 * 
 	 * @param entity
 	 */
@@ -52,6 +52,11 @@ public class ProjectLogic extends ErrorMap {
 		return list;
 	}
 
+	/**
+	 * Get Json for Chart
+	 * 
+	 * @return List
+	 */
 	public static List<Object> getJsonForChart() {
 		List<Object> list = new ArrayList<>();
 		for (Project p : ProjectRepo.model.getAll()) {

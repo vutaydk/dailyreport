@@ -21,7 +21,7 @@ public class TaskLogic extends ErrorMap {
 	private Optional<Task> task = Optional.empty();
 
 	/**
-	 * Contructer
+	 * Constructor
 	 * 
 	 * @param entity
 	 */
@@ -63,7 +63,7 @@ public class TaskLogic extends ErrorMap {
 	 */
 	public boolean isValidData() {
 		boolean bool = true;
-		
+
 		if (entity.getTaskCode() == null || entity.getTaskCode().length() != 4) {
 			setError("txt_taskCode", "Task Code length must be 4 characters.");
 			bool = false;
@@ -73,7 +73,7 @@ public class TaskLogic extends ErrorMap {
 			setError("txt_name", "Name length is too short (requires 6 characters).");
 			bool = false;
 		}
-		
+
 		return bool;
 	}
 
