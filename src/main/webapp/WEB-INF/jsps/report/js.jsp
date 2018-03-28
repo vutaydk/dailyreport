@@ -1,10 +1,10 @@
 <script>
-	$('#startAt').change(function() {
+	$("#startAt").change(function() {
 		$data = $(this).val();
-		$('#finishAt').datepicker('setStartDate', $data);
+		$("#finishAt").datepicker('setStartDate', $data);
 	});
 
-	$('#table').bootstrapTable({
+	$("#table").bootstrapTable({
 		searchTimeOut : 0,
 		pageSize : 5,
 		search : true,
@@ -24,69 +24,48 @@
 		}
 	});
 
-	var dataJson = JSON.parse($.getJSON({
-		'url' : "rest/report/get-all",
-		'async' : false
-	}).responseText);
-
-	var arrayName = [];
-	$.each(dataJson, function(key, value) {
-		if ($.inArray(value.employeeName, arrayName) === -1) {
-			arrayName.push(value.employeeName);
-		}
-	});
+	var arrayName = {};
+	var dataJson = (function() {
+		var json = null;
+		$.ajax({
+			'async' : false,
+			'global' : false,
+			'url' : "rest/report/get-all",
+			'dataType' : "json",
+			'success' : function(data) {
+				json = data;
+				$.each(data, function(i, value) {
+					arrayName[value.employeeCode] = value.employeeName;
+				});
+			}
+		});
+		return json;
+	})();
 
 	$(function() {
-		/* $("#employeeSearch")
-				.keyup(
-						function() {
-							var $searchInput, $resultContainer;
-
-							$searchInput = $("#employeeSearch").val()
-									.toLowerCase(); // get search input
-							$resultContainer = $("div").find(".result");
-							$resultContainer.html("");
-
-							$(arrayName)
-									.each(
-											function(key, value) {
-												if (value.toLowerCase().search(
-														$searchInput) != -1) {
-													$resultContainer
-															.append('<li class="list-group-item list-group-item-action">'
-																	+ value
-																	+ '</li>');
-												}
-											});
-						});
-
-		$('.result').on('click', 'li', function() {
-			$(".result").html("");
-			var itemValue = $(this).text();
-			$("#employeeSearch").val(itemValue);
-			$("#table").bootstrapTable('filterBy', {
-				employeeName : [ itemValue ]
+		$("#employeeSearch").keyup(function() {
+			var filter = {}, val = locdau($(this).val().replace(/\s+/g, ''));
+			$.each(arrayName, function(key, value) {
+				if (locdau(value.replace(/\s+/g, '')) === val) {
+					filter = {
+						employeeCode : key
+					};
+					return false;
+				}
 			});
-		}); */
-
-		$('#employeeSearch').keyup(function() {
-			var filter = {}, val = $(this).val();
-			if (!jQuery.isEmptyObject(val)) {
-				filter = {
-					employeeName : val
-				};
-			}
-			$('#table').bootstrapTable('filterBy', filter);
+			setTimeout(function() {
+				$("#table").bootstrapTable('filterBy', filter)
+			}, 100);
 		});
 
-		$('#startAt').change(function() {
+		$("#startAt").change(function() {
 			var filter = {}, val = $(this).val();
 			if (!jQuery.isEmptyObject(val)) {
 				filter = {
 					date : val
 				};
 			}
-			$('table').bootstrapTable('filterBy', filter);
+			$("table").bootstrapTable('filterBy', filter);
 		});
 	});
 </script>

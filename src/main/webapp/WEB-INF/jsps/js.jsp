@@ -66,8 +66,7 @@
 	});
 
 	function update_chart(projects) {
-		$("#dr_task").empty();
-		$("#dr_task").append('<option value="0">Select all task...</option>');
+		$("#dr_task").empty().append('<option value="0">Select all task...</option>');
 		var task = {};
 		$.each(projects, function(i, item) {
 			$.each(item.reports, function(i, item) {
@@ -85,12 +84,17 @@
 			});
 		});
 
-		var taskName = [], taskTime = [];
+		var taskName = [], taskTime = [], total = 0;
+		$tbody = $("table tbody").empty();
+		$tfoot = $("table tfoot").empty();
 		$.each(task, function(i, item) {
-
+			$tbody.append('<tr><td>' + item[0] + '</td><td>' + item[1]
+					+ '</td></tr>');
 			taskName.push(item[0]);
 			taskTime.push(item[1]);
+			total += item[1];
 		});
+		$tfoot.append('<tr><td>Total</td> <td>' + total + '</td></tr>');
 		myChart.data.labels = taskName;
 		myChart.data.datasets[0].data = taskTime;
 		myChart.update();

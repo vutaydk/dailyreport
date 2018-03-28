@@ -42,20 +42,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Coding</td>
-								<td>10</td>
-							</tr>
-							<tr>
-								<td>Testing</td>
-								<td>10</td>
-							</tr>
 						</tbody>
 						<tfoot>
-							<tr>
-								<td>Total</td>
-								<td>20</td>
-							</tr>
 						</tfoot>
 					</table>
 				</div>
