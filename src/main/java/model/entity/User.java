@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -61,5 +62,8 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Report> reportsForUserId = new HashSet<>(0);
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	private DepartmentDetail departmentDetail;
 
 }

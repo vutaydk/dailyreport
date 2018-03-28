@@ -35,11 +35,11 @@ public class DepartmentDetail {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department_id", nullable = false)
-	private Department departments;
+	private Department department;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
-	private User users;
+	private User user;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", length = 16)
