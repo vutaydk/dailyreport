@@ -31,20 +31,27 @@
 	var myChart = new Chart(ctx, data);
 
 	// get json
-	var dataJson = JSON.parse($.getJSON({
-		'url' : "rest/project/get-chart",
-		'async' : false
-	}).responseText);
-
-	update_chart(dataJson);
-
-	$.each(dataJson, function(i, item) {
-		if (!jQuery.isEmptyObject(item.reports)) {
-			$("#dr_project").append(
-					'<option value="' + item.id + '">' + item.name
-							+ '</option>');
-		}
-	});
+	var dataJson = (function() {
+		var json = null;
+		$.ajax({
+			'async' : false,
+			'global' : false,
+			'url' : "rest/project/get-chart",
+			'dataType' : "json",
+			'success' : function(data) {
+				json = data;
+				update_chart(data);
+				$.each(data, function(i, item) {
+					if (!jQuery.isEmptyObject(item.reports)) {
+						$("#dr_project").append(
+								'<option value="' + item.id + '">' + item.name
+										+ '</option>');
+					}
+				});
+			}
+		});
+		return json;
+	})();
 
 	$("#dr_project").change(function() {
 		var selected = this.value;
@@ -80,6 +87,7 @@
 
 		var taskName = [], taskTime = [];
 		$.each(task, function(i, item) {
+
 			taskName.push(item[0]);
 			taskTime.push(item[1]);
 		});

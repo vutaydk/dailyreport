@@ -1,16 +1,25 @@
 <script>
-	var dataJson = JSON.parse($.getJSON({
-		'url' : "rest/rights/get-all",
-		'async' : false
-	}).responseText);
+	var dataJson = (function() {
+		var json = null;
+		$.ajax({
+			'async' : false,
+			'global' : false,
+			'url' : "rest/rights/get-all",
+			'dataType' : "json",
+			'success' : function(data) {
+				json = data;
+				$.each(data, function(i, value) {
+					$("#list-bar").append(
+							'<li class="list-group-item"><span class="badge badge-secondary">'
+									+ value.id + '</span> ' + value.name
+									+ '</li>');
+				});
+			}
+		});
+		return json;
+	})();
 
 	$(function() {
-		$.each(dataJson, function(i, value) {
-			$("#list-bar").append(
-					'<li class="list-group-item"><span class="badge badge-secondary">'
-							+ value.id + '</span> ' + value.name + '</li>');
-		});
-
 		var $listBar = $("#list-bar").find("li");
 		$listBar.click(function() {
 			var i = $(this).index();

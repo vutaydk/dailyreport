@@ -1,21 +1,30 @@
 <script>
-	$('#startAt').change(function() {
+	$("#startAt").change(function() {
 		$data = $(this).val();
-		$('#finishAt').datepicker('setStartDate', $data);
+		$("#finishAt").datepicker('setStartDate', $data);
 	});
 
-	var dataJson = JSON.parse($.getJSON({
-		'url' : "rest/project/get-all",
-		'async' : false
-	}).responseText);
+	var dataJson = (function() {
+		var json = null;
+		$.ajax({
+			'async' : false,
+			'global' : false,
+			'url' : "rest/project/get-all",
+			'dataType' : "json",
+			'success' : function(data) {
+				json = data;
+				$.each(data, function(i, value) {
+					$("#list-bar").append(
+							'<li class="list-group-item"><span class="badge badge-secondary">'
+									+ value.id + '</span> ' + value.name
+									+ '</li>');
+				});
+			}
+		});
+		return json;
+	})();
 
 	$(function() {
-		$.each(dataJson, function(i, value) {
-			$("#list-bar").append(
-					'<li class="list-group-item"><span class="badge badge-secondary">'
-							+ value.id + '</span> ' + value.name + '</li>');
-		});
-
 		var $listBar = $("#list-bar").find("li");
 		$listBar.click(function() {
 			var i = $(this).index();

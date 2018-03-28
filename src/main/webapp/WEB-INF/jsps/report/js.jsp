@@ -1,114 +1,92 @@
 <script>
-    $('#table').bootstrapTable({
+	$('#startAt').change(function() {
+		$data = $(this).val();
+		$('#finishAt').datepicker('setStartDate', $data);
+	});
+
+	$('#table').bootstrapTable({
 		searchTimeOut : 0,
 		pageSize : 5,
 		search : true,
+		searchTimeOut : 500,
 		showToggle : true,
 		showRefresh : true,
 		showColumns : true,
+		classes : 'table table-no-bordered',
 		sortOrder : 'desc',
 		pagination : true,
 		iconsPrefix : 'fa',
 		icons : {
-		    toggle : 'fas fa-list-alt',
-		    refresh : 'fas fa-sync',
-		    paginationSwitchUp : 'fas fa-sort-up',
-		    paginationSwitchDown : 'fas fa-sort-down',
+			toggle : 'fas fa-list-alt',
+			refresh : 'fas fa-sync',
+			paginationSwitchUp : 'fas fa-sort-up',
+			paginationSwitchDown : 'fas fa-sort-down',
 		}
-    });
+	});
 
-    var dataJson = JSON.parse($.getJSON({
+	var dataJson = JSON.parse($.getJSON({
 		'url' : "rest/report/get-all",
 		'async' : false
-    }).responseText);
+	}).responseText);
 
-    var arrayName = [];
-    $.each(dataJson, function(key, value) {
+	var arrayName = [];
+	$.each(dataJson, function(key, value) {
 		if ($.inArray(value.employeeName, arrayName) === -1) {
-		    arrayName.push(value.employeeName);
+			arrayName.push(value.employeeName);
 		}
-    });
+	});
 
-    function formatDate(date) {
-		date = new Date(date);
-		var day = date.getDate();
-		var month = date.getMonth() + 1;
-		var year = date.getFullYear();
-	
-		return day + '/' + month + '/' + year;
-    }
+	$(function() {
+		/* $("#employeeSearch")
+				.keyup(
+						function() {
+							var $searchInput, $resultContainer;
 
-    var today = new Date(new Date().getFullYear(), new Date().getMonth(),
-	    new Date().getDate());
-    $('#startAt').datepicker({
-		change : onChange,
-		uiLibrary : 'bootstrap',
-		iconsLibrary : 'fontawesome',
-		format : 'dd/mm/yyyy',
-		icons : {
-		    rightIcon : '<i class="far fa-calendar-alt"></i>'
-		}
-    });
+							$searchInput = $("#employeeSearch").val()
+									.toLowerCase(); // get search input
+							$resultContainer = $("div").find(".result");
+							$resultContainer.html("");
 
-    $('#finishAt').datepicker({
-		uiLibrary : 'bootstrap',
-		format : 'dd/mm/yyyy',
-		iconsLibrary : 'fontawesome',
-		icons : {
-		    rightIcon : '<i class="far fa-calendar-alt"></i>'
-		}
-    });
+							$(arrayName)
+									.each(
+											function(key, value) {
+												if (value.toLowerCase().search(
+														$searchInput) != -1) {
+													$resultContainer
+															.append('<li class="list-group-item list-group-item-action">'
+																	+ value
+																	+ '</li>');
+												}
+											});
+						});
 
-    function onChange() {
-		var filter;
-		filter = $("#startAt").val().toLowerCase(); // get search input
-	
-		// Just a shorter version
-		$('tbody tr').hide().has(':contains(' + filter + ')').show();
-	
-		// case insensitive searching with animation
-		$("tbody tr").slideUp().filter(function() {
-		    return $(this).text().toLowerCase().indexOf(filter) > -1
-		}).stop(true).show();
-    }
-
-    $(function() {
-		$("#employeeSearch")
-			.keyup(
-				function() {
-				    var $searchInput, $resultContainer;
-	
-				    $searchInput = $("#employeeSearch").val()
-					    .toLowerCase(); // get search input
-				    $resultContainer = $("div").find(".result");
-				    $resultContainer.html("");
-	
-				    $(arrayName)
-					    .each(
-						    function(key, value) {
-								if (value.toLowerCase().search(
-									$searchInput) != -1) {
-								    $resultContainer
-									    .append('<li class="list-group-item list-group-item-action">'
-										    + value
-										    + '</li>');
-								}
-						    });
-				});
-		
-	
 		$('.result').on('click', 'li', function() {
-		    $(".result").html("");
-		    var itemValue = $(this).text();
-		    $("#employeeSearch").val(itemValue);
-		    $("#table").bootstrapTable('filterBy', {
-				employeeCode : [ "giaduc" ]
-		    });
-		});
-	
-		$("#startAt").keyup(function() {
-		    onChange();
+			$(".result").html("");
+			var itemValue = $(this).text();
+			$("#employeeSearch").val(itemValue);
+			$("#table").bootstrapTable('filterBy', {
+				employeeName : [ itemValue ]
+			});
+		}); */
+
+		$('#employeeSearch').keyup(function() {
+			var filter = {}, val = $(this).val();
+			if (!jQuery.isEmptyObject(val)) {
+				filter = {
+					employeeName : val
+				};
+			}
+			$('#table').bootstrapTable('filterBy', filter);
 		});
 
-    });
+		$('#startAt').change(function() {
+			var filter = {}, val = $(this).val();
+			if (!jQuery.isEmptyObject(val)) {
+				filter = {
+					date : val
+				};
+			}
+			$('table').bootstrapTable('filterBy', filter);
+		});
+	});
 </script>
