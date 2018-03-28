@@ -30,11 +30,11 @@ public class ReportDetail {
 	private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "report_id")
+	@JoinColumn(name = "report_id", nullable = false)
 	private Report report;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "task_id")
+	@JoinColumn(name = "task_id", nullable = false)
 	private Task task;
 
 	@Column(name = "time_worked")
@@ -44,11 +44,11 @@ public class ReportDetail {
 	private String note;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_at", length = 23)
+	@Column(name = "created_at", length = 16)
 	private Date createdAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_at", length = 23)
+	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
 }
