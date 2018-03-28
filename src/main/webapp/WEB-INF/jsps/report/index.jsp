@@ -23,8 +23,7 @@
 									<div class="col-7">
 										<div class="input-group">
 											<input id="startAt" name="txt_startAt" class="form-control"
-												data-provide="datepicker" data-date-format="dd/mm/yyyy"
-												data-date-start-date="0d">
+												data-provide="datepicker" data-date-format="dd/mm/yyyy">
 											<div class="input-group-append">
 												<span class="input-group-text"><i
 													class="far fa-calendar-alt"></i></span>
@@ -41,8 +40,7 @@
 									<div class="col-7">
 										<div class="input-group">
 											<input id="finishAt" name="txt_finishAt" class="form-control"
-												data-provide="datepicker" data-date-format="dd/mm/yyyy"
-												data-date-start-date="0d">
+												data-provide="datepicker" data-date-format="dd/mm/yyyy">
 											<div class="input-group-append">
 												<span class="input-group-text"><i
 													class="far fa-calendar-alt"></i></span>
