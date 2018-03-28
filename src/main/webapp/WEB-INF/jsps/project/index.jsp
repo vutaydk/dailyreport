@@ -54,10 +54,10 @@
 							<div class="col-4">
 								<div class="input-group">
 									<input type="text" class="form-control">
-									<div class="input-group-prepend">
-										<button class="btn btn-outline-secondary" type="button">
+									<div class="input-group-append">
+										<span class="input-group-text">
 											<i class="fas fa-search"></i>
-										</button>
+										</span>
 									</div>
 								</div>
 							</div>

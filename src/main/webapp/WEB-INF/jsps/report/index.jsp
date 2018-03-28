@@ -45,9 +45,9 @@
 							<div class="col-4">
 								<div class="input-group">
 									<div class="input-group-prepend">
-										<button class="btn btn-outline-secondary" type="button">
+										<span class="input-group-text">
 											<i class="fas fa-user-plus"></i>
-										</button>
+										</span>
 									</div>
 									<input id="employeeSearch" type="text" class="form-control"
 										placeholder="Select employee">

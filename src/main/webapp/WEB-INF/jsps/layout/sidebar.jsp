@@ -2,10 +2,10 @@
 	<div class="sidebar p-1">
 		<div class="input-group mb-1">
 			<input id="search-bar" type="text" class="form-control">
-			<div class="input-group-prepend">
-					<button class="btn btn-outline-secondary" type="button">
-						<i class="fas fa-search"></i>
-					</button>
+			<div class="input-group-append">
+				<span class="input-group-text">
+					<i class="fas fa-search"></i>
+				</span>
 			</div>
 		</div>
 		<ul id="list-bar" class="list-group">
