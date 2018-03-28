@@ -8,11 +8,23 @@ import com.google.gson.Gson;
 
 public class Format {
 
+	/**
+	 * Convert an Object to Json type
+	 * 
+	 * @param object
+	 * @return String
+	 */
 	public static String toJson(Object object) {
 		Gson gson = new Gson();
 		return gson.toJson(object);
 	}
 
+	/**
+	 * Convert the String to Date type
+	 * 
+	 * @param str
+	 * @return Date
+	 */
 	public static Date toDate(String str) {
 
 		if (str == null)
@@ -28,6 +40,12 @@ public class Format {
 		return date;
 	}
 
+	/**
+	 * Convert an Date to String type
+	 * 
+	 * @param date
+	 * @return String
+	 */
 	public static String toDate(Date date) {
 
 		if (date == null)
@@ -43,6 +61,12 @@ public class Format {
 		return str;
 	}
 
+	/**
+	 * Convert an Date to the nearest date type
+	 * 
+	 * @param date
+	 * @return String
+	 */
 	public static String timeFb(Date date) {
 
 		Calendar calCurrent = Calendar.getInstance();
