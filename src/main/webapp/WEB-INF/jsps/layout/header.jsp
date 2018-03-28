@@ -23,10 +23,9 @@
 <script src="js/bootstrap-table.js"></script>
 <script src="js/bootstrap-table-vi-VN.js"></script>
 
-<!-- gijgo CSS -->
-<link href="css/gijgo.min.css" rel="stylesheet" type="text/css" />
-<!-- gijgo JS -->
-<script src="js/gijgo.min.js" type="text/javascript"></script>
+<!-- Bootstrap datepicker -->
+<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+<script src="js/bootstrap-datepicker.min.js"></script>
 
 <!-- Chart -->
 <script src="js/Chart.js"></script>

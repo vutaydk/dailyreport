@@ -1,26 +1,7 @@
 <script>
-	var today = new Date();
-	$('#startAt').datepicker({
-		uiLibrary : 'bootstrap',
-		format : 'dd/mm/yyyy',
-		minDate : today,
-		maxDate : function() {
-			return $('#finishAt').val();
-		},
-		icons : {
-			rightIcon : '<i class="far fa-calendar-alt"></i>'
-		}
-	});
-
-	$('#finishAt').datepicker({
-		uiLibrary : 'bootstrap',
-		format : 'dd/mm/yyyy',
-		minDate : function() {
-			return $('#startAt').val();
-		},
-		icons : {
-			rightIcon : '<i class="far fa-calendar-alt"></i>'
-		}
+	$('#startAt').change(function() {
+		$data = $(this).val();
+		$('#finishAt').datepicker('setStartDate', $data);
 	});
 
 	var dataJson = JSON.parse($.getJSON({

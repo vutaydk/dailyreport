@@ -39,13 +39,29 @@
 							<label for="startAt" class="col-2 col-form-label">Start
 								at</label>
 							<div class="col-3">
-								<input id="startAt" name="txt_startAt" class="form-control">
+								<div class="input-group">
+									<input id="startAt" name="txt_startAt" class="form-control"
+										data-provide="datepicker" data-date-format="dd/mm/yyyy"
+										data-date-start-date="0d">
+									<div class="input-group-append">
+										<span class="input-group-text"><i
+											class="far fa-calendar-alt"></i></span>
+									</div>
+								</div>
 							</div>
 							<div class="col"></div>
 							<label for="finishAt" class="col-2 col-form-label">Finish
 								at</label>
 							<div class="col-3">
-								<input id="finishAt" name="txt_finishAt" class="form-control">
+								<div class="input-group">
+									<input id="finishAt" name="txt_finishAt" class="form-control"
+										data-provide="datepicker" data-date-format="dd/mm/yyyy"
+										data-date-start-date="0d">
+									<div class="input-group-append">
+										<span class="input-group-text"><i
+											class="far fa-calendar-alt"></i></span>
+									</div>
+								</div>
 							</div>
 						</div>
 
@@ -55,8 +71,8 @@
 								<div class="input-group">
 									<input type="text" class="form-control">
 									<div class="input-group-append">
-										<span class="input-group-text">
-											<i class="fas fa-search"></i>
+										<span class="input-group-text"> <i
+											class="fas fa-search"></i>
 										</span>
 									</div>
 								</div>
