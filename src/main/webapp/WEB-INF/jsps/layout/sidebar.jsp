@@ -3,8 +3,7 @@
 		<div class="input-group mb-1">
 			<input id="search-bar" type="text" class="form-control">
 			<div class="input-group-append">
-				<span class="input-group-text">
-					<i class="fas fa-search"></i>
+				<span class="input-group-text"> <i class="fas fa-search"></i>
 				</span>
 			</div>
 		</div>

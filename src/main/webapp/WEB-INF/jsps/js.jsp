@@ -31,15 +31,10 @@
 	var myChart = new Chart(ctx, data);
 
 	// get json
-	var dataJson = (function() {
-		var json = null;
-		$.ajax({
-			'async' : false,
-			'global' : false,
-			'url' : "rest/project/get-chart",
-			'dataType' : "json",
-			'success' : function(data) {
-				json = data;
+	$.getJSON("rest/project/get-chart", {
+		'async' : true,
+	}).done(
+			function(data) {
 				update_chart(data);
 				$.each(data, function(i, item) {
 					if (!jQuery.isEmptyObject(item.reports)) {
@@ -48,25 +43,23 @@
 										+ '</option>');
 					}
 				});
-			}
-		});
-		return json;
-	})();
 
-	$("#dr_project").change(function() {
-		var selected = this.value;
-		if (selected != 0)
-			var projects = jQuery.grep(dataJson, function(item, i) {
-				return item.id == selected;
+				$("#dr_project").change(function() {
+					var selected = this.value;
+					if (selected != 0)
+						var projects = jQuery.grep(data, function(item, i) {
+							return item.id == selected;
+						});
+					else
+						var projects = data;
+
+					update_chart(projects);
+				});
 			});
-		else
-			var projects = dataJson;
-
-		update_chart(projects);
-	});
 
 	function update_chart(projects) {
-		$("#dr_task").empty().append('<option value="0">Select all task...</option>');
+		$("#dr_task").empty().append(
+				'<option value="0">Select all task...</option>');
 		var task = {};
 		$.each(projects, function(i, item) {
 			$.each(item.reports, function(i, item) {

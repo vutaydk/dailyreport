@@ -24,48 +24,40 @@
 		}
 	});
 
-	var arrayName = {};
-	var dataJson = (function() {
-		var json = null;
-		$.ajax({
-			'async' : false,
-			'global' : false,
-			'url' : "rest/report/get-all",
-			'dataType' : "json",
-			'success' : function(data) {
-				json = data;
-				$.each(data, function(i, value) {
-					arrayName[value.employeeCode] = value.employeeName;
-				});
-			}
+	$.getJSON("rest/report/get-all", {
+		'async' : true,
+	}).done(function(data) {
+		var arrayName = {};
+		$.each(data, function(i, value) {
+			arrayName[value.employeeCode] = value.employeeName;
 		});
-		return json;
-	})();
 
-	$(function() {
-		$("#employeeSearch").keyup(function() {
-			var filter = {}, val = locdau($(this).val().replace(/\s+/g, ''));
+		$employeeSearch = $("#employeeSearch");
+		$startAt = $("#startAt");
+
+		function search() {
+			var filter = locdau($employeeSearch.val().replace(/\s+/g, ''));
+			$filterBy = {};
 			$.each(arrayName, function(key, value) {
-				if (locdau(value.replace(/\s+/g, '')) === val) {
-					filter = {
-						employeeCode : key
-					};
+				if (locdau(value.replace(/\s+/g, '')) === filter) {
+					$filterBy['employeeCode'] = key;
 					return false;
 				}
 			});
+			var filter2 = $startAt.val();
+			if (!jQuery.isEmptyObject(filter2)) {
+				$filterBy['date'] = filter2;
+			}
 			setTimeout(function() {
-				$("#table").bootstrapTable('filterBy', filter)
+				$("#table").bootstrapTable('filterBy', $filterBy)
 			}, 100);
+		}
+		$employeeSearch.keyup(function() {
+			search();
 		});
 
-		$("#startAt").change(function() {
-			var filter = {}, val = $(this).val();
-			if (!jQuery.isEmptyObject(val)) {
-				filter = {
-					date : val
-				};
-			}
-			$("table").bootstrapTable('filterBy', filter);
+		$startAt.change(function() {
+			search();
 		});
 	});
 </script>
