@@ -15,7 +15,7 @@ public class RightsLogic extends ErrorMap {
 	/**
 	 * Variable RightsEntity
 	 */
-	private final RightsEntity entity;
+	private final RightsDTO entity;
 
 	@Getter
 	private Optional<Rights> rights = Optional.empty();
@@ -25,7 +25,7 @@ public class RightsLogic extends ErrorMap {
 	 * 
 	 * @param entity
 	 */
-	public RightsLogic(RightsEntity entity) {
+	public RightsLogic(RightsDTO entity) {
 		this.entity = entity;
 	}
 
@@ -103,7 +103,7 @@ public class RightsLogic extends ErrorMap {
 	 * @param entity
 	 * @param rights
 	 */
-	private void setData(RightsEntity entity, Rights rights) {
+	private void setData(RightsDTO entity, Rights rights) {
 		rights.setName(entity.getName());
 		rights.setLevel(entity.getLevel());
 	}

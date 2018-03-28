@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import common.util.Format;
-import model.business.task.TaskEntity;
+import model.business.task.TaskDTO;
 import model.business.task.TaskLogic;
 
 @Path("/task")
@@ -27,7 +27,7 @@ public class TaskService {
 	public String insert(@FormParam("txt_taskCode") String taskCode, @FormParam("txt_name") String name) {
 
 		// builder a new TaskLogic
-		TaskLogic taskLogic = TaskEntity.builder().taskCode(taskCode).name(name).build().getLogic();
+		TaskLogic taskLogic = TaskDTO.builder().taskCode(taskCode).name(name).build().getLogic();
 
 		// validation form
 		if (taskLogic.isValidData()) {
@@ -48,7 +48,7 @@ public class TaskService {
 			@FormParam("txt_name") String name) {
 
 		// builder a new TaskLogic
-		TaskLogic taskModel = TaskEntity.builder().id(id).taskCode(taskCode).name(name).build().getLogic();
+		TaskLogic taskModel = TaskDTO.builder().id(id).taskCode(taskCode).name(name).build().getLogic();
 
 		// check id exist
 		if (!taskModel.isValidId())

@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import common.util.Format;
-import model.business.rights.RightsEntity;
+import model.business.rights.RightsDTO;
 import model.business.rights.RightsLogic;
 
 @Path("/rights")
@@ -27,7 +27,7 @@ public class RightsService {
 	public String insert(@FormParam("txt_name") String name, @FormParam("txt_level") Integer level) {
 
 		// builder a new RightsLogic
-		RightsLogic rightsLogic = RightsEntity.builder().name(name).level(level).build().getLogic();
+		RightsLogic rightsLogic = RightsDTO.builder().name(name).level(level).build().getLogic();
 
 		// validation form
 		if (rightsLogic.isValidData()) {
@@ -48,7 +48,7 @@ public class RightsService {
 			@FormParam("txt_level") Integer level) {
 
 		// builder a new RightsLogic
-		RightsLogic rightsLogic = RightsEntity.builder().id(id).name(name).level(level).build().getLogic();
+		RightsLogic rightsLogic = RightsDTO.builder().id(id).name(name).level(level).build().getLogic();
 
 		// check id exist
 		if (!rightsLogic.isValidId())

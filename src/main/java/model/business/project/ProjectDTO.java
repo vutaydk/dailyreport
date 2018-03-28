@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ProjectEntity {
+public class ProjectDTO {
 
 	private Integer id;
 	private String projectCode;

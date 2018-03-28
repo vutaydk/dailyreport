@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class RightsEntity {
+public class RightsDTO {
 
 	private Integer id;
 	private String name;

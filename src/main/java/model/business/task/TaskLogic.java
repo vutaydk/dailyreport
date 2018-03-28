@@ -15,7 +15,7 @@ public class TaskLogic extends ErrorMap {
 	/**
 	 * Variable TaskEntity
 	 */
-	private final TaskEntity entity;
+	private final TaskDTO entity;
 
 	@Getter
 	private Optional<Task> task = Optional.empty();
@@ -25,7 +25,7 @@ public class TaskLogic extends ErrorMap {
 	 * 
 	 * @param entity
 	 */
-	public TaskLogic(TaskEntity entity) {
+	public TaskLogic(TaskDTO entity) {
 		this.entity = entity;
 	}
 
@@ -108,7 +108,7 @@ public class TaskLogic extends ErrorMap {
 	 * @param entity
 	 * @param project
 	 */
-	private void setData(TaskEntity entity, Task project) {
+	private void setData(TaskDTO entity, Task project) {
 		project.setTaskCode(entity.getTaskCode());
 		project.setName(entity.getName());
 	}

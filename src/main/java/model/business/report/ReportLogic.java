@@ -17,7 +17,7 @@ public class ReportLogic extends ErrorMap {
 	/**
 	 * Variable ReportEntity
 	 */
-	private final ReportEntity entity;
+	private final ReportDTO entity;
 
 	@Getter
 	private Optional<Report> report = Optional.empty();
@@ -27,7 +27,7 @@ public class ReportLogic extends ErrorMap {
 	 * 
 	 * @param entity
 	 */
-	public ReportLogic(ReportEntity entity) {
+	public ReportLogic(ReportDTO entity) {
 		this.entity = entity;
 	}
 
@@ -111,7 +111,7 @@ public class ReportLogic extends ErrorMap {
 	 * @param entity
 	 * @param report
 	 */
-	private void setData(ReportEntity entity, Report report) {
+	private void setData(ReportDTO entity, Report report) {
 	}
 
 }

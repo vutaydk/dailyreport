@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import common.util.Format;
-import model.business.report.ReportEntity;
+import model.business.report.ReportDTO;
 import model.business.report.ReportLogic;
 
 @Path("/report")
@@ -28,7 +28,7 @@ public class ReportService {
 			@FormParam("txt_startAt") Integer timeWorked, @FormParam("txt_finishAt") String note) {
 
 		// builder a new ReportLogic
-		ReportLogic reportLogic = ReportEntity.builder().projectId(projectId).taskId(taskId).timeWorked(timeWorked)
+		ReportLogic reportLogic = ReportDTO.builder().projectId(projectId).taskId(taskId).timeWorked(timeWorked)
 				.note(note).build().getLogic();
 
 		// validation form
@@ -51,7 +51,7 @@ public class ReportService {
 			@FormParam("txt_finishAt") String note) {
 
 		// builder a new ReportLogic
-		ReportLogic reportLogic = ReportEntity.builder().id(id).projectId(projectId).taskId(taskId).timeWorked(timeWorked)
+		ReportLogic reportLogic = ReportDTO.builder().id(id).projectId(projectId).taskId(taskId).timeWorked(timeWorked)
 				.note(note).build().getLogic();
 
 		// check id exist

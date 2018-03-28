@@ -19,7 +19,7 @@ public class ProjectLogic extends ErrorMap {
 	/**
 	 * Variable ProjectEntity
 	 */
-	private final ProjectEntity entity;
+	private final ProjectDTO entity;
 
 	@Getter
 	private Optional<Project> project = Optional.empty();
@@ -29,7 +29,7 @@ public class ProjectLogic extends ErrorMap {
 	 * 
 	 * @param entity
 	 */
-	public ProjectLogic(ProjectEntity entity) {
+	public ProjectLogic(ProjectDTO entity) {
 		this.entity = entity;
 	}
 
@@ -149,7 +149,7 @@ public class ProjectLogic extends ErrorMap {
 	 * @param entity
 	 * @param project
 	 */
-	private void setData(ProjectEntity entity, Project project) {
+	private void setData(ProjectDTO entity, Project project) {
 		project.setProjectCode(entity.getProjectCode());
 		project.setName(entity.getName());
 		project.setStartAt(Format.toDate(entity.getStartAt()));

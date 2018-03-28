@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 
 import common.util.Format;
 import lombok.val;
-import model.business.project.ProjectEntity;
+import model.business.project.ProjectDTO;
 import model.business.project.ProjectLogic;
 
 @Path("/project")
@@ -36,7 +36,7 @@ public class ProjectService {
 			@FormParam("txt_startAt") String startAt, @FormParam("txt_finishAt") String finishAt) {
 
 		// builder a new ProjectLogic
-		ProjectLogic projectLogic = ProjectEntity.builder().projectCode(projectCode).name(name).startAt(startAt)
+		ProjectLogic projectLogic = ProjectDTO.builder().projectCode(projectCode).name(name).startAt(startAt)
 				.finishAt(finishAt).build().getLogic();
 
 		// validation form
@@ -59,7 +59,7 @@ public class ProjectService {
 			@FormParam("txt_finishAt") String finishAt) {
 
 		// builder a new ProjectLogic
-		val projectLogic = ProjectEntity.builder().id(id).projectCode(projectCode).name(name).startAt(startAt)
+		val projectLogic = ProjectDTO.builder().id(id).projectCode(projectCode).name(name).startAt(startAt)
 				.finishAt(finishAt).build().getLogic();
 
 		// check id exist

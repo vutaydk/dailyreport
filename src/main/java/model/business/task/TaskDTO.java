@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class TaskEntity {
+public class TaskDTO {
 
 	private Integer id;
 	private String taskCode;
