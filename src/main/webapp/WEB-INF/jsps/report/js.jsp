@@ -1,7 +1,6 @@
 <script>
   $("#startAt").change(function() {
-    $data = $(this).val();
-    $("#finishAt").datepicker('setStartDate', $data);
+    $("#finishAt").datepicker('setStartDate', $(this).val());
   });
 
   $("#table").bootstrapTable({
@@ -24,9 +23,7 @@
     }
   });
 
-  $.getJSON("api/report/get-all", {
-    'async' : true,
-  }).done(function(data) {
+  var responseJson = function(data) {
     var arrayName = {};
     $.each(data, function(i, value) {
       arrayName[value.employeeCode] = value.employeeName;
@@ -59,5 +56,7 @@
     $startAt.change(function() {
       search();
     });
-  });
+  };
+
+  $.getJSON("api/report/get-all").done(responseJson);
 </script>

@@ -30,31 +30,31 @@
   };
   var myChart = new Chart(ctx, data);
 
-  // get json
-  $.getJSON("api/project/get-chart", {
-    'async' : true,
-  }).done(
-    function(data) {
-      update_chart(data);
-      $.each(data, function(i, item) {
-        if (!jQuery.isEmptyObject(item.reports)) {
-          $("#dr_project").append(
-            '<option value="' + item.id + '">' + item.name + '</option>');
-        }
-      });
-
-      $("#dr_project").change(function() {
-        var selected = this.value;
-        if (selected != 0)
-          var projects = jQuery.grep(data, function(item, i) {
-            return item.id == selected;
-          });
-        else
-          var projects = data;
-
-        update_chart(projects);
-      });
+  // data processing
+  var responseJson = function(data) {
+    update_chart(data);
+    $.each(data, function(i, item) {
+      if (!jQuery.isEmptyObject(item.reports)) {
+        $("#dr_project").append(
+          '<option value="' + item.id + '">' + item.name + '</option>');
+      }
     });
+
+    $("#dr_project").change(function() {
+      var selected = this.value;
+      if (selected != 0)
+        var projects = jQuery.grep(data, function(item, i) {
+          return item.id == selected;
+        });
+      else
+        var projects = data;
+
+      update_chart(projects);
+    });
+  };
+
+  // get json
+  $.getJSON("api/project/get-chart").done(responseJson);
 
   function update_chart(projects) {
     $("#dr_task").empty().append(
