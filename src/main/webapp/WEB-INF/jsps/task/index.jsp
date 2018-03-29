@@ -37,7 +37,7 @@
 						<div class="form-group row">
 							<div class="col-12 text-center">
 								<button type="submit" class="btn btn-primary"
-									onclick="javascript:return submit_ajax();">Submit</button>
+									onclick="javascript:submit_ajax(); return false;">Submit</button>
 								<button type="reset" class="btn btn-default">Reset</button>
 							</div>
 						</div>
