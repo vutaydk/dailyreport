@@ -8,55 +8,48 @@
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
-	<!-- /.header -->
+
 	<div class="row">
 		<%-- import sidebar --%>
 		<jsp:include page="../layout/sidebar.jsp" />
 
-		<div class="col-9" id="project-list">
-			<div class="project-form">
-				<div class="project-form-body">
-					<div>
-						<a href="rights/add"><button type="button"
-								class="btn btn-primary">Create rights</button> </a>
-					</div>
-					<table id="table" data-search="true" data-pagination="true">
-						<thead>
-							<tr>
-								<th class="text-center"></th>
-								<th>Name Of Position</th>
-								<th>Lv</th>
-								<th>Updated At</th>
-								<th class="text-center"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${listRights}" var="row" varStatus="i">
-								<tr>
-									<td><c:out value="${i.count}" /></td>
-									<td><c:out value="${row.name}" /></td>
-									<td><c:out value="${row.level}" /></td>
-									<td><fmt:formatDate value="${row.updatedAt}"
-											pattern="dd/MM/yyyy" /></td>
-									<td><a href="rights/edit?id=${row.id}"><i
-											class="fas fa-edit"></i></a></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<script>
-						$('#table').bootstrapTable({
-							searchTimeOut : 0,
-						});
-					</script>
-					<%-- import sub --%>
+		<div class="col-9" id="report-list">
+			<div class="box">
+				<div class="box-body">
+					<form action="rest/rights/add" method="post">
+
+						<div class="form-group row">
+							<label class="col-2 col-form-label">Name</label>
+							<div class="col-6">
+								<input type="text" maxlength="50" name="txt_name"
+									class="form-control">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-2 col-form-label">Level</label>
+							<div class="col-2">
+								<input type="text" maxlength="2" name="txt_level"
+									class="form-control">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-primary"
+									onclick="javascript:return submit_ajax();">Submit</button>
+								<button type="reset" class="btn btn-default">Reset</button>
+							</div>
+						</div>
+
+					</form>
 				</div>
 			</div>
-			<!--/.modal detail -->
 		</div>
-		<!-- ./create-project form -->
+		<!-- ./create-rights form -->
 	</div>
-
 </div>
+<%-- import js --%>
+<jsp:include page="js.jsp" />
 <%-- import footer --%>
 <jsp:include page="../layout/footer.jsp" />

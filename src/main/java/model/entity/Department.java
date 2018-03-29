@@ -30,7 +30,7 @@ public class Department {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "department_code", length = 4)
+	@Column(name = "department_code", nullable = false, length = 4)
 	private String departmentCode;
 
 	@Column(name = "name", length = 50)

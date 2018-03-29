@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,7 +40,7 @@ public class User {
 	@Column(name = "employee_code", nullable = false, length = 12)
 	private String employeeCode;
 
-	@Column(name = "password", length = 18)
+	@Column(name = "password", nullable = false, length = 18)
 	private String password;
 
 	@Column(name = "email", length = 120)
@@ -49,11 +50,11 @@ public class User {
 	private String name;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_at", length = 23)
+	@Column(name = "created_at", length = 16)
 	private Date createdAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_at", length = 23)
+	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "approver")
@@ -61,5 +62,8 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Report> reportsForUserId = new HashSet<>(0);
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	private DepartmentDetail departmentDetail;
 
 }

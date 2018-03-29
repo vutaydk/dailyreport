@@ -14,9 +14,9 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<div class="project-form">
+				<div class="box">
 					<form method="post">
-						<div class="project-form-body">
+						<div class="box-body">
 							<c:if test="${not empty message}">
 								<div class="auth-form-message text-center">
 									<p class="text-danger">

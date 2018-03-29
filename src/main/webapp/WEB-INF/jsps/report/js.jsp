@@ -1,42 +1,63 @@
 <script>
-	$('#table').bootstrapTable({
+	$("#startAt").change(function() {
+		$data = $(this).val();
+		$("#finishAt").datepicker('setStartDate', $data);
+	});
+
+	$("#table").bootstrapTable({
 		searchTimeOut : 0,
-		pageSize : 5
-	});
-
-	function formatDate(date) {
-		date = new Date(date);
-		var day = date.getDate();
-		var month = date.getMonth() + 1;
-		var year = date.getFullYear();
-
-		return day + '/' + month + '/' + year;
-	}
-
-	var today = new Date(new Date().getFullYear(), new Date().getMonth(),
-			new Date().getDate());
-	$('#startAt').datepicker({
-		uiLibrary : 'bootstrap',
-		iconsLibrary : 'fontawesome',
-		format : 'dd/mm/yyyy',
-		minDate : today,
-		maxDate : function() {
-			return $('#finishAt').val();
-		},
+		pageSize : 5,
+		search : true,
+		searchTimeOut : 500,
+		showToggle : true,
+		showRefresh : true,
+		showColumns : true,
+		classes : 'table table-no-bordered',
+		sortOrder : 'desc',
+		pagination : true,
+		iconsPrefix : 'fa',
 		icons : {
-			rightIcon : '<i class="far fa-calendar-alt"></i>'
+			toggle : 'fas fa-list-alt',
+			refresh : 'fas fa-sync',
+			paginationSwitchUp : 'fas fa-sort-up',
+			paginationSwitchDown : 'fas fa-sort-down',
 		}
 	});
 
-	$('#finishAt').datepicker({
-		uiLibrary : 'bootstrap',
-		format : 'dd/mm/yyyy',
-		iconsLibrary : 'fontawesome',
-		minDate : function() {
-			return $('#startAt').val();
-		},
-		icons : {
-			rightIcon : '<i class="far fa-calendar-alt"></i>'
+	$.getJSON("rest/report/get-all", {
+		'async' : true,
+	}).done(function(data) {
+		var arrayName = {};
+		$.each(data, function(i, value) {
+			arrayName[value.employeeCode] = value.employeeName;
+		});
+
+		$employeeSearch = $("#employeeSearch");
+		$startAt = $("#startAt");
+
+		function search() {
+			var filter = locdau($employeeSearch.val().replace(/\s+/g, ''));
+			$filterBy = {};
+			$.each(arrayName, function(key, value) {
+				if (locdau(value.replace(/\s+/g, '')) === filter) {
+					$filterBy['employeeCode'] = key;
+					return false;
+				}
+			});
+			var filter2 = $startAt.val();
+			if (!jQuery.isEmptyObject(filter2)) {
+				$filterBy['date'] = filter2;
+			}
+			setTimeout(function() {
+				$("#table").bootstrapTable('filterBy', $filterBy)
+			}, 100);
 		}
+		$employeeSearch.keyup(function() {
+			search();
+		});
+
+		$startAt.change(function() {
+			search();
+		});
 	});
 </script>

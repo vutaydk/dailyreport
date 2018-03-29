@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%-- import header --%>
 <jsp:include page="layout/header.jsp" />
-
 <div class="container">
 	<div class="auth-form">
 		<form action="login" class="login-form" method="post">

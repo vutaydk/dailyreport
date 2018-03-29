@@ -20,9 +20,9 @@
 				</div>
 				<div class="modal-body">
 					<c:if test="${not empty detailReport}">
-						<div class="report-form">
+						<div class="box">
 							<form method="post">
-								<div class="report-form-body">
+								<div class="box-body">
 									<div class="form-group row">
 										<div class="col-4">
 											<p>Project</p>

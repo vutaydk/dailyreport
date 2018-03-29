@@ -33,7 +33,7 @@ public class Report {
 	private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id")
+	@JoinColumn(name = "project_id", nullable = false)
 	private Project project;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -41,22 +41,22 @@ public class Report {
 	private User approver;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "approved_at", length = 23)
+	@Column(name = "approved_at", length = 16)
 	private Date approvedAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_at", length = 23)
+	@Column(name = "created_at", length = 16)
 	private Date createdAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_at", length = 23)
+	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "report")
-	private Set<TaskDetail> taskDetails = new HashSet<>(0);
+	private Set<ReportDetail> reportDetails = new HashSet<>(0);
 
 }

@@ -34,6 +34,7 @@
 			<li class="nav-item"><a class="nav-link" href="project">Project
 					managerment</a></li>
 			<li class="nav-item"><a class="nav-link" href="task">Tasks</a></li>
+			<li class="nav-item"><a class="nav-link" href="rights">Rights</a></li>
 		</ul>
 	</div>
 </nav>

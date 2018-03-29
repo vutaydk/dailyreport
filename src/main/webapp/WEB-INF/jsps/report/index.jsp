@@ -4,33 +4,52 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
+
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
+
 	<div class="row">
 		<div class="col-12">
-			<div class="project-form">
-				<div class="project-form-body">
+			<div class="box">
+				<div class="box-body">
 					<form action="" method="post" class="mb-3">
+
 						<div class="form-row">
 							<div class="col-5">
 								<div class="row">
 									<label for="startAt" class="col-3 col-form-label">Start
 										at</label>
 									<div class="col-7">
-										<input id="startAt" name="txt_startAt">
+										<div class="input-group">
+											<input id="startAt" name="txt_startAt" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yyyy">
+											<div class="input-group-append">
+												<span class="input-group-text"><i
+													class="far fa-calendar-alt"></i></span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
+
 							<div class="col-5">
 								<div class="row">
 									<label for="finishAt" class="col-3 col-form-label">Finish
 										at</label>
 									<div class="col-7">
-										<input id="finishAt" name="txt_finishAt">
+										<div class="input-group">
+											<input id="finishAt" name="txt_finishAt" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yyyy">
+											<div class="input-group-append">
+												<span class="input-group-text"><i
+													class="far fa-calendar-alt"></i></span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
+
 							<div class="col">
 								<input type="button" value="Process"
 									class="btn btn-outline-dark">
@@ -40,20 +59,20 @@
 							<div class="col-4">
 								<div class="input-group">
 									<div class="input-group-prepend">
-										<div class="input-group-text">
-											<button class="btn btn-default" type="button">
-												<i class="fas fa-user-plus"></i>
-											</button>
-										</div>
+										<span class="input-group-text"> <i
+											class="fas fa-user-plus"></i>
+										</span>
 									</div>
-									<input type="text" class="form-control"
+									<input id="employeeSearch" type="text" class="form-control"
 										placeholder="Select employee">
 								</div>
+								<div class="result list-group"></div>
 							</div>
 						</div>
+
 					</form>
-					<table id="report-list-table" data-toggle="table"
-						data-url="rest/report/get-all" data-sort-name="id">
+					<table id="table" data-url="rest/report/get-all"
+						data-sort-name="id">
 						<thead>
 							<tr>
 								<th data-field="employeeCode" data-sortable="true">Employee
@@ -63,8 +82,7 @@
 								<th>Task 1</th>
 								<th>Task 2</th>
 								<th>Task 3</th>
-								<th data-field="date" data-sortable="true"
-									data-formatter="formatDate" data-events="actionEvents">Date</th>
+								<th data-field="date" data-sortable="true">Date</th>
 							</tr>
 						</thead>
 					</table>

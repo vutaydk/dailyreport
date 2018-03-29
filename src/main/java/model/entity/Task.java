@@ -30,21 +30,21 @@ public class Task {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "task_code", length = 4)
+	@Column(name = "task_code", nullable = false, length = 4)
 	private String taskCode;
 
 	@Column(name = "name", length = 50)
 	private String name;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_at", length = 23)
+	@Column(name = "created_at", length = 16)
 	private Date createdAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_at", length = 23)
+	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
-	private Set<TaskDetail> taskDetails = new HashSet<>(0);
+	private Set<ReportDetail> reportDetails = new HashSet<>(0);
 
 }

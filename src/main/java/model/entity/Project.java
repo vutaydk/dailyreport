@@ -45,11 +45,11 @@ public class Project {
 	private Date finishAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_at", length = 23)
+	@Column(name = "created_at", length = 16)
 	private Date createdAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_at", length = 23)
+	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")

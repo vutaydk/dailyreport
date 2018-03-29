@@ -4,57 +4,59 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
+
 <div class="container">
 	<%-- import nav header --%>
 	<jsp:include page="../layout/nav-header.jsp" />
-	<!-- /.header -->
+
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="sidebar.jsp" />
+		<jsp:include page="../layout/sidebar.jsp" />
+
 		<div class="col-9">
 			<div id="list-report" class="list-report">
-				<div class="report-form">
-					<form id="addReportForm" method="post">
-						<div class="report-form-body">
+				<div class="box">
+					<div class="box-body">
+						<form id="addReportForm" method="post">
+
 							<div class="row">
 								<div class="col-10">
+
 									<div class="form-group row">
 										<label for="projectCode" class="col-3 col-form-label">Project
 											code</label>
 										<div class="col-9">
-											<select id="projectCode" class="form-control"
-												name="projectCode" data-validation="[NOTEMPTY]"
-												data-validation-message="Please choose project.">
+											<select id="projectCode" name="projectCode"
+												class="form-control">
 												<option value="">Choose...</option>
 												<option value="Project1">Project 1</option>
 												<option value="Project2">Project 2</option>
 											</select>
 										</div>
 									</div>
+
 									<div class="form-group row">
 										<label for="taskCode" class="col-3 col-form-label">Task
 											code</label>
 										<div class="col-9">
-											<select id="taskCode" class="form-control" name="taskCode"
-												data-validation="[NOTEMPTY]"
-												data-validation-message="Please choose task.">
+											<select id="taskCode" name="taskCode" class="form-control">
 												<option value="">Choose...</option>
 												<option value="Task1">Task 1</option>
 												<option value="Task2">Task 2</option>
 											</select>
 										</div>
 									</div>
+
 									<div class="form-group row">
 										<label for="timeWork" class="col-3 col-form-label">Time
 											work</label>
 										<div class="col-9">
-											<input type="text" class="form-control" id="timeWork"
-												name="txt_timeWork" placeholder="Hour"
-												data-validation="[NOTEMPTY, INTEGER]"
-												data-validation-message="Please enter working time.">
+											<input id="timeWork" type="text" name="txt_timeWork"
+												class="form-control" placeholder="Hour">
 										</div>
 									</div>
 								</div>
+
 								<div class="col-2">
 									<div class="row">
 										<button class="btn btn-outline-danger ml-2" type="button">
@@ -68,25 +70,25 @@
 										</button>
 									</div>
 								</div>
+
 							</div>
 							<div id="report-note">
 								<div class="form-group">
 									<label for="content">Note</label>
 									<div class="col-12">
-										<textarea class="form-control" rows="10" cols="" id="content"
-											name="txt_note" data-validation="[L>=10, NOTEMPTY]"
-											data-validation-message="Please enter note. Not must be at least 10 characters."></textarea>
+										<textarea id="content" rows="10" name="txt_note"
+											class="form-control"></textarea>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-12">
-										<button type="button" id="addWork"
+										<button id="addWork" type="button"
 											class="btn btn-outline-dark">Add work</button>
 									</div>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
