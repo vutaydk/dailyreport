@@ -16,7 +16,7 @@
 		<div class="col-9" id="report-list">
 			<div class="box">
 				<div class="box-body">
-					<form action="rest/task/add" method="post">
+					<form action="api/task/add" method="post">
 
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Task code</label>

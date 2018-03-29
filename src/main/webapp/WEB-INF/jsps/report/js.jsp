@@ -24,7 +24,7 @@
 		}
 	});
 
-	$.getJSON("rest/report/get-all", {
+	$.getJSON("api/report/get-all", {
 		'async' : true,
 	}).done(function(data) {
 		var arrayName = {};

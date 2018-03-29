@@ -31,7 +31,7 @@
 	var myChart = new Chart(ctx, data);
 
 	// get json
-	$.getJSON("rest/project/get-chart", {
+	$.getJSON("api/project/get-chart", {
 		'async' : true,
 	}).done(
 			function(data) {

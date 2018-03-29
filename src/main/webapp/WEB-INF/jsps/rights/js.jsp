@@ -1,5 +1,5 @@
 <script>
-	$.getJSON("rest/rights/get-all", {
+	$.getJSON("api/rights/get-all", {
 		'async' : true,
 	}).done(
 			function(data) {
@@ -12,7 +12,7 @@
 				var $listBar = $("#list-bar").find("li");
 				$listBar.click(function() {
 					var i = $(this).index();
-					$("form").attr('action', "rest/rights/edit/" + data[i].id);
+					$("form").attr('action', "api/rights/edit/" + data[i].id);
 					$.each(data[i], function(key, value) {
 						$('input[name="txt_' + key + '"]').val(value);
 					});

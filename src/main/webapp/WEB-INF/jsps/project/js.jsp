@@ -4,7 +4,7 @@
 		$("#finishAt").datepicker('setStartDate', $data);
 	});
 
-	$.getJSON("rest/project/get-all", {
+	$.getJSON("api/project/get-all", {
 		'async' : true,
 	}).done(
 			function(data) {
@@ -19,7 +19,7 @@
 						.click(function() {
 							var i = $(this).index();
 							$("form").attr('action',
-									"rest/project/edit/" + data[i].id);
+									"api/project/edit/" + data[i].id);
 							$.each(data[i], function(key, value) {
 								$('input[name="txt_' + key + '"]').val(value);
 							});

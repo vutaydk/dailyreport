@@ -16,7 +16,7 @@
 		<div class="col-9" id="report-list">
 			<div class="box">
 				<div class="box-body">
-					<form action="rest/project/add" method="post">
+					<form action="api/project/add" method="post">
 
 						<div class="form-group row">
 							<label for="projectCode" class="col-2 col-form-label">Project

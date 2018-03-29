@@ -71,8 +71,7 @@
 						</div>
 
 					</form>
-					<table id="table" data-url="rest/report/get-all"
-						data-sort-name="id">
+					<table id="table" data-url="api/report/get-all" data-sort-name="id">
 						<thead>
 							<tr>
 								<th data-field="employeeCode" data-sortable="true">Employee
