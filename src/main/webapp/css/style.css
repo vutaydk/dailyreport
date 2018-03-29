@@ -1,13 +1,13 @@
 body {
-    background-color: #f9f9f9
+	background-color: #f9f9f9
 }
 
 .header {
-    margin-bottom: 20px;
-    background-color: #fff;
-    border: 1px solid #d8dee2;
-    border-top: 0px;
-    border-radius: 0 0 5px 5px;
+	margin-bottom: 20px;
+	background-color: #fff;
+	border: 1px solid #d8dee2;
+	border-top: 0px;
+	border-radius: 0 0 5px 5px;
 }
 
 .sidebar {
@@ -17,91 +17,90 @@ body {
 }
 
 .create-report-button {
-    display: block;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 99;
-    font-size: 18px;
-    border: none;
-    outline: none;
-    background-color: green;
-    color: white;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 4px;
+	display: block;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 99;
+	font-size: 18px;
+	border: none;
+	outline: none;
+	background-color: green;
+	color: white;
+	cursor: pointer;
+	padding: 15px;
+	border-radius: 4px;
 }
 
 .bottom-right {
-    position: absolute;
-    bottom: 1px;
-    right: 1px;
-    border: none;
-    outline: none;
-    background-color: green;
-    color: white;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 4px;
+	position: absolute;
+	bottom: 1px;
+	right: 1px;
+	border: none;
+	outline: none;
+	background-color: green;
+	color: white;
+	cursor: pointer;
+	padding: 5px 10px;
+	border-radius: 4px;
 }
 
 .auth-form {
-    width: 340px;
-    margin: 0 auto
+	margin-top: 10%; position : absolute;
+	margin: 0 auto;
+	position: absolute;
 }
 
 .auth-form .auth-form-header {
-    margin-bottom: 15px;
-    color: #333;
-    text-align: center;
-    text-shadow: none;
-    background-color: transparent;
-    border: 0
+	margin-bottom: 15px;
+	color: #333;
+	text-align: center;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0
 }
 
 .auth-form .auth-form-body {
-    border-top: 1px solid #d8dee2;
-    border-radius: 5px
+	border-top: 1px solid #d8dee2;
+	border-radius: 5px
 }
 
 .auth-form-body {
-    padding: 20px;
-    font-size: 14px;
-    background-color: #fff;
-    border: 1px solid #d8dee2;
-    border-top: 0;
-    border-radius: 0 0 3px 3px;
-    box-shadow: 10px 10px 5px -5px #aaaaaa;
-    -webkit-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
-    box-shadow: 0px 0px 40px -5px #aaaaaa;
+	padding: 20px;
+	font-size: 14px;
+	background-color: #fff;
+	border: 1px solid #d8dee2;
+	border-top: 0;
+	border-radius: 0 0 3px 3px;
+	box-shadow: 10px 10px 5px -5px #aaaaaa;
+	-webkit-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
+	-moz-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
+	box-shadow: 0px 0px 40px -5px #aaaaaa;
 }
 
 .box {
-    width: 100%;
-    margin: 0 auto
+	width: 100%;
+	margin: 0 auto
 }
 
 .box .box-body {
-    border-top: 1px solid #d8dee2;
-    border-radius: 5px
+	border-top: 1px solid #d8dee2;
+	border-radius: 5px
 }
 
 .box-body {
-    margin-bottom: 30px;
-    padding: 20px;
-    font-size: 14px;
-    background-color: #fff;
-    border: 1px solid #d8dee2;
-    border-top: 0;
-    border-radius: 0 0 3px 3px;
+	margin-bottom: 30px;
+	padding: 20px;
+	font-size: 14px;
+	background-color: #fff;
+	border: 1px solid #d8dee2;
+	border-top: 0;
+	border-radius: 0 0 3px 3px;
 }
 
-
-
 .report-table {
-    table-layout: fixed;
-    word-wrap: break-word;
+	table-layout: fixed;
+	word-wrap: break-word;
 }
 
 .w-wrap {
@@ -109,20 +108,20 @@ body {
 }
 
 .result {
-   position: absolute;
-   width: 100%;
-   max-width:870px;
-   cursor: pointer;
-   overflow-y: auto;
-   max-height: 200px;
-   box-sizing: border-box;
-   z-index: 1001;
-  }
+	position: absolute;
+	width: 100%;
+	max-width: 870px;
+	cursor: pointer;
+	overflow-y: auto;
+	max-height: 200px;
+	box-sizing: border-box;
+	z-index: 1001;
+}
 
 .form-control {
 	
 }
-  
+
 .form-control:focus {
 	box-shadow: none !important;
 }
