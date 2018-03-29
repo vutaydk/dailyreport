@@ -6,20 +6,19 @@ function submit_ajax() {
     isProcessing = true;
   });
   var form = $("form");
-  $.post(form.attr('action'), form.serialize()).done(
-    function(data) {
-      if (!$.isPlainObject(data)) { // message
-        location.reload();
-      } else { // errors validate
-        $("form").find("input").removeClass("is-invalid").tooltip('dispose');
-        $.each(data, function(key, value) {
-          $("input[name='" + key + "']").addClass("is-invalid").tooltip({
-            title : value,
-            placement : 'right',
-          }).tooltip('show');
-        })
-      }
-    }).fail(function() {
+  $.post(form.attr('action'), form.serialize()).done(function(data) {
+    if (!$.isPlainObject(data)) { // message
+      location.reload();
+    } else { // errors validate
+      $("form").find("input").removeClass("is-invalid").tooltip('dispose');
+      $.each(data, function(key, value) {
+        $("input[name='" + key + "']").addClass("is-invalid").tooltip({
+          title : value,
+          placement : 'right',
+        }).tooltip('show');
+      })
+    }
+  }).fail(function() {
     alert("error");
     location.reload();
   }).always(function() {
