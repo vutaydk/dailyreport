@@ -21,7 +21,7 @@
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Task code</label>
 							<div class="col-2">
-								<input type="text" maxlength="4" name="txt_taskCode"
+								<input type="text" maxlength="4" name="taskCode"
 									class="form-control">
 							</div>
 						</div>
@@ -29,7 +29,7 @@
 						<div class="form-group row">
 							<label class="col-2 col-form-label">Name</label>
 							<div class="col-6">
-								<input type="text" maxlength="50" name="txt_name"
+								<input type="text" maxlength="50" name="name"
 									class="form-control">
 							</div>
 						</div>

@@ -1,3 +1,21 @@
+(function($) {
+  $.fn.serializeFormJSON = function() {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+      if (o[this.name]) {
+        if (!o[this.name].push) {
+          o[this.name] = [ o[this.name] ];
+        }
+        o[this.name].push(this.value || '');
+      } else {
+        o[this.name] = this.value || '';
+      }
+    });
+    return o;
+  };
+})(jQuery);
+
 var isProcessing = false;
 function submit_ajax() {
   if (isProcessing)
@@ -6,23 +24,32 @@ function submit_ajax() {
     isProcessing = true;
   });
   var form = $("form");
-  $.post(form.attr('action'), form.serialize()).done(function(data) {
-    if (!$.isPlainObject(data)) { // message
+  // Send the request
+  $.ajax({
+    type : 'POST',
+    url : form.attr('action'),
+    contentType : "application/json",
+    dataType : 'json',
+    data : JSON.stringify(form.serializeFormJSON()),
+    success : function(data) {
+      // data processing
+      if (!$.isPlainObject(data)) { // message
+        location.reload();
+      } else { // errors validate
+        $("form").find("input").removeClass("is-invalid").tooltip('dispose');
+        $.each(data, function(key, value) {
+          $("input[name='" + key + "']").addClass("is-invalid").tooltip({
+            title : value,
+            placement : 'right',
+          }).tooltip('show');
+        });
+        isProcessing = false;
+      }
+    },
+    error : function() {
+      alert("error");
       location.reload();
-    } else { // errors validate
-      $("form").find("input").removeClass("is-invalid").tooltip('dispose');
-      $.each(data, function(key, value) {
-        $("input[name='" + key + "']").addClass("is-invalid").tooltip({
-          title : value,
-          placement : 'right',
-        }).tooltip('show');
-      })
     }
-  }).fail(function() {
-    alert("error");
-    location.reload();
-  }).always(function() {
-    isProcessing = false;
   });
 };
 

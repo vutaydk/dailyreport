@@ -49,10 +49,11 @@ public class RightsLogic extends ErrorMap {
 	/**
 	 * Check exist Rights
 	 * 
+	 * @param id
 	 * @return boolean
 	 */
-	public boolean isValidId() {
-		rights = RightsRepo.model.find(entity.getId());
+	public boolean isValidId(int id) {
+		rights = RightsRepo.model.find(id);
 		return rights.isPresent();
 	}
 
@@ -65,7 +66,7 @@ public class RightsLogic extends ErrorMap {
 		boolean bool = true;
 
 		if (entity.getName() == null || entity.getName().length() < 6) {
-			setError("txt_name", "Name length is too short (requires 6 characters).");
+			setError("name", "Name length is too short (requires 6 characters).");
 			bool = false;
 		}
 

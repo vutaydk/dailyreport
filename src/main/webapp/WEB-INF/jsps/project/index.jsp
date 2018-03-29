@@ -22,7 +22,7 @@
 							<label for="projectCode" class="col-2 col-form-label">Project
 								code </label>
 							<div class="col-2">
-								<input type="text" maxlength="4" name="txt_projectCode"
+								<input type="text" maxlength="4" name="projectCode"
 									class="form-control">
 							</div>
 						</div>
@@ -30,7 +30,7 @@
 						<div class="form-group row">
 							<label for="name" class="col-2 col-form-label">Name</label>
 							<div class="col-6">
-								<input type="text" maxlength="50" name="txt_name"
+								<input type="text" maxlength="50" name="name"
 									class="form-control">
 							</div>
 						</div>
@@ -40,7 +40,7 @@
 								at</label>
 							<div class="col-3">
 								<div class="input-group">
-									<input id="startAt" name="txt_startAt" class="form-control"
+									<input id="startAt" name="startAt" class="form-control"
 										data-provide="datepicker" data-date-format="dd/mm/yyyy"
 										data-date-start-date="0d">
 									<div class="input-group-append">
@@ -54,7 +54,7 @@
 								at</label>
 							<div class="col-3">
 								<div class="input-group">
-									<input id="finishAt" name="txt_finishAt" class="form-control"
+									<input id="finishAt" name="finishAt" class="form-control"
 										data-provide="datepicker" data-date-format="dd/mm/yyyy"
 										data-date-start-date="0d">
 									<div class="input-group-append">

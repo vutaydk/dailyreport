@@ -1,13 +1,14 @@
 package model.business.report;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
-@Builder
+@Setter
+@ToString
 public class ReportDTO {
 
-	private Integer id;
 	private Integer projectId;
 	private Integer taskId;
 	private Integer timeWorked;

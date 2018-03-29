@@ -82,10 +82,11 @@ public class ProjectLogic extends ErrorMap {
 	/**
 	 * Check exist Project
 	 * 
+	 * @param id
 	 * @return boolean
 	 */
-	public boolean isValidId() {
-		project = ProjectRepo.model.find(entity.getId());
+	public boolean isValidId(int id) {
+		project = ProjectRepo.model.find(id);
 		return project.isPresent();
 	}
 
@@ -98,25 +99,25 @@ public class ProjectLogic extends ErrorMap {
 		boolean bool = true;
 
 		if (entity.getProjectCode() == null || entity.getProjectCode().length() != 4) {
-			setError("txt_projectCode", "Project Code length must be 4 characters.");
+			setError("projectCode", "Project Code length must be 4 characters.");
 			bool = false;
 		}
 
 		if (entity.getName() == null || entity.getName().length() < 6) {
-			setError("txt_name", "Name length is too short (requires 6 characters).");
+			setError("name", "Name length is too short (requires 6 characters).");
 			bool = false;
 		}
 
 		if (entity.getStartAt() == null || !DataValidation.isValidDate(entity.getStartAt())) {
-			setError("txt_startAt", "Invalid Start Date");
+			setError("startAt", "Invalid Start Date");
 			bool = false;
 		}
 
 		if (entity.getFinishAt() == null || !DataValidation.isValidDate(entity.getFinishAt())) {
-			setError("txt_finishAt", "Invalid Finish Date");
+			setError("finishAt", "Invalid Finish Date");
 			bool = false;
 		} else if (Format.toDate(entity.getStartAt()).after(Format.toDate(entity.getFinishAt()))) {
-			setError("txt_startAt", "Start Date can't after Finish Date");
+			setError("startAt", "Start Date can't after Finish Date");
 			bool = false;
 		}
 

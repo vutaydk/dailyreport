@@ -1,13 +1,13 @@
 package controller.restful;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import common.util.Format;
 import lombok.val;
 import model.business.project.ProjectDTO;
 import model.business.project.ProjectLogic;
@@ -17,65 +17,63 @@ public class ProjectService {
 
 	@GET
 	@Path("get-all")
-	@Produces("application/json")
-	public String getAll() {
-		return Format.toJson(ProjectLogic.getJson());
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAll() {
+		Object entity = ProjectLogic.getJson();
+		return Response.ok(entity).build();
 	}
 
 	@GET
 	@Path("get-chart")
-	@Produces("application/json")
-	public String getForChart() {
-		return Format.toJson(ProjectLogic.getJsonForChart());
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getForChart() {
+		Object entity = ProjectLogic.getJsonForChart();
+		return Response.ok(entity).build();
 	}
 
 	@POST
 	@Path("add")
-	@Produces("application/json")
-	public String insert(@FormParam("txt_projectCode") String projectCode, @FormParam("txt_name") String name,
-			@FormParam("txt_startAt") String startAt, @FormParam("txt_finishAt") String finishAt) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response insert(ProjectDTO projectDTO) {
 
 		// builder a new ProjectLogic
-		ProjectLogic projectLogic = ProjectDTO.builder().projectCode(projectCode).name(name).startAt(startAt)
-				.finishAt(finishAt).build().getLogic();
+		val val = projectDTO.getLogic();
 
 		// validation form
-		if (projectLogic.isValidData()) {
+		if (val.isValidData()) {
 
 			// add to database
-			projectLogic.add();
+			val.add();
 
-			return Format.toJson(projectLogic.toString());
+			return Response.ok().build();
 		}
 
-		return Format.toJson(projectLogic.getErrorMap());
+		return Response.ok(val.getErrorMap()).build();
+
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	@Produces("application/json")
-	public String update(@PathParam("id") int id, @FormParam("txt_projectCode") String projectCode,
-			@FormParam("txt_name") String name, @FormParam("txt_startAt") String startAt,
-			@FormParam("txt_finishAt") String finishAt) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response update(@PathParam("id") int id, ProjectDTO projectDTO) {
 
 		// builder a new ProjectLogic
-		val projectLogic = ProjectDTO.builder().id(id).projectCode(projectCode).name(name).startAt(startAt)
-				.finishAt(finishAt).build().getLogic();
+		val val = projectDTO.getLogic();
 
 		// check id exist
-		if (!projectLogic.isValidId())
-			return "";
+		if (!val.isValidId(id))
+			return Response.status(404).build();
 
 		// validation form
-		if (projectLogic.isValidData()) {
+		if (val.isValidData()) {
 
 			// update to database
-			projectLogic.update();
+			val.update();
 
-			return Format.toJson(projectLogic.toString());
+			return Response.ok().build();
 		}
 
-		return Format.toJson(projectLogic.getErrorMap());
+		return Response.ok(val.getErrorMap()).build();
 	}
 
 }

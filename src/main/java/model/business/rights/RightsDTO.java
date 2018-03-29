@@ -1,13 +1,14 @@
 package model.business.rights;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
-@Builder
+@Setter
+@ToString
 public class RightsDTO {
 
-	private Integer id;
 	private String name;
 	private Integer level;
 

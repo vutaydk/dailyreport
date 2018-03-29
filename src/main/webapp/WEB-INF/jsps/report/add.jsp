@@ -51,7 +51,7 @@
 										<label for="timeWork" class="col-3 col-form-label">Time
 											work</label>
 										<div class="col-9">
-											<input id="timeWork" type="text" name="txt_timeWork"
+											<input id="timeWork" type="text" name="timeWork"
 												class="form-control" placeholder="Hour">
 										</div>
 									</div>
@@ -76,7 +76,7 @@
 								<div class="form-group">
 									<label for="content">Note</label>
 									<div class="col-12">
-										<textarea id="content" rows="10" name="txt_note"
+										<textarea id="content" rows="10" name="note"
 											class="form-control"></textarea>
 									</div>
 								</div>

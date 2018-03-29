@@ -1,13 +1,14 @@
 package controller.restful;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import common.util.Format;
+import lombok.val;
 import model.business.task.TaskDTO;
 import model.business.task.TaskLogic;
 
@@ -16,54 +17,54 @@ public class TaskService {
 
 	@GET
 	@Path("get-all")
-	@Produces("application/json")
-	public String getAll() {
-		return Format.toJson(TaskLogic.getJson());
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAll() {
+		Object entity = TaskLogic.getJson();
+		return Response.ok(entity).build();
 	}
 
 	@POST
 	@Path("add")
-	@Produces("application/json")
-	public String insert(@FormParam("txt_taskCode") String taskCode, @FormParam("txt_name") String name) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response insert(TaskDTO taskDTO) {
 
 		// builder a new TaskLogic
-		TaskLogic taskLogic = TaskDTO.builder().taskCode(taskCode).name(name).build().getLogic();
+		val val = taskDTO.getLogic();
 
 		// validation form
-		if (taskLogic.isValidData()) {
+		if (val.isValidData()) {
 
 			// add to database
-			taskLogic.add();
+			val.add();
 
-			return Format.toJson(taskLogic.toString());
+			return Response.ok().build();
 		}
 
-		return Format.toJson(taskLogic.getErrorMap());
+		return Response.ok(val.getErrorMap()).build();
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	@Produces("application/json")
-	public String update(@PathParam("id") int id, @FormParam("txt_taskCode") String taskCode,
-			@FormParam("txt_name") String name) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response update(@PathParam("id") int id, TaskDTO taskDTO) {
 
 		// builder a new TaskLogic
-		TaskLogic taskModel = TaskDTO.builder().id(id).taskCode(taskCode).name(name).build().getLogic();
+		val val = taskDTO.getLogic();
 
 		// check id exist
-		if (!taskModel.isValidId())
-			return "";
+		if (!val.isValidId(id))
+			return Response.status(404).build();
 
 		// validation form
-		if (taskModel.isValidData()) {
+		if (val.isValidData()) {
 
 			// update to database
-			taskModel.update();
+			val.update();
 
-			return Format.toJson(taskModel.toString());
+			return Response.ok().build();
 		}
 
-		return Format.toJson(taskModel.getErrorMap());
+		return Response.ok(val.getErrorMap()).build();
 	}
 
 }

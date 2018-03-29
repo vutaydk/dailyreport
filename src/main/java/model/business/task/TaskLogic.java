@@ -49,10 +49,11 @@ public class TaskLogic extends ErrorMap {
 	/**
 	 * Check exist Task
 	 * 
+	 * @param id
 	 * @return boolean
 	 */
-	public boolean isValidId() {
-		task = TaskRepo.model.find(entity.getId());
+	public boolean isValidId(int id) {
+		task = TaskRepo.model.find(id);
 		return task.isPresent();
 	}
 
@@ -65,12 +66,12 @@ public class TaskLogic extends ErrorMap {
 		boolean bool = true;
 
 		if (entity.getTaskCode() == null || entity.getTaskCode().length() != 4) {
-			setError("txt_taskCode", "Task Code length must be 4 characters.");
+			setError("taskCode", "Task Code length must be 4 characters.");
 			bool = false;
 		}
 
 		if (entity.getName() == null || entity.getName().length() < 6) {
-			setError("txt_name", "Name length is too short (requires 6 characters).");
+			setError("name", "Name length is too short (requires 6 characters).");
 			bool = false;
 		}
 

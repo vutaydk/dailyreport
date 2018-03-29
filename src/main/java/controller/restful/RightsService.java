@@ -1,13 +1,14 @@
 package controller.restful;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import common.util.Format;
+import lombok.val;
 import model.business.rights.RightsDTO;
 import model.business.rights.RightsLogic;
 
@@ -16,54 +17,54 @@ public class RightsService {
 
 	@GET
 	@Path("get-all")
-	@Produces("application/json")
-	public String getAll() {
-		return Format.toJson(RightsLogic.getJson());
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAll() {
+		Object entity = RightsLogic.getJson();
+		return Response.ok(entity).build();
 	}
 
 	@POST
 	@Path("add")
-	@Produces("application/json")
-	public String insert(@FormParam("txt_name") String name, @FormParam("txt_level") Integer level) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response insert(RightsDTO rightsDTO) {
 
 		// builder a new RightsLogic
-		RightsLogic rightsLogic = RightsDTO.builder().name(name).level(level).build().getLogic();
+		val val = rightsDTO.getLogic();
 
 		// validation form
-		if (rightsLogic.isValidData()) {
+		if (val.isValidData()) {
 
 			// add to database
-			rightsLogic.add();
+			val.add();
 
-			return Format.toJson(rightsLogic.toString());
+			return Response.ok().build();
 		}
 
-		return Format.toJson(rightsLogic.getErrorMap());
+		return Response.ok(val.getErrorMap()).build();
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	@Produces("application/json")
-	public String update(@PathParam("id") int id, @FormParam("txt_name") String name,
-			@FormParam("txt_level") Integer level) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response update(@PathParam("id") int id, RightsDTO rightsDTO) {
 
 		// builder a new RightsLogic
-		RightsLogic rightsLogic = RightsDTO.builder().id(id).name(name).level(level).build().getLogic();
+		val val = rightsDTO.getLogic();
 
 		// check id exist
-		if (!rightsLogic.isValidId())
-			return "";
+		if (!val.isValidId(id))
+			return Response.status(404).build();
 
 		// validation form
-		if (rightsLogic.isValidData()) {
+		if (val.isValidData()) {
 
 			// update to database
-			rightsLogic.update();
+			val.update();
 
-			return Format.toJson(rightsLogic.toString());
+			return Response.ok().build();
 		}
 
-		return Format.toJson(rightsLogic.getErrorMap());
+		return Response.ok(val.getErrorMap()).build();
 	}
 
 }

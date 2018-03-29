@@ -62,10 +62,11 @@ public class ReportLogic extends ErrorMap {
 	/**
 	 * Check exist Report
 	 * 
+	 * @param id
 	 * @return boolean
 	 */
-	public boolean isValidId() {
-		report = ReportRepo.model.find(entity.getId());
+	public boolean isValidId(int id) {
+		report = ReportRepo.model.find(id);
 		return report.isPresent();
 	}
 

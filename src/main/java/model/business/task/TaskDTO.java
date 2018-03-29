@@ -1,13 +1,14 @@
 package model.business.task;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
-@Builder
+@Setter
+@ToString
 public class TaskDTO {
 
-	private Integer id;
 	private String taskCode;
 	private String name;
 

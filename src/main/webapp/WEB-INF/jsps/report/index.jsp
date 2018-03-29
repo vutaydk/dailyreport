@@ -22,7 +22,7 @@
 										at</label>
 									<div class="col-7">
 										<div class="input-group">
-											<input id="startAt" name="txt_startAt" class="form-control"
+											<input id="startAt" class="form-control"
 												data-provide="datepicker" data-date-format="dd/mm/yyyy">
 											<div class="input-group-append">
 												<span class="input-group-text"><i
@@ -39,7 +39,7 @@
 										at</label>
 									<div class="col-7">
 										<div class="input-group">
-											<input id="finishAt" name="txt_finishAt" class="form-control"
+											<input id="finishAt" class="form-control"
 												data-provide="datepicker" data-date-format="dd/mm/yyyy">
 											<div class="input-group-append">
 												<span class="input-group-text"><i
