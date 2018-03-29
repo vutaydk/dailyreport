@@ -8,10 +8,10 @@
 	<%-- import nav header --%>
 	<jsp:include page="layout/nav-header.jsp" />
 
-	<div class="row">
-		<div class="col-12">
-			<div class="box">
-				<div class="box-body">
+	<div class="box">
+		<div class="box-body">
+			<div class="row justify-content-center">
+				<div class="col-8">
 					<form action="" method="post">
 						<div class="form-row">
 							<div class="col-5">
@@ -30,10 +30,15 @@
 							</div>
 						</div>
 					</form>
-
-					<div class="col-12 text-center">
-						<canvas id="myChart"></canvas>
-					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-7">
+					<canvas id="myChart"></canvas>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
 					<table class="table mt-3">
 						<thead>
 							<tr>
