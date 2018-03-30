@@ -13,11 +13,11 @@ import model.business.report.ReportDTO;
 import model.business.report.ReportLogic;
 
 @Path("/report")
+@Produces(MediaType.APPLICATION_JSON)
 public class ReportService {
 
 	@GET
 	@Path("get-all")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		Object entity = ReportLogic.getJson();
 		return Response.ok(entity).build();
@@ -25,7 +25,6 @@ public class ReportService {
 
 	@POST
 	@Path("add")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response insert(ReportDTO reportDTO) {
 
 		// builder a new ReportLogic
@@ -45,7 +44,6 @@ public class ReportService {
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") int id, ReportDTO reportDTO) {
 
 		// builder a new ReportLogic

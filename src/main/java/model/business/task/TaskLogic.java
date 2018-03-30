@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.Getter;
 import model.business.ErrorMap;
 import model.entity.Task;
 import model.repo.TaskRepo;
@@ -13,12 +12,9 @@ import model.repo.TaskRepo;
 public class TaskLogic extends ErrorMap {
 
 	/**
-	 * Variable TaskEntity
+	 * Variable TaskDTO
 	 */
-	private final TaskDTO entity;
-
-	@Getter
-	private Optional<Task> task = Optional.empty();
+	private final TaskDTO dto;
 
 	/**
 	 * Constructor
@@ -26,7 +22,7 @@ public class TaskLogic extends ErrorMap {
 	 * @param entity
 	 */
 	public TaskLogic(TaskDTO entity) {
-		this.entity = entity;
+		this.dto = entity;
 	}
 
 	/**
@@ -53,8 +49,11 @@ public class TaskLogic extends ErrorMap {
 	 * @return boolean
 	 */
 	public boolean isValidId(int id) {
-		task = TaskRepo.model.find(id);
-		return task.isPresent();
+		Optional<Task> task = TaskRepo.model.find(id);
+		boolean isValid = task.isPresent();
+		if (isValid)
+			dto.setTask(task);
+		return isValid;
 	}
 
 	/**
@@ -65,53 +64,17 @@ public class TaskLogic extends ErrorMap {
 	public boolean isValidData() {
 		boolean bool = true;
 
-		if (entity.getTaskCode() == null || entity.getTaskCode().length() != 4) {
+		if (dto.getTaskCode() == null || dto.getTaskCode().length() != 4) {
 			setError("taskCode", "Task Code length must be 4 characters.");
 			bool = false;
 		}
 
-		if (entity.getName() == null || entity.getName().length() < 6) {
+		if (dto.getName() == null || dto.getName().length() < 6) {
 			setError("name", "Name length is too short (requires 6 characters).");
 			bool = false;
 		}
 
 		return bool;
-	}
-
-	/**
-	 * Add to database
-	 * 
-	 * @return boolean
-	 */
-	public boolean add() {
-		Task task = new Task();
-		setData(entity, task);
-		return TaskRepo.model.insert(task);
-	}
-
-	/**
-	 * Update to database
-	 * 
-	 * @return boolean
-	 */
-	public boolean update() {
-		if (!task.isPresent())
-			return false;
-
-		Task task = this.task.get();
-		setData(entity, task);
-		return TaskRepo.model.update(task);
-	}
-
-	/**
-	 * Merge data
-	 * 
-	 * @param entity
-	 * @param project
-	 */
-	private void setData(TaskDTO entity, Task project) {
-		project.setTaskCode(entity.getTaskCode());
-		project.setName(entity.getName());
 	}
 
 }

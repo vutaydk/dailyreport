@@ -13,11 +13,11 @@ import model.business.task.TaskDTO;
 import model.business.task.TaskLogic;
 
 @Path("/task")
+@Produces(MediaType.APPLICATION_JSON)
 public class TaskService {
 
 	@GET
 	@Path("get-all")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		Object entity = TaskLogic.getJson();
 		return Response.ok(entity).build();
@@ -25,7 +25,6 @@ public class TaskService {
 
 	@POST
 	@Path("add")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response insert(TaskDTO taskDTO) {
 
 		// builder a new TaskLogic
@@ -35,7 +34,7 @@ public class TaskService {
 		if (val.isValidData()) {
 
 			// add to database
-			val.add();
+			taskDTO.insert();
 
 			return Response.ok().build();
 		}
@@ -45,7 +44,6 @@ public class TaskService {
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") int id, TaskDTO taskDTO) {
 
 		// builder a new TaskLogic
@@ -59,7 +57,7 @@ public class TaskService {
 		if (val.isValidData()) {
 
 			// update to database
-			val.update();
+			taskDTO.update();
 
 			return Response.ok().build();
 		}
