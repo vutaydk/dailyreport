@@ -92,117 +92,81 @@
             </div>
             <!-- ./sidebar -->
             <div class="col-9">
-                <div id="list-report" class="list-report">
-                    <div class="report-form">
-                        <form id="addReportForm" method="post">
-                            <div class="report-form-body">
-                                <div class="row">
-                                    <div class="col-10">
-                                        <div class="form-group row">
-                                            <label for="projectCode" class="col-3 col-form-label">Project code</label>
-                                            <div class="col-9">
-                                                <select id="projectCode" class="form-control" name="projectCode" data-validation="[NOTEMPTY]" data-validation-message="Please choose project.">
-                                                    <option value="">Choose...</option>
-                                                    <option value="Project1">Project 1</option>
-                                                    <option value="Project2">Project 2</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="taskCode" class="col-3 col-form-label">Task code</label>
-                                            <div class="col-9">
-                                                <select id="taskCode" class="form-control" name="taskCode" data-validation="[NOTEMPTY]" data-validation-message="Please choose task.">
-                                                    <option value="">Choose...</option>
-                                                    <option value="Task1">Task 1</option>
-                                                    <option value="Task2">Task 2</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="timeWork" class="col-3 col-form-label">Time work</label>
-                                            <div class="col-9">
-                                                <input type="text" class="form-control" id="timeWork" name="txt_timeWork" placeholder="Hour" data-validation="[NOTEMPTY, INTEGER]"
-                                                    data-validation-message="Please enter working time.">
-                                            </div>
+                <div id="list-report" class="report-form">
+                    <form id="addReportForm" method="post">
+                        <div class="report-form-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="form-group row">
+                                        <label for="" class="col-3 col-form-label">Project code</label>
+                                        <div class="col-9">
+                                            <select class="form-control" name="projectCode">
+                                                <option value="">Choose...</option>
+                                                <option value="Project1">Project 1</option>
+                                                <option value="Project2">Project 2</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-2">
-                                        <div class="row">
-                                            <button class="btn btn-outline-danger ml-2" type="button">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button id="toggle-note" class="btn btn-outline-dark  ml-2" type="button" data-toggle="collapse" data-target="#report-note"
-                                                aria-controls="report-note" aria-expanded="false" aria-label="Toggle report note">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
+                                    <div class="form-group row">
+                                        <label for="" class="col-3 col-form-label">Task code</label>
+                                        <div class="col-9">
+                                            <select class="form-control" name="taskCode">
+                                                <option value="">Choose...</option>
+                                                <option value="Task1">Task 1</option>
+                                                <option value="Task2">Task 2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="" class="col-3 col-form-label">Time work</label>
+                                        <div class="col-9">
+                                            <input type="text" class="form-control" name="txt_timeWork" placeholder="Hour">
                                         </div>
                                     </div>
                                 </div>
-                                <div id="report-note">
-                                    <div class="form-group">
-                                        <label for="content">Note</label>
-                                        <div class="col-12">
-                                            <textarea class="form-control" rows="10" cols="" id="content" name="txt_note" data-validation="[L>=10, NOTEMPTY]" data-validation-message="Please enter note. Not must be at least 10 characters."></textarea>
-                                        </div>
-                                    </div>
+                                <div class="col-2">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <button type="button" id="addWork" class="btn btn-outline-dark">
-                                                Add work
-                                            </button>
-                                        </div>
+                                        <button class="btn btn-outline-danger ml-2" type="button">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="btn btn-outline-dark ml-2 btn-note-toggle" type="button">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="report-note">
+                                <div class="form-group">
+                                    <label for="content">Note</label>
+                                    <div class="col-12">
+                                        <textarea class="form-control" rows="6" cols="" name="txt_note"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-outline-dark btn-add-work">
+                                            Add work
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <button id="report-submit" class="btn btn-primary" type="button">Submit</button>
+                <div id="result">
+
                 </div>
                 <script>
-
-                    $.validate({
-                        submit: {
-                            settings: {
-                                form: '#addReportForm',
-                                clear: false,
-                                insertion: 'append',
-                                allErrors: true,
-                                errorClass: 'is-invalid',
-                                errorListClass: 'invalid-feedback error-list',
-                                inputContainer: '.form-group',
-                                display: 'inline',
-                                scrollToError: true
-                            },
-                            callback: {
-                                onError: function (error) {
-                                    // alert(error.toString());
-                                }
-                            }
-                        }
-                    });
-
-                    $(document).ready(function () {
-
-                        $('#report-note').on('hidden.bs.collapse', function () {
-                            $('#toggle-note').children().replaceWith('<i class="fas fa-plus"></i>');
-                        });
-
-                        $('#report-note').on('shown.bs.collapse', function () {
-                            $('#toggle-note').children().replaceWith('<i class="fas fa-minus"></i>');
-                        });
-
-
-                        $("#addWork").click(function () {
-                            $("#list-report").append(`
-
-                        <div class="report-form">
-                        <form id="addReportForm" method="post">
-                            <div class="report-form-body">
+                    $(function () {
+                        var taskForm =
+                            `<div class="report-form-body">
                                 <div class="row">
                                     <div class="col-10">
                                         <div class="form-group row">
-                                            <label for="projectCode" class="col-3 col-form-label">Project code</label>
+                                            <label for="" class="col-3 col-form-label">Project code</label>
                                             <div class="col-9">
-                                                <select id="projectCode" class="form-control" name="projectCode" data-validation="[NOTEMPTY]" data-validation-message="Please choose project.">
+                                                <select class="form-control" name="projectCode">
                                                     <option value="">Choose...</option>
                                                     <option value="Project1">Project 1</option>
                                                     <option value="Project2">Project 2</option>
@@ -210,9 +174,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="taskCode" class="col-3 col-form-label">Task code</label>
+                                            <label for="" class="col-3 col-form-label">Task code</label>
                                             <div class="col-9">
-                                                <select id="taskCode" class="form-control" name="taskCode" data-validation="[NOTEMPTY]" data-validation-message="Please choose task.">
+                                                <select class="form-control" name="taskCode">
                                                     <option value="">Choose...</option>
                                                     <option value="Task1">Task 1</option>
                                                     <option value="Task2">Task 2</option>
@@ -220,10 +184,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="timeWork" class="col-3 col-form-label">Time work</label>
+                                            <label for="" class="col-3 col-form-label">Time work</label>
                                             <div class="col-9">
-                                                <input type="text" class="form-control" id="timeWork" name="txt_timeWork" placeholder="Hour" data-validation="[NOTEMPTY, INTEGER]"
-                                                    data-validation-message="Please enter working time.">
+                                                <input type="text" name="txt_timeWork" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -232,33 +195,61 @@
                                             <button class="btn btn-outline-danger ml-2">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
-                                            <button class="btn btn-outline-dark  ml-2">
+                                            <button class="btn btn-outline-dark  ml-2 btn-note-toggle">
                                                 <i class="fas fa-minus"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="content">Note</label>
-                                    <div class="col-12">
-                                        <textarea class="form-control" rows="10" cols="" id="content" name="txt_note" data-validation="[L>=10, NOTEMPTY]" data-validation-message="Please enter note. Not must be at least 10 characters."></textarea>
+                                <div class="report-note">
+                                    <div class="form-group">
+                                        <label for="content">Note</label>
+                                        <div class="col-12">
+                                            <textarea class="form-control" rows="10" cols="" name="txt_note"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-outline-dark btn-add-work">
+                                                Add work
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button type="button" id="addWork" class="btn btn-outline-dark">
-                                            Add work
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                            `);
-                        });
+                            </div>`;
+
+                        // on Add work button click
+                        var addWorkBtnClick = function () {
+                            $("#addReportForm").append(taskForm);
+                        };
+                        $("body").on("click", ".btn-add-work", addWorkBtnClick);
+
+                        // on toggle note click
+                        var noteToggleBtnClick = function () {
+                            $(this).children().toggleClass("fa-plus fa-minus");
+                            $(this).closest(".report-form-body").children(".report-note").slideToggle();
+                        };
+                        $("body").on("click", ".btn-note-toggle", noteToggleBtnClick);
+
+                        var numberOfItem;
+
+                        // on submit
+                        $("body").on("click", "#report-submit", function () {
+                            var addReportForm = $("#addReportForm");
+                            var data = [];
+                            numberOfItem = addReportForm.children().length;
+                            $.each($("div").find(".report-form-body"), function(){
+                                var record = {};
+                                $.each($(this).find("input, select, textarea"), function(){
+                                    record[this.name] = this.value; 
+                                });
+                                console.log(record);
+                                data.push(record);
+                            });
+                            console.log(data);
+                            
+                        })
                     });
-
-
                 </script>
             </div>
             <!-- ./create-report form -->
