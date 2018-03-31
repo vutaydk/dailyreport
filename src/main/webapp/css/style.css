@@ -1,3 +1,6 @@
+/* * {
+	border: 1px solid red;
+} */
 body {
 	background-color: #f9f9f9
 }
@@ -16,66 +19,29 @@ body {
 	border-radius: 5px;
 }
 
-.create-report-button {
-	display: block;
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	z-index: 99;
-	font-size: 18px;
-	border: none;
-	outline: none;
-	background-color: green;
-	color: white;
-	cursor: pointer;
-	padding: 15px;
-	border-radius: 4px;
-}
-
-.bottom-right {
-	position: absolute;
-	bottom: 1px;
-	right: 1px;
-	border: none;
-	outline: none;
-	background-color: green;
-	color: white;
-	cursor: pointer;
-	padding: 5px 10px;
-	border-radius: 4px;
-}
-
 .auth-form {
-	margin-top: 10%; position : absolute;
-	margin: 0 auto;
-	position: absolute;
+	position: relative;
+	width: 300px;
+	margin: 10% auto;
+	border-radius: 5px;
+	box-shadow: 0px 0px 40px -5px #aaaaaa;
 }
 
 .auth-form .auth-form-header {
-	margin-bottom: 15px;
-	color: #333;
 	text-align: center;
-	text-shadow: none;
-	background-color: transparent;
-	border: 0
+}
+
+.auth-form-header {
+	padding: 5px;
 }
 
 .auth-form .auth-form-body {
 	border-top: 1px solid #d8dee2;
-	border-radius: 5px
 }
 
 .auth-form-body {
 	padding: 20px;
 	font-size: 14px;
-	background-color: #fff;
-	border: 1px solid #d8dee2;
-	border-top: 0;
-	border-radius: 0 0 3px 3px;
-	box-shadow: 10px 10px 5px -5px #aaaaaa;
-	-webkit-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
-	-moz-box-shadow: 0px 0px 40px -5px rgba(0, 0, 0, 1);
-	box-shadow: 0px 0px 40px -5px #aaaaaa;
 }
 
 .box {
