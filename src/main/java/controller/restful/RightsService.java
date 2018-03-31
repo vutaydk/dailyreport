@@ -13,11 +13,11 @@ import model.business.rights.RightsDTO;
 import model.business.rights.RightsLogic;
 
 @Path("/rights")
+@Produces(MediaType.APPLICATION_JSON)
 public class RightsService {
 
 	@GET
 	@Path("get-all")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		Object entity = RightsLogic.getJson();
 		return Response.ok(entity).build();
@@ -25,7 +25,6 @@ public class RightsService {
 
 	@POST
 	@Path("add")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response insert(RightsDTO rightsDTO) {
 
 		// builder a new RightsLogic
@@ -35,7 +34,7 @@ public class RightsService {
 		if (val.isValidData()) {
 
 			// add to database
-			val.add();
+			rightsDTO.insert();
 
 			return Response.ok().build();
 		}
@@ -45,7 +44,6 @@ public class RightsService {
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") int id, RightsDTO rightsDTO) {
 
 		// builder a new RightsLogic
@@ -59,7 +57,7 @@ public class RightsService {
 		if (val.isValidData()) {
 
 			// update to database
-			val.update();
+			rightsDTO.update();
 
 			return Response.ok().build();
 		}

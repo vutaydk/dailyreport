@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.Getter;
 import model.business.ErrorMap;
 import model.entity.Rights;
 import model.repo.RightsRepo;
@@ -13,12 +12,9 @@ import model.repo.RightsRepo;
 public class RightsLogic extends ErrorMap {
 
 	/**
-	 * Variable RightsEntity
+	 * Variable RightsDTO
 	 */
-	private final RightsDTO entity;
-
-	@Getter
-	private Optional<Rights> rights = Optional.empty();
+	private final RightsDTO dto;
 
 	/**
 	 * Constructor
@@ -26,7 +22,7 @@ public class RightsLogic extends ErrorMap {
 	 * @param entity
 	 */
 	public RightsLogic(RightsDTO entity) {
-		this.entity = entity;
+		this.dto = entity;
 	}
 
 	/**
@@ -53,8 +49,11 @@ public class RightsLogic extends ErrorMap {
 	 * @return boolean
 	 */
 	public boolean isValidId(int id) {
-		rights = RightsRepo.model.find(id);
-		return rights.isPresent();
+		Optional<Rights> rights = RightsRepo.model.find(id);
+		boolean isValid = rights.isPresent();
+		if (isValid)
+			dto.setRights(rights);
+		return isValid;
 	}
 
 	/**
@@ -65,48 +64,12 @@ public class RightsLogic extends ErrorMap {
 	public boolean isValidData() {
 		boolean bool = true;
 
-		if (entity.getName() == null || entity.getName().length() < 6) {
+		if (dto.getName() == null || dto.getName().length() < 6) {
 			setError("name", "Name length is too short (requires 6 characters).");
 			bool = false;
 		}
 
 		return bool;
-	}
-
-	/**
-	 * Add to database
-	 * 
-	 * @return boolean
-	 */
-	public boolean add() {
-		Rights rights = new Rights();
-		setData(entity, rights);
-		return RightsRepo.model.insert(rights);
-	}
-
-	/**
-	 * Update to database
-	 * 
-	 * @return boolean
-	 */
-	public boolean update() {
-		if (!rights.isPresent())
-			return false;
-
-		Rights rights = this.rights.get();
-		setData(entity, rights);
-		return RightsRepo.model.update(rights);
-	}
-
-	/**
-	 * Merge data
-	 * 
-	 * @param entity
-	 * @param rights
-	 */
-	private void setData(RightsDTO entity, Rights rights) {
-		rights.setName(entity.getName());
-		rights.setLevel(entity.getLevel());
 	}
 
 }

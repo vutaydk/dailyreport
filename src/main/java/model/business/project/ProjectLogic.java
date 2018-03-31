@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import common.util.DataValidation;
 import common.util.Format;
-import lombok.Getter;
 import model.business.ErrorMap;
 import model.entity.Project;
 import model.entity.Report;
@@ -17,12 +16,9 @@ import model.repo.ProjectRepo;
 public class ProjectLogic extends ErrorMap {
 
 	/**
-	 * Variable ProjectEntity
+	 * Variable ProjectDTO
 	 */
-	private final ProjectDTO entity;
-
-	@Getter
-	private Optional<Project> project = Optional.empty();
+	private final ProjectDTO dto;
 
 	/**
 	 * Constructor
@@ -30,7 +26,7 @@ public class ProjectLogic extends ErrorMap {
 	 * @param entity
 	 */
 	public ProjectLogic(ProjectDTO entity) {
-		this.entity = entity;
+		this.dto = entity;
 	}
 
 	/**
@@ -86,8 +82,11 @@ public class ProjectLogic extends ErrorMap {
 	 * @return boolean
 	 */
 	public boolean isValidId(int id) {
-		project = ProjectRepo.model.find(id);
-		return project.isPresent();
+		Optional<Project> project = ProjectRepo.model.find(id);
+		boolean isValid = project.isPresent();
+		if (isValid)
+			dto.setProject(project);
+		return isValid;
 	}
 
 	/**
@@ -98,68 +97,30 @@ public class ProjectLogic extends ErrorMap {
 	public boolean isValidData() {
 		boolean bool = true;
 
-		if (entity.getProjectCode() == null || entity.getProjectCode().length() != 4) {
+		if (dto.getProjectCode() == null || dto.getProjectCode().length() != 4) {
 			setError("projectCode", "Project Code length must be 4 characters.");
 			bool = false;
 		}
 
-		if (entity.getName() == null || entity.getName().length() < 6) {
+		if (dto.getName() == null || dto.getName().length() < 6) {
 			setError("name", "Name length is too short (requires 6 characters).");
 			bool = false;
 		}
 
-		if (entity.getStartAt() == null || !DataValidation.isValidDate(entity.getStartAt())) {
+		if (dto.getStartAt() == null || !DataValidation.isValidDate(dto.getStartAt())) {
 			setError("startAt", "Invalid Start Date");
 			bool = false;
 		}
 
-		if (entity.getFinishAt() == null || !DataValidation.isValidDate(entity.getFinishAt())) {
+		if (dto.getFinishAt() == null || !DataValidation.isValidDate(dto.getFinishAt())) {
 			setError("finishAt", "Invalid Finish Date");
 			bool = false;
-		} else if (Format.toDate(entity.getStartAt()).after(Format.toDate(entity.getFinishAt()))) {
+		} else if (Format.toDate(dto.getStartAt()).after(Format.toDate(dto.getFinishAt()))) {
 			setError("startAt", "Start Date can't after Finish Date");
 			bool = false;
 		}
 
 		return bool;
-	}
-
-	/**
-	 * Add to database
-	 * 
-	 * @return boolean
-	 */
-	public boolean add() {
-		Project project = new Project();
-		setData(entity, project);
-		return ProjectRepo.model.insert(project);
-	}
-
-	/**
-	 * Update to database
-	 * 
-	 * @return boolean
-	 */
-	public boolean update() {
-		if (!project.isPresent())
-			return false;
-
-		Project project = this.project.get();
-		setData(entity, project);
-		return ProjectRepo.model.update(project);
-	}
-
-	/**
-	 * Merge data
-	 * 
-	 * @param entity
-	 * @param project
-	 */
-	private void setData(ProjectDTO entity, Project project) {
-		project.setProjectCode(entity.getProjectCode());
-		project.setName(entity.getName());
-		project.setStartAt(Format.toDate(entity.getStartAt()));
-		project.setFinishAt(Format.toDate(entity.getFinishAt()));
 	}
 
 }

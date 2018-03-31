@@ -13,11 +13,11 @@ import model.business.project.ProjectDTO;
 import model.business.project.ProjectLogic;
 
 @Path("/project")
+@Produces(MediaType.APPLICATION_JSON)
 public class ProjectService {
 
 	@GET
 	@Path("get-all")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		Object entity = ProjectLogic.getJson();
 		return Response.ok(entity).build();
@@ -25,7 +25,6 @@ public class ProjectService {
 
 	@GET
 	@Path("get-chart")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response getForChart() {
 		Object entity = ProjectLogic.getJsonForChart();
 		return Response.ok(entity).build();
@@ -33,7 +32,6 @@ public class ProjectService {
 
 	@POST
 	@Path("add")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response insert(ProjectDTO projectDTO) {
 
 		// builder a new ProjectLogic
@@ -43,7 +41,7 @@ public class ProjectService {
 		if (val.isValidData()) {
 
 			// add to database
-			val.add();
+			projectDTO.insert();
 
 			return Response.ok().build();
 		}
@@ -54,7 +52,6 @@ public class ProjectService {
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") int id, ProjectDTO projectDTO) {
 
 		// builder a new ProjectLogic
@@ -68,7 +65,7 @@ public class ProjectService {
 		if (val.isValidData()) {
 
 			// update to database
-			val.update();
+			projectDTO.update();
 
 			return Response.ok().build();
 		}
