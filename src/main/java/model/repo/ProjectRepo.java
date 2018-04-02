@@ -10,8 +10,10 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
+import lombok.extern.log4j.Log4j;
 import model.entity.Project;
 
+@Log4j
 public class ProjectRepo implements IRepository<Project> {
 
 	public static ProjectRepo model;
@@ -20,6 +22,7 @@ public class ProjectRepo implements IRepository<Project> {
 	}
 
 	public List<Project> getAll() {
+		log.debug("get all");
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
@@ -32,6 +35,7 @@ public class ProjectRepo implements IRepository<Project> {
 	}
 
 	public Optional<Project> find(int id) {
+		log.debug("find id=" + id);
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id",
@@ -50,6 +54,7 @@ public class ProjectRepo implements IRepository<Project> {
 	}
 
 	public boolean insert(Project project) {
+		log.debug("insert: " + project);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -69,6 +74,7 @@ public class ProjectRepo implements IRepository<Project> {
 	}
 
 	public boolean update(Project project) {
+		log.debug("update: " + project);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -87,6 +93,7 @@ public class ProjectRepo implements IRepository<Project> {
 	}
 
 	public boolean delete(Project project) {
+		log.debug("delete: " + project);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {

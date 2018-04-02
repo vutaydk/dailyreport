@@ -10,8 +10,10 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
+import lombok.extern.log4j.Log4j;
 import model.entity.Task;
 
+@Log4j
 public class TaskRepo implements IRepository<Task> {
 
 	public static TaskRepo model;
@@ -20,6 +22,7 @@ public class TaskRepo implements IRepository<Task> {
 	}
 
 	public List<Task> getAll() {
+		log.debug("get all");
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<Task> query = session.createQuery("FROM " + Task.class.getName(), Task.class);
@@ -32,6 +35,7 @@ public class TaskRepo implements IRepository<Task> {
 	}
 
 	public Optional<Task> find(int id) {
+		log.debug("find id=" + id);
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id", Task.class);
@@ -48,6 +52,7 @@ public class TaskRepo implements IRepository<Task> {
 	}
 
 	public boolean insert(Task task) {
+		log.debug("insert: " + task);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -67,6 +72,7 @@ public class TaskRepo implements IRepository<Task> {
 	}
 
 	public boolean update(Task task) {
+		log.debug("update: " + task);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -85,6 +91,7 @@ public class TaskRepo implements IRepository<Task> {
 	}
 
 	public boolean delete(Task task) {
+		log.debug("delete: " + task);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
