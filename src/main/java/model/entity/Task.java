@@ -19,10 +19,10 @@ import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "tasks")
+@Getter
+@Setter
 public class Task {
 
 	@Id

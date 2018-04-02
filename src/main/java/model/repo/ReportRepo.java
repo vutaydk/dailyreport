@@ -10,8 +10,10 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
+import lombok.extern.log4j.Log4j;
 import model.entity.Report;
 
+@Log4j
 public class ReportRepo implements IRepository<Report> {
 
 	public static ReportRepo model;
@@ -20,6 +22,7 @@ public class ReportRepo implements IRepository<Report> {
 	}
 
 	public List<Report> getAll() {
+		log.debug("get all");
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<Report> query = session.createQuery("FROM " + Report.class.getName(), Report.class);
@@ -32,6 +35,7 @@ public class ReportRepo implements IRepository<Report> {
 	}
 
 	public Optional<Report> find(int id) {
+		log.debug("find id=" + id);
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<Report> query = session.createQuery("FROM " + Report.class.getName() + " WHERE id=:id", Report.class);
@@ -48,6 +52,7 @@ public class ReportRepo implements IRepository<Report> {
 	}
 
 	public boolean insert(Report report) {
+		log.debug("insert: " + report);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -67,6 +72,7 @@ public class ReportRepo implements IRepository<Report> {
 	}
 
 	public boolean update(Report report) {
+		log.debug("update: " + report);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -84,11 +90,12 @@ public class ReportRepo implements IRepository<Report> {
 		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
-	public boolean delete(Report object) {
+	public boolean delete(Report report) {
+		log.debug("delete: " + report);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.delete(object);
+			session.delete(report);
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();

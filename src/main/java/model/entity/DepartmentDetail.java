@@ -21,10 +21,10 @@ import org.hibernate.annotations.Parameter;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "department_details")
+@Getter
+@Setter
 public class DepartmentDetail {
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "users"))

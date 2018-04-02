@@ -18,10 +18,10 @@ import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "report_details")
+@Getter
+@Setter
 public class ReportDetail {
 
 	@Id

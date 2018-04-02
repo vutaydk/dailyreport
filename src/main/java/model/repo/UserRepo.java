@@ -10,8 +10,10 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
+import lombok.extern.log4j.Log4j;
 import model.entity.User;
 
+@Log4j
 public class UserRepo implements IRepository<User> {
 
 	public static UserRepo model;
@@ -20,6 +22,7 @@ public class UserRepo implements IRepository<User> {
 	}
 
 	public List<User> getAll() {
+		log.debug("get all");
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<User> query = session.createQuery("FROM " + User.class.getName(), User.class);
@@ -32,6 +35,7 @@ public class UserRepo implements IRepository<User> {
 	}
 
 	public Optional<User> find(int id) {
+		log.debug("find id=" + id);
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
@@ -48,6 +52,7 @@ public class UserRepo implements IRepository<User> {
 	}
 
 	public Optional<User> check(String em, String pwd) {
+		log.debug("check user=" + em + ", password=" + pwd);
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<User> query = session.createQuery(
@@ -66,6 +71,7 @@ public class UserRepo implements IRepository<User> {
 	}
 
 	public boolean insert(User user) {
+		log.debug("insert: " + user);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -85,6 +91,7 @@ public class UserRepo implements IRepository<User> {
 	}
 
 	public boolean update(User user) {
+		log.debug("update: " + user);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -103,6 +110,7 @@ public class UserRepo implements IRepository<User> {
 	}
 
 	public boolean delete(User user) {
+		log.debug("delete: " + user);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {

@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="navbar navbar-expand-lg header">
 	<a class="navbar-brand" href=""><b>Daily report</b></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"

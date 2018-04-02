@@ -65,6 +65,7 @@ CREATE TABLE projects (
     name NVARCHAR(50),
     start_at DATE,
     finish_at DATE,
+	project_manager INT FOREIGN KEY REFERENCES users(id),
     created_at SMALLDATETIME,
 	updated_at SMALLDATETIME
 );
@@ -180,16 +181,19 @@ INSERT INTO reports(project_id, user_id, created_at)
 VALUES (1, 1, CAST(N'2018-03-25' AS DateTime));
 --1
 INSERT INTO reports(project_id, user_id, created_at)
-VALUES (2, 1, CAST(N'2018-03-25' AS DateTime));
+VALUES (2, 1, CAST(N'2018-03-26' AS DateTime));
 --1
 INSERT INTO reports(project_id, user_id, created_at)
 VALUES (3, 2, CAST(N'2018-03-26' AS DateTime));
 --1
 INSERT INTO reports(project_id, user_id, created_at)
-VALUES (4, 2, CAST(N'2018-03-26' AS DateTime));
+VALUES (4, 2, CAST(N'2018-03-25' AS DateTime));
 --1
 INSERT INTO reports(project_id, user_id, created_at)
 VALUES (5, 1, CAST(N'2018-03-25' AS DateTime));
+--1
+INSERT INTO reports(project_id, user_id, created_at)
+VALUES (5, 2, CAST(N'2018-03-26' AS DateTime));
 
 -- INSERT INTO REPORT_DETAIL
 --1

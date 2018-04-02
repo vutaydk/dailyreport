@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.log4j.Log4j;
 import model.entity.User;
 import model.repo.UserRepo;
 
@@ -16,6 +17,7 @@ import model.repo.UserRepo;
  * Servlet implementation class LoginSevlet
  */
 @WebServlet({ "/login", "/logout" })
+@Log4j
 public class LoginSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +27,7 @@ public class LoginSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		log.debug("doGet");
 		// logout success, redirect to login page
 		if ("/logout".equals(request.getServletPath())) {
 
@@ -54,7 +56,7 @@ public class LoginSevlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		log.debug("doPost");
 		if ("/login".equals(request.getServletPath())) {
 
 			// get request param

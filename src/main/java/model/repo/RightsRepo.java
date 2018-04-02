@@ -10,8 +10,10 @@ import org.hibernate.query.Query;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
+import lombok.extern.log4j.Log4j;
 import model.entity.Rights;
 
+@Log4j
 public class RightsRepo implements IRepository<Rights> {
 
 	public static RightsRepo model;
@@ -20,6 +22,7 @@ public class RightsRepo implements IRepository<Rights> {
 	}
 
 	public List<Rights> getAll() {
+		log.debug("get all");
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName(), Rights.class);
@@ -32,6 +35,7 @@ public class RightsRepo implements IRepository<Rights> {
 	}
 
 	public Optional<Rights> find(int id) {
+		log.debug("find id=" + id);
 		Session session = HibernateUtil.getSession();
 		try {
 			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id", Rights.class);
@@ -48,6 +52,7 @@ public class RightsRepo implements IRepository<Rights> {
 	}
 
 	public boolean insert(Rights rights) {
+		log.debug("insert: " + rights);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -67,6 +72,7 @@ public class RightsRepo implements IRepository<Rights> {
 	}
 
 	public boolean update(Rights rights) {
+		log.debug("update: " + rights);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
@@ -85,6 +91,7 @@ public class RightsRepo implements IRepository<Rights> {
 	}
 
 	public boolean delete(Rights rights) {
+		log.debug("delete: " + rights);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
