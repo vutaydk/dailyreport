@@ -18,11 +18,13 @@ import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "departments")
+@Getter
+@Setter
+@ToString
 public class Department {
 
 	@Id

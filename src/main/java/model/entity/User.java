@@ -21,11 +21,13 @@ import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@ToString
 public class User {
 
 	@Id
@@ -65,5 +67,8 @@ public class User {
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
 	private DepartmentDetail departmentDetail;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Project> projects = new HashSet<Project>(0);
 
 }
