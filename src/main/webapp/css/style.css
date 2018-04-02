@@ -91,3 +91,17 @@ body {
 .form-control:focus {
 	box-shadow: none !important;
 }
+
+/* Pagination */
+.pagination-select {
+  position: relative;
+  display: block;
+  border: 1px solid #ddd;
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  border-left: 0;
+  color: #007bff;
+  border-right: 0;
+  background-color: #fff;
+}
