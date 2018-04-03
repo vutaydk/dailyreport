@@ -1,11 +1,11 @@
-(function($) {
-  $.fn.serializeFormJSON = function() {
+(function ($) {
+  $.fn.serializeFormJSON = function () {
     var o = {};
     var a = this.serializeArray();
-    $.each(a, function() {
+    $.each(a, function () {
       if (o[this.name]) {
         if (!o[this.name].push) {
-          o[this.name] = [ o[this.name] ];
+          o[this.name] = [o[this.name]];
         }
         o[this.name].push(this.value || '');
       } else {
@@ -17,113 +17,103 @@
 
 })(jQuery);
 
-var Pagination = function(arr) {
-  console.log(arr)
-  var DOM = {
-    sidebarPagination : $(".sidebar-pagination"),
-    sidebarList : $(".sidebar-list").find("ul"),
-    prev : $("#prev"),
-    next : $("#next"),
-    first : $("#first"),
-    last : $("#last"),
-    pageSelect : $("#page-select")
+function pagination(arr) {
+  var s = {
+    sidebarPagination: $(".sidebar-pagination"),
+    sidebarList: $(".sidebar-list").find("ul"),
   };
 
-  var rowsOfPage = 10, currentPage = 1;
+  var b = {
+    prev: $("#prev"),
+    next: $("#next"),
+    first: $("#first"),
+    last: $("#last"),
+    pageSelect: $("#page-select")
+  };
+
   var data = [];
   if ($.isArray(arr)) {
-    console.log("isArr")
     data = $.extend(data, arr);
-    console.log(data)
   }
+  var rowsOfPage = 2,
+    currentPage = 1,
+    totalPage = Math.ceil(data.length / rowsOfPage);
 
   function refresh() {
-    var totalPage = Math.ceil(data.length / rowsOfPage);
-    var firstRow = (currentPage - 1) * rowsOfPage;
-    var lastRow = (rowsOfPage * currentPage) - 1;
-    if (lastRow > data.length)
-      lastRow = data.length - 1;
-    console.log(totalPage)
-    console.log(firstRow)
-    console.log(lastRow)
-    if (totalPage <= 1) {
-      DOM.sidebarPagination.hide()
-    } else {
-      DOM.sidebarPagination.show()
-    }
-
-    if (currentPage == 1) {
-      DOM.first.addClass("disabled");
-      DOM.prev.addClass("disabled")
-    } else {
-      DOM.first.removeClass("disabled");
-      DOM.prev.removeClass("disabled")
-    }
-    if (currentPage == totalPage) {
-      DOM.next.addClass("disabled");
-      DOM.last.addClass("disabled")
-    } else {
-      DOM.next.removeClass("disabled");
-      DOM.last.removeClass("disabled")
-    }
-    console.log(lastRow)
-    console.log("for")
-    DOM.sidebarList.empty();
-    var listItems = '';
-    for (i = firstRow; i <= lastRow; i++) {
-      listItems += `<li class="list-group-item">${data[i].name}</li>`;
-      console.log(data[i].name)
-    }
-    DOM.sidebarList.append(listItems);
-
-    DOM.pageSelect.empty();
+    b.pageSelect.empty();
     var selectItems = '';
     for (i = 1; i <= totalPage; i++) {
       selectItems += `<option value="${i}" >${i}</option>`;
     }
-    DOM.pageSelect.append(selectItems);
+    b.pageSelect.append(selectItems);
+    var firstRow = (currentPage - 1) * rowsOfPage;
+    var lastRow = rowsOfPage * currentPage;
+    if (lastRow > data.length)
+      lastRow = data.length;
+    if (totalPage <= 1) {
+      s.sidebarPagination.hide()
+    } else {
+      s.sidebarPagination.show()
+    }
 
-    DOM.pageSelect.children("option").removeAttr("selected");
-    DOM.pageSelect.children("option[value='" + currentPage + "']").attr(
+    if (currentPage == 1) {
+      b.first.addClass("disabled");
+      b.prev.addClass("disabled")
+    } else {
+      b.first.removeClass("disabled");
+      b.prev.removeClass("disabled")
+    }
+    if (currentPage == totalPage) {
+      b.next.addClass("disabled");
+      b.last.addClass("disabled")
+    } else {
+      b.next.removeClass("disabled");
+      b.last.removeClass("disabled")
+    }
+    s.sidebarList.empty();
+    var listItems = '';
+    for (i = firstRow; i < lastRow; i++) {
+      listItems += `<li class="list-group-item">${data[i].name}</li>`;
+    }
+    s.sidebarList.append(listItems);
+
+    b.pageSelect.children("option").removeAttr("selected");
+    b.pageSelect.children("option[value='" + currentPage + "']").attr(
       "selected", "selected");
   }
 
   function clickEvent() {
-    DOM.first.click(function(e) {
+    b.first.click(function (e) {
       e.preventDefault();
       currentPage = 1;
       refresh();
     });
-    DOM.prev.click(function(e) {
+    b.prev.click(function (e) {
       e.preventDefault();
       if (currentPage > 1)
         currentPage--;
       refresh();
     });
-    DOM.next.click(function(e) {
+    b.next.click(function (e) {
       e.preventDefault();
-      if (currentPage < data.lenght)
+      if (currentPage < totalPage)
         currentPage++;
       refresh();
     });
-    DOM.last.click(function(e) {
+    b.last.click(function (e) {
       e.preventDefault();
-      config.currentPage = data.lenght;
+      currentPage = totalPage;
       refresh();
     });
-    DOM.pageSelect.change(function(e) {
+    b.pageSelect.change(function (e) {
       e.preventDefault();
-      var optionSelected = $("option:selected", this);
-      var valueSelected = this.value;
-      currentPage = valueSelected;
+      currentPage = this.value;
       refresh();
     })
   }
 
   refresh();
   clickEvent();
-
-  return this;
 };
 
 var isProcessing = false;
@@ -131,33 +121,33 @@ var isProcessing = false;
 function submit_ajax() {
   if (isProcessing)
     return;
-  $(document).ajaxSend(function() {
+  $(document).ajaxSend(function () {
     isProcessing = true;
   });
   var form = $("form");
   // Send the request
   $.ajax({
-    type : 'POST',
-    url : form.attr('action'),
-    contentType : "application/json",
-    dataType : 'json',
-    data : JSON.stringify(form.serializeFormJSON()),
-    success : function(data) {
+    type: 'POST',
+    url: form.attr('action'),
+    contentType: "application/json",
+    dataType: 'json',
+    data: JSON.stringify(form.serializeFormJSON()),
+    success: function (data) {
       // data processing
       if (!$.isPlainObject(data)) { // message
         location.reload();
       } else { // errors validate
         $("form").find("input").removeClass("is-invalid").tooltip('dispose');
-        $.each(data, function(key, value) {
+        $.each(data, function (key, value) {
           $("input[name='" + key + "']").addClass("is-invalid").tooltip({
-            title : value,
-            placement : 'right',
+            title: value,
+            placement: 'right',
           }).tooltip('show');
         });
         isProcessing = false;
       }
     },
-    error : function() {
+    error: function () {
       alert("error");
       location.reload();
     }

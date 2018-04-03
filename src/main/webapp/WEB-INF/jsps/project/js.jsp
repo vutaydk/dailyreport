@@ -44,7 +44,7 @@
       });
 
       var responseJson = function(data) {
-        Pagination(data);
+        pagination(data);
         $("form").attr('action', "api/project/add");
         var $listBar = $("#list-bar").find("li");
         $listBar.click(function() {

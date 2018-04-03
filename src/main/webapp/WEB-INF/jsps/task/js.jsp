@@ -1,10 +1,7 @@
 <script>
   var responseJson = function(data) {
-    $.each(data, function(i, value) {
-      $("#list-bar").append(
-        '<li class="list-group-item"><span class="badge badge-secondary">'
-          + value.id + '</span> ' + value.name + '</li>');
-    });
+    pagination(data);
+    $("form").attr('action', "api/task/add");
     var $listBar = $("#list-bar").find("li");
     $listBar.click(function() {
       var i = $(this).index();
