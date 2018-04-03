@@ -99,6 +99,8 @@ var Pagination = (function () {
 		config.totalPage = Math.ceil(config.numberOfRows / config.rowsOfPage);
 		config.firstRow = (config.currentPage - 1) * config.rowsOfPage;
 		config.lastRow = (config.rowsOfPage * config.currentPage) - 1;
+		if (config.numberOfRows < config.rowsOfPage || config.lastRow > config.numberOfRows)
+			config.lastRow = config.numberOfRows;
 
 		/*Hide page control if totalPage <=1*/
 		if (config.totalPage <= 1) {
@@ -152,7 +154,7 @@ var Pagination = (function () {
 		cacheDom();
 		clickEvent();
 		pagination();
-		console.log(config);		
+		console.log(config);
 	}
 
 	/*==========return==========*/
