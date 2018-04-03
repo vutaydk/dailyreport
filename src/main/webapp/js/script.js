@@ -1,11 +1,11 @@
-(function($) {
-	$.fn.serializeFormJSON = function() {
+(function ($) {
+	$.fn.serializeFormJSON = function () {
 		var o = {};
 		var a = this.serializeArray();
-		$.each(a, function() {
+		$.each(a, function () {
 			if (o[this.name]) {
 				if (!o[this.name].push) {
-					o[this.name] = [ o[this.name] ];
+					o[this.name] = [o[this.name]];
 				}
 				o[this.name].push(this.value || '');
 			} else {
@@ -18,153 +18,184 @@
 })(jQuery);
 
 /*Pagination sidebar*/
-var Pagination = (function() {
-	var rows = [];
-	var numberOfRow;
-	var rowOfPage = 3;
-	var currentPage = 1;
-	var firstRow;
-	var lastRow;
-	var totalPage;
-
+var Pagination = (function () {
+	var DOM = {};
 	var config = {
-		sidebarPagination : $(".sidebar-pagination"),
-		sidebarList : $(".sidebar-list").find("ul"),
-		prev : $("#prev"),
-		next : $("#next"),
-		first : $("#first"),
-		last : $("#last"),
-		pageSelect : $("#page-select")
+		/*
+		rows,
+		numberOfRows,
+		rowsOfPage,
+		currentPage,
+		firstRow,
+		lastRow,
+		totalPage
+		*/
 	};
 
-	config.prev.click(function(e) {
-		e.preventDefault();
-		if (currentPage > 1)
-			currentPage--;
-		pagination();
-	});
+	/*==========cache DOM==========*/
+	function cacheDom() {
+		console.log("cacheDom()");
+		DOM.$sidebarPagination = $(".sidebar-pagination");
+		DOM.$sidebarList = $(".sidebar-list").find("ul");
+		DOM.$prev = $("#prev");
+		DOM.$next = $("#next");
+		DOM.$first = $("#first");
+		DOM.$last = $("#last");
+		DOM.$pageSelect = $("#page-select");
+	}
 
-	config.next.click(function(e) {
-		e.preventDefault();
-		if (currentPage < totalPage)
-			currentPage++;
-		pagination();
-	});
+	/*==========config==========*/
+	function configPagination(data) {
+		console.log("configPagination()");
+		config.rows = data;
+		config.rowsOfPage = 10;
+		config.currentPage = 1;
+	}
 
-	config.first.click(function(e) {
-		e.preventDefault();
-		currentPage = 1;
-		pagination();
-	});
-
-	config.last.click(function(e) {
-		e.preventDefault();
-		currentPage = totalPage;
-		pagination();
-	});
-
-	config.pageSelect.change(function(e) {
-		var optionSelected = $("option:selected", this);
-		var valueSelected = this.value;
-		currentPage = valueSelected;
-		pagination();
-	});
-
-	var pushData = function(arrayData) {
-		/* push data to rows */
-		$.each(arrayData, function(key, value) {
-			rows.push(value);
-			numberOfRow = rows.length;
-			totalPage = Math.ceil(numberOfRow / rowOfPage);
+	/*==========click Event==========*/
+	function clickEvent() {
+		console.log("clickEvent()");
+		DOM.$first.click(function (e) {
+			e.preventDefault();
+			console.log("first clicked");
+			config.currentPage = 1;
+			pagination();
 		});
-		for (i = 1; i <= totalPage; i++) {
-			config.pageSelect.append(`<option value="${i}" >${i}</option>`)
-		}
-		pagination();
+		DOM.$prev.click(function (e) {
+			e.preventDefault();
+			console.log("prev clicked");
+			if (config.currentPage > 1)
+				config.currentPage--;
+			pagination();
+		});
+		DOM.$next.click(function (e) {
+			e.preventDefault();
+			console.log("next clicked");
+			if (config.currentPage < config.totalPage)
+				config.currentPage++;
+			pagination();
+		});
+		DOM.$last.click(function (e) {
+			e.preventDefault();
+			console.log("last clicked");
+			config.currentPage = config.totalPage;
+			pagination();
+		});
+		DOM.$pageSelect.change(function (e) {
+			e.preventDefault();
+			console.log("page changed");
+			var optionSelected = $("option:selected", this);
+			var valueSelected = this.value;
+			config.currentPage = valueSelected;
+			pagination();
+		})
 	}
 
-	var pagination = function(arrayData) {
+	/*==========pagination==========*/
+	function pagination() {
+		console.log("pagination()");
+		/*Set numberOfRow, totalPage, firstRow, lastRow*/
+		config.numberOfRows = config.rows.length;
+		config.totalPage = Math.ceil(config.numberOfRows / config.rowsOfPage);
+		config.firstRow = (config.currentPage - 1) * config.rowsOfPage;
+		config.lastRow = (config.rowsOfPage * config.currentPage) - 1;
 
-		/* hide pagination control if totalPage < 1 */
-		if (totalPage <= 1) {
-			config.sidebarPagination.hide();
+		/*Hide page control if totalPage <=1*/
+		if (config.totalPage <= 1) {
+			DOM.$sidebarPagination.hide()
 		} else {
-			config.sidebarPagination.show();
+			DOM.$sidebarPagination.show()
 		}
 
-		firstRow = (currentPage - 1) * rowOfPage;
-		lastRow = (rowOfPage * currentPage) - 1;
+		/*Disable button at first and last page*/
+		if (config.currentPage == 1) {
+			DOM.$first.addClass("disabled");
+			DOM.$prev.addClass("disabled")
+		} else {
+			DOM.$first.removeClass("disabled");
+			DOM.$prev.removeClass("disabled")
+		}
+		if (config.currentPage == config.totalPage) {
+			DOM.$next.addClass("disabled");
+			DOM.$last.addClass("disabled")
+		} else {
+			DOM.$next.removeClass("disabled");
+			DOM.$last.removeClass("disabled")
+		}
 
-		config.pageSelect.children("option").removeAttr("selected");
-		config.pageSelect.children("option[value='" + currentPage + "']").attr(
-				"selected", "selected");
-
-		if (lastRow < numberOfRow) {
-			config.sidebarList.empty();
-			for (i = firstRow; i <= lastRow; i++) {
-				config.sidebarList
-						.append(`<li class="list-group-item">${rows[i].name}</li>`);
+		/*Fill list*/
+		if (config.lastRow < config.numberOfRows) {
+			DOM.$sidebarList.empty();
+			var listItems = '';
+			for (i = config.firstRow; i <= config.lastRow; i++) {
+				listItems += `<li class="list-group-item">${config.rows[i].name}</li>`;
 			}
+			DOM.$sidebarList.append(listItems);
 		}
 
-		/* disable first and prev button */
-		if (currentPage == 1) {
-			config.prev.addClass("disabled");
-			config.first.addClass("disabled");
-		} else {
-			config.prev.removeClass("disabled");
-			config.first.removeClass("disabled");
+		/*Fill page number*/
+		DOM.$pageSelect.empty();
+		var selectItems = '';
+		for (i = 1; i <= config.totalPage; i++) {
+			selectItems += `<option value="${i}" >${i}</option>`;
 		}
+		DOM.$pageSelect.append(selectItems);
 
-		/* disable next and last button */
-		if (currentPage == totalPage) {
-			config.next.addClass("disabled");
-			config.last.addClass("disabled");
-		} else {
-			config.next.removeClass("disabled");
-			config.last.removeClass("disabled");
-		}
+		/*Page selected*/
+		DOM.$pageSelect.children("option").removeAttr("selected");
+		DOM.$pageSelect.children("option[value='" + config.currentPage + "']").attr("selected", "selected");
 	}
 
-	// Public
+	/*==========public method==========*/
+	function init() {
+		console.log("init()");
+		cacheDom();
+		clickEvent();
+		pagination();
+		console.log(config);		
+	}
+
+	/*==========return==========*/
 	return {
-		pushData : pushData
+		configPagination: configPagination,
+		init: init
 	}
 })();
 
 var isProcessing = false;
+
 function submit_ajax() {
 	if (isProcessing)
 		return;
-	$(document).ajaxSend(function() {
+	$(document).ajaxSend(function () {
 		isProcessing = true;
 	});
 	var form = $("form");
 	// Send the request
 	$.ajax({
-		type : 'POST',
-		url : form.attr('action'),
-		contentType : "application/json",
-		dataType : 'json',
-		data : JSON.stringify(form.serializeFormJSON()),
-		success : function(data) {
+		type: 'POST',
+		url: form.attr('action'),
+		contentType: "application/json",
+		dataType: 'json',
+		data: JSON.stringify(form.serializeFormJSON()),
+		success: function (data) {
 			// data processing
 			if (!$.isPlainObject(data)) { // message
 				location.reload();
 			} else { // errors validate
 				$("form").find("input").removeClass("is-invalid").tooltip(
-						'dispose');
-				$.each(data, function(key, value) {
+					'dispose');
+				$.each(data, function (key, value) {
 					$("input[name='" + key + "']").addClass("is-invalid")
-							.tooltip({
-								title : value,
-								placement : 'right',
-							}).tooltip('show');
+						.tooltip({
+							title: value,
+							placement: 'right',
+						}).tooltip('show');
 				});
 				isProcessing = false;
 			}
 		},
-		error : function() {
+		error: function () {
 			alert("error");
 			location.reload();
 		}
@@ -192,10 +223,10 @@ function locdau(value) {
 	str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
 	str = str.replace(/đ/g, "d");
 	str = str
-			.replace(
-					/!|@|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\"|\&|\#|\[|\]|~/g,
-					"");
+		.replace(
+			/!|@|\$|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\'| |\"|\&|\#|\[|\]|~/g,
+			"");
 	str = str.replace(/-+-/g, ""); // thay thế 2- thành 1-
-	str = str.replace(/^\-+|\-+$/g, "");// cắt bỏ ký tự - ở đầu và cuối chuỗi
+	str = str.replace(/^\-+|\-+$/g, ""); // cắt bỏ ký tự - ở đầu và cuối chuỗi
 	return str;
 }
