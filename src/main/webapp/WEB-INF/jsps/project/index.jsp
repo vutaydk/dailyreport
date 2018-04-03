@@ -16,7 +16,7 @@
 		<div class="col-9" id="report-list">
 			<div class="box">
 				<div class="box-body">
-					<form action="api/project/add">
+					<form id="submit-form">
 
 						<div class="form-group row">
 							<label for="projectCode" class="col-2 col-form-label">Project
@@ -81,8 +81,7 @@
 
 						<div class="form-group row">
 							<div class="col-12 text-center">
-								<button type="button" class="btn btn-primary"
-									onclick="javascript:submit_ajax();">Submit</button>
+								<button type="submit" class="btn btn-primary">Submit</button>
 								<button type="reset" class="btn btn-default">Reset</button>
 							</div>
 						</div>

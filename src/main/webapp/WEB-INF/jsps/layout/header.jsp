@@ -17,6 +17,7 @@
 
 <!-- jQuery -->
 <script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
 
 <!-- Bootstrap table -->
 <link rel="stylesheet" href="css/bootstrap-table.css">
