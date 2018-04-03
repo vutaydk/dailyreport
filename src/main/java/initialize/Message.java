@@ -1,26 +1,35 @@
-package common.util;
+package initialize;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
+
+import initialize.i18n.VI;
 
 public class Message {
 
-	private final static Map<String, Locale> locale;
-	private ResourceBundle translation;
-	private String langIso = "en";
+	private final String ISO = "vi";
+	private final static List<String> locale;
+	private Map<String, String> translation;
 	static {
-		locale = new HashMap<>();
-		locale.put("en", Locale.ENGLISH);
-		locale.put("vi", new Locale("vi", "VN"));
+		locale = new ArrayList<>();
+		locale.add("en");
+		locale.add("vi");
 	}
 
 	public Message(String langIso) {
-		if (!locale.containsKey(langIso))
-			langIso = this.langIso;
+		if (!locale.contains(langIso))
+			langIso = ISO;
 
-		translation = ResourceBundle.getBundle("language", locale.get(langIso));
+		switch (langIso) {
+		case "vi":
+			translation = VI.get();
+			break;
+		default:
+			translation = new HashMap<>();
+			break;
+		}
 	}
 
 	/**
@@ -39,7 +48,10 @@ public class Message {
 	 * @return String
 	 */
 	public String getWord(String keyword) {
-		return translation.getString(keyword);
+		if (translation.containsKey(keyword)) {
+			return translation.get(keyword);
+		}
+		return keyword;
 	}
 
 	/**
