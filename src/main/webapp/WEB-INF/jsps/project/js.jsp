@@ -44,13 +44,8 @@
       });
 
       var responseJson = function(data) {
-        Pagination.configPagination(data);
-        Pagination.init();
-        $.each(data, function(i, value) {
-          $("#list-bar").append(
-            '<li class="list-group-item"><span class="badge badge-secondary">'
-              + value.id + '</span> ' + value.name + '</li>');
-        });
+        Pagination(data);
+        $("form").attr('action', "api/project/add");
         var $listBar = $("#list-bar").find("li");
         $listBar.click(function() {
           var i = $(this).index();
