@@ -140,6 +140,36 @@ VALUES ('abc3', 'Du an 4', CAST(N'2018-03-28' AS DateTime), CAST(N'2018-05-04' A
 --1
 INSERT INTO projects(project_code, name, start_at, finish_at)
 VALUES ('f6c1', 'Du an 5', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('t05c', 'PROJECT SOLUTIONS', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('4xz9', 'BOOMER', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('clnm', 'MOORINGE', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('2wzx', 'FEB', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('rmz0', 'RIDE', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('mbds', 'FREEDONIA', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('lj24', 'FOGO', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('fcib', 'TOKIO', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('yxwu', 'CASTILE', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
+--1
+INSERT INTO projects(project_code, name, start_at, finish_at)
+VALUES ('88wp', 'MAPLE', CAST(N'2018-03-29' AS DateTime), CAST(N'2018-05-05' AS DateTime));
 
 -- INSERT INTO DEPARTMENT
 --1
@@ -161,19 +191,52 @@ VALUES ('jd28', 'Phong ban 5');
 -- INSERT INTO TASK
 --1
 INSERT INTO tasks(task_code, name)
-VALUES ('aksd', 'Task 1');
+VALUES ('2yfm', 'Skyler');
 --1
 INSERT INTO tasks(task_code, name)
-VALUES ('kgtd', 'Task 2');
+VALUES ('qq3n', 'Jane');
 --1
 INSERT INTO tasks(task_code, name)
-VALUES ('mnyt', 'Task 3');
+VALUES ('ncht', 'Marie');
 --1
 INSERT INTO tasks(task_code, name)
-VALUES ('kgtd', 'Task 4');
+VALUES ('bcgr', 'Holly');
 --1
 INSERT INTO tasks(task_code, name)
-VALUES ('mnyt', 'Task 5');
+VALUES ('798i', 'Lydia');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('3y4u', 'Walter');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('ho2q', 'Mike');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('i2sy', 'Brock');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('iy72', 'Jesse');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('zpoi', 'Gale');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('zfqv', 'Pete');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('juub', 'Todd');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('rwup', 'Hank');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('3iya', 'Hector');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('mnyt', 'Saul');
+--1
+INSERT INTO tasks(task_code, name)
+VALUES ('gpyv', 'Gustavo');
 
 -- INSERT INTO REPORT
 --1

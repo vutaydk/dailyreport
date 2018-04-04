@@ -1,63 +1,67 @@
 <script>
   $(document).ready(
-    function() {
-
+    function () {
       $("#submit-form").validate({
-        onkeyup : function(element) {
+        onkeyup: function (element) {
           $(element).valid()
         },
-        highlight : function(element) {
+        highlight: function (element) {
           $(element).addClass("is-invalid");
         },
-        unhighlight : function(element) {
+        unhighlight: function (element) {
           $(element).removeClass("is-invalid");
         },
-        rules : {
-          name : {
-            required : true,
-            minlength : 2
+        rules: {
+          name: {
+            required: true,
+            minlength: 2
           },
-          projectCode : {
-            required : true,
-            minlength : 2
+          projectCode: {
+            required: true,
+            minlength: 2
           }
         },
-        messages : {
-          name : {
-            required : "Please enter name.",
-            minlength : "Name too short"
+        messages: {
+          name: {
+            required: "Please enter name.",
+            minlength: "Name too short"
           },
-          projectCode : {
-            required : "Please enter project code.",
-            minlength : "Project code too short"
+          projectCode: {
+            required: "Please enter project code.",
+            minlength: "Project code too short"
           }
         },
-        submitHandler : function(form) {
+        submitHandler: function (form) {
           submit_ajax();
           alert('valid form submitted');
           return false;
         }
       });
 
-      $("#startAt").change(function() {
+      $("#startAt").change(function () {
         $("#finishAt").datepicker('setStartDate', $(this).val());
       });
-
-      var responseJson = function(data) {
-        pagination(data);
+      var dataJson;
+      var responseJson = function (data) {
+        dataJson = data;
+        pagination(dataJson);
         $("form").attr('action', "api/project/add");
         var $listBar = $("#list-bar").find("li");
-        $listBar.click(function() {
+        $listBar.click(function () {
           var i = $(this).index();
           $("form").attr('action', "api/project/edit/" + data[i].id);
-          $.each(data[i], function(key, value) {
+          $.each(data[i], function (key, value) {
             $('input[name="' + key + '"]').val(value);
           });
           $listBar.removeClass('active');
           $(this).addClass('active');
         });
       };
-
       $.getJSON("api/project/get-all").done(responseJson);
+
+      $("#search").keyup(function () {
+        search(this, dataJson);
+      });
+
     });
 </script>
