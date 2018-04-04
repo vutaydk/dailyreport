@@ -1,80 +1,87 @@
 package model.business.task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
-import model.business.ErrorMap;
+import model.business.Message;
 import model.entity.Task;
 import model.repo.TaskRepo;
 
-public class TaskLogic extends ErrorMap {
+public class TaskLogic extends Message {
 
-	/**
-	 * Variable TaskDTO
-	 */
 	private final TaskDTO dto;
+	private Optional<Task> task = Optional.empty();
+	private boolean isProcesing = true;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param entity
-	 */
-	public TaskLogic(TaskDTO entity) {
-		this.dto = entity;
+	public TaskLogic(TaskDTO dto) {
+		this.dto = dto;
 	}
 
 	/**
-	 * Get Json Task
-	 * 
-	 * @return List
-	 */
-	public static List<Object> getJson() {
-		List<Object> list = new ArrayList<>();
-		for (Task p : TaskRepo.model.getAll()) {
-			HashMap<String, Object> project = new HashMap<>();
-			project.put("id", p.getId());
-			project.put("taskCode", p.getTaskCode());
-			project.put("name", p.getName());
-			list.add(project);
-		}
-		return list;
-	}
-
-	/**
-	 * Check exist Task
+	 * Check exist {@link Task}
 	 * 
 	 * @param id
 	 * @return boolean
 	 */
 	public boolean isValidId(int id) {
-		Optional<Task> task = TaskRepo.model.find(id);
-		boolean isValid = task.isPresent();
-		if (isValid)
-			dto.setTask(task);
-		return isValid;
+		task = TaskRepo.model.find(id);
+		return task.isPresent();
 	}
 
 	/**
-	 * Data Validation
+	 * Handling {@link TaskDTO}
+	 * 
+	 * @return {@link TaskLogic}
+	 */
+	public TaskLogic isValidData() {
+		// check task code
+		if (dto.getTaskCode() == null || dto.getTaskCode().length() != 4) {
+			setError("taskCode", "Task Code length must be 4 characters.");
+			isProcesing = false;
+		}
+		// check name
+		if (dto.getName() == null || dto.getName().length() < 6) {
+			setError("name", "Name length is too short (requires 6 characters).");
+			isProcesing = false;
+		}
+
+		return this;
+	}
+
+	/**
+	 * Merge {@link TaskDTO} to {@link Task}
+	 * 
+	 * @return {@link Task}
+	 */
+	private Task megerData() {
+		if (!task.isPresent())
+			task = Optional.of(new Task());
+		task.get().setTaskCode(dto.getTaskCode());
+		task.get().setName(dto.getName());
+		return task.get();
+	}
+
+	/**
+	 * Insert {@link Task} to database
 	 * 
 	 * @return boolean
 	 */
-	public boolean isValidData() {
-		boolean bool = true;
+	public boolean insert() {
+		if (!isProcesing)
+			return false;
+		Task task = megerData();
+		return TaskRepo.model.insert(task);
+	}
 
-		if (dto.getTaskCode() == null || dto.getTaskCode().length() != 4) {
-			setError("taskCode", "Task Code length must be 4 characters.");
-			bool = false;
-		}
-
-		if (dto.getName() == null || dto.getName().length() < 6) {
-			setError("name", "Name length is too short (requires 6 characters).");
-			bool = false;
-		}
-
-		return bool;
+	/**
+	 * Update {@link Task} to database
+	 * 
+	 * @return boolean
+	 */
+	public boolean update() {
+		if (!isProcesing)
+			return false;
+		Task task = megerData();
+		return TaskRepo.model.update(task);
 	}
 
 }

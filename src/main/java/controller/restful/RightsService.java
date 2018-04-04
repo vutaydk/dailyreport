@@ -9,8 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import lombok.val;
+import model.business.json.RightsJson;
 import model.business.rights.RightsDTO;
-import model.business.rights.RightsLogic;
 
 @Path("/rights")
 @Produces(MediaType.APPLICATION_JSON)
@@ -19,7 +19,7 @@ public class RightsService {
 	@GET
 	@Path("get-all")
 	public Response getAll() {
-		Object entity = RightsLogic.getJson();
+		Object entity = RightsJson.getJson();
 		return Response.ok(entity).build();
 	}
 
@@ -27,42 +27,30 @@ public class RightsService {
 	@Path("add")
 	public Response insert(RightsDTO rightsDTO) {
 
-		// builder a new RightsLogic
+		// initialize logic
 		val val = rightsDTO.getLogic();
 
-		// validation form
-		if (val.isValidData()) {
+		// handling data
+		val.isValidData().insert();
 
-			// add to database
-			rightsDTO.insert();
-
-			return Response.ok().build();
-		}
-
-		return Response.ok(val.getErrorMap()).build();
+		return Response.ok(val.getMessage()).build();
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, RightsDTO rightsDTO) {
 
-		// builder a new RightsLogic
+		// initialize logic
 		val val = rightsDTO.getLogic();
 
-		// check id exist
+		// check exist object
 		if (!val.isValidId(id))
 			return Response.status(404).build();
 
-		// validation form
-		if (val.isValidData()) {
+		// handling data
+		val.isValidData().update();
 
-			// update to database
-			rightsDTO.update();
-
-			return Response.ok().build();
-		}
-
-		return Response.ok(val.getErrorMap()).build();
+		return Response.ok(val.getMessage()).build();
 	}
 
 }

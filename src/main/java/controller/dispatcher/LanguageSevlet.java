@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.extern.log4j.Log4j;
 
-@WebServlet("/project")
+/**
+ * Servlet implementation class LoginSevlet
+ */
+@WebServlet("/lang")
 @Log4j
-public class ProjectSevlet extends HttpServlet {
+public class LanguageSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,8 +24,12 @@ public class ProjectSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		log.debug("project page");
-		request.getRequestDispatcher("/WEB-INF/jsps/project/index.jsp").forward(request, response);
+		log.debug("change languge");
+		String locale = (String) request.getParameter("io");
+		log.debug("get attr locale=" + locale);
+		// set locale to session
+		request.getSession().setAttribute("locale", locale);
+		response.sendRedirect(request.getContextPath() + "/");
 	}
 
 	/**

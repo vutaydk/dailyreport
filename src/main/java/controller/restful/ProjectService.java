@@ -9,68 +9,62 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import lombok.val;
+import lombok.extern.log4j.Log4j;
+import model.business.json.ProjectJson;
 import model.business.project.ProjectDTO;
-import model.business.project.ProjectLogic;
 
 @Path("/project")
 @Produces(MediaType.APPLICATION_JSON)
+@Log4j
 public class ProjectService {
 
 	@GET
 	@Path("get-all")
-	public Response getAll() {
-		Object entity = ProjectLogic.getJson();
+	public Response getAllJson() {
+		log.debug("get all json");
+		Object entity = ProjectJson.getJson();
 		return Response.ok(entity).build();
 	}
 
 	@GET
 	@Path("get-chart")
-	public Response getForChart() {
-		Object entity = ProjectLogic.getJsonForChart();
+	public Response getChartJson() {
+		log.debug("get chart json");
+		Object entity = ProjectJson.getJsonForChart();
 		return Response.ok(entity).build();
 	}
 
 	@POST
 	@Path("add")
 	public Response insert(ProjectDTO projectDTO) {
+		log.debug("insert project");
 
-		// builder a new ProjectLogic
+		// initialize logic
 		val val = projectDTO.getLogic();
 
-		// validation form
-		if (val.isValidData()) {
+		// handling data
+		val.isValidData().insert();
 
-			// add to database
-			projectDTO.insert();
-
-			return Response.ok().build();
-		}
-
-		return Response.ok(val.getErrorMap()).build();
+		return Response.ok(val.getMessage()).build();
 
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, ProjectDTO projectDTO) {
+		log.debug("update project");
 
-		// builder a new ProjectLogic
+		// initialize logic
 		val val = projectDTO.getLogic();
 
-		// check id exist
+		// check exist object
 		if (!val.isValidId(id))
 			return Response.status(404).build();
 
-		// validation form
-		if (val.isValidData()) {
+		// handling data
+		val.isValidData().update();
 
-			// update to database
-			projectDTO.update();
-
-			return Response.ok().build();
-		}
-
-		return Response.ok(val.getErrorMap()).build();
+		return Response.ok(val.getMessage()).build();
 	}
 
 }

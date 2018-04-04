@@ -1,66 +1,23 @@
 package model.business.report;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
-import common.util.Format;
-import lombok.Getter;
-import model.business.ErrorMap;
+import model.business.Message;
 import model.entity.Report;
-import model.entity.ReportDetail;
 import model.repo.ReportRepo;
 
-public class ReportLogic extends ErrorMap {
+public class ReportLogic extends Message {
 
-	/**
-	 * Variable ReportEntity
-	 */
-	private final ReportDTO entity;
-
-	@Getter
+	private final ReportDTO dto;
 	private Optional<Report> report = Optional.empty();
+	private boolean isProcesing = true;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param entity
-	 */
-	public ReportLogic(ReportDTO entity) {
-		this.entity = entity;
+	public ReportLogic(ReportDTO dto) {
+		this.dto = dto;
 	}
 
 	/**
-	 * Get Json Report
-	 * 
-	 * @return List
-	 */
-	public static List<Object> getJson() {
-		List<Object> list = new ArrayList<>();
-		for (Report r : ReportRepo.model.getAll()) {
-			HashMap<String, Object> report = new HashMap<>();
-			report.put("id", r.getId());
-			report.put("employeeCode", r.getUser().getEmployeeCode());
-			report.put("employeeName", r.getUser().getName());
-			List<Object> tasks = new ArrayList<>();
-			for (ReportDetail td : r.getReportDetails()) {
-				HashMap<String, Object> task = new HashMap<>();
-				task.put("code", td.getTask().getTaskCode());
-				task.put("name", td.getTask().getName());
-				task.put("timeWorked", td.getTimeWorked());
-				task.put("note", td.getNote());
-				tasks.add(task);
-			}
-			report.put("tasks", tasks);
-			report.put("date", Format.toDate(r.getCreatedAt()));
-			list.add(report);
-		}
-		return list;
-	}
-
-	/**
-	 * Check exist Report
+	 * Check exist {@link Report}
 	 * 
 	 * @param id
 	 * @return boolean
@@ -71,48 +28,46 @@ public class ReportLogic extends ErrorMap {
 	}
 
 	/**
-	 * Data Validation
+	 * Handling {@link ReportDTO}
 	 * 
-	 * @return boolean
+	 * @return {@link ReportLogic}
 	 */
-	public boolean isValidData() {
-		boolean bool = true;
+	public ReportLogic isValidData() {
 
-		return bool;
+		return this;
 	}
 
 	/**
-	 * Add to database
+	 * Merge {@link ReportDTO} to {@link Report}
+	 * 
+	 * @return {@link Report}
+	 */
+	private Report megerData() {
+		return new Report();
+	}
+
+	/**
+	 * Add {@link Report} to database
 	 * 
 	 * @return boolean
 	 */
-	public boolean add() {
+	public boolean insert() {
+		if (!isProcesing)
+			return false;
 		Report report = new Report();
-		setData(entity, report);
 		return ReportRepo.model.insert(report);
 	}
 
 	/**
-	 * Update to database
+	 * Update {@link Report} to database
 	 * 
 	 * @return boolean
 	 */
 	public boolean update() {
-		if (!report.isPresent())
+		if (!isProcesing)
 			return false;
-
 		Report report = this.report.get();
-		setData(entity, report);
 		return ReportRepo.model.update(report);
-	}
-
-	/**
-	 * Merge data
-	 * 
-	 * @param entity
-	 * @param report
-	 */
-	private void setData(ReportDTO entity, Report report) {
 	}
 
 }

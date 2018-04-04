@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import language.i18n.EN;
 import language.i18n.VI;
 import lombok.extern.log4j.Log4j;
 
@@ -20,23 +21,26 @@ import lombok.extern.log4j.Log4j;
 public class Message {
 
 	private final String ISO = "vi";
-	private final static List<String> locales;
+	private final static List<String> LOCALE;
 	private static HttpSession session;
 	private Map<String, String> translation;
 	static {
-		locales = Arrays.asList("en", "vi");
+		LOCALE = Arrays.asList("en", "vi");
 	}
 
 	public Message() {
 		String locale = getLocale();
 		log.debug("locale from session: " + locale);
-		if (!locales.contains(locale))
+		if (!LOCALE.contains(locale))
 			locale = ISO;
 
 		log.debug("locale=" + locale);
 		switch (locale) {
 		case "vi":
 			translation = VI.get();
+			break;
+		case "en":
+			translation = EN.get();
 			break;
 		default:
 			translation = new HashMap<>();
@@ -69,7 +73,7 @@ public class Message {
 	}
 
 	/**
-	 * Get Work by keyword
+	 * Get language by keyword
 	 * 
 	 * @param keyword
 	 * @return String

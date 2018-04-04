@@ -27,7 +27,7 @@ public class LoginSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		log.debug("doGet");
+		log.debug("login page");
 		// logout success, redirect to login page
 		if ("/logout".equals(request.getServletPath())) {
 
@@ -56,7 +56,7 @@ public class LoginSevlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		log.debug("doPost");
+		log.debug("login page");
 		if ("/login".equals(request.getServletPath())) {
 
 			// get request param

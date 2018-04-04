@@ -13,13 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import language.Message;
-import lombok.extern.log4j.Log4j;
 
 /**
  * Servlet Filter implementation class LoginFiter
  */
-@WebFilter("/*")
-@Log4j
+@WebFilter({ "/home", "/login", "/project", "/report/*", "/rights", "/task", "/user" })
 public class Internationalization implements Filter {
 
 	/**
@@ -30,8 +28,6 @@ public class Internationalization implements Filter {
 		HttpSession session = ((HttpServletRequest) req).getSession();
 		// set session for Multi language
 		Message.setSession(session);
-		log.debug("set a ex locale=en");
-		session.setAttribute("locale", "en");
 		chain.doFilter(req, res);
 	}
 

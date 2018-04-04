@@ -9,60 +9,51 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import lombok.val;
+import lombok.extern.log4j.Log4j;
+import model.business.json.TaskJson;
 import model.business.task.TaskDTO;
-import model.business.task.TaskLogic;
 
 @Path("/task")
 @Produces(MediaType.APPLICATION_JSON)
+@Log4j
 public class TaskService {
 
 	@GET
 	@Path("get-all")
 	public Response getAll() {
-		Object entity = TaskLogic.getJson();
+		Object entity = TaskJson.getJson();
 		return Response.ok(entity).build();
 	}
 
 	@POST
 	@Path("add")
 	public Response insert(TaskDTO taskDTO) {
+		log.debug("insert service");
 
-		// builder a new TaskLogic
+		// initialize logic
 		val val = taskDTO.getLogic();
 
-		// validation form
-		if (val.isValidData()) {
+		// handling data
+		val.isValidData().insert();
 
-			// add to database
-			taskDTO.insert();
-
-			return Response.ok().build();
-		}
-
-		return Response.ok(val.getErrorMap()).build();
+		return Response.ok(val.getMessage()).build();
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, TaskDTO taskDTO) {
 
-		// builder a new TaskLogic
+		// initialize logic
 		val val = taskDTO.getLogic();
 
-		// check id exist
+		// check exist object
 		if (!val.isValidId(id))
 			return Response.status(404).build();
 
-		// validation form
-		if (val.isValidData()) {
+		// handling data
+		val.isValidData().update();
 
-			// update to database
-			taskDTO.update();
-
-			return Response.ok().build();
-		}
-
-		return Response.ok(val.getErrorMap()).build();
+		return Response.ok(val.getMessage()).build();
 	}
 
 }

@@ -21,7 +21,7 @@ public class DashBoardSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		log.debug("doGet");
+		log.debug("home page");
 		request.getRequestDispatcher("WEB-INF/jsps/home.jsp").forward(request, response);
 	}
 
@@ -30,8 +30,7 @@ public class DashBoardSevlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		log.debug("doPost");
-		doGet(request, response);
+		response.sendError(404);
 	}
 
 }

@@ -9,60 +9,65 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import lombok.val;
+import lombok.extern.log4j.Log4j;
+import model.business.json.ReportJson;
 import model.business.report.ReportDTO;
-import model.business.report.ReportLogic;
 
 @Path("/report")
 @Produces(MediaType.APPLICATION_JSON)
+@Log4j
 public class ReportService {
 
 	@GET
 	@Path("get-all")
 	public Response getAll() {
-		Object entity = ReportLogic.getJson();
+		log.debug("service get-all: Project");
+		Object entity = ReportJson.getJson();
 		return Response.ok(entity).build();
 	}
 
 	@POST
 	@Path("add")
 	public Response insert(ReportDTO reportDTO) {
+		log.debug("service insert: Report");
 
-		// builder a new ReportLogic
+		// initialize logic
 		val val = reportDTO.getLogic();
 
-		// validation form
+		// handling data
 		if (val.isValidData()) {
 
 			// add to database
-			val.add();
+			// val.add();
 
 			return Response.ok().build();
 		}
 
-		return Response.ok(val.getErrorMap()).build();
+		return Response.ok(val.getMessage()).build();
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, ReportDTO reportDTO) {
+		log.debug("service update: Report");
 
-		// builder a new ReportLogic
+		// initialize logic
 		val val = reportDTO.getLogic();
 
 		// check id exist
 		if (val.isValidId(id))
 			return Response.status(404).build();
 
-		// validation form
+		// handling data
 		if (val.isValidData()) {
 
 			// update to database
-			val.update();
+			// val.update();
 
 			return Response.ok().build();
 		}
 
-		return Response.ok(val.getErrorMap()).build();
+		return Response.ok(val.getMessage()).build();
 	}
 
 }
