@@ -21,14 +21,12 @@ function pagination(arr) {
   var s = {
     sidebarPagination: $(".sidebar-pagination"),
     sidebarList: $(".sidebar-list").find("ul"),
-  };
-
-  var b = {
     prev: $("#prev"),
     next: $("#next"),
     first: $("#first"),
     last: $("#last"),
-    pageSelect: $("#page-select")
+    pageSelect: $("#page-select"),
+    search: $("#search")
   };
 
   var data = [];
@@ -39,17 +37,19 @@ function pagination(arr) {
     currentPage = 1,
     totalPage = Math.ceil(data.length / rowsOfPage);
 
+  s.pageSelect.empty();
+  var selectItems = '';
+  for (i = 1; i <= totalPage; i++) {
+    selectItems += `<option value="${i}" >${i}</option>`;
+  }
+  s.pageSelect.append(selectItems);
+
   function refresh() {
-    b.pageSelect.empty();
-    var selectItems = '';
-    for (i = 1; i <= totalPage; i++) {
-      selectItems += `<option value="${i}" >${i}</option>`;
-    }
-    b.pageSelect.append(selectItems);
     var firstRow = (currentPage - 1) * rowsOfPage;
     var lastRow = rowsOfPage * currentPage;
     if (lastRow > data.length)
       lastRow = data.length;
+
     if (totalPage <= 1) {
       s.sidebarPagination.hide()
     } else {
@@ -57,19 +57,16 @@ function pagination(arr) {
     }
 
     if (currentPage == 1) {
-      b.first.addClass("disabled");
-      b.prev.addClass("disabled")
+      [s.first, s.prev].map(b => b.addClass("disabled"));
     } else {
-      b.first.removeClass("disabled");
-      b.prev.removeClass("disabled")
+      [s.first, s.prev].map(b => b.removeClass("disabled"));
     }
     if (currentPage == totalPage) {
-      b.next.addClass("disabled");
-      b.last.addClass("disabled")
+      [s.next, s.last].map(b => b.addClass("disabled"));
     } else {
-      b.next.removeClass("disabled");
-      b.last.removeClass("disabled")
+      [s.next, s.last].map(b => b.removeClass("disabled"));
     }
+
     s.sidebarList.empty();
     var listItems = '';
     for (i = firstRow; i < lastRow; i++) {
@@ -77,47 +74,45 @@ function pagination(arr) {
     }
     s.sidebarList.append(listItems);
 
-    b.pageSelect.children("option").removeAttr("selected");
-    b.pageSelect.children("option[value='" + currentPage + "']").attr(
+    s.pageSelect.children("option").removeAttr("selected");
+    s.pageSelect.children("option[value='" + currentPage + "']").attr(
       "selected", "selected");
   }
 
   function clickEvent() {
-    b.first.click(function (e) {
+    s.first.click(function (e) {
       e.preventDefault();
       currentPage = 1;
       refresh();
     });
-    b.prev.click(function (e) {
+    s.prev.click(function (e) {
       e.preventDefault();
       if (currentPage > 1)
         currentPage--;
       refresh();
     });
-    b.next.click(function (e) {
+    s.next.click(function (e) {
       e.preventDefault();
       if (currentPage < totalPage)
         currentPage++;
       refresh();
     });
-    b.last.click(function (e) {
+    s.last.click(function (e) {
       e.preventDefault();
       currentPage = totalPage;
       refresh();
     });
-    b.pageSelect.change(function (e) {
+    s.pageSelect.change(function (e) {
       e.preventDefault();
       currentPage = this.value;
       refresh();
     })
   }
-
   refresh();
   clickEvent();
 };
 
 var isProcessing = false;
-
 function submit_ajax() {
   if (isProcessing)
     return;
