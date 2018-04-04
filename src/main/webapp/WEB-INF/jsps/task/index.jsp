@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="/WEB-INF/message.tld" prefix="m"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
 
@@ -19,7 +20,8 @@
 					<form id="submit-form">
 
 						<div class="form-group row">
-							<label class="col-2 col-form-label">Task code</label>
+							<label class="col-2 col-form-label"><m:message
+									key="label.taskCode" /></label>
 							<div class="col-2">
 								<input type="text" maxlength="4" name="taskCode"
 									class="form-control">
@@ -27,7 +29,8 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-2 col-form-label">Name</label>
+							<label class="col-2 col-form-label"><m:message
+									key="label.name" /></label>
 							<div class="col-6">
 								<input type="text" maxlength="50" name="name"
 									class="form-control">
@@ -36,8 +39,12 @@
 
 						<div class="form-group row">
 							<div class="col-12 text-center">
-								<button type="submit" class="btn btn-primary">Submit</button>
-								<button type="reset" class="btn btn-default">Reset</button>
+								<button type="submit" class="btn btn-primary">
+									<m:message key="label.submit" />
+								</button>
+								<button type="reset" class="btn btn-default">
+									<m:message key="label.reset" />
+								</button>
 							</div>
 						</div>
 

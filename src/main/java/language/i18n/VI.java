@@ -1,4 +1,4 @@
-package initialize.i18n;
+package language.i18n;
 
 import java.util.HashMap;
 import java.util.Map;

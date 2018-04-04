@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="/WEB-INF/message.tld" prefix="m"%>
 <%-- import header --%>
 <jsp:include page="../layout/header.jsp" />
 
@@ -18,8 +19,8 @@
 						<div class="form-row">
 							<div class="col-5">
 								<div class="row">
-									<label for="startAt" class="col-3 col-form-label">Start
-										at</label>
+									<label for="startAt" class="col-3 col-form-label"><m:message
+											key="label.startAt" /></label>
 									<div class="col-7">
 										<div class="input-group">
 											<input id="startAt" class="form-control"
@@ -35,8 +36,8 @@
 
 							<div class="col-5">
 								<div class="row">
-									<label for="finishAt" class="col-3 col-form-label">Finish
-										at</label>
+									<label for="finishAt" class="col-3 col-form-label"><m:message
+											key="label.finishAt" /></label>
 									<div class="col-7">
 										<div class="input-group">
 											<input id="finishAt" class="form-control"
@@ -74,14 +75,15 @@
 					<table id="table" data-url="api/report/get-all" data-sort-name="id">
 						<thead>
 							<tr>
-								<th data-field="employeeCode" data-sortable="true">Employee
-									Code</th>
-								<th data-field="employeeName" data-sortable="true">Employee
-									Name</th>
+								<th data-field="employeeCode" data-sortable="true"><m:message
+										key="label.userCode" /></th>
+								<th data-field="employeeName" data-sortable="true"><m:message
+										key="label.user.name" /></th>
 								<th>Task 1</th>
 								<th>Task 2</th>
 								<th>Task 3</th>
-								<th data-field="date" data-sortable="true">Date</th>
+								<th data-field="date" data-sortable="true"><m:message
+										key="label.date" /></th>
 							</tr>
 						</thead>
 					</table>

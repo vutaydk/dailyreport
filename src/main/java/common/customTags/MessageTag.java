@@ -4,7 +4,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import initialize.Message;
+import language.Message;
 import lombok.Setter;
 
 public class MessageTag extends TagSupport {
