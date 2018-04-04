@@ -17,6 +17,15 @@
 
 })(jQuery);
 
+function search(input, arr) {
+  var filter = locdau($(input).val().replace(/\s+/g, ''));
+  var result = arr.filter(item => {
+    var name = locdau(item.name.replace(/\s+/g, ''));
+    return name.indexOf(filter) !== -1;
+  });
+  pagination(result);
+}
+
 function pagination(arr) {
   var s = {
     sidebarPagination: $(".sidebar-pagination"),
@@ -113,6 +122,7 @@ function pagination(arr) {
 };
 
 var isProcessing = false;
+
 function submit_ajax() {
   if (isProcessing)
     return;

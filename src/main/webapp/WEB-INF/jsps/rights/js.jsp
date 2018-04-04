@@ -16,13 +16,9 @@
     });
   };
   $.getJSON("api/rights/get-all").done(responseJson);
-  
+
   $("#search").keyup(function () {
-    var filter = locdau($(this).val().replace(/\s+/g, ''));
-    var result = dataJson.filter(item => {
-      var name = locdau(item.name.replace(/\s+/g, ''));
-      return name.indexOf(filter) !== -1;
-    });
-    pagination(result);
-  });
+      search(this, dataJson);
+    }
+  );
 </script>

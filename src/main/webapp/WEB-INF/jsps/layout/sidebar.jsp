@@ -7,7 +7,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="sidebar-list">
+		<div class="sidebar-list mb-1">
 			<ul id="list-bar" class="list-group"></ul>
 		</div>
 		<nav class="sidebar-pagination">
@@ -31,21 +31,5 @@
 		</nav>
 	</div>
 </div>
-<script>
-  $(function() {
-    // $("#search-bar").keyup(
-    //   function() {
-    //     var filter = locdau($(this).val().replace(/\s+/g, '')); // get search input
 
-    //     var $listBar = $("#list-bar").find("li");
-
-    //     // case insensitive searching with animation
-    //     $listBar.hide().filter(
-    //       function() {
-    //         return locdau($(this).text().replace(/\s+/g, '')).search(
-    //           new RegExp(filter, "i")) > -1
-    //       }).stop(true).fadeIn();
-    //   });
-  });
-</script>
 <!-- ./sidebar -->
