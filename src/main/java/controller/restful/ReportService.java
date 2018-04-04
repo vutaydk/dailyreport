@@ -35,13 +35,7 @@ public class ReportService {
 		val val = reportDTO.getLogic();
 
 		// handling data
-		if (val.isValidData()) {
-
-			// add to database
-			// val.add();
-
-			return Response.ok().build();
-		}
+		val.isValidData();
 
 		return Response.ok(val.getMessage()).build();
 	}
@@ -59,13 +53,7 @@ public class ReportService {
 			return Response.status(404).build();
 
 		// handling data
-		if (val.isValidData()) {
-
-			// update to database
-			// val.update();
-
-			return Response.ok().build();
-		}
+		val.isValidData();
 
 		return Response.ok(val.getMessage()).build();
 	}
