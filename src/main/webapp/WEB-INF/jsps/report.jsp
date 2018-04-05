@@ -4,11 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="/WEB-INF/message.tld" prefix="m"%>
 <%-- import header --%>
-<jsp:include page="../layout/header.jsp" />
+<jsp:include page="layout/header.jsp" />
 
 <div class="container">
 	<%-- import nav header --%>
-	<jsp:include page="../layout/nav-header.jsp" />
+	<jsp:include page="layout/nav-header.jsp" />
 
 	<div class="row">
 		<div class="col-12">
@@ -94,6 +94,6 @@
 	</div>
 </div>
 <%-- import js --%>
-<jsp:include page="js.jsp" />
+<jsp:include page="js/report.jsp" />
 <%-- import footer --%>
-<jsp:include page="../layout/footer.jsp" />
+<jsp:include page="layout/footer.jsp" />

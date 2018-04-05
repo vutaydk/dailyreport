@@ -22,7 +22,7 @@ public class RightsSevlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("rights page");
-		request.getRequestDispatcher("/WEB-INF/jsps/rights/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsps/rights.jsp").forward(request, response);
 	}
 
 	/**

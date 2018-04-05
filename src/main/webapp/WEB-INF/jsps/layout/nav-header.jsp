@@ -18,12 +18,12 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="report/add">
+						<a class="nav-link" href="project">
 							<m:message key="label.project.add" />
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="project">
+						<a class="nav-link" href="home">
 							<m:message key="label.project.manament" />
 						</a>
 					</li>

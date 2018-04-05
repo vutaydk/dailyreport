@@ -22,7 +22,7 @@ public class ReportSevlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("report page");
-		request.getRequestDispatcher("/WEB-INF/jsps/report/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsps/report.jsp").forward(request, response);
 	}
 
 	/**

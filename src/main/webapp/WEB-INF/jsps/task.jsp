@@ -4,20 +4,29 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="/WEB-INF/message.tld" prefix="m"%>
 <%-- import header --%>
-<jsp:include page="../layout/header.jsp" />
+<jsp:include page="layout/header.jsp" />
 
 <div class="container">
 	<%-- import nav header --%>
-	<jsp:include page="../layout/nav-header.jsp" />
+	<jsp:include page="layout/nav-header.jsp" />
 
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="../layout/sidebar.jsp" />
+		<jsp:include page="layout/sidebar.jsp" />
 
 		<div class="col-9" id="report-list">
 			<div class="box">
 				<div class="box-body">
 					<form id="submit-form">
+
+						<div class="form-group row">
+							<label class="col-2 col-form-label"><m:message
+									key="label.taskCode" /></label>
+							<div class="col-2">
+								<input type="text" maxlength="4" name="taskCode"
+									class="form-control">
+							</div>
+						</div>
 
 						<div class="form-group row">
 							<label class="col-2 col-form-label"><m:message
@@ -29,21 +38,12 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-2 col-form-label"><m:message
-									key="label.level" /></label>
-							<div class="col-2">
-								<input type="text" maxlength="2" name="level"
-									class="form-control">
-							</div>
-						</div>
-
-						<div class="form-group row">
 							<div class="col-12 text-center">
 								<button type="submit" class="btn btn-primary">
 									<m:message key="label.submit" />
 								</button>
 								<button type="reset" class="btn btn-default">
-									<m:message key="label.submit" />
+									<m:message key="label.reset" />
 								</button>
 							</div>
 						</div>
@@ -52,10 +52,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- ./create-rights form -->
 	</div>
+	<!-- ./create-task form -->
 </div>
 <%-- import js --%>
-<jsp:include page="js.jsp" />
+<jsp:include page="js/task.jsp" />
 <%-- import footer --%>
-<jsp:include page="../layout/footer.jsp" />
+<jsp:include page="layout/footer.jsp" />

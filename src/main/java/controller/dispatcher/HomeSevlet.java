@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.extern.log4j.Log4j;
 
-@WebServlet("/user")
+@WebServlet("/home")
 @Log4j
-public class UserSevlet extends HttpServlet {
+public class HomeSevlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,8 +21,8 @@ public class UserSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		log.debug("user page");
-		request.getRequestDispatcher("/WEB-INF/jsps/user/index.jsp").forward(request, response);
+		log.debug("home page");
+		request.getRequestDispatcher("WEB-INF/jsps/home.jsp").forward(request, response);
 	}
 
 	/**

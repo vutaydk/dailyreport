@@ -4,15 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="/WEB-INF/message.tld" prefix="m"%>
 <%-- import header --%>
-<jsp:include page="../layout/header.jsp" />
+<jsp:include page="layout/header.jsp" />
 
 <div class="container">
 	<%-- import nav header --%>
-	<jsp:include page="../layout/nav-header.jsp" />
+	<jsp:include page="layout/nav-header.jsp" />
 
 	<div class="row">
 		<%-- import sidebar --%>
-		<jsp:include page="../layout/sidebar.jsp" />
+		<jsp:include page="layout/sidebar.jsp" />
 
 		<div class="col-9" id="report-list">
 			<div class="box">
@@ -101,6 +101,6 @@
 	</div>
 </div>
 <%-- import js --%>
-<jsp:include page="js.jsp" />
+<jsp:include page="js/project.jsp" />
 <%-- import footer --%>
-<jsp:include page="../layout/footer.jsp" />
+<jsp:include page="layout/footer.jsp" />

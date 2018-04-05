@@ -22,7 +22,7 @@ public class TaskSevlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("task page");
-		request.getRequestDispatcher("/WEB-INF/jsps/task/index.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsps/task.jsp").forward(request, response);
 	}
 
 	/**

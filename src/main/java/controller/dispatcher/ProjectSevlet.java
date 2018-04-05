@@ -22,7 +22,10 @@ public class ProjectSevlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("project page");
-		request.getRequestDispatcher("/WEB-INF/jsps/project/index.jsp").forward(request, response);
+		if ("project/chart".equals(request.getServletPath()))
+			request.getRequestDispatcher("/WEB-INF/jsps/p-chart.jsp").forward(request, response);
+
+		request.getRequestDispatcher("/WEB-INF/jsps/project.jsp").forward(request, response);
 	}
 
 	/**
