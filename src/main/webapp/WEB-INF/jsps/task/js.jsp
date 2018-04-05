@@ -1,23 +1,20 @@
 <script>
   var dataJson;
-  var responseJson = function (data) {
+  $.getJSON("api/task/get-all").done().always(function (data) {
     dataJson = data;
-    pagination(data);
-    $("form").attr('action', "api/task/add");
-    var $listBar = $("#list-bar").find("li");
-    $listBar.click(function () {
-      var i = $(this).index();
-      $("form").attr('action', "api/task/edit/" + data[i].id);
-      $.each(data[i], function (key, value) {
-        $('input[name="' + key + '"]').val(value);
-      });
-      $listBar.removeClass('active');
-      $(this).addClass('active');
+    $("#search").keyup(function () {
+      search(this, data);
     });
-  };
-  $.getJSON("api/task/get-all").done(responseJson);
+    pagination(data);
+  });
 
-  $("#search").keyup(function () {
-    search(this, dataJson);
+  $("body").on("click", ".list-group-item", function () {
+    var i = $(this).attr("id");
+    $("form").attr('action', "api/task/edit/" + i);
+    $.each(dataJson[i - 1], function (key, value) {
+      $('input[name="' + key + '"]').val(value);
+    });
+    $("#list-bar").find("li").removeClass('active');
+    $(this).addClass('active');
   });
 </script>

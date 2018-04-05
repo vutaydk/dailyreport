@@ -79,7 +79,7 @@ function pagination(arr) {
     s.sidebarList.empty();
     var listItems = '';
     for (i = firstRow; i < lastRow; i++) {
-      listItems += `<li class="list-group-item">${data[i].name}</li>`;
+      listItems += `<li id="${data[i].id}" class="list-group-item">${data[i].name}</li>`;
     }
     s.sidebarList.append(listItems);
 

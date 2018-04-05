@@ -1,24 +1,22 @@
 <script>
   var dataJson;
-  var responseJson = function (data) {
-    dataJson = data;
-    pagination(data);
-    $("form").attr('action', "api/rights/add");
-    var $listBar = $("#list-bar").find("li");
-    $listBar.click(function () {
-      var i = $(this).index();
-      $("form").attr('action', "api/rights/edit/" + data[i].id);
-      $.each(data[i], function (key, value) {
-        $('input[name="' + key + '"]').val(value);
-      });
-      $listBar.removeClass('active');
-      $(this).addClass('active');
-    });
-  };
-  $.getJSON("api/rights/get-all").done(responseJson);
 
-  $("#search").keyup(function () {
-      search(this, dataJson);
-    }
-  );
+  $.getJSON("api/rights/get-all").done().always(function (data) {
+    dataJson = data;
+    $("#search").keyup(function () {
+      search(this, data);
+    });
+    pagination(data);
+  });
+
+  $("body").on("click", ".list-group-item", function () {
+    var i = $(this).attr("id");
+    $("form").attr('action', "api/rights/edit/" + i);
+    $.each(dataJson[i - 1], function (key, value) {
+      $('input[name="' + key + '"]').val(value);
+    });
+    $("#list-bar").find("li").removeClass('active');
+    $(this).addClass('active');
+  });
+  
 </script>
