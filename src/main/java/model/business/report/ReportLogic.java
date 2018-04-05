@@ -48,26 +48,30 @@ public class ReportLogic extends Message {
 
 	/**
 	 * Add {@link Report} to database
-	 * 
-	 * @return boolean
 	 */
-	public boolean insert() {
+	public void insert() {
 		if (!isProcesing)
-			return false;
+			return;
 		Report report = new Report();
-		return ReportRepo.model.insert(report);
+		boolean result = ReportRepo.model.insert(report);
+		if (result)
+			setMessage("success", "Add success new report");
+		else
+			setMessage("errror", "Add error new report");
 	}
 
 	/**
 	 * Update {@link Report} to database
-	 * 
-	 * @return boolean
 	 */
-	public boolean update() {
+	public void update() {
 		if (!isProcesing)
-			return false;
+			return;
 		Report report = this.report.get();
-		return ReportRepo.model.update(report);
+		boolean result = ReportRepo.model.update(report);
+		if (result)
+			setMessage("success", "Edit success report");
+		else
+			setMessage("errror", "Edit error report");
 	}
 
 }

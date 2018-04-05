@@ -22,7 +22,7 @@ public class TaskLogic extends Message {
 	 * @param id
 	 * @return boolean
 	 */
-	public boolean isValidId(int id) {
+	public boolean isValidId(Integer id) {
 		task = TaskRepo.model.find(id);
 		return task.isPresent();
 	}
@@ -62,26 +62,30 @@ public class TaskLogic extends Message {
 
 	/**
 	 * Insert {@link Task} to database
-	 * 
-	 * @return boolean
 	 */
-	public boolean insert() {
+	public void insert() {
 		if (!isProcesing)
-			return false;
+			return;
 		Task task = megerData();
-		return TaskRepo.model.insert(task);
+		boolean result = TaskRepo.model.insert(task);
+		if (result)
+			setMessage("success", "Add success new task");
+		else
+			setMessage("errror", "Add error new task");
 	}
 
 	/**
 	 * Update {@link Task} to database
-	 * 
-	 * @return boolean
 	 */
-	public boolean update() {
+	public void update() {
 		if (!isProcesing)
-			return false;
+			return;
 		Task task = megerData();
-		return TaskRepo.model.update(task);
+		boolean result = TaskRepo.model.update(task);
+		if (result)
+			setMessage("success", "Edit success task");
+		else
+			setMessage("errror", "Edit error task");
 	}
 
 }

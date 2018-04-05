@@ -22,7 +22,7 @@ public class RightsLogic extends Message {
 	 * @param id
 	 * @return boolean
 	 */
-	public boolean isValidId(int id) {
+	public boolean isValidId(Integer id) {
 		rights = RightsRepo.model.find(id);
 		return rights.isPresent();
 	}
@@ -57,26 +57,30 @@ public class RightsLogic extends Message {
 
 	/**
 	 * Insert {@link Rights} to database
-	 * 
-	 * @return boolean
 	 */
-	public boolean insert() {
+	public void insert() {
 		if (!isProcesing)
-			return false;
+			return;
 		Rights rights = megerData();
-		return RightsRepo.model.insert(rights);
+		boolean result = RightsRepo.model.insert(rights);
+		if (result)
+			setMessage("success", "Add success new rights");
+		else
+			setMessage("errror", "Add error new rights");
 	}
 
 	/**
 	 * Update {@link Rights} to database
-	 * 
-	 * @return boolean
 	 */
-	public boolean update() {
+	public void update() {
 		if (!isProcesing)
-			return false;
+			return;
 		Rights rights = megerData();
-		return RightsRepo.model.update(rights);
+		boolean result = RightsRepo.model.update(rights);
+		if (result)
+			setMessage("success", "Edit success rights");
+		else
+			setMessage("errror", "Edit error rights");
 	}
 
 }

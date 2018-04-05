@@ -21,7 +21,7 @@ public class ReportService {
 	@GET
 	@Path("get-all")
 	public Response getAll() {
-		log.debug("service get-all: Project");
+		log.debug("get all json");
 		Object entity = ReportJson.getJson();
 		return Response.ok(entity).build();
 	}
@@ -29,32 +29,25 @@ public class ReportService {
 	@POST
 	@Path("add")
 	public Response insert(ReportDTO reportDTO) {
-		log.debug("service insert: Report");
-
+		log.debug("insert report");
 		// initialize logic
 		val val = reportDTO.getLogic();
-
 		// handling data
-		val.isValidData();
-
+		val.isValidData().insert();
 		return Response.ok(val.getMessage()).build();
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, ReportDTO reportDTO) {
-		log.debug("service update: Report");
-
+		log.debug("update report");
 		// initialize logic
 		val val = reportDTO.getLogic();
-
 		// check id exist
 		if (val.isValidId(id))
 			return Response.status(404).build();
-
 		// handling data
-		val.isValidData();
-
+		val.isValidData().update();
 		return Response.ok(val.getMessage()).build();
 	}
 

@@ -24,7 +24,7 @@ public class ProjectLogic extends Message {
 	 * @param id
 	 * @return boolean
 	 */
-	public boolean isValidId(int id) {
+	public boolean isValidId(Integer id) {
 		project = ProjectRepo.model.find(id);
 		return project.isPresent();
 	}
@@ -79,26 +79,30 @@ public class ProjectLogic extends Message {
 
 	/**
 	 * Insert {@link Project} to database
-	 * 
-	 * @return boolean
 	 */
-	public boolean insert() {
+	public void insert() {
 		if (isProcessing)
-			return false;
+			return;
 		Project enity = megerData();
-		return ProjectRepo.model.insert(enity);
+		boolean result = ProjectRepo.model.insert(enity);
+		if (result)
+			setMessage("success", "Add success new project");
+		else
+			setMessage("errror", "Add error new project");
 	}
 
 	/**
 	 * Update {@link Project} to database
-	 * 
-	 * @return boolean
 	 */
-	public boolean update() {
+	public void update() {
 		if (isProcessing)
-			return false;
+			return;
 		Project enity = megerData();
-		return ProjectRepo.model.update(enity);
+		boolean result = ProjectRepo.model.update(enity);
+		if (result)
+			setMessage("success", "Edit success project");
+		else
+			setMessage("errror", "Edit error project");
 	}
 
 }
