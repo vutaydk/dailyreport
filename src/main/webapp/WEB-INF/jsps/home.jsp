@@ -96,6 +96,6 @@
 	</div>
 </div>
 <%-- import js --%>
-<%-- <jsp:include page="js-add.jsp" /> --%>
+<jsp:include page="js/r-add.jsp" />
 <%-- import footer --%>
 <jsp:include page="layout/footer.jsp" />
