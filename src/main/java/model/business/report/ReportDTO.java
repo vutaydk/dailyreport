@@ -11,7 +11,8 @@ import lombok.ToString;
 @ToString
 public class ReportDTO {
 
-	private List<ReportDTO2> datas;
+	private Integer projectId;
+	private List<PTaskDTO> tasks;
 
 	/**
 	 * Initialize {@link ReportLogic} for handling data

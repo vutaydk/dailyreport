@@ -21,6 +21,7 @@ public class TaskService {
 	@GET
 	@Path("get-all")
 	public Response getAll() {
+		log.debug("get all json");
 		Object entity = TaskJson.getJson();
 		return Response.ok(entity).build();
 	}
@@ -28,32 +29,26 @@ public class TaskService {
 	@POST
 	@Path("add")
 	public Response insert(TaskDTO taskDTO) {
-		log.debug("insert service");
-
+		log.debug("insert task");
 		// initialize logic
-		val val = taskDTO.getLogic();
-
+		val handling = taskDTO.getLogic();
 		// handling data
-		val.isValidData().insert();
-
-		return Response.ok(val.getMessage()).build();
+		handling.isValidData().insert();
+		return Response.ok(handling.getMessage()).build();
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, TaskDTO taskDTO) {
-
+		log.debug("update task");
 		// initialize logic
-		val val = taskDTO.getLogic();
-
+		val handling = taskDTO.getLogic();
 		// check exist object
-		if (!val.isValidId(id))
+		if (!handling.isValidId(id))
 			return Response.status(404).build();
-
 		// handling data
-		val.isValidData().update();
-
-		return Response.ok(val.getMessage()).build();
+		handling.isValidData().update();
+		return Response.ok(handling.getMessage()).build();
 	}
 
 }

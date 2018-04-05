@@ -38,14 +38,11 @@ public class ProjectService {
 	@Path("add")
 	public Response insert(ProjectDTO projectDTO) {
 		log.debug("insert project");
-
 		// initialize logic
-		val val = projectDTO.getLogic();
-
+		val handling = projectDTO.getLogic();
 		// handling data
-		val.isValidData().insert();
-
-		return Response.ok(val.getMessage()).build();
+		handling.isValidData().insert();
+		return Response.ok(handling.getMessage()).build();
 
 	}
 
@@ -53,18 +50,14 @@ public class ProjectService {
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, ProjectDTO projectDTO) {
 		log.debug("update project");
-
 		// initialize logic
-		val val = projectDTO.getLogic();
-
+		val handling = projectDTO.getLogic();
 		// check exist object
-		if (!val.isValidId(id))
+		if (!handling.isValidId(id))
 			return Response.status(404).build();
-
 		// handling data
-		val.isValidData().update();
-
-		return Response.ok(val.getMessage()).build();
+		handling.isValidData().update();
+		return Response.ok(handling.getMessage()).build();
 	}
 
 }

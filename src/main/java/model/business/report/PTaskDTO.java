@@ -7,9 +7,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ReportDTO2 {
-	private Integer projectId;
+public class PTaskDTO {
 	private Integer taskId;
-	private Integer timeWorked;
+	private Integer timework;
 	private String note;
 }
