@@ -74,15 +74,15 @@
                 </div>
             </div>`;
 
-        var addReportForm = $("#addReportForm");
         var reportList = $("#reports");
-        
+        var addReportForm = $("#addReportForm");
 
         // on Add work button click
         var addWorkBtnClick = function () {
             reportList.append(taskForm);
-            var btnAddWork = $(".btn-add-work");
-            btnAddWork.hide().filter(":last").show();
+            $(".btn-add-work").hide().filter(":last").show();
+            console.log($(".btn-note-remove"));
+            $(".btn-note-remove").prop("disabled", false);
         };
         $("body").on("click", ".btn-add-work", addWorkBtnClick);
 
@@ -97,17 +97,28 @@
         // on remove
         var noteRemoveBtnClick = function () {
             var seft = $(this);
+            var b = $(".btn-note-remove");
+            if (!(b.length > 1)) {
+                b.prop('disabled', true);
+                return;
+            }
             seft.closest(".box-body").remove();
-            var btnAddWork = $(".btn-add-work");
-            btnAddWork.hide().filter(":last").show();
+            b = $(".btn-note-remove");
+            console.log(b);
+            if (b.length == 1) {
+                b.prop('disabled', true);
+            } else {
+                b.prop("disabled", false);
+            }
+            $(".btn-add-work").hide().filter(":last").show();
         }
         $("body").on("click", ".btn-note-remove", noteRemoveBtnClick);
 
         // on submit report
         $("body").on("click", "#report-submit", function () {
             var data = [];
-            var reportFormItem = $("div").find(".box-body");
-            $.each(reportFormItem, function () {
+            var item = $("div").find(".box-body");
+            $.each(item, function () {
                 var record = {};
                 var recordItem = $(this).find("input, select, textarea");
                 $.each(recordItem, function () {
@@ -117,6 +128,5 @@
             });
             console.log(data);
         });
-
     });
 </script>
