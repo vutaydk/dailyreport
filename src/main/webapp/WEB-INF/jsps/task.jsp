@@ -17,13 +17,13 @@
 		<div class="col-9" id="report-list">
 			<div class="box">
 				<div class="box-body">
-					<form id="submit-form">
+					<form id="submit-form" method="POST" action="api/task/add">
 
 						<div class="form-group row">
 							<label class="col-2 col-form-label"><m:message
 									key="label.taskCode" /></label>
 							<div class="col-2">
-								<input type="text" maxlength="4" name="taskCode"
+								<input id="taskCode" type="text" maxlength="4" name="taskCode"
 									class="form-control">
 							</div>
 						</div>
@@ -32,7 +32,7 @@
 							<label class="col-2 col-form-label"><m:message
 									key="label.name" /></label>
 							<div class="col-6">
-								<input type="text" maxlength="50" name="name"
+								<input id="name" type="text" maxlength="50" name="name"
 									class="form-control">
 							</div>
 						</div>

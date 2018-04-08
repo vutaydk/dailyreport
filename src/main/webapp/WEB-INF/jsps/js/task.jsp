@@ -8,17 +8,10 @@
     pagination(data);
   });
 
+  var submitForm = $("#submit-form");
   $("body").on("click", ".list-group-item", function () {
     var i = $(this).attr("id");
-    var form = $("form");
-    form.attr('action', "api/task/edit/" + i);
-    if(form.find("input[name='id']")){
-      console.log("find");
-    }
-    // $("form")..append(`
-    // <input type="hidden" maxlength="1" name="id"
-		// 							class="form-control" value="${id}">
-    // `);
+    submitForm.attr('action', "api/task/edit/" + i);
     $.each(dataJson[i - 1], function (key, value) {
       $('input[name="' + key + '"]').val(value);
     });
@@ -26,9 +19,14 @@
     $(this).addClass('active');
   });
 
-  $("#submit-form").submit(function(event){
-    console.log($(this).serializeFormJSON());
-    event.preventDefault();
+  submitForm.submit(function () {
+    console.table($(this).serializeFormJSON());
+    var data = {
+      taskCode: $(this).find("input[name='taskCode']").val(),
+      name: $(this).find("input[name='name']").val()
+    };
+    submit_ajax("api/task/add", data);
+    return false;
   })
 
 </script>

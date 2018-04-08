@@ -123,7 +123,7 @@ function pagination(arr) {
 
 var isProcessing = false;
 
-function submit_ajax() {
+function submit_ajax(url, data) {
   if (isProcessing)
     return;
   $(document).ajaxSend(function () {
@@ -133,27 +133,31 @@ function submit_ajax() {
   // Send the request
   $.ajax({
     type: 'POST',
-    url: form.attr('action'),
+    url: url,
     contentType: "application/json",
     dataType: 'json',
-    data: JSON.stringify(form.serializeFormJSON()),
-    success: function (data) {
-      // data processing
-      if (!$.isPlainObject(data)) { // message
-        location.reload();
-      } else { // errors validate
-        $("form").find("input").removeClass("is-invalid").tooltip('dispose');
-        $.each(data, function (key, value) {
-          $("input[name='" + key + "']").addClass("is-invalid").tooltip({
+    data: JSON.stringify(data),
+    success: function (response) {
+      isProcessing = false;
+      var form = $("form");
+      if (!$.isEmptyObject(response.messages)) {
+        console.table(response.messages);
+        form.find("input").removeClass("is-invalid").tooltip('dispose');
+        $.each(response.messages, function (key, value) {
+          form.find("#" + key).addClass("is-invalid").tooltip({
             title: value,
             placement: 'right',
           }).tooltip('show');
-        });
-        isProcessing = false;
+        })
+      } else {
+        form.find("input").removeClass("is-invalid").tooltip('dispose');
+        alert(response.errors.success);
+        location.reload();
       }
+
     },
-    error: function () {
-      alert("error");
+    error: function (response) {
+      alert(response.errors.errror);
       location.reload();
     }
   });
