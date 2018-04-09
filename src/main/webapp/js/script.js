@@ -129,7 +129,6 @@ function submit_ajax(url, data) {
   $(document).ajaxSend(function () {
     isProcessing = true;
   });
-  var form = $("form");
   // Send the request
   $.ajax({
     type: 'POST',
