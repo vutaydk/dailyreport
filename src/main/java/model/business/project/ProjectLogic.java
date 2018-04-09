@@ -81,7 +81,7 @@ public class ProjectLogic extends Message {
 	 * Insert {@link Project} to database
 	 */
 	public void insert() {
-		if (isProcessing)
+		if (!isProcessing)
 			return;
 		Project enity = megerData();
 		boolean result = ProjectRepo.model.insert(enity);
@@ -95,7 +95,7 @@ public class ProjectLogic extends Message {
 	 * Update {@link Project} to database
 	 */
 	public void update() {
-		if (isProcessing)
+		if (!isProcessing)
 			return;
 		Project enity = megerData();
 		boolean result = ProjectRepo.model.update(enity);

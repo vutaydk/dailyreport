@@ -6,7 +6,9 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import language.Message;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 public class MessageTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
@@ -20,7 +22,7 @@ public class MessageTag extends TagSupport {
 		try {
 			out.print(Message.getText(key));
 		} catch (Exception e) {
-			System.out.println(e);
+			log.debug(e);
 		}
 		return SKIP_BODY;
 	}
