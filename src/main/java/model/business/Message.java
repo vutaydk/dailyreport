@@ -20,22 +20,21 @@ public class Message {
 	}
 
 	/**
-	 * Set the error for user
-	 * 
-	 * @param key
-	 * @param value
-	 */
-	protected void setError(String key, Object value) {
-		errorMap.put(key, value);
-	}
-
-	/**
-	 * Set the message for user
+	 * Set the message requied validate for client
 	 * 
 	 * @param key
 	 * @param value
 	 */
 	protected void setMessage(String key, Object value) {
-		messageMap.put(key, value);
+		errorMap.put(key, value);
+	}
+
+	/**
+	 * Set the message when done
+	 * 
+	 * @param value
+	 */
+	protected void setMessage(Object value) {
+		messageMap.put("done", value);
 	}
 }

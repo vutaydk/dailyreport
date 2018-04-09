@@ -37,25 +37,25 @@ public class ProjectLogic extends Message {
 	public ProjectLogic isValidData() {
 		// check project code
 		if (dto.getProjectCode() == null || dto.getProjectCode().length() != 4) {
-			setError("projectCode", "Project Code length must be 4 characters.");
+			setMessage("projectCode", "Project Code length must be 4 characters.");
 			isProcessing = false;
 		}
 		// check name
 		if (dto.getName() == null || dto.getName().length() < 6) {
-			setError("name", "Name length is too short (requires 6 characters).");
+			setMessage("name", "Name length is too short (requires 6 characters).");
 			isProcessing = false;
 		}
 		// check start at
 		if (dto.getStartAt() == null || !DataValidation.isValidDate(dto.getStartAt())) {
-			setError("startAt", "Invalid Start Date");
+			setMessage("startAt", "Invalid Start Date");
 			isProcessing = false;
 		}
 		// check finish at
 		if (dto.getFinishAt() == null || !DataValidation.isValidDate(dto.getFinishAt())) {
-			setError("finishAt", "Invalid Finish Date");
+			setMessage("finishAt", "Invalid Finish Date");
 			isProcessing = false;
 		} else if (Format.toDate(dto.getStartAt()).after(Format.toDate(dto.getFinishAt()))) {
-			setError("startAt", "Start Date can't after Finish Date");
+			setMessage("startAt", "Start Date can't after Finish Date");
 			isProcessing = false;
 		}
 
@@ -86,9 +86,9 @@ public class ProjectLogic extends Message {
 		Project enity = megerData();
 		boolean result = ProjectRepo.model.insert(enity);
 		if (result)
-			setMessage("success", "Add success new project");
+			setMessage("Add success new project");
 		else
-			setMessage("errror", "Add error new project");
+			setMessage("Add error new project");
 	}
 
 	/**
@@ -100,9 +100,9 @@ public class ProjectLogic extends Message {
 		Project enity = megerData();
 		boolean result = ProjectRepo.model.update(enity);
 		if (result)
-			setMessage("success", "Edit success project");
+			setMessage("Edit success project");
 		else
-			setMessage("errror", "Edit error project");
+			setMessage("Edit error project");
 	}
 
 }

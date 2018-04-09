@@ -35,12 +35,12 @@ public class TaskLogic extends Message {
 	public TaskLogic isValidData() {
 		// check task code
 		if (dto.getTaskCode() == null || dto.getTaskCode().length() != 4) {
-			setError("taskCode", "Task Code length must be 4 characters.");
+			setMessage("taskCode", "Task Code length must be 4 characters.");
 			isProcesing = false;
 		}
 		// check name
 		if (dto.getName() == null || dto.getName().length() < 6) {
-			setError("name", "Name length is too short (requires 6 characters).");
+			setMessage("name", "Name length is too short (requires 6 characters).");
 			isProcesing = false;
 		}
 
@@ -69,9 +69,9 @@ public class TaskLogic extends Message {
 		Task task = megerData();
 		boolean result = TaskRepo.model.insert(task);
 		if (result)
-			setMessage("success", "Add success new task");
+			setMessage("Add success new task");
 		else
-			setMessage("errror", "Add error new task");
+			setMessage("Add error new task");
 	}
 
 	/**
@@ -83,9 +83,9 @@ public class TaskLogic extends Message {
 		Task task = megerData();
 		boolean result = TaskRepo.model.update(task);
 		if (result)
-			setMessage("success", "Edit success task");
+			setMessage("Edit success task");
 		else
-			setMessage("errror", "Edit error task");
+			setMessage("Edit error task");
 	}
 
 }

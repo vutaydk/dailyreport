@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class Message {
 
-	private final String ISO = "vi";
+	private final static String ISO = "vi";
 	private final static List<String> LOCALE;
 	private static HttpSession session;
 	private Map<String, String> translation;
@@ -28,12 +28,8 @@ public class Message {
 		LOCALE = Arrays.asList("en", "vi");
 	}
 
-	public Message() {
+	public Map<String, String> getTranslation() {
 		String locale = getLocale();
-		log.debug("locale from session: " + locale);
-		if (!LOCALE.contains(locale))
-			locale = ISO;
-
 		log.debug("locale=" + locale);
 		switch (locale) {
 		case "vi":
@@ -46,6 +42,7 @@ public class Message {
 			translation = new HashMap<>();
 			break;
 		}
+		return translation;
 	}
 
 	/**
@@ -69,6 +66,9 @@ public class Message {
 		String locale = null;
 		if (session != null)
 			locale = (String) session.getAttribute("locale");
+		log.debug("locale from session: " + locale);
+		if (!LOCALE.contains(locale))
+			locale = ISO;
 		return locale;
 	}
 
@@ -81,6 +81,7 @@ public class Message {
 	public String getWord(String keyword) {
 		if (translation.containsKey(keyword))
 			return translation.get(keyword);
+		log.debug("Not translated: " + keyword);
 		return keyword;
 	}
 
@@ -92,6 +93,7 @@ public class Message {
 	 */
 	public static String getText(String key) {
 		Message message = new Message();
+		message.getTranslation();
 		return message.getWord(key);
 	}
 

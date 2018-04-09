@@ -43,7 +43,7 @@ public class ReportLogic extends Message {
 	public ReportLogic isValidData() {
 		Optional<Project> project = ProjectRepo.model.find(dto.getProjectId());
 		if (!project.isPresent()) {
-			setError("projectId", "Invalid project.");
+			setMessage("projectId", "Invalid project.");
 			isProcesing = false;
 		}
 		List<Object> list = new ArrayList<>();
@@ -62,7 +62,7 @@ public class ReportLogic extends Message {
 			list.add(err);
 		}
 		if (!list.isEmpty())
-			setError("tasks", list);
+			setMessage("tasks", list);
 
 		return this;
 	}
@@ -85,9 +85,9 @@ public class ReportLogic extends Message {
 		Report report = new Report();
 //		boolean result = ReportRepo.model.insert(report);
 //		if (result)
-//			setMessage("success", "Add success new report");
+//			setMessage("Add success new report");
 //		else
-//			setMessage("errror", "Add error new report");
+//			setMessage("Add error new report");
 	}
 
 	/**
@@ -99,9 +99,9 @@ public class ReportLogic extends Message {
 		Report report = this.report.get();
 //		boolean result = ReportRepo.model.update(report);
 //		if (result)
-//			setMessage("success", "Edit success report");
+//			setMessage("Edit success report");
 //		else
-//			setMessage("errror", "Edit error report");
+//			setMessage("Edit error report");
 	}
 
 }

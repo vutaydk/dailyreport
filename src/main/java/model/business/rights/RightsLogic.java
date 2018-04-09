@@ -35,7 +35,7 @@ public class RightsLogic extends Message {
 	public RightsLogic isValidData() {
 		// check name
 		if (dto.getName() == null || dto.getName().length() < 6) {
-			setError("name", "Name length is too short (requires 6 characters).");
+			setMessage("name", "Name length is too short (requires 6 characters).");
 			isProcesing = false;
 		}
 
@@ -64,9 +64,9 @@ public class RightsLogic extends Message {
 		Rights rights = megerData();
 		boolean result = RightsRepo.model.insert(rights);
 		if (result)
-			setMessage("success", "Add success new rights");
+			setMessage("Add success new rights");
 		else
-			setMessage("errror", "Add error new rights");
+			setMessage("Add error new rights");
 	}
 
 	/**
@@ -78,9 +78,9 @@ public class RightsLogic extends Message {
 		Rights rights = megerData();
 		boolean result = RightsRepo.model.update(rights);
 		if (result)
-			setMessage("success", "Edit success rights");
+			setMessage("Edit success rights");
 		else
-			setMessage("errror", "Edit error rights");
+			setMessage("Edit error rights");
 	}
 
 }
