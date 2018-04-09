@@ -22,8 +22,8 @@ public class RightsService {
 	@Path("get-all")
 	public Response getAll() {
 		log.debug("get all json");
-		Object entity = RightsJson.getJson();
-		return Response.ok(entity).build();
+		Object json = RightsJson.getJson();
+		return Response.ok(json).build();
 	}
 
 	@POST
@@ -33,7 +33,7 @@ public class RightsService {
 		// initialize logic
 		val handling = rightsDTO.getLogic();
 		// handling data
-		handling.isValidData().insert();
+		handling.handleData().insert();
 		return Response.ok(handling.getMessage()).build();
 	}
 
@@ -47,7 +47,7 @@ public class RightsService {
 		if (!handling.isValidId(id))
 			return Response.status(404).build();
 		// handling data
-		handling.isValidData().update();
+		handling.handleData().update();
 		return Response.ok(handling.getMessage()).build();
 	}
 

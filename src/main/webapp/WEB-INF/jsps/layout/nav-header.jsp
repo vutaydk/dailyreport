@@ -12,18 +12,13 @@
 			</button>
 			<div class="collapse navbar-collapse" id="headerDropdown">
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-					<li class="nav-item active">
-						<a class="nav-link" href="report">
-							<m:message key="label.project" />
-						</a>
-					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="project">
 							<m:message key="label.project.add" />
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="home">
+						<a class="nav-link" href="report">
 							<m:message key="label.project.manament" />
 						</a>
 					</li>

@@ -10,7 +10,7 @@ import model.repo.RightsRepo;
 public class RightsJson {
 
 	/**
-	 * Get Json Rights
+	 * Convert {@link Rights} to Json
 	 * 
 	 * @return List
 	 */

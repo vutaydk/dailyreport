@@ -22,8 +22,8 @@ public class TaskService {
 	@Path("get-all")
 	public Response getAll() {
 		log.debug("get all json");
-		Object entity = TaskJson.getJson();
-		return Response.ok(entity).build();
+		Object json = TaskJson.getJson();
+		return Response.ok(json).build();
 	}
 
 	@POST
@@ -33,7 +33,7 @@ public class TaskService {
 		// initialize logic
 		val handling = taskDTO.getLogic();
 		// handling data
-		handling.isValidData().insert();
+		handling.handleData().insert();
 		return Response.ok(handling.getMessage()).build();
 	}
 
@@ -47,7 +47,7 @@ public class TaskService {
 		if (!handling.isValidId(id))
 			return Response.status(404).build();
 		// handling data
-		handling.isValidData().update();
+		handling.handleData().update();
 		return Response.ok(handling.getMessage()).build();
 	}
 

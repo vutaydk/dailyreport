@@ -10,7 +10,7 @@ public class RightsLogic extends Message {
 
 	private final RightsDTO dto;
 	private Optional<Rights> rights = Optional.empty();
-	private boolean isProcesing = true;
+	private boolean isProcesing = false;
 
 	public RightsLogic(RightsDTO dto) {
 		this.dto = dto;
@@ -32,11 +32,11 @@ public class RightsLogic extends Message {
 	 * 
 	 * @return {@link RightsLogic}
 	 */
-	public RightsLogic isValidData() {
+	public RightsLogic handleData() {
 		// check name
 		if (dto.getName() == null || dto.getName().length() < 6) {
 			setMessage("name", "Name length is too short (requires 6 characters).");
-			isProcesing = false;
+			isProcesing = true;
 		}
 
 		return this;
@@ -59,7 +59,7 @@ public class RightsLogic extends Message {
 	 * Insert {@link Rights} to database
 	 */
 	public void insert() {
-		if (!isProcesing)
+		if (isProcesing)
 			return;
 		Rights rights = megerData();
 		boolean result = RightsRepo.model.insert(rights);
@@ -73,7 +73,7 @@ public class RightsLogic extends Message {
 	 * Update {@link Rights} to database
 	 */
 	public void update() {
-		if (!isProcesing)
+		if (isProcesing)
 			return;
 		Rights rights = megerData();
 		boolean result = RightsRepo.model.update(rights);

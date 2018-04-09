@@ -22,8 +22,8 @@ public class ReportService {
 	@Path("get-all")
 	public Response getAll() {
 		log.debug("get all json");
-		Object entity = ReportJson.getJson();
-		return Response.ok(entity).build();
+		Object json = ReportJson.getJson();
+		return Response.ok(json).build();
 	}
 
 	@POST
@@ -33,7 +33,7 @@ public class ReportService {
 		// initialize logic
 		val val = reportDTO.getLogic();
 		// handling data
-		val.isValidData().insert();
+		val.handleData().insert();
 		return Response.ok(val.getMessage()).build();
 	}
 
@@ -47,7 +47,7 @@ public class ReportService {
 		if (val.isValidId(id))
 			return Response.status(404).build();
 		// handling data
-		val.isValidData().update();
+		val.handleData().update();
 		return Response.ok(val.getMessage()).build();
 	}
 

@@ -9,16 +9,19 @@ import java.util.Optional;
 import model.business.Message;
 import model.entity.Project;
 import model.entity.Report;
+import model.entity.ReportDetail;
 import model.entity.Task;
 import model.repo.ProjectRepo;
+import model.repo.ReportDetailRepo;
 import model.repo.ReportRepo;
 import model.repo.TaskRepo;
+import model.repo.UserRepo;
 
 public class ReportLogic extends Message {
 
 	private final ReportDTO dto;
 	private Optional<Report> report = Optional.empty();
-	private boolean isProcesing = true;
+	private boolean isProcesing = false;
 
 	public ReportLogic(ReportDTO dto) {
 		this.dto = dto;
@@ -40,11 +43,11 @@ public class ReportLogic extends Message {
 	 * 
 	 * @return {@link ReportLogic}
 	 */
-	public ReportLogic isValidData() {
+	public ReportLogic handleData() {
 		Optional<Project> project = ProjectRepo.model.find(dto.getProjectId());
 		if (!project.isPresent()) {
 			setMessage("projectId", "Invalid project.");
-			isProcesing = false;
+			isProcesing = true;
 		}
 		List<Object> list = new ArrayList<>();
 		for (PTaskDTO pt : dto.getTasks()) {
@@ -52,14 +55,18 @@ public class ReportLogic extends Message {
 			Optional<Task> task = TaskRepo.model.find(pt.getTaskId());
 			if (!task.isPresent()) {
 				err.put("taskId", "Invalid task.");
+				isProcesing = true;
 			}
 			if (pt.getTimework() == null) {
 				err.put("timework", "Invalid time work.");
+				isProcesing = true;
 			}
 			if (pt.getNote() == null) {
 				err.put("note", "Invalid note.");
+				isProcesing = true;
 			}
-			list.add(err);
+			if (!err.isEmpty())
+				list.add(err);
 		}
 		if (!list.isEmpty())
 			setMessage("tasks", list);
@@ -68,40 +75,41 @@ public class ReportLogic extends Message {
 	}
 
 	/**
-	 * Merge {@link ReportDTO} to {@link Report}
-	 * 
-	 * @return {@link Report}
-	 */
-	private Report megerData() {
-		return new Report();
-	}
-
-	/**
 	 * Add {@link Report} to database
 	 */
 	public void insert() {
-		if (!isProcesing)
+		if (isProcesing)
 			return;
 		Report report = new Report();
-//		boolean result = ReportRepo.model.insert(report);
-//		if (result)
-//			setMessage("Add success new report");
-//		else
-//			setMessage("Add error new report");
+		report.setProject(ProjectRepo.model.find(dto.getProjectId()).get());
+		report.setUser(UserRepo.model.find(1).get());
+		boolean result = ReportRepo.model.insert(report);
+		// insert report detail
+		for (PTaskDTO p : dto.getTasks()) {
+			ReportDetail reportDetail = new ReportDetail();
+			reportDetail.setReport(report);
+			reportDetail.setTask(TaskRepo.model.find(p.getTaskId()).get());
+			reportDetail.setTimeWorked(new Float(5));
+			reportDetail.setNote(p.getNote());
+			ReportDetailRepo.model.insert(reportDetail);
+		}
+		if (result)
+			setMessage("Add success new report");
+		else
+			setMessage("Add error new report");
 	}
 
 	/**
 	 * Update {@link Report} to database
 	 */
 	public void update() {
-		if (!isProcesing)
+		if (isProcesing)
 			return;
-		Report report = this.report.get();
-//		boolean result = ReportRepo.model.update(report);
-//		if (result)
-//			setMessage("Edit success report");
-//		else
-//			setMessage("Edit error report");
+		// boolean result = ReportRepo.model.update(report);
+		// if (result)
+		// setMessage("Edit success report");
+		// else
+		// setMessage("Edit error report");
 	}
 
 }
