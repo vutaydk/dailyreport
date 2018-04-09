@@ -1,5 +1,10 @@
 <script>
   var dataJson;
+  var submitForm = $("#submit-form");
+  var messages = {
+    name: "Name is too short (requires 6 characters).",
+    level: "Level must be a digit."
+  };
 
   $.getJSON("api/rights/get-all").done().always(function (data) {
     dataJson = data;
@@ -9,7 +14,6 @@
     pagination(data);
   });
 
-  var submitForm = $("#submit-form");
   $("body").on("click", ".list-group-item", function () {
     var i = $(this).attr("id");
     submitForm.attr('action', "api/rights/edit/" + i);
@@ -20,13 +24,37 @@
     $(this).addClass('active');
   });
 
-  submitForm.submit(function () {
-    console.table($(this).serializeFormJSON());
-    var data = {
-      name: $(this).find("#name").val(),
-      level: $(this).find("#level").val()
-    };
-    submit_ajax("api/rights/add", data);
-    return false;
-  })
+  submitForm.validate({
+    onkeyup: function (element) {
+      $(element).valid()
+    },
+    highlight: function (element) {
+      $(element).addClass("is-invalid").tooltip({
+        title: messages[element.id],
+        placement: 'right',
+      }).tooltip('show');
+    },
+    unhighlight: function (element) {
+      $(element).removeClass("is-invalid").tooltip('dispose');
+    },
+    rules: {
+      name: {
+        required: true,
+        minlength: 6
+      },
+      level: {
+        required: false,
+        digits: true
+      }
+    },
+    errorPlacement: function (error, element) {},
+    submitHandler: function (form) {
+      var data = {
+        name: $(form).find("#name").val(),
+        level: $(form).find("#level").val()
+      };
+      submit_ajax("api/rights/add", data);
+      return false;
+    }
+  });
 </script>

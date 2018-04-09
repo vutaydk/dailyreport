@@ -42,7 +42,7 @@ function pagination(arr) {
   if ($.isArray(arr)) {
     data = $.extend(data, arr);
   }
-  var rowsOfPage = 2,
+  var rowsOfPage = 5,
     currentPage = 1,
     totalPage = Math.ceil(data.length / rowsOfPage);
 
@@ -137,12 +137,10 @@ function submit_ajax(url, data) {
     dataType: 'json',
     data: JSON.stringify(data),
     success: function (response) {
-      isProcessing = false;
       var form = $("form");
-      if (!$.isEmptyObject(response.messages)) {
-        console.table(response.messages);
+      if (!$.isEmptyObject(response.errors)) {
         form.find("input").removeClass("is-invalid").tooltip('dispose');
-        $.each(response.messages, function (key, value) {
+        $.each(response.errors, function (key, value) {
           form.find("#" + key).addClass("is-invalid").tooltip({
             title: value,
             placement: 'right',
@@ -150,13 +148,14 @@ function submit_ajax(url, data) {
         })
       } else {
         form.find("input").removeClass("is-invalid").tooltip('dispose');
-        alert(response.errors.success);
+        alert(response.messages.done);
+        form.submit();
         location.reload();
       }
-
+      isProcessing = false;
     },
-    error: function (response) {
-      alert(response.errors.errror);
+    error: function () {
+      alert("error");
       location.reload();
     }
   });

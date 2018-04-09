@@ -46,15 +46,12 @@
       },
       errorPlacement: function (error, element) {},
       submitHandler: function (form) {
-        console.log(form);
-        console.table($(form).serializeFormJSON());
         var data = {
           projectCode: $(form).find("#projectCode").val(),
           name: $(form).find("#name").val(),
           startAt: $(form).find("#startAt").val(),
           finishAt: $(form).find("#finishAt").val()
         };
-        console.table(data);
         submit_ajax("api/project/add", data);
         return false;
       }
