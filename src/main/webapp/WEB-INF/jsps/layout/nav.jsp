@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib uri="/WEB-INF/message.tld" prefix="m"%>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+		<nav class="navbar navbar-expand-lg fixed-top header">
 			<a class="navbar-brand" href="">
 				<b>
 					<m:message key="label.brandName" />
@@ -11,33 +11,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="headerDropdown">
-				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-					<li class="nav-item">
-						<a class="nav-link" href="project">
-							<m:message key="label.project.add" />
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="project/chart">
-							<m:message key="label.project.chart" />
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="report">
-							<m:message key="label.project.manament" />
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="task">
-							<m:message key="label.task" />
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="rights">
-							<m:message key="label.rights" />
-						</a>
-					</li>
-				</ul>
+
 				<ul class="navbar-nav my-2 my-lg-0">
 					<li class="nav-item dropdown mr-sm-2">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

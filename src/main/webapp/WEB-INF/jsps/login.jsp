@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="/WEB-INF/message.tld" prefix="m"%>
 <%-- import header --%>
-<jsp:include page="layout/header.jsp" />
+<jsp:include page="layout/head.jsp" />
 <div class="container">
 	<div class="auth-form">
 		<form action="login" class="login-form" method="post">
@@ -41,4 +41,4 @@
 	<!-- ./login form -->
 </div>
 <%-- import footer --%>
-<jsp:include page="layout/footer.jsp" />
+<jsp:include page="layout/bottom.jsp" />
