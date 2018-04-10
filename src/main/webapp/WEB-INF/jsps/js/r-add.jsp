@@ -2,9 +2,10 @@
     $(document).ready(function () {
         var reportList = $("#reports");
         var addReportForm = $("#addReportForm");
-        
-        var addWorkBtnClick = function(){
+
+        var addWorkBtnClick = function () {
             $(".box-body").first().clone().appendTo(reportList);
+            $(".btn-note-remove").prop("disabled", false);
         };
         $("body").on("click", ".btn-add-work", addWorkBtnClick);
 
@@ -26,13 +27,11 @@
             }
             seft.closest(".box-body").remove();
             b = $(".btn-note-remove");
-            console.log(b);
             if (b.length == 1) {
                 b.prop('disabled', true);
             } else {
                 b.prop("disabled", false);
             }
-            $(".btn-add-work").hide().filter(":last").show();
         }
         $("body").on("click", ".btn-note-remove", noteRemoveBtnClick);
 

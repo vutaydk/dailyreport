@@ -55,7 +55,7 @@ body {
 }
 
 .box-body {
-	margin-bottom: 30px;
+	margin-bottom: .5rem;
 	padding: 20px;
 	font-size: 14px;
 	background-color: #fff;

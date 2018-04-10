@@ -42,7 +42,7 @@ function pagination(arr) {
   if ($.isArray(arr)) {
     data = $.extend(data, arr);
   }
-  var rowsOfPage = 5,
+  var rowsOfPage = 8,
     currentPage = 1,
     totalPage = Math.ceil(data.length / rowsOfPage);
 
