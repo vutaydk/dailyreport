@@ -20,6 +20,7 @@ public class ReportDetailRepo implements IRepository<ReportDetail> {
 		model = new ReportDetailRepo();
 	}
 
+	@Override
 	public List<ReportDetail> getAll() {
 		log.debug("get all");
 		Session session = HibernateUtil.getSession();
@@ -51,6 +52,7 @@ public class ReportDetailRepo implements IRepository<ReportDetail> {
 		return Optional.empty();
 	}
 
+	@Override
 	public boolean insert(ReportDetail reportDetail) {
 		log.debug("insert: " + reportDetail);
 		Session session = HibernateUtil.getSession();
@@ -71,6 +73,7 @@ public class ReportDetailRepo implements IRepository<ReportDetail> {
 		}
 	}
 
+	@Override
 	public boolean update(ReportDetail report) {
 		log.debug("update: " + report);
 		Session session = HibernateUtil.getSession();
@@ -90,6 +93,7 @@ public class ReportDetailRepo implements IRepository<ReportDetail> {
 		}
 	}
 
+	@Override
 	public boolean delete(ReportDetail report) {
 		log.debug("delete: " + report);
 		Session session = HibernateUtil.getSession();

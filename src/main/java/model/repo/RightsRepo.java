@@ -20,6 +20,7 @@ public class RightsRepo implements IRepository<Rights> {
 		model = new RightsRepo();
 	}
 
+	@Override
 	public List<Rights> getAll() {
 		log.debug("get all");
 		Session session = HibernateUtil.getSession();
@@ -50,6 +51,7 @@ public class RightsRepo implements IRepository<Rights> {
 		return Optional.empty();
 	}
 
+	@Override
 	public boolean insert(Rights rights) {
 		log.debug("insert: " + rights);
 		Session session = HibernateUtil.getSession();
@@ -70,6 +72,7 @@ public class RightsRepo implements IRepository<Rights> {
 		}
 	}
 
+	@Override
 	public boolean update(Rights rights) {
 		log.debug("update: " + rights);
 		Session session = HibernateUtil.getSession();
@@ -89,6 +92,7 @@ public class RightsRepo implements IRepository<Rights> {
 		}
 	}
 
+	@Override
 	public boolean delete(Rights rights) {
 		log.debug("delete: " + rights);
 		Session session = HibernateUtil.getSession();

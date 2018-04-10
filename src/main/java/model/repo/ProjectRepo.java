@@ -20,6 +20,7 @@ public class ProjectRepo implements IRepository<Project> {
 		model = new ProjectRepo();
 	}
 
+	@Override
 	public List<Project> getAll() {
 		log.debug("get all");
 		Session session = HibernateUtil.getSession();
@@ -52,6 +53,7 @@ public class ProjectRepo implements IRepository<Project> {
 
 	}
 
+	@Override
 	public boolean insert(Project project) {
 		log.debug("insert: " + project);
 		Session session = HibernateUtil.getSession();
@@ -72,6 +74,7 @@ public class ProjectRepo implements IRepository<Project> {
 		}
 	}
 
+	@Override
 	public boolean update(Project project) {
 		log.debug("update: " + project);
 		Session session = HibernateUtil.getSession();
@@ -91,6 +94,7 @@ public class ProjectRepo implements IRepository<Project> {
 		}
 	}
 
+	@Override
 	public boolean delete(Project project) {
 		log.debug("delete: " + project);
 		Session session = HibernateUtil.getSession();

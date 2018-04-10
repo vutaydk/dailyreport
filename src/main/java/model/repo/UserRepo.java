@@ -20,6 +20,7 @@ public class UserRepo implements IRepository<User> {
 		model = new UserRepo();
 	}
 
+	@Override
 	public List<User> getAll() {
 		log.debug("get all");
 		Session session = HibernateUtil.getSession();
@@ -69,6 +70,7 @@ public class UserRepo implements IRepository<User> {
 		return Optional.empty();
 	}
 
+	@Override
 	public boolean insert(User user) {
 		log.debug("insert: " + user);
 		Session session = HibernateUtil.getSession();
@@ -89,6 +91,7 @@ public class UserRepo implements IRepository<User> {
 		}
 	}
 
+	@Override
 	public boolean update(User user) {
 		log.debug("update: " + user);
 		Session session = HibernateUtil.getSession();
@@ -108,6 +111,7 @@ public class UserRepo implements IRepository<User> {
 		}
 	}
 
+	@Override
 	public boolean delete(User user) {
 		log.debug("delete: " + user);
 		Session session = HibernateUtil.getSession();

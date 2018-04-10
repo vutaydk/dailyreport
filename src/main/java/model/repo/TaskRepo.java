@@ -20,6 +20,7 @@ public class TaskRepo implements IRepository<Task> {
 		model = new TaskRepo();
 	}
 
+	@Override
 	public List<Task> getAll() {
 		log.debug("get all");
 		Session session = HibernateUtil.getSession();
@@ -50,6 +51,7 @@ public class TaskRepo implements IRepository<Task> {
 		return Optional.empty();
 	}
 
+	@Override
 	public boolean insert(Task task) {
 		log.debug("insert: " + task);
 		Session session = HibernateUtil.getSession();
@@ -70,6 +72,7 @@ public class TaskRepo implements IRepository<Task> {
 		}
 	}
 
+	@Override
 	public boolean update(Task task) {
 		log.debug("update: " + task);
 		Session session = HibernateUtil.getSession();
@@ -89,6 +92,7 @@ public class TaskRepo implements IRepository<Task> {
 		}
 	}
 
+	@Override
 	public boolean delete(Task task) {
 		log.debug("delete: " + task);
 		Session session = HibernateUtil.getSession();
