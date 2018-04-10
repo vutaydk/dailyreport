@@ -58,6 +58,6 @@
 	</div>
 </div>
 <%-- import js --%>
-<%-- <jsp:include page="js.jsp" /> --%>
+<jsp:include page="js/p-chart.jsp" />
 <%-- import footer --%>
 <jsp:include page="layout/footer.jsp" />

@@ -43,7 +43,7 @@
 									<m:message key="label.submit" />
 								</button>
 								<button type="reset" class="btn btn-default">
-									<m:message key="label.submit" />
+									<m:message key="label.reset" />
 								</button>
 							</div>
 						</div>

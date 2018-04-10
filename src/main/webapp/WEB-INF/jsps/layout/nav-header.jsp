@@ -18,6 +18,11 @@
 						</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="project/chart">
+							<m:message key="label.project.chart" />
+						</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="report">
 							<m:message key="label.project.manament" />
 						</a>

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.extern.log4j.Log4j;
 
-@WebServlet("/project")
+@WebServlet({ "/project", "/project/chart" })
 @Log4j
 public class ProjectSevlet extends HttpServlet {
 
@@ -22,8 +22,10 @@ public class ProjectSevlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("project page");
-		if ("project/chart".equals(request.getServletPath()))
+		if ("/project/chart".equals(request.getServletPath())) {
 			request.getRequestDispatcher("/WEB-INF/jsps/p-chart.jsp").forward(request, response);
+			return;
+		}
 
 		request.getRequestDispatcher("/WEB-INF/jsps/project.jsp").forward(request, response);
 	}
