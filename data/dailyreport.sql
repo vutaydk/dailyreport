@@ -105,6 +105,20 @@ CREATE TABLE report_details (
 );
 GO
 
+CREATE TABLE [system_resource](
+	[resource_code] [varchar](12) NOT NULL,
+	[resource_type] [varchar](12) NOT NULL,
+	[locale] [varchar](12) NOT NULL,
+	[content] [nvarchar](100) NULL,
+ CONSTRAINT [PK_system_resource] PRIMARY KEY CLUSTERED 
+(
+	[resource_code] ASC,
+	[resource_type] ASC,
+	[locale] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- INSERT INTO RIGHTS
 --1
 INSERT INTO rights(name, level)
