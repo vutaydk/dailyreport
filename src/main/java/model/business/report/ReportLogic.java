@@ -21,7 +21,6 @@ public class ReportLogic extends Message {
 
 	private final ReportDTO dto;
 	private Optional<Report> report = Optional.empty();
-	private boolean isProcesing = false;
 
 	public ReportLogic(ReportDTO dto) {
 		this.dto = dto;
@@ -39,11 +38,13 @@ public class ReportLogic extends Message {
 	}
 
 	/**
-	 * Handling {@link ReportDTO}
+	 * Data validate
 	 * 
-	 * @return {@link ReportLogic}
+	 * @input {@link ReportDTO}
+	 * @return boolean
 	 */
-	public ReportLogic handleData() {
+	public boolean isValidData() {
+		boolean isProcesing = false;
 		Optional<Project> project = ProjectRepo.model.find(dto.getProjectId());
 		if (!project.isPresent()) {
 			setMessage("projectId", "Invalid project.");
@@ -71,15 +72,13 @@ public class ReportLogic extends Message {
 		if (!list.isEmpty())
 			setMessage("tasks", list);
 
-		return this;
+		return isProcesing;
 	}
 
 	/**
-	 * Add {@link Report} to database
+	 * Insert {@link Report} to database
 	 */
 	public void insert() {
-		if (isProcesing)
-			return;
 		Report report = new Report();
 		report.setProject(ProjectRepo.model.find(dto.getProjectId()).get());
 		report.setUser(UserRepo.model.find(1).get());
@@ -103,8 +102,6 @@ public class ReportLogic extends Message {
 	 * Update {@link Report} to database
 	 */
 	public void update() {
-		if (isProcesing)
-			return;
 		// boolean result = ReportRepo.model.update(report);
 		// if (result)
 		// setMessage("Edit success report");

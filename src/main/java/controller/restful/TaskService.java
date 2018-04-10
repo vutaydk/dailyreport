@@ -33,7 +33,8 @@ public class TaskService {
 		// initialize logic
 		val handling = taskDTO.getLogic();
 		// handling data
-		handling.handleData().insert();
+		if (handling.isValidData())
+			handling.insert();
 		return Response.ok(handling.getMessage()).build();
 	}
 
@@ -47,7 +48,8 @@ public class TaskService {
 		if (!handling.isValidId(id))
 			return Response.status(404).build();
 		// handling data
-		handling.handleData().update();
+		if (handling.isValidData())
+			handling.update();
 		return Response.ok(handling.getMessage()).build();
 	}
 

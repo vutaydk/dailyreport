@@ -12,7 +12,6 @@ public class ProjectLogic extends Message {
 
 	private final ProjectDTO dto;
 	private Optional<Project> project = Optional.empty();
-	private boolean isProcessing = false;
 
 	public ProjectLogic(ProjectDTO dto) {
 		this.dto = dto;
@@ -30,11 +29,13 @@ public class ProjectLogic extends Message {
 	}
 
 	/**
-	 * Handling {@link ProjectDTO}
+	 * Data validate
 	 * 
-	 * @return {@link ProjectLogic}
+	 * @input {@link ProjectDTO}
+	 * @return boolean
 	 */
-	public ProjectLogic handleData() {
+	public boolean isValidData() {
+		boolean isProcessing = false;
 		// check project code
 		if (dto.getProjectCode() == null || dto.getProjectCode().length() != 4) {
 			setMessage("projectCode", "Project Code length must be 4 characters.");
@@ -59,11 +60,11 @@ public class ProjectLogic extends Message {
 			isProcessing = true;
 		}
 
-		return this;
+		return isProcessing;
 	}
 
 	/**
-	 * Merge {@link ProjectDTO} to {@link Project}
+	 * Merge data from {@link ProjectDTO} to {@link Project}
 	 * 
 	 * @return {@link Project}
 	 */
@@ -81,8 +82,6 @@ public class ProjectLogic extends Message {
 	 * Insert {@link Project} to database
 	 */
 	public void insert() {
-		if (isProcessing)
-			return;
 		Project enity = megerData();
 		boolean result = ProjectRepo.model.insert(enity);
 		if (result)
@@ -95,8 +94,6 @@ public class ProjectLogic extends Message {
 	 * Update {@link Project} to database
 	 */
 	public void update() {
-		if (isProcessing)
-			return;
 		Project enity = megerData();
 		boolean result = ProjectRepo.model.update(enity);
 		if (result)

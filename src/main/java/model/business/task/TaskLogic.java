@@ -10,7 +10,6 @@ public class TaskLogic extends Message {
 
 	private final TaskDTO dto;
 	private Optional<Task> task = Optional.empty();
-	private boolean isProcesing = false;
 
 	public TaskLogic(TaskDTO dto) {
 		this.dto = dto;
@@ -28,11 +27,13 @@ public class TaskLogic extends Message {
 	}
 
 	/**
-	 * Handling {@link TaskDTO}
+	 * Data validate
 	 * 
-	 * @return {@link TaskLogic}
+	 * @input {@link TaskDTO}
+	 * @return boolean
 	 */
-	public TaskLogic handleData() {
+	public boolean isValidData() {
+		boolean isProcesing = false;
 		// check task code
 		if (dto.getTaskCode() == null || dto.getTaskCode().length() != 4) {
 			setMessage("taskCode", "Task Code length must be 4 characters.");
@@ -44,11 +45,11 @@ public class TaskLogic extends Message {
 			isProcesing = true;
 		}
 
-		return this;
+		return isProcesing;
 	}
 
 	/**
-	 * Merge {@link TaskDTO} to {@link Task}
+	 * Merge data from {@link TaskDTO} to {@link Task}
 	 * 
 	 * @return {@link Task}
 	 */
@@ -64,8 +65,6 @@ public class TaskLogic extends Message {
 	 * Insert {@link Task} to database
 	 */
 	public void insert() {
-		if (isProcesing)
-			return;
 		Task task = megerData();
 		boolean result = TaskRepo.model.insert(task);
 		if (result)
@@ -78,8 +77,6 @@ public class TaskLogic extends Message {
 	 * Update {@link Task} to database
 	 */
 	public void update() {
-		if (isProcesing)
-			return;
 		Task task = megerData();
 		boolean result = TaskRepo.model.update(task);
 		if (result)

@@ -33,7 +33,8 @@ public class RightsService {
 		// initialize logic
 		val handling = rightsDTO.getLogic();
 		// handling data
-		handling.handleData().insert();
+		if (handling.isValidData())
+			handling.insert();
 		return Response.ok(handling.getMessage()).build();
 	}
 
@@ -47,7 +48,8 @@ public class RightsService {
 		if (!handling.isValidId(id))
 			return Response.status(404).build();
 		// handling data
-		handling.handleData().update();
+		if (handling.isValidData())
+			handling.update();
 		return Response.ok(handling.getMessage()).build();
 	}
 

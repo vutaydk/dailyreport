@@ -31,10 +31,11 @@ public class ReportService {
 	public Response insert(ReportDTO reportDTO) {
 		log.debug("insert report");
 		// initialize logic
-		val val = reportDTO.getLogic();
+		val handling = reportDTO.getLogic();
 		// handling data
-		val.handleData().insert();
-		return Response.ok(val.getMessage()).build();
+		if (handling.isValidData())
+			handling.insert();
+		return Response.ok(handling.getMessage()).build();
 	}
 
 	@POST
@@ -42,13 +43,14 @@ public class ReportService {
 	public Response update(@PathParam("id") int id, ReportDTO reportDTO) {
 		log.debug("update report");
 		// initialize logic
-		val val = reportDTO.getLogic();
+		val handling = reportDTO.getLogic();
 		// check id exist
-		if (val.isValidId(id))
+		if (handling.isValidId(id))
 			return Response.status(404).build();
 		// handling data
-		val.handleData().update();
-		return Response.ok(val.getMessage()).build();
+		if (handling.isValidData())
+			handling.update();
+		return Response.ok(handling.getMessage()).build();
 	}
 
 }
