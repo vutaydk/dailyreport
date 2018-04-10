@@ -1,88 +1,10 @@
 <script>
     $(document).ready(function () {
-
-        var taskForm =
-            `<div class="box-body">
-            <div class="row">
-                <div class="col-10">
-
-                    <div class="form-group row">
-                        <label class="col-3 col-form-label">
-                            <m:message key="label.projectCode" />
-                        </label>
-                        <div class="col-9">
-                            <select name="projectCode" class="form-control">
-                                <option value="">Choose...</option>
-                                <option value="Project1">Project 1</option>
-                                <option value="Project2">Project 2</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-3 col-form-label">
-                            <m:message key="label.taskCode" />
-                        </label>
-                        <div class="col-9">
-                            <select name="taskCode" class="form-control">
-                                <option value="">Choose...</option>
-                                <option value="Task1">Task 1</option>
-                                <option value="Task2">Task 2</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-3 col-form-label">
-                            <m:message key="label.timeWork" />
-                        </label>
-                        <div class="col-9">
-                            <input type="text" name="timeWork" class="form-control" placeholder="Hour">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-2">
-                    <div class="row">
-                        <button class="btn btn-outline-danger ml-2 btn-note-remove" type="button">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button id="toggle-note" class="btn btn-outline-dark  ml-2 btn-note-toggle" type="button" data-toggle="collapse" data-target="#report-note"
-                            aria-controls="report-note" aria-expanded="false" aria-label="Toggle report note">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-
-                </div>
-                <div class="r-note">
-                    <div class="form-group">
-                        <label>
-                            <m:message key="label.note" />
-                        </label>
-                        <div class="col-12">
-                            <textarea rows="10" name="note" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-outline-dark btn-add-work">
-                                <m:message key="label.submit" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-
         var reportList = $("#reports");
         var addReportForm = $("#addReportForm");
-
-        // on Add work button click
-        var addWorkBtnClick = function () {
-            reportList.append(taskForm);
-            $(".btn-add-work").hide().filter(":last").show();
-            console.log($(".btn-note-remove"));
-            $(".btn-note-remove").prop("disabled", false);
+        
+        var addWorkBtnClick = function(){
+            $(".box-body").first().clone().appendTo(reportList);
         };
         $("body").on("click", ".btn-add-work", addWorkBtnClick);
 
@@ -116,7 +38,9 @@
 
         // on submit report
         $("body").on("click", "#report-submit", function () {
-            var data = [];
+            var data = {};
+            var projectCode = $("#projectCode").val();
+            var tasks = [];
             var item = $("div").find(".box-body");
             $.each(item, function () {
                 var record = {};
@@ -124,9 +48,11 @@
                 $.each(recordItem, function () {
                     record[this.name] = this.value;
                 });
-                data.push(record);
+                tasks.push(record);
             });
-            console.log(data);
+            data.projectCode = projectCode;
+            data.tasks = tasks;
+            console.table(data);
         });
     });
 </script>
