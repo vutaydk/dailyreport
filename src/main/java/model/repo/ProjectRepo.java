@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import common.util.HibernateUtil;
 import lombok.extern.log4j.Log4j;
@@ -61,16 +60,16 @@ public class ProjectRepo implements IRepository<Project> {
 			project.setCreatedAt(new Date());
 			session.save(project);
 			transaction.commit();
+			return true;
 		} catch (Exception e) {
 			transaction.rollback();
 			e.printStackTrace();
+			return false;
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-
-		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 	public boolean update(Project project) {
@@ -80,16 +79,16 @@ public class ProjectRepo implements IRepository<Project> {
 		try {
 			session.update(project);
 			transaction.commit();
+			return true;
 		} catch (Exception e) {
 			transaction.rollback();
 			e.printStackTrace();
+			return false;
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-
-		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 	public boolean delete(Project project) {
@@ -99,16 +98,16 @@ public class ProjectRepo implements IRepository<Project> {
 		try {
 			session.delete(project);
 			transaction.commit();
+			return true;
 		} catch (Exception e) {
 			transaction.rollback();
 			e.printStackTrace();
+			return false;
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 		}
-
-		return transaction.getStatus().isOneOf(TransactionStatus.COMMITTED);
 	}
 
 }

@@ -14,7 +14,7 @@ import model.repo.ProjectRepo;
 public class ProjectJson {
 
 	/**
-	 * Get Json Project
+	 * Convert {@link Project} to Json
 	 * 
 	 * @return {@link List}
 	 */
@@ -33,9 +33,9 @@ public class ProjectJson {
 	}
 
 	/**
-	 * Get Json for Chart
+	 * Convert {@link Project} to Json for Chart page
 	 * 
-	 * @return List
+	 * @return {@link List}
 	 */
 	public static List<Object> getJsonForChart() {
 		List<Object> list = new ArrayList<>();

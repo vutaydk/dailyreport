@@ -10,7 +10,7 @@ import model.repo.TaskRepo;
 public class TaskJson {
 
 	/**
-	 * Get all Json
+	 * Convert {@link Task} to Json
 	 * 
 	 * @return List
 	 */

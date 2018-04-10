@@ -12,9 +12,9 @@ import model.repo.ReportRepo;
 public class ReportJson {
 
 	/**
-	 * Get Json Report
+	 * Convert {@link Report} to Json
 	 * 
-	 * @return List
+	 * @return {@link List}
 	 */
 	public static List<Object> getJson() {
 		List<Object> list = new ArrayList<>();

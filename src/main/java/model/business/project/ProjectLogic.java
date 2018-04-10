@@ -12,7 +12,7 @@ public class ProjectLogic extends Message {
 
 	private final ProjectDTO dto;
 	private Optional<Project> project = Optional.empty();
-	private boolean isProcessing = true;
+	private boolean isProcessing = false;
 
 	public ProjectLogic(ProjectDTO dto) {
 		this.dto = dto;
@@ -34,29 +34,29 @@ public class ProjectLogic extends Message {
 	 * 
 	 * @return {@link ProjectLogic}
 	 */
-	public ProjectLogic isValidData() {
+	public ProjectLogic handleData() {
 		// check project code
 		if (dto.getProjectCode() == null || dto.getProjectCode().length() != 4) {
 			setMessage("projectCode", "Project Code length must be 4 characters.");
-			isProcessing = false;
+			isProcessing = true;
 		}
 		// check name
 		if (dto.getName() == null || dto.getName().length() < 6) {
 			setMessage("name", "Name length is too short (requires 6 characters).");
-			isProcessing = false;
+			isProcessing = true;
 		}
 		// check start at
 		if (dto.getStartAt() == null || !DataValidation.isValidDate(dto.getStartAt())) {
 			setMessage("startAt", "Invalid Start Date");
-			isProcessing = false;
+			isProcessing = true;
 		}
 		// check finish at
 		if (dto.getFinishAt() == null || !DataValidation.isValidDate(dto.getFinishAt())) {
 			setMessage("finishAt", "Invalid Finish Date");
-			isProcessing = false;
+			isProcessing = true;
 		} else if (Format.toDate(dto.getStartAt()).after(Format.toDate(dto.getFinishAt()))) {
 			setMessage("startAt", "Start Date can't after Finish Date");
-			isProcessing = false;
+			isProcessing = true;
 		}
 
 		return this;

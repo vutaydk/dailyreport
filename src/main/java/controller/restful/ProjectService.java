@@ -22,16 +22,16 @@ public class ProjectService {
 	@Path("get-all")
 	public Response getAllJson() {
 		log.debug("get all json");
-		Object entity = ProjectJson.getJson();
-		return Response.ok(entity).build();
+		Object json = ProjectJson.getJson();
+		return Response.ok(json).build();
 	}
 
 	@GET
 	@Path("get-chart")
 	public Response getChartJson() {
 		log.debug("get chart json");
-		Object entity = ProjectJson.getJsonForChart();
-		return Response.ok(entity).build();
+		Object json = ProjectJson.getJsonForChart();
+		return Response.ok(json).build();
 	}
 
 	@POST
@@ -41,7 +41,7 @@ public class ProjectService {
 		// initialize logic
 		val handling = projectDTO.getLogic();
 		// handling data
-		handling.isValidData().insert();
+		handling.handleData().insert();
 		return Response.ok(handling.getMessage()).build();
 
 	}
@@ -56,7 +56,7 @@ public class ProjectService {
 		if (!handling.isValidId(id))
 			return Response.status(404).build();
 		// handling data
-		handling.isValidData().update();
+		handling.handleData().update();
 		return Response.ok(handling.getMessage()).build();
 	}
 

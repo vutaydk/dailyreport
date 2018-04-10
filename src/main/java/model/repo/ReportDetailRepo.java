@@ -10,21 +10,21 @@ import org.hibernate.query.Query;
 
 import common.util.HibernateUtil;
 import lombok.extern.log4j.Log4j;
-import model.entity.Task;
+import model.entity.ReportDetail;
 
 @Log4j
-public class TaskRepo implements IRepository<Task> {
+public class ReportDetailRepo implements IRepository<ReportDetail> {
 
-	public static TaskRepo model;
+	public static ReportDetailRepo model;
 	static {
-		model = new TaskRepo();
+		model = new ReportDetailRepo();
 	}
 
-	public List<Task> getAll() {
+	public List<ReportDetail> getAll() {
 		log.debug("get all");
 		Session session = HibernateUtil.getSession();
 		try {
-			Query<Task> query = session.createQuery("FROM " + Task.class.getName(), Task.class);
+			Query<ReportDetail> query = session.createQuery("FROM " + ReportDetail.class.getName(), ReportDetail.class);
 			return query.getResultList();
 		} finally {
 			if (session != null) {
@@ -33,11 +33,12 @@ public class TaskRepo implements IRepository<Task> {
 		}
 	}
 
-	public Optional<Task> find(int id) {
+	public Optional<ReportDetail> find(int id) {
 		log.debug("find id=" + id);
 		Session session = HibernateUtil.getSession();
 		try {
-			Query<Task> query = session.createQuery("FROM " + Task.class.getName() + " WHERE id=:id", Task.class);
+			Query<ReportDetail> query = session.createQuery("FROM " + ReportDetail.class.getName() + " WHERE id=:id",
+					ReportDetail.class);
 			query.setParameter("id", id);
 			if (query.getResultList().size() > 0)
 				return Optional.ofNullable(query.getSingleResult());
@@ -50,13 +51,13 @@ public class TaskRepo implements IRepository<Task> {
 		return Optional.empty();
 	}
 
-	public boolean insert(Task task) {
-		log.debug("insert: " + task);
+	public boolean insert(ReportDetail reportDetail) {
+		log.debug("insert: " + reportDetail);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
-			task.setCreatedAt(new Date());
-			session.save(task);
+			reportDetail.setCreatedAt(new Date());
+			session.save(reportDetail);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
@@ -70,12 +71,12 @@ public class TaskRepo implements IRepository<Task> {
 		}
 	}
 
-	public boolean update(Task task) {
-		log.debug("update: " + task);
+	public boolean update(ReportDetail report) {
+		log.debug("update: " + report);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.update(task);
+			session.update(report);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
@@ -89,18 +90,18 @@ public class TaskRepo implements IRepository<Task> {
 		}
 	}
 
-	public boolean delete(Task task) {
-		log.debug("delete: " + task);
+	public boolean delete(ReportDetail report) {
+		log.debug("delete: " + report);
 		Session session = HibernateUtil.getSession();
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.delete(task);
+			session.delete(report);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
 			transaction.rollback();
 			e.printStackTrace();
-			return false;
+			return true;
 		} finally {
 			if (session != null) {
 				session.close();
