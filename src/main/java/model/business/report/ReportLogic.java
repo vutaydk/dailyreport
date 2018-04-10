@@ -72,7 +72,7 @@ public class ReportLogic extends Message {
 		if (!list.isEmpty())
 			setMessage("tasks", list);
 
-		return isProcesing;
+		return !isProcesing;
 	}
 
 	/**

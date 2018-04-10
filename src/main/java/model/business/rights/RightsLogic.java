@@ -40,7 +40,7 @@ public class RightsLogic extends Message {
 			isProcesing = true;
 		}
 
-		return isProcesing;
+		return !isProcesing;
 	}
 
 	/**

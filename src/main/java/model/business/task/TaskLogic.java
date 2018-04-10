@@ -45,7 +45,7 @@ public class TaskLogic extends Message {
 			isProcesing = true;
 		}
 
-		return isProcesing;
+		return !isProcesing;
 	}
 
 	/**

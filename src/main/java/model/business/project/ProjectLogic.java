@@ -60,7 +60,7 @@ public class ProjectLogic extends Message {
 			isProcessing = true;
 		}
 
-		return isProcessing;
+		return !isProcessing;
 	}
 
 	/**
