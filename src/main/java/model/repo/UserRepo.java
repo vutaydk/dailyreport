@@ -1,14 +1,14 @@
 package model.repo;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
-import common.util.HibernateUtil;
 import lombok.extern.log4j.Log4j;
 import model.entity.User;
 
@@ -21,113 +21,76 @@ public class UserRepo implements IRepository<User> {
 	}
 
 	@Override
-	public List<User> getAll() {
-		log.debug("get all");
-		Session session = HibernateUtil.getSession();
-		try {
-			Query<User> query = session.createQuery("FROM " + User.class.getName(), User.class);
-			return query.getResultList();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
+	public List<User> getList() {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		List<User> list = entityManager.createQuery("SELECT e FROM User e", User.class).getResultList();
+		entityManager.close();
+		entityManagerFactory.close();
+		return list;
 	}
 
 	public Optional<User> find(int id) {
-		log.debug("find id=" + id);
-		Session session = HibernateUtil.getSession();
-		try {
-			Query<User> query = session.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
-			query.setParameter("id", id);
-			if (query.getResultList().size() > 0)
-				return Optional.ofNullable(query.getSingleResult());
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-
-		return Optional.empty();
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Optional<User> project = Optional.ofNullable(entityManager.find(User.class, id));
+		entityManager.close();
+		entityManagerFactory.close();
+		return project;
 	}
 
 	public Optional<User> check(String em, String pwd) {
-		log.debug("check user=" + em + ", password=" + pwd);
-		Session session = HibernateUtil.getSession();
-		try {
-			Query<User> query = session.createQuery(
-					"FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
-			query.setParameter("em", em);
-			query.setParameter("pwd", pwd);
-			if (query.getResultList().size() > 0)
-				return Optional.ofNullable(query.getSingleResult());
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Query query = entityManager.createQuery("SELECT e FROM User e WHERE e.employeeCode=:em AND e.password=:pwd",
+				User.class);
+		query.setParameter("em", em);
+		query.setParameter("pwd", pwd);
+		List<User> list = query.getResultList();
+		entityManager.close();
+		entityManagerFactory.close();
+		if (!list.isEmpty())
+			return Optional.ofNullable(list.get(0));
 		return Optional.empty();
 	}
 
 	@Override
-	public boolean insert(User user) {
-		log.debug("insert: " + user);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
+	public boolean persist(User project) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
 		try {
-			user.setCreatedAt(new Date());
-			session.save(user);
+			transaction.begin();
+			entityManager.persist(project);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
 			transaction.rollback();
-			e.printStackTrace();
+			log.debug(e);
 			return false;
 		} finally {
-			if (session != null) {
-				session.close();
-			}
+			entityManager.close();
+			entityManagerFactory.close();
 		}
 	}
 
 	@Override
-	public boolean update(User user) {
-		log.debug("update: " + user);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
+	public boolean remove(User project) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
 		try {
-			session.update(user);
+			transaction.begin();
+			entityManager.remove(project);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
 			transaction.rollback();
-			e.printStackTrace();
+			log.debug(e);
 			return false;
 		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-	}
-
-	@Override
-	public boolean delete(User user) {
-		log.debug("delete: " + user);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
-		try {
-			session.delete(user);
-			transaction.commit();
-			return true;
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			return false;
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			entityManager.close();
+			entityManagerFactory.close();
 		}
 	}
 

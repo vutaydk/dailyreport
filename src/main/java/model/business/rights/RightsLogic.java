@@ -33,7 +33,9 @@ public class RightsLogic extends Message {
 	 * @return boolean
 	 */
 	public boolean isValidData() {
+
 		boolean isProcesing = false;
+
 		// check name
 		if (dto.getName() == null || dto.getName().length() < 6) {
 			setMessage("name", "Name length is too short (requires 6 characters).");
@@ -44,24 +46,29 @@ public class RightsLogic extends Message {
 	}
 
 	/**
-	 * Merge data from {@link RightsDTO} to {@link Rights}
+	 * Merge data from class {@link RightsDTO} to entity {@link Rights}
 	 * 
 	 * @return {@link Rights}
 	 */
 	private Rights megerData() {
+
 		if (!rights.isPresent())
 			rights = Optional.of(new Rights());
+
 		rights.get().setName(dto.getName());
 		rights.get().setLevel(dto.getLevel());
+
 		return rights.get();
 	}
 
 	/**
-	 * Insert {@link Rights} to database
+	 * Insert entity {@link Rights} to database
 	 */
 	public void insert() {
+
 		Rights rights = megerData();
-		boolean result = RightsRepo.model.insert(rights);
+		boolean result = RightsRepo.model.persist(rights);
+
 		if (result)
 			setMessage("Add success new rights");
 		else
@@ -69,11 +76,13 @@ public class RightsLogic extends Message {
 	}
 
 	/**
-	 * Update {@link Rights} to database
+	 * Update entity {@link Rights} to database
 	 */
 	public void update() {
+
 		Rights rights = megerData();
-		boolean result = RightsRepo.model.update(rights);
+		boolean result = RightsRepo.model.persist(rights);
+
 		if (result)
 			setMessage("Edit success rights");
 		else

@@ -35,22 +35,27 @@ public class ProjectLogic extends Message {
 	 * @return boolean
 	 */
 	public boolean isValidData() {
+
 		boolean isProcessing = false;
+
 		// check project code
 		if (dto.getProjectCode() == null || dto.getProjectCode().length() != 4) {
 			setMessage("projectCode", "Project Code length must be 4 characters.");
 			isProcessing = true;
 		}
+
 		// check name
 		if (dto.getName() == null || dto.getName().length() < 6) {
 			setMessage("name", "Name length is too short (requires 6 characters).");
 			isProcessing = true;
 		}
+
 		// check start at
 		if (dto.getStartAt() == null || !DataValidation.isValidDate(dto.getStartAt())) {
 			setMessage("startAt", "Invalid Start Date");
 			isProcessing = true;
 		}
+
 		// check finish at
 		if (dto.getFinishAt() == null || !DataValidation.isValidDate(dto.getFinishAt())) {
 			setMessage("finishAt", "Invalid Finish Date");
@@ -64,26 +69,31 @@ public class ProjectLogic extends Message {
 	}
 
 	/**
-	 * Merge data from {@link ProjectDTO} to {@link Project}
+	 * Merge data from class {@link ProjectDTO} to entity {@link Project}
 	 * 
 	 * @return {@link Project}
 	 */
 	private Project megerData() {
+
 		if (!project.isPresent())
 			project = Optional.of(new Project());
+
 		project.get().setProjectCode(dto.getProjectCode());
 		project.get().setName(dto.getName());
 		project.get().setStartAt(Format.toDate(dto.getStartAt()));
 		project.get().setFinishAt(Format.toDate(dto.getFinishAt()));
+
 		return project.get();
 	}
 
 	/**
-	 * Insert {@link Project} to database
+	 * Insert entity {@link Project} to database
 	 */
 	public void insert() {
-		Project enity = megerData();
-		boolean result = ProjectRepo.model.insert(enity);
+
+		Project project = megerData();
+		boolean result = ProjectRepo.model.persist(project);
+
 		if (result)
 			setMessage("Add success new project");
 		else
@@ -91,11 +101,13 @@ public class ProjectLogic extends Message {
 	}
 
 	/**
-	 * Update {@link Project} to database
+	 * Update entity {@link Project} to database
 	 */
 	public void update() {
-		Project enity = megerData();
-		boolean result = ProjectRepo.model.update(enity);
+
+		Project project = megerData();
+		boolean result = ProjectRepo.model.persist(project);
+
 		if (result)
 			setMessage("Edit success project");
 		else

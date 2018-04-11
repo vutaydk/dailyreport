@@ -44,31 +44,43 @@ public class ReportLogic extends Message {
 	 * @return boolean
 	 */
 	public boolean isValidData() {
+
 		boolean isProcesing = false;
+
 		Optional<Project> project = ProjectRepo.model.find(dto.getProjectId());
+
 		if (!project.isPresent()) {
 			setMessage("projectId", "Invalid project.");
 			isProcesing = true;
 		}
+
 		List<Object> list = new ArrayList<>();
+
 		for (PTaskDTO pt : dto.getTasks()) {
+
 			Map<String, String> err = new HashMap<>();
 			Optional<Task> task = TaskRepo.model.find(pt.getTaskId());
+
 			if (!task.isPresent()) {
 				err.put("taskId", "Invalid task.");
 				isProcesing = true;
 			}
+
 			if (pt.getTimework() == null) {
 				err.put("timework", "Invalid time work.");
 				isProcesing = true;
 			}
+
 			if (pt.getNote() == null) {
 				err.put("note", "Invalid note.");
 				isProcesing = true;
 			}
+
 			if (!err.isEmpty())
 				list.add(err);
+
 		}
+
 		if (!list.isEmpty())
 			setMessage("tasks", list);
 
@@ -76,13 +88,16 @@ public class ReportLogic extends Message {
 	}
 
 	/**
-	 * Insert {@link Report} to database
+	 * Insert entity {@link Report} to database
 	 */
 	public void insert() {
+
 		Report report = new Report();
 		report.setProject(ProjectRepo.model.find(dto.getProjectId()).get());
 		report.setUser(UserRepo.model.find(1).get());
-		boolean result = ReportRepo.model.insert(report);
+
+		boolean result = ReportRepo.model.persist(report);
+
 		// insert report detail
 		for (PTaskDTO p : dto.getTasks()) {
 			ReportDetail reportDetail = new ReportDetail();
@@ -90,8 +105,9 @@ public class ReportLogic extends Message {
 			reportDetail.setTask(TaskRepo.model.find(p.getTaskId()).get());
 			reportDetail.setTimeWorked(new Float(5));
 			reportDetail.setNote(p.getNote());
-			ReportDetailRepo.model.insert(reportDetail);
+			ReportDetailRepo.model.persist(reportDetail);
 		}
+
 		if (result)
 			setMessage("Add success new report");
 		else
@@ -99,7 +115,7 @@ public class ReportLogic extends Message {
 	}
 
 	/**
-	 * Update {@link Report} to database
+	 * Update entity {@link Report} to database
 	 */
 	public void update() {
 		// boolean result = ReportRepo.model.update(report);

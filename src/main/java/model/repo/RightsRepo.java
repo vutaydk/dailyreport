@@ -1,14 +1,13 @@
 package model.repo;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
-import common.util.HibernateUtil;
 import lombok.extern.log4j.Log4j;
 import model.entity.Rights;
 
@@ -21,94 +20,61 @@ public class RightsRepo implements IRepository<Rights> {
 	}
 
 	@Override
-	public List<Rights> getAll() {
-		log.debug("get all");
-		Session session = HibernateUtil.getSession();
-		try {
-			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName(), Rights.class);
-			return query.getResultList();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
+	public List<Rights> getList() {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		List<Rights> list = entityManager.createQuery("SELECT e FROM Rights e", Rights.class).getResultList();
+		entityManager.close();
+		entityManagerFactory.close();
+		return list;
 	}
 
 	public Optional<Rights> find(int id) {
-		log.debug("find id=" + id);
-		Session session = HibernateUtil.getSession();
-		try {
-			Query<Rights> query = session.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id", Rights.class);
-			query.setParameter("id", id);
-			if (query.getResultList().size() > 0)
-				return Optional.ofNullable(query.getSingleResult());
-
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-		return Optional.empty();
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Optional<Rights> project = Optional.ofNullable(entityManager.find(Rights.class, id));
+		entityManager.close();
+		entityManagerFactory.close();
+		return project;
 	}
 
 	@Override
-	public boolean insert(Rights rights) {
-		log.debug("insert: " + rights);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
+	public boolean persist(Rights project) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
 		try {
-			rights.setCreatedAt(new Date());
-			session.save(rights);
+			transaction.begin();
+			entityManager.persist(project);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
 			transaction.rollback();
-			e.printStackTrace();
+			log.debug(e);
 			return false;
 		} finally {
-			if (session != null) {
-				session.close();
-			}
+			entityManager.close();
+			entityManagerFactory.close();
 		}
 	}
 
 	@Override
-	public boolean update(Rights rights) {
-		log.debug("update: " + rights);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
+	public boolean remove(Rights project) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
 		try {
-			session.update(rights);
+			transaction.begin();
+			entityManager.remove(project);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
 			transaction.rollback();
-			e.printStackTrace();
+			log.debug(e);
 			return false;
 		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-	}
-
-	@Override
-	public boolean delete(Rights rights) {
-		log.debug("delete: " + rights);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
-		try {
-			session.delete(rights);
-			transaction.commit();
-			return true;
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			return false;
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			entityManager.close();
+			entityManagerFactory.close();
 		}
 	}
 

@@ -22,7 +22,7 @@ public class RightsService {
 	@Path("get-all")
 	public Response getAll() {
 		log.debug("get all json");
-		Object json = RightsJson.getJson();
+		Object json = RightsJson.getJSON();
 		return Response.ok(json).build();
 	}
 
@@ -30,11 +30,12 @@ public class RightsService {
 	@Path("add")
 	public Response insert(RightsDTO rightsDTO) {
 		log.debug("insert rights");
-		// initialize logic
-		val handling = rightsDTO.getLogic();
-		// handling data
-		if (handling.isValidData())
+
+		val handling = rightsDTO.getLogic(); // initialize logic
+
+		if (handling.isValidData()) // handling data
 			handling.insert();
+
 		return Response.ok(handling.getMessage()).build();
 	}
 
@@ -42,14 +43,15 @@ public class RightsService {
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, RightsDTO rightsDTO) {
 		log.debug("update rights");
-		// initialize logic
-		val handling = rightsDTO.getLogic();
-		// check exist object
-		if (!handling.isValidId(id))
+
+		val handling = rightsDTO.getLogic(); // initialize logic
+
+		if (!handling.isValidId(id)) // check exist object
 			return Response.status(404).build();
-		// handling data
-		if (handling.isValidData())
+
+		if (handling.isValidData()) // handling data
 			handling.update();
+
 		return Response.ok(handling.getMessage()).build();
 	}
 

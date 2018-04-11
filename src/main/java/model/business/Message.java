@@ -9,6 +9,7 @@ public class Message {
 	private HashMap<String, Object> messageMap = new HashMap<>();
 
 	public Map<String, Object> getMessage() {
+
 		Map<String, Object> map = new HashMap<String, Object>() {
 			private static final long serialVersionUID = 1L;
 			{
@@ -16,6 +17,7 @@ public class Message {
 				put("errors", errorMap);
 			}
 		};
+
 		return map;
 	}
 

@@ -10,19 +10,24 @@ import model.repo.RightsRepo;
 public class RightsJson {
 
 	/**
-	 * Convert {@link Rights} to Json
+	 * Convert entity {@link Rights} to JSON file
 	 * 
 	 * @return List
 	 */
-	public static List<Object> getJson() {
+	public static List<Object> getJSON() {
+
 		List<Object> list = new ArrayList<>();
-		for (Rights p : RightsRepo.model.getAll()) {
+
+		for (Rights p : RightsRepo.model.getList()) {
+
 			HashMap<String, Object> rights = new HashMap<>();
+
 			rights.put("id", p.getId());
 			rights.put("name", p.getName());
 			rights.put("level", p.getLevel());
 			list.add(rights);
 		}
+
 		return list;
 	}
 

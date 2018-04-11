@@ -22,7 +22,7 @@ public class ProjectService {
 	@Path("get-all")
 	public Response getAllJson() {
 		log.debug("get all json");
-		Object json = ProjectJson.getJson();
+		Object json = ProjectJson.getJSON();
 		return Response.ok(json).build();
 	}
 
@@ -30,7 +30,7 @@ public class ProjectService {
 	@Path("get-chart")
 	public Response getChartJson() {
 		log.debug("get chart json");
-		Object json = ProjectJson.getJsonForChart();
+		Object json = ProjectJson.getJSONForChart();
 		return Response.ok(json).build();
 	}
 
@@ -38,27 +38,28 @@ public class ProjectService {
 	@Path("add")
 	public Response insert(ProjectDTO projectDTO) {
 		log.debug("insert project");
-		// initialize logic
-		val handling = projectDTO.getLogic();
-		// handling data
-		if (handling.isValidData())
-			handling.insert();
-		return Response.ok(handling.getMessage()).build();
 
+		val handling = projectDTO.getLogic(); // initialize logic
+
+		if (handling.isValidData()) // handling data
+			handling.insert();
+
+		return Response.ok(handling.getMessage()).build();
 	}
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, ProjectDTO projectDTO) {
 		log.debug("update project");
-		// initialize logic
-		val handling = projectDTO.getLogic();
-		// check exist object
-		if (!handling.isValidId(id))
+
+		val handling = projectDTO.getLogic(); // initialize logic
+
+		if (!handling.isValidId(id)) // check exist object
 			return Response.status(404).build();
-		// handling data
-		if (handling.isValidData())
+
+		if (handling.isValidData()) // handling data
 			handling.update();
+
 		return Response.ok(handling.getMessage()).build();
 	}
 

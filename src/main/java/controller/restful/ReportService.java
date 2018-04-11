@@ -22,7 +22,7 @@ public class ReportService {
 	@Path("get-all")
 	public Response getAll() {
 		log.debug("get all json");
-		Object json = ReportJson.getJson();
+		Object json = ReportJson.getJSON();
 		return Response.ok(json).build();
 	}
 
@@ -30,11 +30,12 @@ public class ReportService {
 	@Path("add")
 	public Response insert(ReportDTO reportDTO) {
 		log.debug("insert report");
-		// initialize logic
-		val handling = reportDTO.getLogic();
-		// handling data
-		if (handling.isValidData())
+
+		val handling = reportDTO.getLogic(); // initialize logic
+
+		if (handling.isValidData()) // handling data
 			handling.insert();
+
 		return Response.ok(handling.getMessage()).build();
 	}
 
@@ -42,14 +43,15 @@ public class ReportService {
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, ReportDTO reportDTO) {
 		log.debug("update report");
-		// initialize logic
-		val handling = reportDTO.getLogic();
-		// check id exist
-		if (handling.isValidId(id))
+
+		val handling = reportDTO.getLogic(); // initialize logic
+
+		if (handling.isValidId(id)) // check id exist
 			return Response.status(404).build();
-		// handling data
-		if (handling.isValidData())
+
+		if (handling.isValidData()) // handling data
 			handling.update();
+
 		return Response.ok(handling.getMessage()).build();
 	}
 

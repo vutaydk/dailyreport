@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VI extends Language {
-
 	private Map<String, String> translate = new HashMap<String, String>() {
 		private static final long serialVersionUID = 1L;
 		{
 			put("label.project", "Dự án");
 			put("label.project.add", "Thêm dự án");
-			put("label.task", "Công việc");
-			put("label.rights", "Quyền");
+			put("label.task.manament", "Quản lý công việc");
+			put("label.rights.manament", "Quản lý quyền");
 			put("label.login", "Đăng nhập");
 			put("label.username", "Tài khoản");
 			put("label.password", "Mật khẩu");
@@ -33,7 +32,7 @@ public class VI extends Language {
 	};
 
 	@Override
-	public Map<String, String> get() {
-		return translate;
+	public String get(String key) {
+		return translate.containsKey(key) ? translate.get(key) : key;
 	}
 }

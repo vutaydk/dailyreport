@@ -3,7 +3,7 @@ package model.business.json;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.json.JSONException;
+
 import common.util.Format;
 import model.business.RuleValidator;
 import model.entity.Project;
@@ -14,58 +14,83 @@ import model.repo.ProjectRepo;
 public class ProjectJson {
 
 	/**
-	 * Convert {@link Project} to Json
+	 * Convert entity {@link Project} to JSON file
 	 * 
-	 * @return {@link List}
+	 * @return List
 	 */
-	public static List<Object> getJson() {
-		List<Object> list = new ArrayList<>();
-		for (Project p : ProjectRepo.model.getAll()) {
-			HashMap<String, Object> project = new HashMap<>();
-			project.put("id", p.getId());
-			project.put("projectCode", p.getProjectCode());
-			project.put("name", p.getName());
-			project.put("startAt", Format.toDate(p.getStartAt()));
-			project.put("finishAt", Format.toDate(p.getFinishAt()));
-			list.add(project);
-		}
-		return list;
-	}
+	public static List<Object> getJSON() {
 
-	/**
-	 * Convert {@link Project} to Json for Chart page
-	 * 
-	 * @return {@link List}
-	 */
-	public static List<Object> getJsonForChart() {
 		List<Object> list = new ArrayList<>();
-		for (Project p : ProjectRepo.model.getAll()) {
-			HashMap<String, Object> project = new HashMap<>();
-			project.put("id", p.getId());
-			project.put("name", p.getName());
-			List<Object> reports = new ArrayList<>();
-			for (Report r : p.getReports()) {
-				for (ReportDetail rd : r.getReportDetails()) {
-					HashMap<String, Object> reportDetail = new HashMap<>();
-					reportDetail.put("taskId", rd.getTask().getId());
-					reportDetail.put("taskName", rd.getTask().getName());
-					reportDetail.put("timeWorked", rd.getTimeWorked());
-					reports.add(reportDetail);
+
+		for (Project p : ProjectRepo.model.getList()) {
+
+			HashMap<String, Object> project = new HashMap<String, Object>() {
+				private static final long serialVersionUID = 1L;
+				{
+					put("id", p.getId());
+					put("projectCode", p.getProjectCode());
+					put("name", p.getName());
+					put("startAt", Format.toDate(p.getStartAt()));
+					put("finishAt", Format.toDate(p.getFinishAt()));
 				}
-			}
-			project.put("reports", reports);
+			};
+
 			list.add(project);
+
 		}
+
 		return list;
 	}
 
 	/**
-	 * Get Json for validator
+	 * Convert entity {@link Project} to JSON file for Chart page
+	 * 
+	 * @return List
+	 */
+	public static List<Object> getJSONForChart() {
+
+		List<Object> list = new ArrayList<>();
+
+		for (Project p : ProjectRepo.model.getList()) {
+
+			HashMap<String, Object> project = new HashMap<String, Object>() {
+				private static final long serialVersionUID = 1L;
+				{
+
+					List<Object> reports = new ArrayList<>();
+
+					for (Report r : p.getReports()) {
+						for (ReportDetail rd : r.getReportDetails()) {
+
+							HashMap<String, Object> task = new HashMap<>();
+
+							task.put("taskId", rd.getTask().getId());
+							task.put("taskName", rd.getTask().getName());
+							task.put("timeWorked", rd.getTimeWorked());
+							reports.add(task);
+						}
+					}
+
+					put("id", p.getId());
+					put("name", p.getName());
+					put("reports", reports);
+
+				}
+			};
+
+			list.add(project);
+
+		}
+
+		return list;
+	}
+
+	/**
+	 * Get JSON for validator
 	 * 
 	 * @return JSONArray
-	 * @throws JSONException
 	 */
-	public static void getJsonRules() {
+	public static void getJSONRules() {
 		RuleValidator validator = new RuleValidator();
 		validator.builder("projectCode").min(9, "Khong duoc vuot qua 9 ki tu").max(1, "Khong duoc nho hon 1 ki tu")
 				.build();

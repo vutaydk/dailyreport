@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EN extends Language {
-
 	private Map<String, String> translate = new HashMap<String, String>() {
 		private static final long serialVersionUID = 1L;
 		{
 			put("label.project", "Project");
 			put("label.project.add", "Add project");
-			put("label.task", "Task");
-			put("label.rights", "Rights");
+			put("label.task.manament", "Task manament");
+			put("label.rights.manament", "Rights manament");
 			put("label.login", "Login");
 			put("label.username", "Account");
 			put("label.password", "Password");
@@ -33,7 +32,7 @@ public class EN extends Language {
 	};
 
 	@Override
-	public Map<String, String> get() {
-		return translate;
+	public String get(String key) {
+		return translate.containsKey(key) ? translate.get(key) : key;
 	}
 }

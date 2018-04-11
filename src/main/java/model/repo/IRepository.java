@@ -4,12 +4,10 @@ import java.util.List;
 
 public interface IRepository<T> {
 
-	List<T> getAll();
+	List<T> getList();
 
-	boolean insert(T t);
+	boolean persist(T t);
 
-	boolean update(T t);
-
-	boolean delete(T t);
+	boolean remove(T t);
 
 }

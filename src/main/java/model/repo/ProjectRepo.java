@@ -1,14 +1,13 @@
 package model.repo;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
-import common.util.HibernateUtil;
 import lombok.extern.log4j.Log4j;
 import model.entity.Project;
 
@@ -21,96 +20,61 @@ public class ProjectRepo implements IRepository<Project> {
 	}
 
 	@Override
-	public List<Project> getAll() {
-		log.debug("get all");
-		Session session = HibernateUtil.getSession();
-		try {
-			Query<Project> query = session.createQuery("FROM " + Project.class.getName(), Project.class);
-			return query.getResultList();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
+	public List<Project> getList() {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		List<Project> list = entityManager.createQuery("SELECT e FROM Project e", Project.class).getResultList();
+		entityManager.close();
+		entityManagerFactory.close();
+		return list;
 	}
 
 	public Optional<Project> find(int id) {
-		log.debug("find id=" + id);
-		Session session = HibernateUtil.getSession();
-		try {
-			Query<Project> query = session.createQuery("FROM " + Project.class.getName() + " WHERE id=:id",
-					Project.class);
-			query.setParameter("id", id);
-			if (query.getResultList().size() > 0)
-				return Optional.ofNullable(query.getSingleResult());
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-
-		return Optional.empty();
-
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Optional<Project> project = Optional.ofNullable(entityManager.find(Project.class, id));
+		entityManager.close();
+		entityManagerFactory.close();
+		return project;
 	}
 
 	@Override
-	public boolean insert(Project project) {
-		log.debug("insert: " + project);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
+	public boolean persist(Project project) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
 		try {
-			project.setCreatedAt(new Date());
-			session.save(project);
+			transaction.begin();
+			entityManager.persist(project);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
 			transaction.rollback();
-			e.printStackTrace();
+			log.debug(e);
 			return false;
 		} finally {
-			if (session != null) {
-				session.close();
-			}
+			entityManager.close();
+			entityManagerFactory.close();
 		}
 	}
 
 	@Override
-	public boolean update(Project project) {
-		log.debug("update: " + project);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
+	public boolean remove(Project project) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
 		try {
-			session.update(project);
+			transaction.begin();
+			entityManager.remove(project);
 			transaction.commit();
 			return true;
 		} catch (Exception e) {
 			transaction.rollback();
-			e.printStackTrace();
+			log.debug(e);
 			return false;
 		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-	}
-
-	@Override
-	public boolean delete(Project project) {
-		log.debug("delete: " + project);
-		Session session = HibernateUtil.getSession();
-		Transaction transaction = session.beginTransaction();
-		try {
-			session.delete(project);
-			transaction.commit();
-			return true;
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			return false;
-		} finally {
-			if (session != null) {
-				session.close();
-			}
+			entityManager.close();
+			entityManagerFactory.close();
 		}
 	}
 

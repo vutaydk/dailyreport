@@ -22,7 +22,7 @@ public class TaskService {
 	@Path("get-all")
 	public Response getAll() {
 		log.debug("get all json");
-		Object json = TaskJson.getJson();
+		Object json = TaskJson.getJSON();
 		return Response.ok(json).build();
 	}
 
@@ -30,11 +30,12 @@ public class TaskService {
 	@Path("add")
 	public Response insert(TaskDTO taskDTO) {
 		log.debug("insert task");
-		// initialize logic
-		val handling = taskDTO.getLogic();
-		// handling data
-		if (handling.isValidData())
+
+		val handling = taskDTO.getLogic(); // initialize logic
+
+		if (handling.isValidData()) // handling data
 			handling.insert();
+
 		return Response.ok(handling.getMessage()).build();
 	}
 
@@ -42,14 +43,15 @@ public class TaskService {
 	@Path("edit/{id: [0-9]+}")
 	public Response update(@PathParam("id") int id, TaskDTO taskDTO) {
 		log.debug("update task");
-		// initialize logic
-		val handling = taskDTO.getLogic();
-		// check exist object
-		if (!handling.isValidId(id))
+
+		val handling = taskDTO.getLogic(); // initialize logic
+
+		if (!handling.isValidId(id)) // check exist object
 			return Response.status(404).build();
-		// handling data
-		if (handling.isValidData())
+
+		if (handling.isValidData()) // handling data
 			handling.update();
+
 		return Response.ok(handling.getMessage()).build();
 	}
 

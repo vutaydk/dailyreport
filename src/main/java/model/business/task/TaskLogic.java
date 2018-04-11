@@ -33,12 +33,15 @@ public class TaskLogic extends Message {
 	 * @return boolean
 	 */
 	public boolean isValidData() {
+
 		boolean isProcesing = false;
+
 		// check task code
 		if (dto.getTaskCode() == null || dto.getTaskCode().length() != 4) {
 			setMessage("taskCode", "Task Code length must be 4 characters.");
 			isProcesing = true;
 		}
+
 		// check name
 		if (dto.getName() == null || dto.getName().length() < 6) {
 			setMessage("name", "Name length is too short (requires 6 characters).");
@@ -49,24 +52,29 @@ public class TaskLogic extends Message {
 	}
 
 	/**
-	 * Merge data from {@link TaskDTO} to {@link Task}
+	 * Merge data from class {@link TaskDTO} to entity {@link Task}
 	 * 
 	 * @return {@link Task}
 	 */
 	private Task megerData() {
+
 		if (!task.isPresent())
 			task = Optional.of(new Task());
+
 		task.get().setTaskCode(dto.getTaskCode());
 		task.get().setName(dto.getName());
+
 		return task.get();
 	}
 
 	/**
-	 * Insert {@link Task} to database
+	 * Insert entity {@link Task} to database
 	 */
 	public void insert() {
+
 		Task task = megerData();
-		boolean result = TaskRepo.model.insert(task);
+		boolean result = TaskRepo.model.persist(task);
+
 		if (result)
 			setMessage("Add success new task");
 		else
@@ -74,11 +82,13 @@ public class TaskLogic extends Message {
 	}
 
 	/**
-	 * Update {@link Task} to database
+	 * Update entity {@link Task} to database
 	 */
 	public void update() {
+
 		Task task = megerData();
-		boolean result = TaskRepo.model.update(task);
+		boolean result = TaskRepo.model.persist(task);
+
 		if (result)
 			setMessage("Edit success task");
 		else
