@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.ws.rs.POST;
 
 import model.entity.i18n.SystemResource;
 import model.repo.i18n.ISystemResourceRepo;

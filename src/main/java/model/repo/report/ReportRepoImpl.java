@@ -24,7 +24,8 @@ public class ReportRepoImpl implements IRepository<Report> {
 	}
 
 	public Optional<Report> find(int id) {
-		TypedQuery<Report> query = connector.createQuery("FROM " + Report.class.getName() + " WHERE id=:id", Report.class);
+		TypedQuery<Report> query = connector.createQuery("FROM " + Report.class.getName() + " WHERE id=:id",
+				Report.class);
 		query.setParameter("id", id);
 		return Optional.ofNullable(query.getSingleResult());
 
@@ -32,21 +33,21 @@ public class ReportRepoImpl implements IRepository<Report> {
 
 	@Override
 	public boolean insert(Report report) {
-			report.setCreatedAt(new Date());
-			connector.insert(report);
-			return true;
+		report.setCreatedAt(new Date());
+		connector.insert(report);
+		return true;
 	}
 
 	@Override
 	public boolean update(Report report) {
-			connector.update(report);
-			return true;
+		connector.update(report);
+		return true;
 	}
 
 	@Override
 	public boolean delete(Report report) {
-			connector.delete(report);
-			return true;
+		connector.delete(report);
+		return true;
 	}
 
 }

@@ -7,5 +7,6 @@ import model.repo.IRepository;
 
 public interface IUserRepo extends IRepository<User> {
 	Optional<User> check(String em, String pwd);
+
 	Optional<User> find(int id);
 }

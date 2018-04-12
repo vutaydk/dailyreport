@@ -13,8 +13,8 @@ public class Format {
 	 * @return String
 	 */
 	public static String toJson(Object object) {
-//		Gson gson = new Gson();
-//		return gson.toJson(object);
+		// Gson gson = new Gson();
+		// return gson.toJson(object);
 		return null;
 	}
 

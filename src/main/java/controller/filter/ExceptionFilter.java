@@ -9,12 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-public class ExceptionFilter implements Filter{
+public class ExceptionFilter implements Filter {
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -22,12 +22,11 @@ public class ExceptionFilter implements Filter{
 			throws IOException, ServletException {
 		try {
 			chain.doFilter(request, response);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			response.setContentType("application/json");
-			
+
 		}
-		
-		
+
 	}
 
 	@Override

@@ -32,21 +32,21 @@ public class ReportDetailRepoImpl implements IReportPartRepo {
 
 	@Override
 	public boolean insert(ReportPart reportDetail) {
-			reportDetail.setCreatedAt(new Date());
-			connector.insert(reportDetail);
-			return true;
+		reportDetail.setCreatedAt(new Date());
+		connector.insert(reportDetail);
+		return true;
 	}
 
 	@Override
 	public boolean update(ReportPart report) {
-			connector.update(report);
-			return true;
+		connector.update(report);
+		return true;
 	}
 
 	@Override
 	public boolean delete(ReportPart report) {
-			connector.delete(report);
-			return true;
+		connector.delete(report);
+		return true;
 	}
 
 }

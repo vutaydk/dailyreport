@@ -11,7 +11,7 @@ public class StringFormat {
 		while (matcher.find()) {
 			String stringIndex = matcher.group();
 			int index = getParamIndex(stringIndex);
-			//if index is greater than parameter size then move on
+			// if index is greater than parameter size then move on
 			if (index < params.size()) {
 				message = message.replace(stringIndex, params.get(index));
 			}

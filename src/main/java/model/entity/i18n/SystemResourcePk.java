@@ -12,7 +12,8 @@ import lombok.Data;
 
 @Embeddable
 @Data
-public class SystemResourcePk implements Serializable{
+public class SystemResourcePk implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Column(name = "resource_code")
 	private String resourceCode;
 	@Column(name = "resource_type")

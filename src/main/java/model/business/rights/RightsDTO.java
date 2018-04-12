@@ -1,24 +1,24 @@
-//package model.business.rights;
+// package model.business.rights;
 //
-//import lombok.Getter;
-//import lombok.Setter;
-//import lombok.ToString;
+// import lombok.Getter;
+// import lombok.Setter;
+// import lombok.ToString;
 //
-//@Getter
-//@Setter
-//@ToString
-//public class RightsDTO {
+// @Getter
+// @Setter
+// @ToString
+// public class RightsDTO {
 //
-//	private String name;
-//	private Integer level;
+// private String name;
+// private Integer level;
 //
-//	/**
-//	 * Initialize {@link RightsLogic} for handling data
-//	 * 
-//	 * @return {@link RightsLogic}
-//	 */
-//	public RightsLogic getLogic() {
-//		return new RightsLogic(this);
-//	}
+// /**
+// * Initialize {@link RightsLogic} for handling data
+// *
+// * @return {@link RightsLogic}
+// */
+// public RightsLogic getLogic() {
+// return new RightsLogic(this);
+// }
 //
-//}
+// }
