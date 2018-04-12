@@ -44,8 +44,9 @@ public class SystemResourceRepo implements ISystemResourceRepo {
 
 	@Override
 	public List<SystemResource> getAllMessages(Locale locale) {
-		TypedQuery<SystemResource> query = connection.getEntityManager().createQuery("FROM " + SystemResource.class.getName()
-				+ " e WHERE e.pk.resourceType = :type AND e.pk.locale =:locale", SystemResource.class);
+		TypedQuery<SystemResource> query = connection.getEntityManager().createQuery("FROM "
+				+ SystemResource.class.getName() + " e WHERE e.pk.resourceType = :type AND e.pk.locale =:locale",
+				SystemResource.class);
 		query.setParameter("type", ResourceType.MESSAGE);
 		query.setParameter("locale", locale.toString());
 		List<SystemResource> resources = query.getResultList();
@@ -55,13 +56,13 @@ public class SystemResourceRepo implements ISystemResourceRepo {
 
 	@Override
 	public List<SystemResource> getAllLabel(Locale locale) {
-		TypedQuery<SystemResource> query = connection.getEntityManager().createQuery("FROM " + SystemResource.class.getName()
-				+ " e WHERE e.pk.resourceType = :type AND e.pk.locale =:locale", SystemResource.class);
+		TypedQuery<SystemResource> query = connection.getEntityManager().createQuery("FROM "
+				+ SystemResource.class.getName() + " e WHERE e.pk.resourceType = :type AND e.pk.locale =:locale",
+				SystemResource.class);
 		query.setParameter("type", ResourceType.LABEL);
 		query.setParameter("locale", locale.toString());
 		List<SystemResource> resources = query.getResultList();
 
 		return resources;
 	}
-
 }

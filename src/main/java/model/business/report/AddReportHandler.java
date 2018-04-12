@@ -1,4 +1,4 @@
-package model.business.project;
+package model.business.report;
 
 import java.util.Date;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import model.entity.Project;
 import model.repo.project.IProjectRepo;
 
 @RequestScoped
-public class AddProjectHandler {
+public class AddReportHandler {
 	@Inject
 	private IProjectRepo projectRepo;
 

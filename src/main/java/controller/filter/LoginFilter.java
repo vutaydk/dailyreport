@@ -22,7 +22,7 @@ import model.repo.user.UserRepoImpl;
 /**
  * Servlet Filter implementation class LoginFiter
  */
-@WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*"/*, "/rest/*"*/ })
+@WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*"/* , "/rest/*" */ })
 public class LoginFilter implements Filter {
 
 	@Inject

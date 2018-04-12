@@ -13,7 +13,6 @@ import model.entity.ReportPart;
 
 @RequestScoped
 public class ReportDetailRepoImpl implements IReportPartRepo {
-
 	@Inject
 	private DBConnector connector;
 
@@ -23,30 +22,29 @@ public class ReportDetailRepoImpl implements IReportPartRepo {
 		return query.getResultList();
 	}
 
-	public Optional<ReportPart> find(int id) {
-		TypedQuery<ReportPart> query = connector.createQuery("FROM " + ReportPart.class.getName() + " WHERE id=:id",
-				ReportPart.class);
-		query.setParameter("id", id);
-		return Optional.ofNullable(query.getSingleResult());
-	}
-
 	@Override
 	public boolean insert(ReportPart reportDetail) {
-			reportDetail.setCreatedAt(new Date());
-			connector.insert(reportDetail);
-			return true;
+		reportDetail.setCreatedAt(new Date());
+		connector.insert(reportDetail);
+		return true;
 	}
 
 	@Override
 	public boolean update(ReportPart report) {
-			connector.update(report);
-			return true;
+		report.setUpdatedAt(new Date());
+		connector.update(report);
+		return true;
 	}
 
 	@Override
 	public boolean delete(ReportPart report) {
-			connector.delete(report);
-			return true;
+		connector.delete(report);
+		return true;
 	}
 
+	@Override
+	public Optional<ReportPart> findById(int id) {
+		ReportPart reportPart = connector.getEntityManager().find(ReportPart.class, id);
+		return Optional.ofNullable(reportPart);
+	}
 }

@@ -19,6 +19,7 @@ public class MessageTag extends TagSupport {
 	public int doStartTag() throws JspException {
 		JspWriter out = pageContext.getOut();
 		try {
+			out.print(key);
 		} catch (Exception e) {
 			log.debug(e);
 		}

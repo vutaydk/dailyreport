@@ -10,11 +10,9 @@ import javax.persistence.TypedQuery;
 
 import common.util.DBConnector;
 import model.entity.Rights;
-import model.repo.IRepository;
 
 @RequestScoped
-public class RightsRepoImpl implements IRepository<Rights> {
-
+public class RightsRepoImpl implements IRightRepo {
 	@Inject
 	private DBConnector connector;
 
@@ -22,14 +20,6 @@ public class RightsRepoImpl implements IRepository<Rights> {
 	public List<Rights> getAll() {
 		TypedQuery<Rights> query = connector.createQuery("FROM " + Rights.class.getName(), Rights.class);
 		return query.getResultList();
-	}
-
-	public Optional<Rights> find(int id) {
-		TypedQuery<Rights> query = connector.createQuery("FROM " + Rights.class.getName() + " WHERE id=:id",
-				Rights.class);
-		query.setParameter("id", id);
-		return Optional.ofNullable(query.getSingleResult());
-
 	}
 
 	@Override
@@ -41,6 +31,7 @@ public class RightsRepoImpl implements IRepository<Rights> {
 
 	@Override
 	public boolean update(Rights rights) {
+		rights.setUpdatedAt(new Date());
 		connector.update(rights);
 		return true;
 	}
@@ -51,4 +42,9 @@ public class RightsRepoImpl implements IRepository<Rights> {
 		return true;
 	}
 
+	@Override
+	public Optional<Rights> findById(int id) {
+		Rights rights = connector.getEntityManager().find(Rights.class, id);
+		return Optional.ofNullable(rights);
+	}
 }

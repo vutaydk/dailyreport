@@ -13,7 +13,6 @@ import model.entity.Task;
 
 @RequestScoped
 public class TaskRepoImpl implements ITaskRepo {
-
 	@Inject
 	private DBConnector connector;
 
@@ -21,12 +20,6 @@ public class TaskRepoImpl implements ITaskRepo {
 	public List<Task> getAll() {
 		TypedQuery<Task> query = connector.createQuery("FROM " + Task.class.getName(), Task.class);
 		return query.getResultList();
-	}
-
-	public Optional<Task> find(int id) {
-		TypedQuery<Task> query = connector.createQuery("FROM " + Task.class.getName() + " WHERE id=:id", Task.class);
-		query.setParameter("id", id);
-		return Optional.ofNullable(query.getSingleResult());
 	}
 
 	@Override
@@ -38,6 +31,7 @@ public class TaskRepoImpl implements ITaskRepo {
 
 	@Override
 	public boolean update(Task task) {
+		task.setUpdatedAt(new Date());
 		connector.update(task);
 		return true;
 	}
@@ -48,4 +42,9 @@ public class TaskRepoImpl implements ITaskRepo {
 		return true;
 	}
 
+	@Override
+	public Optional<Task> findById(int id) {
+		Task task = connector.getEntityManager().find(Task.class, id);
+		return Optional.ofNullable(task);
+	}
 }

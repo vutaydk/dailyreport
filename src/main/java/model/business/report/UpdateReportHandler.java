@@ -1,4 +1,4 @@
-package model.business.project;
+package model.business.report;
 
 import java.util.Date;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import model.entity.Project;
 import model.repo.project.IProjectRepo;
 
 @RequestScoped
-public class AddProjectHandler {
+public class UpdateReportHandler {
 	@Inject
 	private IProjectRepo projectRepo;
 
@@ -20,7 +20,7 @@ public class AddProjectHandler {
 		checkDuplicateProjectCode(input.getProjectCode());
 		validateDateRange(input.getStartAt(), input.getFinishAt());
 
-		projectRepo.insert(input);
+		projectRepo.update(input);
 
 		return input.getId();
 	}
