@@ -34,7 +34,11 @@ public class UserRepoImpl implements IUserRepo {
 				.createQuery("FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
 		query.setParameter("em", em);
 		query.setParameter("pwd", pwd);
-		return Optional.ofNullable(query.getSingleResult());
+		List<User> result = query.getResultList();
+		if (result.isEmpty()) {
+			return Optional.empty();
+		}
+		return Optional.ofNullable(result.get(0));
 	}
 
 	@Override

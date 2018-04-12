@@ -1,9 +1,9 @@
 package controller.filter;
 
 import java.io.IOException;
-
 import java.util.Optional;
 
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.entity.User;
+import model.repo.user.IUserRepo;
 import model.repo.user.UserRepoImpl;
 
 /**
@@ -24,7 +25,8 @@ import model.repo.user.UserRepoImpl;
 @WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*"/*, "/rest/*"*/ })
 public class LoginFilter implements Filter {
 
-	private UserRepoImpl userRepo;
+	@Inject
+	private IUserRepo userRepo;
 
 	public LoginFilter() {
 		userRepo = new UserRepoImpl();
