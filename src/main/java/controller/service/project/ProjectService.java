@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import model.business.project.AddProjectHandler;
 import model.business.project.ProjectSelector;
+import model.business.project.UpdateProjectHandler;
 import model.entity.Project;
 
 @Path("/project")
@@ -20,6 +21,8 @@ import model.entity.Project;
 public class ProjectService {
 	@Inject
 	private AddProjectHandler addCommand;
+	@Inject
+	private UpdateProjectHandler updateCommand;
 	@Inject
 	private ProjectSelector projectSelector;
 
@@ -47,7 +50,7 @@ public class ProjectService {
 		projectDTO.isValidData();
 		Project project = ProjectConverter.fromDtoToEntity(projectDTO);
 		// handling data
-		int projectId = addCommand.execute(project);
+		int projectId = updateCommand.execute(project);
 		return projectId;
 	}
 

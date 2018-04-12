@@ -1,12 +1,14 @@
-package model.business.report;
+package controller.service.report;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class PTaskDTO {
 	private Integer taskId;
 	private Integer timework;

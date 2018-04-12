@@ -13,7 +13,6 @@ import model.entity.Project;
 
 @RequestScoped
 public class ProjectRepoImpl implements IProjectRepo {
-
 	@Inject
 	private DBConnector connector;
 
@@ -21,12 +20,6 @@ public class ProjectRepoImpl implements IProjectRepo {
 	public List<Project> getAll() {
 		TypedQuery<Project> query = connector.createQuery("FROM " + Project.class.getName(), Project.class);
 		return query.getResultList();
-	}
-
-	@Override
-	public Optional<Project> findById(int id) {
-		Project project = connector.getEntityManager().find(Project.class, Integer.valueOf(id));
-		return Optional.ofNullable(project);
 	}
 
 	@Override
@@ -38,6 +31,7 @@ public class ProjectRepoImpl implements IProjectRepo {
 
 	@Override
 	public boolean update(Project project) {
+		project.setUpdatedAt(new Date());
 		connector.update(project);
 		return true;
 	}
@@ -50,10 +44,18 @@ public class ProjectRepoImpl implements IProjectRepo {
 
 	@Override
 	public Optional<Project> getByProjectCode(String code) {
-		TypedQuery<Project> query = connector.createQuery("FROM " + Project.class.getName() + " WHERE code=:code",
+		TypedQuery<Project> query = connector.createQuery("FROM " + Project.class.getName() + " WHERE projectCode=:c",
 				Project.class);
-		query.setParameter("code", code);
-		return Optional.ofNullable(query.getSingleResult());
+		query.setParameter("c", code);
+		if (query.getResultList().size() > 0)
+			return Optional.ofNullable(query.getSingleResult());
+		else
+			return Optional.empty();
 	}
 
+	@Override
+	public Optional<Project> findById(int id) {
+		Project project = connector.getEntityManager().find(Project.class, id);
+		return Optional.ofNullable(project);
+	}
 }

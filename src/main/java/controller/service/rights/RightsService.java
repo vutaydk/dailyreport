@@ -1,4 +1,4 @@
-package controller.service;
+package controller.service.rights;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;

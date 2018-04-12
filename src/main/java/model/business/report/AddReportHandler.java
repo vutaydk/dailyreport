@@ -1,4 +1,4 @@
-package model.business.project;
+package model.business.report;
 
 import java.util.Date;
 import java.util.Optional;
@@ -12,24 +12,17 @@ import model.entity.Project;
 import model.repo.project.IProjectRepo;
 
 @RequestScoped
-public class UpdateProjectHandler {
+public class AddReportHandler {
 	@Inject
 	private IProjectRepo projectRepo;
 
 	public int execute(Project input) {
-		checkExistId(input.getId());
 		checkDuplicateProjectCode(input.getProjectCode());
 		validateDateRange(input.getStartAt(), input.getFinishAt());
 
-		projectRepo.update(input);
+		projectRepo.insert(input);
 
 		return input.getId();
-	}
-
-	private void checkExistId(int id) {
-		Optional<Project> project = projectRepo.findById(id);
-		if (!project.isPresent())
-			throw new BusinessException(new RawMessage("project khong ton tai"));
 	}
 
 	private void checkDuplicateProjectCode(String code) {

@@ -1,4 +1,4 @@
-package controller.service;
+package controller.service.report;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -6,25 +6,25 @@ import javax.ws.rs.core.MediaType;
 
 import lombok.extern.log4j.Log4j;
 
-@Path("/task")
+@Path("/report")
 @Produces(MediaType.APPLICATION_JSON)
 @Log4j
-public class TaskService {
+public class ReportService {
 	//
 	// @GET
 	// @Path("get-all")
 	// public Response getAll() {
 	// log.debug("get all json");
-	// Object json = TaskJson.getJson();
+	// Object json = ReportJson.getJson();
 	// return Response.ok(json).build();
 	// }
 	//
 	// @POST
 	// @Path("add")
-	// public Response insert(TaskDTO taskDTO) {
-	// log.debug("insert task");
+	// public Response insert(ReportDTO reportDTO) {
+	// log.debug("insert report");
 	// // initialize logic
-	// val handling = taskDTO.getLogic();
+	// val handling = reportDTO.getLogic();
 	// // handling data
 	// if (handling.isValidData())
 	// handling.insert();
@@ -33,12 +33,12 @@ public class TaskService {
 	//
 	// @POST
 	// @Path("edit/{id: [0-9]+}")
-	// public Response update(@PathParam("id") int id, TaskDTO taskDTO) {
-	// log.debug("update task");
+	// public Response update(@PathParam("id") int id, ReportDTO reportDTO) {
+	// log.debug("update report");
 	// // initialize logic
-	// val handling = taskDTO.getLogic();
-	// // check exist object
-	// if (!handling.isValidId(id))
+	// val handling = reportDTO.getLogic();
+	// // check id exist
+	// if (handling.isValidId(id))
 	// return Response.status(404).build();
 	// // handling data
 	// if (handling.isValidData())

@@ -1,4 +1,4 @@
-package model.business.project;
+package model.business.task;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import model.entity.Project;
 import model.repo.project.IProjectRepo;
 
 @RequestScoped
-public class ProjectSelector {
+public class TaskSelector {
 	@Inject
 	private IProjectRepo projectRepo;
 
@@ -25,4 +25,5 @@ public class ProjectSelector {
 	public Optional<Project> getProjectDetailByCode(String code) {
 		return projectRepo.getByProjectCode(code);
 	}
+
 }

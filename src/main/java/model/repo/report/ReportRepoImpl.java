@@ -10,10 +10,9 @@ import javax.persistence.TypedQuery;
 
 import common.util.DBConnector;
 import model.entity.Report;
-import model.repo.IRepository;
 
 @RequestScoped
-public class ReportRepoImpl implements IRepository<Report> {
+public class ReportRepoImpl implements IReportRepo {
 	@Inject
 	private DBConnector connector;
 
@@ -21,14 +20,6 @@ public class ReportRepoImpl implements IRepository<Report> {
 	public List<Report> getAll() {
 		TypedQuery<Report> query = connector.createQuery("FROM " + Report.class.getName(), Report.class);
 		return query.getResultList();
-	}
-
-	public Optional<Report> find(int id) {
-		TypedQuery<Report> query = connector.createQuery("FROM " + Report.class.getName() + " WHERE id=:id",
-				Report.class);
-		query.setParameter("id", id);
-		return Optional.ofNullable(query.getSingleResult());
-
 	}
 
 	@Override
@@ -40,6 +31,7 @@ public class ReportRepoImpl implements IRepository<Report> {
 
 	@Override
 	public boolean update(Report report) {
+		report.setUpdatedAt(new Date());
 		connector.update(report);
 		return true;
 	}
@@ -50,4 +42,9 @@ public class ReportRepoImpl implements IRepository<Report> {
 		return true;
 	}
 
+	@Override
+	public Optional<Report> findById(int id) {
+		Report report = connector.getEntityManager().find(Report.class, id);
+		return Optional.ofNullable(report);
+	}
 }
