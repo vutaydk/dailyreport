@@ -13,6 +13,7 @@
 			<property name="hibernate.show_sql" value="true" />
 			 <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
 			 <property name="hibernate.transaction.factory_class" value="org.hibernate.transaction.JTATransactionFactory"/>
+			 <property name="hibernate.enable_lazy_load_no_trans" value ="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>
