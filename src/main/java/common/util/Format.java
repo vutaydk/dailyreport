@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.google.gson.Gson;
-
 public class Format {
 
 	/**
@@ -15,8 +13,9 @@ public class Format {
 	 * @return String
 	 */
 	public static String toJson(Object object) {
-		Gson gson = new Gson();
-		return gson.toJson(object);
+//		Gson gson = new Gson();
+//		return gson.toJson(object);
+		return null;
 	}
 
 	/**

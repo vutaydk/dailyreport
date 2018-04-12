@@ -12,7 +12,7 @@ public class RawMessage extends ErrorMessage {
 
 	public RawMessage(String message, List<String> params) {
 		super();
-		String formatedMessage = StringFormat.format(message, params);
+		String formatedMessage = StringFormat.formatErrMessage(message, params);
 		this.setMessage(formatedMessage);
 	}
 }

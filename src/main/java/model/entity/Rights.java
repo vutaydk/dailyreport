@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name = "rights")
 @Getter
 @Setter
-public class Rights {
+public class Rights extends EntityBase{
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

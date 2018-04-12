@@ -26,7 +26,7 @@ import lombok.Setter;
 @Table(name = "users")
 @Getter
 @Setter
-public class User {
+public class User extends EntityBase{
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

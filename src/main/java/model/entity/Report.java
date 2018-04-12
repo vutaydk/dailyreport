@@ -25,7 +25,7 @@ import lombok.Setter;
 @Table(name = "reports")
 @Getter
 @Setter
-public class Report {
+public class Report extends EntityBase{
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -57,6 +57,6 @@ public class Report {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "report")
-	private Set<ReportDetail> reportDetails = new HashSet<>(0);
+	private Set<ReportPart> reportDetails = new HashSet<>(0);
 
 }
