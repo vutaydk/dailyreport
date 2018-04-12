@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
@@ -34,7 +36,11 @@ public class UserRepoImpl implements IUserRepo {
 				.createQuery("FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
 		query.setParameter("em", em);
 		query.setParameter("pwd", pwd);
-		return Optional.ofNullable(query.getSingleResult());
+		List<User> result = query.getResultList();
+		if (result.isEmpty()) {
+			return Optional.empty();
+		}
+		return Optional.ofNullable(result.get(0));
 	}
 
 	@Override
