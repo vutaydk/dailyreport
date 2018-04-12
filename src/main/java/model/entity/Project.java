@@ -18,14 +18,18 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.NonFinal;
 
 @Entity
 @Table(name = "projects")
 @Getter
 @Setter
-public class Project {
+public class Project extends EntityBase{
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

@@ -4,7 +4,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import language.Message;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -20,7 +19,6 @@ public class MessageTag extends TagSupport {
 	public int doStartTag() throws JspException {
 		JspWriter out = pageContext.getOut();
 		try {
-			out.print(Message.getText(key));
 		} catch (Exception e) {
 			log.debug(e);
 		}

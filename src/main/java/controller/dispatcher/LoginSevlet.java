@@ -3,6 +3,7 @@ package controller.dispatcher;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.extern.log4j.Log4j;
 import model.entity.User;
-import model.repo.UserRepo;
+import model.repo.user.IUserRepo;
+import model.repo.user.UserRepoImpl;
 
 /**
  * Servlet implementation class LoginSevlet
@@ -19,7 +21,8 @@ import model.repo.UserRepo;
 @WebServlet({ "/login", "/logout" })
 @Log4j
 public class LoginSevlet extends HttpServlet {
-
+	@Inject
+	private IUserRepo userRepo;
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -69,7 +72,7 @@ public class LoginSevlet extends HttpServlet {
 			} else if (!pwd.isPresent()) {
 				request.setAttribute("message", "Please enter password.");
 			} else {
-				Optional<User> user = UserRepo.model.check(em.get(), pwd.get());
+				Optional<User> user = userRepo.check(em.get(), pwd.get());
 
 				// set to user session
 				if (user.isPresent()) {

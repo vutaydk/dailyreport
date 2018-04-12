@@ -5,14 +5,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringFormat {
-	public static String format(String message, List<String> params) {
+	public static String formatErrMessage(String message, List<String> params) {
 		Pattern pattern = Pattern.compile("(\\{\\d+\\})");
-		StringBuilder builder = new StringBuilder(message);
 		Matcher matcher = pattern.matcher(message);
 		while (matcher.find()) {
 			String stringIndex = matcher.group();
 			int index = getParamIndex(stringIndex);
-			// check params length
+			//if index is greater than parameter size then move on
 			if (index < params.size()) {
 				message = message.replace(stringIndex, params.get(index));
 			}
