@@ -23,7 +23,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProjectDTO {
 
-	private int id;
 	@NotNull(message = "Project code must not be blank.")
 	@Size(min = 4, max = 4, message = "Project code must be exactly 4 characters.")
 	private String projectCode;
