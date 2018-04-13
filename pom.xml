@@ -40,6 +40,13 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.2.15.Final</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.9.Final</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
 		<dependency>
 			<groupId>org.jboss.logging</groupId>
@@ -115,6 +122,19 @@
 			<artifactId>javax.ejb-api</artifactId>
 			<version>3.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.el/javax.el-api -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.1-b04</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.glassfish/javax.el -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.1-b10</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>
