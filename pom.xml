@@ -81,13 +81,6 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.bundles/jaxrs-ri -->
-		<dependency>
-			<groupId>org.glassfish.jersey.bundles</groupId>
-			<artifactId>jaxrs-ri</artifactId>
-			<version>2.17</version>
-			<scope>provided</scope>
-		</dependency>
 		<!-- apache shiro core -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -130,18 +123,14 @@
 			<artifactId>javax.el</artifactId>
 			<version>3.0.1-b10</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-server -->
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.bundles/jaxrs-ri -->
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>1.8</version>
+			<groupId>org.glassfish.jersey.bundles</groupId>
+			<artifactId>jaxrs-ri</artifactId>
+			<version>2.17</version>
+			<scope>provided</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-json -->
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
-			<version>1.8</version>
-		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>dailyreport</finalName>
