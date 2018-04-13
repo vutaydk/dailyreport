@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j;
 import model.entity.User;
 import model.repo.user.IUserRepo;
-import model.repo.user.UserRepoImpl;
 
 /**
  * Servlet implementation class LoginSevlet

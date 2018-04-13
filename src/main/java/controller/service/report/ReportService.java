@@ -4,11 +4,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import lombok.extern.log4j.Log4j;
-
 @Path("/report")
 @Produces(MediaType.APPLICATION_JSON)
-@Log4j
 public class ReportService {
 	//
 	// @GET

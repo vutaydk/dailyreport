@@ -13,8 +13,7 @@ public class ProjectConverter {
 	}
 
 	public static ProjectDTO fromEntityToDto(Project en) {
-		ProjectDTO dto = new ProjectDTO(en.getId(), en.getProjectCode(), en.getName(), en.getStartAt(),
-				en.getFinishAt());
+		ProjectDTO dto = new ProjectDTO(en.getProjectCode(), en.getName(), en.getStartAt(), en.getFinishAt());
 		return dto;
 	}
 }

@@ -15,7 +15,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProjectDTO {
 
-	private int id;
 	private String projectCode;
 	private String name;
 	private Date startAt;

@@ -49,6 +49,7 @@ public class ProjectService {
 	public int update(@PathParam("id") int id, ProjectDTO projectDTO) {
 		projectDTO.isValidData();
 		Project project = ProjectConverter.fromDtoToEntity(projectDTO);
+		project.setId(id);
 		// handling data
 		int projectId = updateCommand.execute(project);
 		return projectId;
