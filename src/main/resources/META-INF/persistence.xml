@@ -17,6 +17,8 @@
 				value="org.hibernate.transaction.JTATransactionFactory" />
 			<property name="hibernate.enable_lazy_load_no_trans"
 				value="true" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.SQLServerDialect" />
 		</properties>
 	</persistence-unit>
 </persistence>

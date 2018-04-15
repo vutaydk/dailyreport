@@ -53,7 +53,7 @@
         taskCode: $(form).find("#taskCode").val(),
         name: $(form).find("#name").val()
       };
-      submit_ajax("api/task/add", data);
+      submit_ajax(submitForm.attr('action'), data);
       return false;
     }
   });

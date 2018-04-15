@@ -1,6 +1,10 @@
 package controller.service.task;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import model.business.task.AddTaskHandler;
+import model.business.task.TaskSelector;
 import model.business.task.UpdateTaskHandler;
 import model.entity.Task;
 
@@ -18,10 +23,13 @@ public class TaskService {
 	AddTaskHandler addCommand;
 	@Inject
 	UpdateTaskHandler updateCommand;
+	@Inject
+	TaskSelector taskSelector;
 
 	@POST
 	@Path("add")
 	public int insert(TaskDTO taskDTO) {
+		System.out.println(taskDTO.getTaskCode()+"-"+taskDTO.getName());
 		taskDTO.isValidData();
 		Task task = TaskConverter.fromDtoToEntity(taskDTO);
 		// hangling data
@@ -39,11 +47,10 @@ public class TaskService {
 		int taskId = updateCommand.execute(task);
 		return taskId;
 	}
-	// @GET
-	// @Path("get-all")
-	// public Response getAll() {
-	// log.debug("get all json");
-	// Object json = TaskJson.getJson();
-	// return Response.ok(json).build();
-	// }
+
+	@GET
+	@Path("get-all")
+	public List<TaskJSON> getAll() {
+		return taskSelector.getList().stream().map(t -> TaskConverter.fromEntityToJSON(t)).collect(Collectors.toList());
+	}
 }

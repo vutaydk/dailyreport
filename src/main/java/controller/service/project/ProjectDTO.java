@@ -12,15 +12,11 @@ import javax.validation.constraints.Size;
 
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ProjectDTO {
 
 	@NotNull(message = "Project code must not be blank.")

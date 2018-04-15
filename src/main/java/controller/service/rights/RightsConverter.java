@@ -10,8 +10,11 @@ public class RightsConverter {
 		return en;
 	}
 
-	public static RightsDTO fromEntityToDto(Rights en) {
-		RightsDTO dto = new RightsDTO(en.getName(), en.getLevel());
+	public static RightsJSON fromEntityToJSON(Rights en) {
+		RightsJSON dto = new RightsJSON();
+		dto.setId(en.getId());
+		dto.setName(en.getName());
+		dto.setLevel(en.getLevel());
 		return dto;
 	}
 }

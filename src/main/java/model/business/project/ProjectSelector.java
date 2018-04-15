@@ -14,7 +14,7 @@ public class ProjectSelector {
 	@Inject
 	private IProjectRepo projectRepo;
 
-	public List<Project> getAllProject() {
+	public List<Project> getList() {
 		return projectRepo.getAll();
 	}
 

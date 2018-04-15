@@ -14,11 +14,11 @@ public class ReportSelector {
 	@Inject
 	private IReportRepo reportRepo;
 
-	public List<Report> getAllProject() {
+	public List<Report> getList() {
 		return reportRepo.getAll();
 	}
 
-	public Optional<Report> getProjectDetailById(int id) {
+	public Optional<Report> getReportDetailById(int id) {
 		return reportRepo.findById(id);
 	}
 }

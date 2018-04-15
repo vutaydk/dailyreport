@@ -1,6 +1,10 @@
 package controller.service.rights;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,6 +12,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import model.business.rights.AddRightsHandler;
+import model.business.rights.RightsSelector;
+import model.business.rights.UpdateRightsHandler;
 import model.entity.Rights;
 
 @Path("/rights")
@@ -15,6 +21,10 @@ import model.entity.Rights;
 public class RightsService {
 	@Inject
 	AddRightsHandler addCommand;
+	@Inject
+	UpdateRightsHandler updateCommand;
+	@Inject
+	RightsSelector rightsSelector;
 
 	@POST
 	@Path("add")
@@ -33,16 +43,14 @@ public class RightsService {
 		Rights rights = RightsConverter.fromDtoToEntity(rightsDTO);
 		rights.setId(id);
 		// handling data
-		int rightsId = addCommand.execute(rights);
+		int rightsId = updateCommand.execute(rights);
 		return rightsId;
 	}
 
-	// @GET
-	// @Path("get-all")
-	// public Response getAll() {
-	// log.debug("get all json");
-	// Object json = RightsJson.getJson();
-	// return Response.ok(json).build();
-	// }
-	//
+	@GET
+	@Path("get-all")
+	public List<RightsJSON> getAll() {
+		return rightsSelector.getList().stream().map(r -> RightsConverter.fromEntityToJSON(r))
+				.collect(Collectors.toList());
+	}
 }

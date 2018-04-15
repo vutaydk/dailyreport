@@ -26,14 +26,6 @@ public class ProjectService {
 	@Inject
 	private ProjectSelector projectSelector;
 
-	@GET
-	@Path("get-all")
-	public List<ProjectDTO> getAllProject() {
-		return projectSelector.getAllProject().stream().map(x -> {
-			return ProjectConverter.fromEntityToDto(x);
-		}).collect(Collectors.toList());
-	}
-
 	@POST
 	@Path("add")
 	public int insert(ProjectDTO projectDTO) {
@@ -55,12 +47,19 @@ public class ProjectService {
 		return projectId;
 	}
 
-	// @GET
-	// @Path("get-chart")
-	// public Response getChartJson() {
-	// log.debug("get chart json");
-	// Object json = ProjectJson.getJsonForChart();
-	// return Response.ok(json).build();
-	// }
+	@GET
+	@Path("get-all")
+	public List<ProjectJSON> getAllProject() {
+		return projectSelector.getList().stream().map(p -> {
+			return ProjectConverter.fromEntityToJSON(p);
+		}).collect(Collectors.toList());
+	}
 
+	@GET
+	@Path("get-chart")
+	public List<ChartJSON> getChartProject() {
+		return projectSelector.getList().stream().map(p -> {
+			return ProjectConverter.fromEntityToChartJSON(p);
+		}).collect(Collectors.toList());
+	}
 }
