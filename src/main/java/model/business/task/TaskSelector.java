@@ -2,28 +2,21 @@ package model.business.task;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-
-import model.entity.Project;
-import model.repo.project.IProjectRepo;
+import model.entity.Task;
+import model.repo.task.ITaskRepo;
 
 @RequestScoped
 public class TaskSelector {
 	@Inject
-	private IProjectRepo projectRepo;
+	private ITaskRepo taskRepo;
 
-	public List<Project> getAllProject() {
-		return projectRepo.getAll();
+	public List<Task> getList() {
+		return taskRepo.getAll();
 	}
 
-	public Optional<Project> getProjectDetailById(int id) {
-		return projectRepo.findById(id);
+	public Optional<Task> getTaskDetailById(int id) {
+		return taskRepo.findById(id);
 	}
-
-	public Optional<Project> getProjectDetailByCode(String code) {
-		return projectRepo.getByProjectCode(code);
-	}
-
 }

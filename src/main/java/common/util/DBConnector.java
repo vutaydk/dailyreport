@@ -4,7 +4,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
 import lombok.Getter;
 import model.entity.EntityBase;
 

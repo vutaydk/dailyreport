@@ -34,7 +34,7 @@
   var responseJson = function(data) {
     update_chart(data);
     $.each(data, function(i, item) {
-      if (!jQuery.isEmptyObject(item.reports)) {
+      if (!jQuery.isEmptyObject(item.tasks)) {
         $("#dr_project").append(
           '<option value="' + item.id + '">' + item.name + '</option>');
       }
@@ -61,12 +61,12 @@
       '<option value="0">Select all task...</option>');
     var task = {};
     $.each(projects, function(i, item) {
-      $.each(item.reports, function(i, item) {
+      $.each(item.tasks, function(i, item) {
         if (typeof task[item.taskId] != 'undefined') {
-          var timeWorked = task[item.taskId][1] + item.timeWorked;
-          task[item.taskId] = [ item.taskName, timeWorked ];
+          var timeWork = task[item.taskId][1] + item.timeWork;
+          task[item.taskId] = [ item.taskName, timeWork ];
         } else {
-          task[item.taskId] = [ item.taskName, item.timeWorked ];
+          task[item.taskId] = [ item.taskName, item.timeWork ];
 
           if (typeof task[item.taskId] != 'undefined')
             $("#dr_task").append(

@@ -9,17 +9,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-import common.exception.BusinessException;
-
-/**
- * Servlet Filter implementation class CharacterEncodingFilter
- */
 @WebFilter("/*")
 public class CharacterEncodingFilter implements Filter {
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
@@ -27,18 +20,12 @@ public class CharacterEncodingFilter implements Filter {
 		chain.doFilter(request, response);
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+	@Override
+	public void init(FilterConfig fConfig) {
 	}
 
-	/**
-	 * @see Filter#destroy()
-	 */
+	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 }

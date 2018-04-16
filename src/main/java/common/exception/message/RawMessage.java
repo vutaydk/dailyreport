@@ -1,7 +1,6 @@
 package common.exception.message;
 
 import java.util.List;
-
 import common.util.StringFormat;
 
 public class RawMessage extends ErrorMessage {

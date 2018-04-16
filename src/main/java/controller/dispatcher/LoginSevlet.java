@@ -2,14 +2,12 @@ package controller.dispatcher;
 
 import java.io.IOException;
 import java.util.Optional;
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.log4j.Log4j;
 import model.entity.User;
 import model.repo.user.IUserRepo;

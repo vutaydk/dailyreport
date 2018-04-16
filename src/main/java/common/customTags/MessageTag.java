@@ -3,7 +3,6 @@ package common.customTags;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
-
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 

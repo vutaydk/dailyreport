@@ -2,7 +2,6 @@ package controller.filter;
 
 import java.io.IOException;
 import java.util.Optional;
-
 import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,27 +13,16 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import model.entity.User;
 import model.repo.user.IUserRepo;
-import model.repo.user.UserRepoImpl;
 
-/**
- * Servlet Filter implementation class LoginFiter
- */
 @WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*"/* , "/rest/*" */ })
 public class LoginFilter implements Filter {
 
 	@Inject
 	private IUserRepo userRepo;
 
-	public LoginFilter() {
-		userRepo = new UserRepoImpl();
-	}
-
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
@@ -64,18 +52,11 @@ public class LoginFilter implements Filter {
 		response.sendRedirect(loginURI);
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+	@Override
+	public void init(FilterConfig fConfig) {
 	}
 
-	/**
-	 * @see Filter#destroy()
-	 */
+	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
-
 }

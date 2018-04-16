@@ -10,8 +10,11 @@ public class TaskConverter {
 		return en;
 	}
 
-	public static TaskDTO fromEntityToDto(Task en) {
-		TaskDTO dto = new TaskDTO(en.getTaskCode(), en.getName());
+	public static TaskJSON fromEntityToJSON(Task en) {
+		TaskJSON dto = new TaskJSON();
+		dto.setId(en.getId());
+		dto.setTaskCode(en.getTaskCode());
+		dto.setName(en.getName());
 		return dto;
 	}
 }

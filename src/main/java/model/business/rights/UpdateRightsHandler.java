@@ -1,23 +1,24 @@
 package model.business.rights;
 
 import java.util.Optional;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-
+import javax.transaction.Transactional;
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
 import model.entity.Rights;
 import model.repo.right.IRightRepo;
 
 @RequestScoped
+@Transactional
 public class UpdateRightsHandler {
 	@Inject
 	private IRightRepo rightRepo;
 
-	public int execute(Rights input) {
-		checkExistId(input.getId());
+	public int execute(Rights input, int id) {
+		checkExistId(id);
 
+		input.setId(id);
 		rightRepo.update(input);
 
 		return input.getId();
