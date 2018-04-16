@@ -2,25 +2,26 @@ package model.business.project;
 
 import java.util.Date;
 import java.util.Optional;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-
+import javax.transaction.Transactional;
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
 import model.entity.Project;
 import model.repo.project.IProjectRepo;
 
 @RequestScoped
+@Transactional
 public class UpdateProjectHandler {
 	@Inject
 	private IProjectRepo projectRepo;
 
-	public int execute(Project input) {
-		checkExistId(input.getId());
+	public int execute(Project input, int id) {
+		checkExistId(id);
 		checkDuplicateProjectCode(input.getProjectCode());
 		validateDateRange(input.getStartAt(), input.getFinishAt());
 
+		input.setId(id);
 		projectRepo.update(input);
 
 		return input.getId();

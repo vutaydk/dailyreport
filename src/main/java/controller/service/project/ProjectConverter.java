@@ -2,7 +2,6 @@ package controller.service.project;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import model.entity.Project;
 import model.entity.ReportPart;
 
@@ -33,7 +32,7 @@ public class ProjectConverter {
 		List<PChartJSON> tasks = en.getReports().stream().filter(r -> !r.getReportDetails().isEmpty()).map(r -> {
 			PChartJSON p = new PChartJSON();
 			for (ReportPart d : r.getReportDetails()) {
-				p.setTaskId(d.getId());
+				p.setTaskId(d.getTask().getId());
 				p.setTaskName(d.getTask().getName());
 				p.setTimeWork(d.getTimeWorked());
 				p.setNote(d.getNote());

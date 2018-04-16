@@ -1,7 +1,6 @@
 package model.repo.report;
 
 import java.util.Optional;
-
 import model.entity.ReportPart;
 import model.repo.IRepository;
 

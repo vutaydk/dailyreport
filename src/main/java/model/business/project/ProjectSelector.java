@@ -2,10 +2,8 @@ package model.business.project;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-
 import model.entity.Project;
 import model.repo.project.IProjectRepo;
 

@@ -2,11 +2,9 @@ package model.repo.i18n;
 
 import java.util.List;
 import java.util.Locale;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
-
 import common.exception.BusinessException;
 import common.exception.message.ErrorMessage;
 import common.i18n.ResourceType;

@@ -1,7 +1,6 @@
 package controller.service.report;
 
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import model.entity.Report;

@@ -2,7 +2,6 @@ package controller.filter;
 
 import java.io.IOException;
 import java.util.Optional;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import model.entity.Rights;
 import model.entity.User;
 

@@ -1,12 +1,10 @@
 package model.entity.i18n;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
 import common.i18n.ResourceType;
 import lombok.Data;
 

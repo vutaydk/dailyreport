@@ -3,11 +3,9 @@ package model.repo.right;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
-
 import common.util.DBConnector;
 import model.entity.Rights;
 

@@ -2,15 +2,14 @@ package controller.service.project;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import model.business.project.AddProjectHandler;
 import model.business.project.ProjectSelector;
 import model.business.project.UpdateProjectHandler;
@@ -28,8 +27,7 @@ public class ProjectService {
 
 	@POST
 	@Path("add")
-	public int insert(ProjectDTO projectDTO) {
-		projectDTO.isValidData();
+	public int insert(@Valid ProjectDTO projectDTO) {
 		Project project = ProjectConverter.fromDtoToEntity(projectDTO);
 		// handling data
 		int projectId = addCommand.execute(project);
@@ -38,12 +36,10 @@ public class ProjectService {
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	public int update(@PathParam("id") int id, ProjectDTO projectDTO) {
-		projectDTO.isValidData();
+	public int update(@Valid ProjectDTO projectDTO, @PathParam("id") int id) {
 		Project project = ProjectConverter.fromDtoToEntity(projectDTO);
-		project.setId(id);
 		// handling data
-		int projectId = updateCommand.execute(project);
+		int projectId = updateCommand.execute(project, id);
 		return projectId;
 	}
 

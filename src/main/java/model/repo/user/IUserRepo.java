@@ -1,7 +1,6 @@
 package model.repo.user;
 
 import java.util.Optional;
-
 import model.entity.User;
 import model.repo.IRepository;
 

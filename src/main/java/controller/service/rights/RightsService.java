@@ -2,15 +2,14 @@ package controller.service.rights;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import model.business.rights.AddRightsHandler;
 import model.business.rights.RightsSelector;
 import model.business.rights.UpdateRightsHandler;
@@ -28,8 +27,7 @@ public class RightsService {
 
 	@POST
 	@Path("add")
-	public int insert(RightsDTO rightsDTO) {
-		rightsDTO.isValidData();
+	public int insert(@Valid RightsDTO rightsDTO) {
 		Rights rights = RightsConverter.fromDtoToEntity(rightsDTO);
 		// handling data
 		int rightsId = addCommand.execute(rights);
@@ -38,12 +36,10 @@ public class RightsService {
 
 	@POST
 	@Path("edit/{id: [0-9]+}")
-	public int update(@PathParam("id") int id, RightsDTO rightsDTO) {
-		rightsDTO.isValidData();
+	public int update(@Valid RightsDTO rightsDTO, @PathParam("id") int id) {
 		Rights rights = RightsConverter.fromDtoToEntity(rightsDTO);
-		rights.setId(id);
 		// handling data
-		int rightsId = updateCommand.execute(rights);
+		int rightsId = updateCommand.execute(rights, id);
 		return rightsId;
 	}
 

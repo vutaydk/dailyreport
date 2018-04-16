@@ -2,9 +2,7 @@ package common.exception.message;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.enterprise.inject.spi.CDI;
-
 import common.i18n.IResourceInitializer;
 import common.i18n.SystemResourceInitializer;
 import common.util.StringFormat;

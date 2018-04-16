@@ -1,7 +1,6 @@
 package common.exception;
 
 import java.util.List;
-
 import common.exception.message.ErrorMessage;
 import common.exception.message.RawMessage;
 import common.exception.message.ResourceMessage;
