@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RightsJSON extends RightsDTO {
+public class RightsJSON {
 	private Integer id;
+	private String name;
+	private Integer level;
 }

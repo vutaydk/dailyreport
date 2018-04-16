@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TaskJSON extends TaskDTO {
+public class TaskJSON {
 	private Integer id;
+	private String taskCode;
+	private String name;
 }

@@ -11,8 +11,8 @@ public class ProjectJSON {
 	private Integer id;
 	private String projectCode;
 	private String name;
-	@JsonFormat(shape = JsonFormat.Shape.NUMBER, pattern = "dd/MM/yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date startAt;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date finishAt;
 }

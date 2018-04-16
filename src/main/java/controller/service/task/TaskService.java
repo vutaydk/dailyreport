@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,6 +18,7 @@ import model.entity.Task;
 
 @Path("/task")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class TaskService {
 	@Inject
 	AddTaskHandler addCommand;
@@ -29,7 +31,7 @@ public class TaskService {
 	@Path("add")
 	public int insert(@Valid TaskDTO taskDTO) {
 		Task task = TaskConverter.fromDtoToEntity(taskDTO);
-		// hangling data
+		// handling data
 		int taskId = addCommand.execute(task);
 		return taskId;
 	}
@@ -38,7 +40,7 @@ public class TaskService {
 	@Path("edit/{id: [0-9]+}")
 	public int update(@Valid TaskDTO taskDTO, @PathParam("id") int id) {
 		Task task = TaskConverter.fromDtoToEntity(taskDTO);
-		// hangling data
+		// handling data
 		int taskId = updateCommand.execute(task, id);
 		return taskId;
 	}

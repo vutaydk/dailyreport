@@ -14,15 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import model.entity.Rights;
 import model.entity.User;
 
-/**
- * Servlet Filter implementation class LoginFiter
- */
-@WebFilter({ "/rights/*", "/task/*", "/project/*" })
+@WebFilter({ "/project/*", "/report/*", "/task/*", "/rights/*" })
 public class PermissionChecker implements Filter {
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
@@ -51,18 +46,11 @@ public class PermissionChecker implements Filter {
 		res.sendRedirect(req.getContextPath() + "/home");
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+	@Override
+	public void init(FilterConfig fConfig) {
 	}
 
-	/**
-	 * @see Filter#destroy()
-	 */
+	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
-
 }

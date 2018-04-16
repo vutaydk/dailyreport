@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.entity.User;
 import model.repo.user.IUserRepo;
-import model.repo.user.UserRepoImpl;
 
 @WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*"/* , "/rest/*" */ })
 public class LoginFilter implements Filter {
@@ -23,10 +22,7 @@ public class LoginFilter implements Filter {
 	@Inject
 	private IUserRepo userRepo;
 
-	public LoginFilter() {
-		userRepo = new UserRepoImpl();
-	}
-
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
@@ -63,5 +59,4 @@ public class LoginFilter implements Filter {
 	@Override
 	public void destroy() {
 	}
-
 }
