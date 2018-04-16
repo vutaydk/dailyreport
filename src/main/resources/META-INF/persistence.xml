@@ -17,6 +17,7 @@
 				value="org.hibernate.transaction.JTATransactionFactory" />
 			<property name="hibernate.enable_lazy_load_no_trans"
 				value="true" />
+			<property name="current_session_context_class" value="jta" />
 		</properties>
 	</persistence-unit>
 </persistence>

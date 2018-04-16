@@ -9,13 +9,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import model.entity.i18n.SystemResource;
 import model.repo.i18n.ISystemResourceRepo;
 
 @ApplicationScoped
+@Startup
+@Singleton
 public class SystemResourceInitializer implements IResourceInitializer {
 	private Map<String, ResourceDto> resources;
 
@@ -36,14 +41,14 @@ public class SystemResourceInitializer implements IResourceInitializer {
 			List<SystemResource> resourcePerLanguage = resourceGroupedByLocale.get(key);
 
 			List<SystemResource> labelsEntity = resourcePerLanguage.stream()
-					.filter(x -> x.getPk().getResourceType().equals(ResourceType.LABEL)).collect(Collectors.toList());
+					.filter(x -> x.getPk().getResourceType().equals(ResourceType.LABEL.name())).collect(Collectors.toList());
 			Map<String, String> labels = new HashMap<>();
 			labelsEntity.forEach(x -> {
 				labels.put(x.getPk().getResourceCode(), x.getContent());
 			});
 
 			List<SystemResource> messagesEntity = resourcePerLanguage.stream()
-					.filter(x -> x.getPk().getResourceType().equals(ResourceType.MESSAGE)).collect(Collectors.toList());
+					.filter(x -> x.getPk().getResourceType().equals(ResourceType.MESSAGE.name())).collect(Collectors.toList());
 			Map<String, String> messages = new HashMap<>();
 			messagesEntity.forEach(x -> {
 				labels.put(x.getPk().getResourceCode(), x.getContent());

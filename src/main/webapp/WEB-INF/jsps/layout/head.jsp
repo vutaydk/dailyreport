@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="css/bootstrap-table.css">
 <script src="js/bootstrap-table.js"></script>
 <script src="js/bootstrap-table-vi-VN.js"></script>
+<!-- i18n -->
+<script src="api/resource/get-all"></script>
 
 <!-- Bootstrap datepicker -->
 <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
