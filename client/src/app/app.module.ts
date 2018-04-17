@@ -1,17 +1,20 @@
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { RightsComponent } from './rights/rights.component';
-import { NavComponent } from './nav/nav.component';
-import { SidebarRightComponent } from './sidebar-right/sidebar-right.component';
-import { ProjectComponent } from './project/project.component';
-import { ReportComponent } from './report/report.component';
-import { TaskComponent } from './task/task.component';
+
+import { LoginComponent } from './pages/login/login.component';
+import { TaskComponent } from './pages/task/task.component';
+import { RightsComponent } from './pages/rights/rights.component';
+import { ReportComponent } from './pages/report/report.component';
+import { ProjectComponent } from './pages/project/project.component';
+
+import { SidebarRightComponent } from './shared/sidebar-right/sidebar-right.component';
+import { NavComponent } from './shared/nav/nav.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+
 import { AuthService } from './services/auth.service';
 
 
