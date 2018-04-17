@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-right',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarRightComponent implements OnInit {
 
+  @Input() obj: any;
+
   constructor() { }
 
   ngOnInit() {
+    console.log(this.obj);
   }
 
 }
