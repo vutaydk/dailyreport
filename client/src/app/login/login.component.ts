@@ -1,23 +1,27 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Login } from '../entity/login';
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: [ './login.component.css' ]
+  providers: [AuthService],
+  styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   login: Login = new Login();
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   onSubmit() {
-    alert('username:' + this.login.username);
-    alert('password:' + this.login.password);
+    this.authService.doLogin(this.login);
+    this.router.navigate(['/rights']);
     return false;
   }
+
 }
