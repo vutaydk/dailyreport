@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../entity/project';
+import { PROJECT } from './project-mock';
 
 
 @Injectable()
 export class ProjectService {
-    projects: Project[];
 
+    constructor() { }
+
+    getProjects() {
+        return PROJECT;
+    }
+
+    getProject(id: number) {
+        return this.getProjects().find(p => p.id === id);
+    }
 }

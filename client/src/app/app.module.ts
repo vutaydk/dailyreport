@@ -8,9 +8,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LoginComponent } from './pages/login/login.component';
 import { TaskComponent } from './pages/task/task.component';
+import { TaskAddComponent } from './pages/task/task-add/task-add.component';
+import { TaskEditComponent } from './pages/task/task-edit/task-edit.component';
 import { RightsComponent } from './pages/rights/rights.component';
+import { RightsAddComponent } from './pages/rights/rights-add/rights-add.component';
+import { RightsEditComponent } from './pages/rights/rights-edit/rights-edit.component';
 import { ReportComponent } from './pages/report/report.component';
 import { ProjectComponent } from './pages/project/project.component';
+import { ProjectAddComponent } from './pages/project/project-add/project-add.component';
+import { ProjectEditComponent } from './pages/project/project-edit/project-edit.component';
 import { Page404Component } from './pages/page404/page404.component';
 
 import { SidebarRightComponent } from './shared/sidebar-right/sidebar-right.component';
@@ -19,14 +25,31 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 import { AuthService } from './services/auth.service';
 
-
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'rights', component: RightsComponent },
+  {
+    path: 'rights', component: RightsComponent, children: [
+      { path: '', redirectTo: 'add', pathMatch: 'full' },
+      { path: 'add', component: RightsAddComponent },
+      { path: 'edit/:id', component: RightsEditComponent }
+    ]
+  },
   { path: 'report', component: ReportComponent },
-  { path: 'project', component: ProjectComponent },
-  { path: 'task', component: TaskComponent },
+  {
+    path: 'project', component: ProjectComponent, children: [
+      { path: '', redirectTo: 'add', pathMatch: 'full' },
+      { path: 'add', component: ProjectAddComponent },
+      { path: 'edit/:id', component: ProjectEditComponent }
+    ]
+  },
+  {
+    path: 'task', component: TaskComponent, children: [
+      { path: '', redirectTo: 'add', pathMatch: 'full' },
+      { path: 'add', component: TaskAddComponent },
+      { path: 'edit/:id', component: TaskEditComponent }
+    ]
+  },
   { path: '**', component: Page404Component }
 ];
 
@@ -41,7 +64,13 @@ const appRoutes: Routes = [
     ProjectComponent,
     ReportComponent,
     TaskComponent,
-    Page404Component
+    Page404Component,
+    ProjectAddComponent,
+    ProjectEditComponent,
+    TaskAddComponent,
+    TaskEditComponent,
+    RightsAddComponent,
+    RightsEditComponent
   ],
   imports: [
     BrowserModule,

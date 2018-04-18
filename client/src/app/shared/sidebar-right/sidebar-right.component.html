@@ -9,7 +9,7 @@
 <div class="sidebar-list mb-1">
   <ul id="list-bar" class="list-group">
     <li *ngFor="let o of obj" class="list-group-item">
-      <a >{{o.name}}</a>
+      <a routerLink="edit/{{o.id}}">{{o.name}}</a>
     </li>
   </ul>
 </div>
