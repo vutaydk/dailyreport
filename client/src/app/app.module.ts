@@ -19,9 +19,11 @@ import { ProjectAddComponent } from './pages/project/project-add/project-add.com
 import { ProjectEditComponent } from './pages/project/project-edit/project-edit.component';
 import { Page404Component } from './pages/page404/page404.component';
 
-import { SidebarRightComponent } from './shared/sidebar-right/sidebar-right.component';
-import { NavComponent } from './shared/nav/nav.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import {
+  NavComponent,
+  SidebarRightComponent,
+  SidebarComponent
+} from './shared/layout';
 
 import { AuthService } from './services/auth.service';
 import { ReportAddComponent } from './pages/report/report-add/report-add.component';
