@@ -18,10 +18,10 @@ export class LoginComponent {
     private router: Router
   ) { }
 
-  onSubmit() {
-    this.authService.doLogin(this.login);
-    this.router.navigate(['/rights']);
-    return false;
+  onSubmit(loginForm) {
+    console.log(loginForm);
+    // this.authService.doLogin(loginForm.value);
+    // this.router.navigate(['/rights']);
   }
 
 }

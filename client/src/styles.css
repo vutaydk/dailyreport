@@ -100,10 +100,15 @@ body {
 
 .header {
     background-color: #222222;
+    display: flex;
 }
 
 .header a.navbar-brand {
     color: rgb(200, 201, 202);
+}
+
+.header ul.navbar-nav {
+    margin-left: auto;
 }
 
 .header ul.navbar-nav li.nav-item a.nav-link {

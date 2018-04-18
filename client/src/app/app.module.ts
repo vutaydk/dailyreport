@@ -11,6 +11,7 @@ import { TaskComponent } from './pages/task/task.component';
 import { RightsComponent } from './pages/rights/rights.component';
 import { ReportComponent } from './pages/report/report.component';
 import { ProjectComponent } from './pages/project/project.component';
+import { Page404Component } from './pages/page404/page404.component';
 
 import { SidebarRightComponent } from './shared/sidebar-right/sidebar-right.component';
 import { NavComponent } from './shared/nav/nav.component';
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
   { path: 'rights', component: RightsComponent },
   { path: 'report', component: ReportComponent },
   { path: 'project', component: ProjectComponent },
-  { path: 'task', component: TaskComponent }
+  { path: 'task', component: TaskComponent },
+  { path: '**', component: Page404Component }
 ];
 
 @NgModule({
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     SidebarRightComponent,
     ProjectComponent,
     ReportComponent,
-    TaskComponent
+    TaskComponent,
+    Page404Component
   ],
   imports: [
     BrowserModule,
