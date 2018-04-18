@@ -27,34 +27,7 @@ import {
 
 import { AuthService } from './services/auth.service';
 import { ReportAddComponent } from './pages/report/report-add/report-add.component';
-
-const appRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  {
-    path: 'rights', component: RightsComponent, children: [
-      { path: '', redirectTo: 'add', pathMatch: 'full' },
-      { path: 'add', component: RightsAddComponent },
-      { path: 'edit/:id', component: RightsEditComponent }
-    ]
-  },
-  { path: 'report', component: ReportComponent },
-  {
-    path: 'project', component: ProjectComponent, children: [
-      { path: '', redirectTo: 'add', pathMatch: 'full' },
-      { path: 'add', component: ProjectAddComponent },
-      { path: 'edit/:id', component: ProjectEditComponent }
-    ]
-  },
-  {
-    path: 'task', component: TaskComponent, children: [
-      { path: '', redirectTo: 'add', pathMatch: 'full' },
-      { path: 'add', component: TaskAddComponent },
-      { path: 'edit/:id', component: TaskEditComponent }
-    ]
-  },
-  { path: '**', component: Page404Component }
-];
+import { AppRoutingModule } from './routing.module';
 
 @NgModule({
   declarations: [
@@ -77,9 +50,9 @@ const appRoutes: Routes = [
     ReportAddComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
     NgbModule.forRoot(),
     FormsModule
   ],
