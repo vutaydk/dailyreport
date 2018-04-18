@@ -24,6 +24,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 import { AuthService } from './services/auth.service';
+import { ReportAddComponent } from './pages/report/report-add/report-add.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -70,7 +71,8 @@ const appRoutes: Routes = [
     TaskAddComponent,
     TaskEditComponent,
     RightsAddComponent,
-    RightsEditComponent
+    RightsEditComponent,
+    ReportAddComponent
   ],
   imports: [
     BrowserModule,
