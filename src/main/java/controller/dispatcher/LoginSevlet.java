@@ -2,24 +2,27 @@ package controller.dispatcher;
 
 import java.io.IOException;
 import java.util.Optional;
-import javax.inject.Inject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import lombok.extern.log4j.Log4j;
-import model.entity.User;
-import model.repo.user.IUserRepo;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.subject.Subject;
+
+import common.exception.BusinessException;
+import common.exception.message.RawMessage;
 
 /**
  * Servlet implementation class LoginSevlet
  */
 @WebServlet({ "/login", "/logout" })
-@Log4j
 public class LoginSevlet extends HttpServlet {
-	@Inject
-	private IUserRepo userRepo;
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -27,28 +30,7 @@ public class LoginSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		log.debug("login page");
-		// logout success, redirect to login page
-		if ("/logout".equals(request.getServletPath())) {
-
-			// remove user session
-			request.getSession().removeAttribute("user");
-
-			// redirect to login page
-			response.sendRedirect(request.getContextPath() + "/");
-			return;
-		}
-
-		// user session exist, redirect to home page
-		Optional<User> user = Optional.ofNullable((User) request.getSession().getAttribute("user"));
-		if (user.isPresent()) {
-
-			// redirect to home page
-			response.sendRedirect(request.getContextPath() + "/home");
-			return;
-		}
-
-		request.getRequestDispatcher("/WEB-INF/jsps/login.jsp").forward(request, response);
+		doPost(request, response);
 	}
 
 	/**
@@ -56,32 +38,44 @@ public class LoginSevlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		log.debug("login page");
 		if ("/login".equals(request.getServletPath())) {
 
-			// get request param
-			Optional<String> em = Optional.ofNullable(request.getParameter("txt_username"));
-			Optional<String> pwd = Optional.ofNullable(request.getParameter("txt_password"));
-
-			// validate login
-			if (!em.isPresent()) {
-				request.setAttribute("message", "Please enter username.");
-			} else if (!pwd.isPresent()) {
-				request.setAttribute("message", "Please enter password.");
-			} else {
-				Optional<User> user = userRepo.check(em.get(), pwd.get());
-
-				// set to user session
-				if (user.isPresent()) {
-					request.getSession().setAttribute("user", user.get());
-					response.sendRedirect(request.getContextPath() + "/home");
-					return;
-				}
-				request.setAttribute("message", "Invalid username or password.");
+			// get request params
+			Optional<String> username = Optional.ofNullable(request.getParameter("txt_username"));
+			Optional<String> pass = Optional.ofNullable(request.getParameter("txt_password"));
+			if (!username.isPresent() || !pass.isPresent()) {
+				throw new BusinessException(new RawMessage("Username and passoword can not be null"));
 			}
-		}
 
-		doGet(request, response);
+			login(username.get(), pass.get());
+
+			response.sendRedirect(request.getContextPath() + "/home");
+
+		} else {
+			logout();
+			request.getRequestDispatcher("/WEB-INF/jsps/login.jsp").forward(request, response);
+		}
+	}
+
+	private void login(String username, String pass) {
+		Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.isAuthenticated()) {
+			return;
+		}
+		String hexPass =new Sha256Hash(pass).toHex();
+		UsernamePasswordToken token = new UsernamePasswordToken(username, hexPass);
+		try {
+			currentUser.login(token);
+		} catch (AuthenticationException e) {
+			throw new BusinessException(new RawMessage("invalid username or password"));
+		}
+	}
+
+	private void logout() {
+		Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.isAuthenticated()) {
+			currentUser.logout();
+		}
 	}
 
 }

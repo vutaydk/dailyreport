@@ -87,18 +87,19 @@
 			<artifactId>commons-codec</artifactId>
 			<version>${commons-codec-version}</version>
 		</dependency>
-		<!-- apache shiro core -->
+		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
-			<version>${shiro-version}</version>
+			<version>1.4.0</version>
 		</dependency>
-		<!-- apache shiro web -->
+		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-web -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
-			<version>${shiro-version}</version>
+			<version>1.4.0</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
 		<dependency>
 			<groupId>javax.enterprise</groupId>
