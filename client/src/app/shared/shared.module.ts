@@ -25,7 +25,12 @@ import { RouterModule } from '@angular/router';
   exports: [
     NavComponent,
     SidebarComponent,
-    SidebarRightComponent
+    SidebarRightComponent,
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ]
 })
 export class SharedModule { }

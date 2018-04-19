@@ -22,4 +22,4 @@ export const PROJECT: Project[] = [
         startAt: '19/20/1018',
         finishAt: '19/20/1018'
     }
-]
+];
