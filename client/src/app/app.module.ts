@@ -2,7 +2,7 @@ import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,6 +14,9 @@ import { RightsComponent } from './pages/rights/rights.component';
 import { RightsAddComponent } from './pages/rights/rights-add/rights-add.component';
 import { RightsEditComponent } from './pages/rights/rights-edit/rights-edit.component';
 import { ReportComponent } from './pages/report/report.component';
+import { ReportAddComponent } from './pages/report/report-add/report-add.component';
+import { ReportManagermentComponent } from './pages/report/report-managerment/report-managerment.component';
+import { ReportEditComponent } from './pages/report/report-edit/report-edit.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { ProjectAddComponent } from './pages/project/project-add/project-add.component';
 import { ProjectEditComponent } from './pages/project/project-edit/project-edit.component';
@@ -26,7 +29,6 @@ import {
 } from './shared/layout';
 
 import { AuthService } from './services/auth.service';
-import { ReportAddComponent } from './pages/report/report-add/report-add.component';
 import { AppRoutingModule } from './routing.module';
 
 @NgModule({
@@ -47,14 +49,17 @@ import { AppRoutingModule } from './routing.module';
     TaskEditComponent,
     RightsAddComponent,
     RightsEditComponent,
-    ReportAddComponent
+    ReportAddComponent,
+    ReportManagermentComponent,
+    ReportEditComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService

@@ -1,62 +1,36 @@
-<app-nav></app-nav>
-<app-sidebar></app-sidebar>
-<div class="col-sm-9 offset-sm-3 col-lg-10 offset-lg-2 pt-2 main">
-  <form id="addReportForm" method="post">
-    <div class="form-row mb-2">
-      <div class="col-2">
-        <select id="projectCode" name="projectCode" class="custom-select">
-          <option value="">Choose...</option>
-          <option value="qucm">Project 1</option>
-          <option value="uemd">Project 2</option>
-        </select>
-      </div>
-      <button type="button" class="btn btn-outline-dark btn-add-work">label.submit</button>
-      <button id="report-submit" class="btn btn-primary " type="submit">Submit</button>
+<form [formGroup]="reportForm">
+
+  <div class="form-row mb-2">
+    <div class="col-2">
+      <select id="projectCode" name="projectCode" class="custom-select">
+        <option value="">Choose project...</option>
+        <option *ngFor="let p of projects" [value]="p.projectCode">{{p.name}}</option>
+      </select>
     </div>
-    <div class="card mb-3">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-10">
-            <div class="form-group row">
-              <label class="col-3 col-form-label"> label.taskCode </label>
-              <div class="col-9">
-                <select name="taskCode" class="form-control">
-                  <option value="">Choose...</option>
-                  <option value="Task1">Task 1</option>
-                  <option value="Task2">Task 2</option>
-                </select>
-              </div>
-            </div>
+    <button (click)="addTask()" type="button" class="btn btn-outline-dark">label.submit</button>
+    <button class="btn btn-primary " type="submit">Submit</button>
+  </div>
 
-            <div class="form-group row">
-              <label class="col-3 col-form-label"> label.timeWork </label>
-              <div class="col-9">
-                <input type="text" name="timeWork" class="form-control" placeholder="Hour">
-              </div>
-            </div>
-          </div>
-
-          <div class="col-2">
-            <div class="row justify-content-center">
-              <button class="btn btn-outline-danger ml-2 btn-note-remove" type="button">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-              <button id="toggle-note" class="btn btn-outline-dark  ml-2 btn-note-toggle" type="button" data-toggle="collapse"
-                data-target="#report-note" aria-controls="report-note" aria-expanded="false" aria-label="Toggle report note">
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>
-          </div>
-
-        </div>
-        <div class="r-note">
-          <div class="form-group">
-            <label> label.note </label>
-            <textarea rows="10" name="note" class="form-control"></textarea>
-          </div>
-        </div>
+  <div formArrayName="tasks" class="card mb-3" *ngFor="let task of reportForm.get('tasks').controls; let i = index;">
+    <div [formGroupName]="i" class="card-body">
+      <div class="row mb-2">
+        <label class="col-3 col-form-label"> label.taskCode
+          <select formControlName="taskCode" name="taskCode" class="form-control">
+            <option value="">Choose task...</option>
+            <option *ngFor="let t of tasksWork" [value]="t.taskCode">{{t.name}}</option>
+          </select>
+        </label>
+        <label class="col-2 col-form-label"> label.timeWork
+          <input formControlName="timeWork" type="text" name="timeWork" class="form-control" placeholder="Hour">
+        </label>
+      </div>
+      <div class="row">
+        <label class="col col-form-label"> label.note
+          <textarea formControlName="note" rows="10" name="note" class="form-control"></textarea>
+        </label>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+
+</form>
 <!-- ./create-report form -->
