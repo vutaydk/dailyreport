@@ -27,7 +27,7 @@ public class LoginSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsps/login.jsp").forward(request, response);
 	}
 
 	/**
@@ -46,12 +46,10 @@ public class LoginSevlet extends HttpServlet {
 
 			login(username.get(), pass.get());
 
-			response.sendRedirect(request.getContextPath() + "/home");
-
 		} else {
 			logout();
-			request.getRequestDispatcher("/WEB-INF/jsps/login.jsp").forward(request, response);
 		}
+		response.sendRedirect(request.getContextPath() + "/home");
 	}
 
 	private void login(String username, String pass) {

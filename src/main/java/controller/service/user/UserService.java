@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import model.business.user.AddUserHandler;
+import model.business.user.UpdateUserHandler;
 import model.business.user.UserSelector;
 import model.entity.User;
 
@@ -23,7 +24,7 @@ public class UserService {
 	@Inject
 	AddUserHandler addCommand;
 	@Inject
-	model.business.user.UpdateUserHandler updateCommand;
+	UpdateUserHandler updateCommand;
 	@Inject
 	UserSelector userSelector;
 	@Inject

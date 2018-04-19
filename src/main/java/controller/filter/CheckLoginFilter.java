@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
-@WebFilter({ "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*" })
+@WebFilter({ /* "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*" */ })
 public class CheckLoginFilter implements Filter {
 
 	@Override
@@ -23,10 +23,11 @@ public class CheckLoginFilter implements Filter {
 		Subject currentUser = SecurityUtils.getSubject();
 		if (!currentUser.isAuthenticated()) {
 			// redirect to login page
-			String loginURI = "/WEB-INF/jsps/login.jsp";
+			String loginURI = "/login";
 			response.sendRedirect(loginURI);
+			return;
 		}
-
+		chain.doFilter(req, res);
 	}
 
 	@Override
