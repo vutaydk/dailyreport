@@ -31,11 +31,11 @@ export class ReportAddComponent implements OnInit {
     });
     this.projects = this.projectService.getProjects();
     this.tasks = this.taskService.getTasks();
+
   }
 
   onSubmit() {
     console.log(JSON.stringify(this.reportForm.value));
-
   }
 
   createTask(): FormGroup {
