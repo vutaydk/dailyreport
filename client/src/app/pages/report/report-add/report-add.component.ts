@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Project } from '../../../entity/project';
 import { ProjectService } from '../../../services/project.service';
 import { Task } from '../../../entity/task';
@@ -13,10 +13,9 @@ import { TaskService } from '../../../services/task.service';
 })
 export class ReportAddComponent implements OnInit {
   reportForm: FormGroup;
-  tasks: any[] = [];
 
   projects: Project[];
-  tasksWork: Task[];
+  tasks: Task[];
 
   constructor(
     private fb: FormBuilder,
@@ -26,25 +25,37 @@ export class ReportAddComponent implements OnInit {
 
   ngOnInit() {
     this.reportForm = this.fb.group({
-      projectCode: '',
-      employeeCode: '',
+      projectCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]],
+      employeeCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]],
       tasks: this.fb.array([this.createTask()])
     });
     this.projects = this.projectService.getProjects();
-    this.tasksWork = this.taskService.getTasks();
+    this.tasks = this.taskService.getTasks();
+  }
+
+  onSubmit() {
+    console.log(JSON.stringify(this.reportForm.value));
+
   }
 
   createTask(): FormGroup {
     return this.fb.group({
-      taskCode: '',
-      timeWork: '',
-      node: ''
+      taskCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]],
+      timeWork: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      note: ['', [Validators.required]]
     });
   }
 
   addTask() {
-    this.tasks = this.reportForm.get('tasks') as FormArray;
-    this.tasks.push(this.createTask());
+    const control = <FormArray>this.reportForm.controls['tasks'];
+    control.push(this.createTask());
+  }
+
+  remoreTask(i: number) {
+    const control = <FormArray>this.reportForm.controls['tasks'];
+    if (control.length > 1) {
+      control.removeAt(i);
+    }
   }
 
 }
