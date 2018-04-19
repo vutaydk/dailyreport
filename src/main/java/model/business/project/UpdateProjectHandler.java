@@ -5,13 +5,18 @@ import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+
+import org.apache.shiro.authz.annotation.RequiresRoles;
+
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
+import model.business.rights.Role;
 import model.entity.Project;
 import model.repo.project.IProjectRepo;
 
 @RequestScoped
 @Transactional
+@RequiresRoles({ Role.DIRECTOR, Role.PM })
 public class UpdateProjectHandler {
 	@Inject
 	private IProjectRepo projectRepo;
