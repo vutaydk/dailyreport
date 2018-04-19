@@ -11,6 +11,7 @@ import model.entity.Rights;
 
 @RequestScoped
 public class RightsRepoImpl implements IRightRepo {
+
 	@Inject
 	private DBConnector connector;
 

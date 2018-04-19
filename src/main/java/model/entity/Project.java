@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,10 +28,6 @@ public class Project extends EntityBase {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_manager")
-	private User user;
-
 	@Column(name = "project_code", nullable = false, length = 4)
 	private String projectCode;
 
@@ -47,6 +42,9 @@ public class Project extends EntityBase {
 	@Column(name = "finish_at", length = 10)
 	private Date finishAt;
 
+	@Column(name = "project_manager", nullable = false)
+	private Integer projectManager;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", length = 16)
 	private Date createdAt;
@@ -55,7 +53,8 @@ public class Project extends EntityBase {
 	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id")
 	private Set<Report> reports = new HashSet<>(0);
 
 }

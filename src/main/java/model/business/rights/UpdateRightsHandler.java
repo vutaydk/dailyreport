@@ -12,6 +12,7 @@ import model.repo.right.IRightRepo;
 @RequestScoped
 @Transactional
 public class UpdateRightsHandler {
+
 	@Inject
 	private IRightRepo rightRepo;
 

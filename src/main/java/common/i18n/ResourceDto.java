@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ResourceDto implements Serializable{
+public class ResourceDto implements Serializable {
 	private Map<String, String> messages;
 	private Map<String, String> labels;
 

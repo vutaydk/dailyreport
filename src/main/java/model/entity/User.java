@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,10 +29,6 @@ public class User extends EntityBase {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "rights")
-	private Rights rights;
-
 	@Column(name = "employee_code", nullable = false, length = 12)
 	private String employeeCode;
 
@@ -46,6 +41,9 @@ public class User extends EntityBase {
 	@Column(name = "name", length = 50)
 	private String name;
 
+	@Column(name = "rights")
+	private Integer rights;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", length = 16)
 	private Date createdAt;
@@ -54,16 +52,20 @@ public class User extends EntityBase {
 	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "approver")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "approver_id")
 	private Set<Report> reportsForApproverId = new HashSet<>(0);
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	private Set<Report> reportsForUserId = new HashSet<>(0);
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-	private DepartmentDetail departmentDetail;
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "user_id")
+//	private DepartmentDetail departmentDetail;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany
+	@JoinColumn(name = "project_manager")
 	private Set<Project> projects = new HashSet<Project>(0);
 
 }

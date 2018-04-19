@@ -9,6 +9,7 @@ import model.repo.task.ITaskRepo;
 
 @RequestScoped
 public class TaskSelector {
+
 	@Inject
 	private ITaskRepo taskRepo;
 

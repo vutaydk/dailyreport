@@ -3,18 +3,19 @@ package controller.service.rights;
 import model.entity.Rights;
 
 public class RightsConverter {
-	public static Rights fromDtoToEntity(RightsDTO dto) {
-		Rights en = new Rights();
-		en.setName(dto.getName());
-		en.setLevel(dto.getLevel());
-		return en;
+
+	public Rights fromDtoToEntity(RightsDTO dto) {
+		Rights e = new Rights();
+		e.setName(dto.getName());
+		e.setLevel(dto.getLevel());
+		return e;
 	}
 
-	public static RightsJSON fromEntityToJSON(Rights en) {
-		RightsJSON dto = new RightsJSON();
-		dto.setId(en.getId());
-		dto.setName(en.getName());
-		dto.setLevel(en.getLevel());
-		return dto;
+	public RightsJSON fromEntityToJSON(Rights e) {
+		RightsJSON json = new RightsJSON();
+		json.setId(e.getId());
+		json.setName(e.getName());
+		json.setLevel(e.getLevel());
+		return json;
 	}
 }

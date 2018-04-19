@@ -20,34 +20,36 @@ import model.entity.Task;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TaskService {
+
 	@Inject
 	AddTaskHandler addCommand;
 	@Inject
 	UpdateTaskHandler updateCommand;
 	@Inject
 	TaskSelector taskSelector;
+	@Inject
+	TaskConverter converter;
 
 	@POST
-	@Path("add")
-	public int insert(@Valid TaskDTO taskDTO) {
-		Task task = TaskConverter.fromDtoToEntity(taskDTO);
+	public int insert(@Valid TaskDTO dto) {
+		Task task = converter.fromDtoToEntity(dto);
 		// handling data
 		int taskId = addCommand.execute(task);
 		return taskId;
 	}
 
 	@POST
-	@Path("edit/{id: [0-9]+}")
-	public int update(@Valid TaskDTO taskDTO, @PathParam("id") int id) {
-		Task task = TaskConverter.fromDtoToEntity(taskDTO);
+	@Path("{id: [0-9]+}")
+	public int update(@Valid TaskDTO dto, @PathParam("id") int id) {
+		Task task = converter.fromDtoToEntity(dto);
 		// handling data
 		int taskId = updateCommand.execute(task, id);
 		return taskId;
 	}
 
 	@GET
-	@Path("get-all")
-	public List<TaskJSON> getAll() {
-		return taskSelector.getList().stream().map(t -> TaskConverter.fromEntityToJSON(t)).collect(Collectors.toList());
+	@Path("get-json")
+	public List<TaskJSON> getJSON() {
+		return taskSelector.getList().stream().map(t -> converter.fromEntityToJSON(t)).collect(Collectors.toList());
 	}
 }

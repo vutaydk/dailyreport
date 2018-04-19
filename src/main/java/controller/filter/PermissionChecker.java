@@ -28,16 +28,16 @@ public class PermissionChecker implements Filter {
 		Optional<User> user = Optional.ofNullable((User) req.getSession().getAttribute("user"));
 		if (user.isPresent()) {
 
-			Optional<Rights> rights = Optional.ofNullable(user.get().getRights());
-			if (rights.isPresent()) {
-
-				if (rights.get().getLevel() > 0) {
-
-					chain.doFilter(request, response);
-					return;
-				}
-
-			}
+//			Optional<Rights> rights = Optional.ofNullable(user.get().getRights());
+//			if (rights.isPresent()) {
+//
+//				if (rights.get().getLevel() > 0) {
+//
+//					chain.doFilter(request, response);
+//					return;
+//				}
+//
+//			}
 			req.getSession().setAttribute("messagePopup", "Permission.");
 		} else
 			req.getSession().setAttribute("messagePopup", "You need login.");

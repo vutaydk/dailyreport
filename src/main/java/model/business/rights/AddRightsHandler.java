@@ -9,6 +9,7 @@ import model.repo.right.IRightRepo;
 @RequestScoped
 @Transactional
 public class AddRightsHandler {
+
 	@Inject
 	private IRightRepo rightRepo;
 

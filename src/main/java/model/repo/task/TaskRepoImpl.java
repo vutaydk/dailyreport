@@ -11,6 +11,7 @@ import model.entity.Task;
 
 @RequestScoped
 public class TaskRepoImpl implements ITaskRepo {
+
 	@Inject
 	private DBConnector connector;
 
@@ -38,6 +39,17 @@ public class TaskRepoImpl implements ITaskRepo {
 	public boolean delete(Task task) {
 		connector.delete(task);
 		return true;
+	}
+
+	@Override
+	public Optional<Task> findByTaskCode(String code) {
+		TypedQuery<Task> query = connector.createQuery("FROM " + Task.class.getName() + " WHERE taskCode=:c",
+				Task.class);
+		query.setParameter("c", code);
+		if (query.getResultList().size() > 0)
+			return Optional.ofNullable(query.getSingleResult());
+		else
+			return Optional.empty();
 	}
 
 	@Override

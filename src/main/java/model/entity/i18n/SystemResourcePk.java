@@ -1,10 +1,8 @@
 package model.entity.i18n;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-
 import lombok.Data;
 
 @Embeddable

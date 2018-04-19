@@ -6,6 +6,7 @@ import model.entity.i18n.SystemResource;
 import model.repo.IRepository;
 
 public interface ISystemResourceRepo extends IRepository<SystemResource> {
+
 	List<SystemResource> getAllMessages(Locale locale);
 
 	List<SystemResource> getAllLabel(Locale locale);

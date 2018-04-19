@@ -9,6 +9,7 @@ import model.repo.project.IProjectRepo;
 
 @RequestScoped
 public class ProjectSelector {
+
 	@Inject
 	private IProjectRepo projectRepo;
 
@@ -21,6 +22,6 @@ public class ProjectSelector {
 	}
 
 	public Optional<Project> getProjectDetailByCode(String code) {
-		return projectRepo.getByProjectCode(code);
+		return projectRepo.findByProjectCode(code);
 	}
 }

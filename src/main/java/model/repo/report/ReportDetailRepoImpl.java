@@ -11,6 +11,7 @@ import model.entity.ReportPart;
 
 @RequestScoped
 public class ReportDetailRepoImpl implements IReportPartRepo {
+
 	@Inject
 	private DBConnector connector;
 

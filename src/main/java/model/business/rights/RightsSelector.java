@@ -9,6 +9,7 @@ import model.repo.right.IRightRepo;
 
 @RequestScoped
 public class RightsSelector {
+
 	@Inject
 	private IRightRepo rightRepo;
 

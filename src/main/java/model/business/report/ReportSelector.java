@@ -9,6 +9,7 @@ import model.repo.report.IReportRepo;
 
 @RequestScoped
 public class ReportSelector {
+
 	@Inject
 	private IReportRepo reportRepo;
 

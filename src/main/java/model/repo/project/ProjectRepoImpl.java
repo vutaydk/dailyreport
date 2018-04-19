@@ -11,6 +11,7 @@ import model.entity.Project;
 
 @RequestScoped
 public class ProjectRepoImpl implements IProjectRepo {
+
 	@Inject
 	private DBConnector connector;
 
@@ -41,7 +42,7 @@ public class ProjectRepoImpl implements IProjectRepo {
 	}
 
 	@Override
-	public Optional<Project> getByProjectCode(String code) {
+	public Optional<Project> findByProjectCode(String code) {
 		TypedQuery<Project> query = connector.createQuery("FROM " + Project.class.getName() + " WHERE projectCode=:c",
 				Project.class);
 		query.setParameter("c", code);

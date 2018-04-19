@@ -20,35 +20,36 @@ import model.entity.Rights;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RightsService {
+
 	@Inject
 	AddRightsHandler addCommand;
 	@Inject
 	UpdateRightsHandler updateCommand;
 	@Inject
 	RightsSelector rightsSelector;
+	@Inject
+	RightsConverter converter;
 
 	@POST
-	@Path("add")
-	public int insert(@Valid RightsDTO rightsDTO) {
-		Rights rights = RightsConverter.fromDtoToEntity(rightsDTO);
+	public int insert(@Valid RightsDTO dto) {
+		Rights rights = converter.fromDtoToEntity(dto);
 		// handling data
 		int rightsId = addCommand.execute(rights);
 		return rightsId;
 	}
 
 	@POST
-	@Path("edit/{id: [0-9]+}")
-	public int update(@Valid RightsDTO rightsDTO, @PathParam("id") int id) {
-		Rights rights = RightsConverter.fromDtoToEntity(rightsDTO);
+	@Path("{id: [0-9]+}")
+	public int update(@Valid RightsDTO dto, @PathParam("id") int id) {
+		Rights rights = converter.fromDtoToEntity(dto);
 		// handling data
 		int rightsId = updateCommand.execute(rights, id);
 		return rightsId;
 	}
 
 	@GET
-	@Path("get-all")
-	public List<RightsJSON> getAll() {
-		return rightsSelector.getList().stream().map(r -> RightsConverter.fromEntityToJSON(r))
-				.collect(Collectors.toList());
+	@Path("get-json")
+	public List<RightsJSON> getJSON() {
+		return rightsSelector.getList().stream().map(r -> converter.fromEntityToJSON(r)).collect(Collectors.toList());
 	}
 }

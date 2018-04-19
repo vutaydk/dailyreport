@@ -5,5 +5,8 @@ import model.entity.Task;
 import model.repo.IRepository;
 
 public interface ITaskRepo extends IRepository<Task> {
+
+	Optional<Task> findByTaskCode(String code);
+
 	Optional<Task> findById(int id);
 }

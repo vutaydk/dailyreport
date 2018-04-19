@@ -13,6 +13,7 @@ import model.entity.i18n.SystemResource;
 
 @RequestScoped
 public class SystemResourceRepo implements ISystemResourceRepo {
+
 	@Inject
 	private DBConnector connection;
 

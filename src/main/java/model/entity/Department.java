@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,7 +42,8 @@ public class Department {
 	@Column(name = "updated_at", length = 23)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department_id")
 	private Set<DepartmentDetail> departmentDetails = new HashSet<>(0);
 
 }

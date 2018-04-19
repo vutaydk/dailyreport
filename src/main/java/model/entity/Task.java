@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,7 +42,8 @@ public class Task extends EntityBase {
 	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "task_id")
 	private Set<ReportPart> reportDetails = new HashSet<>(0);
 
 }

@@ -20,44 +20,46 @@ import model.entity.Project;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProjectService {
+
 	@Inject
 	private AddProjectHandler addCommand;
 	@Inject
 	private UpdateProjectHandler updateCommand;
 	@Inject
 	private ProjectSelector projectSelector;
+	@Inject
+	ProjectConverter converter;
 
 	@POST
-	@Path("add")
-	public int insert(@Valid ProjectDTO projectDTO) {
-		Project project = ProjectConverter.fromDtoToEntity(projectDTO);
+	public int insert(@Valid ProjectDTO dto) {
+		Project project = converter.fromDtoToEntity(dto);
 		// handling data
 		int projectId = addCommand.execute(project);
 		return projectId;
 	}
 
 	@POST
-	@Path("edit/{id: [0-9]+}")
-	public int update(@Valid ProjectDTO projectDTO, @PathParam("id") int id) {
-		Project project = ProjectConverter.fromDtoToEntity(projectDTO);
+	@Path("{id: [0-9]+}")
+	public int update(@Valid ProjectDTO dto, @PathParam("id") int id) {
+		Project project = converter.fromDtoToEntity(dto);
 		// handling data
 		int projectId = updateCommand.execute(project, id);
 		return projectId;
 	}
 
 	@GET
-	@Path("get-all")
-	public List<ProjectJSON> getAllProject() {
+	@Path("get-json")
+	public List<ProjectJSON> getJSON() {
 		return projectSelector.getList().stream().map(p -> {
-			return ProjectConverter.fromEntityToJSON(p);
+			return converter.fromEntityToJSON(p);
 		}).collect(Collectors.toList());
 	}
 
 	@GET
-	@Path("get-chart")
-	public List<ChartJSON> getChartProject() {
+	@Path("get-chart-json")
+	public List<ChartJSON> getChartJSON() {
 		return projectSelector.getList().stream().map(p -> {
-			return ProjectConverter.fromEntityToChartJSON(p);
+			return converter.fromEntityToChartJSON(p);
 		}).collect(Collectors.toList());
 	}
 }

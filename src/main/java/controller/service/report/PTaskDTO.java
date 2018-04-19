@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class PTaskDTO {
 	private Integer taskId;
-	private Integer timework;
+	private Float timeWork;
 	private String note;
 }

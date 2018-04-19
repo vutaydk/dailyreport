@@ -1,39 +1,50 @@
 package controller.service.project;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.inject.Inject;
+import model.business.task.TaskSelector;
 import model.entity.Project;
 import model.entity.ReportPart;
+import model.entity.Task;
 
 public class ProjectConverter {
-	public static Project fromDtoToEntity(ProjectDTO dto) {
-		Project en = new Project();
-		en.setProjectCode(dto.getProjectCode());
-		en.setName(dto.getName());
-		en.setStartAt(dto.getStartAt());
-		en.setFinishAt(dto.getFinishAt());
-		return en;
+
+	@Inject
+	TaskSelector taskSelector;
+
+	public Project fromDtoToEntity(ProjectDTO dto) {
+		Project e = new Project();
+		e.setProjectCode(dto.getProjectCode());
+		e.setName(dto.getName());
+		e.setStartAt(dto.getStartAt());
+		e.setFinishAt(dto.getFinishAt());
+		return e;
 	}
 
-	public static ProjectJSON fromEntityToJSON(Project en) {
+	public ProjectJSON fromEntityToJSON(Project e) {
 		ProjectJSON json = new ProjectJSON();
-		json.setId(en.getId());
-		json.setProjectCode(en.getProjectCode());
-		json.setName(en.getName());
-		json.setStartAt(en.getStartAt());
-		json.setFinishAt(en.getFinishAt());
+		json.setId(e.getId());
+		json.setProjectCode(e.getProjectCode());
+		json.setName(e.getName());
+		json.setStartAt(e.getStartAt());
+		json.setFinishAt(e.getFinishAt());
 		return json;
 	}
 
-	public static ChartJSON fromEntityToChartJSON(Project en) {
+	public ChartJSON fromEntityToChartJSON(Project e) {
 		ChartJSON json = new ChartJSON();
-		json.setId(en.getId());
-		json.setName(en.getName());
-		List<PChartJSON> tasks = en.getReports().stream().filter(r -> !r.getReportDetails().isEmpty()).map(r -> {
+		json.setId(e.getId());
+		json.setName(e.getName());
+		List<PChartJSON> tasks = e.getReports().stream().filter(r -> !r.getReportDetails().isEmpty()).map(r -> {
 			PChartJSON p = new PChartJSON();
 			for (ReportPart d : r.getReportDetails()) {
-				p.setTaskId(d.getTask().getId());
-				p.setTaskName(d.getTask().getName());
+				Optional<Task> task = taskSelector.getTaskDetailById(d.getTaskId());
+				if (task.isPresent()) {
+					p.setTaskId(task.get().getId());
+					p.setTaskName(task.get().getName());
+				}
 				p.setTimeWork(d.getTimeWorked());
 				p.setNote(d.getNote());
 			}

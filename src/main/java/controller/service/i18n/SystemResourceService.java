@@ -5,12 +5,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import common.i18n.IResourceInitializer;
-import common.i18n.ResourceDto;
 
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)

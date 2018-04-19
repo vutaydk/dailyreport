@@ -2,19 +2,16 @@ package controller.dispatcher;
 
 import java.io.IOException;
 import java.util.Optional;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
-
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
 
@@ -62,7 +59,7 @@ public class LoginSevlet extends HttpServlet {
 		if (currentUser.isAuthenticated()) {
 			return;
 		}
-		String hexPass =new Sha256Hash(pass).toHex();
+		String hexPass = new Sha256Hash(pass).toHex();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, hexPass);
 		try {
 			currentUser.login(token);

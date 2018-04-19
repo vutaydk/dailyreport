@@ -11,6 +11,7 @@ import model.entity.User;
 
 @RequestScoped
 public class UserRepoImpl implements IUserRepo {
+
 	@Inject
 	private DBConnector connector;
 
@@ -18,25 +19,6 @@ public class UserRepoImpl implements IUserRepo {
 	public List<User> getAll() {
 		TypedQuery<User> query = connector.createQuery("FROM " + User.class.getName(), User.class);
 		return query.getResultList();
-	}
-
-	public Optional<User> find(int id) {
-		TypedQuery<User> query = connector.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
-		query.setParameter("id", id);
-		return Optional.ofNullable(query.getSingleResult());
-
-	}
-
-	public Optional<User> check(String em, String pwd) {
-		TypedQuery<User> query = connector
-				.createQuery("FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
-		query.setParameter("em", em);
-		query.setParameter("pwd", pwd);
-		List<User> result = query.getResultList();
-		if (result.isEmpty()) {
-			return Optional.empty();
-		}
-		return Optional.ofNullable(result.get(0));
 	}
 
 	@Override
@@ -56,6 +38,25 @@ public class UserRepoImpl implements IUserRepo {
 	public boolean delete(User user) {
 		connector.delete(user);
 		return true;
+	}
+
+	public Optional<User> check(String em, String pwd) {
+		TypedQuery<User> query = connector
+				.createQuery("FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
+		query.setParameter("em", em);
+		query.setParameter("pwd", pwd);
+		List<User> result = query.getResultList();
+		if (result.isEmpty()) {
+			return Optional.empty();
+		}
+		return Optional.ofNullable(result.get(0));
+	}
+
+	public Optional<User> findById(int id) {
+		TypedQuery<User> query = connector.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
+		query.setParameter("id", id);
+		return Optional.ofNullable(query.getSingleResult());
+
 	}
 
 }
