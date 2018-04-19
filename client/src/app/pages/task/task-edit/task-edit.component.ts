@@ -1,13 +1,13 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { Task } from '../../../entity/task';
-import { TaskService } from '../../../services/task.service';
 import { ActivatedRoute } from '@angular/router';
+import { TaskService } from '../../../services/task.service';
+import { Task } from '../../../entity/task';
 
 @Component({
   selector: 'app-task-edit',
   templateUrl: './task-edit.component.html',
-  providers: [TaskService],
-  styleUrls: ['./task-edit.component.css']
+  styleUrls: ['./task-edit.component.css'],
+  providers: [TaskService]
 })
 export class TaskEditComponent implements OnInit, AfterContentChecked {
   task: Task;

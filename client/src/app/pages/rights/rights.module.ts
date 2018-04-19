@@ -1,17 +1,21 @@
-import { RightsComponent } from './';
-import { RightsRoutingModule } from './rights.routing.module';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 
+import { SharedModule } from '../../shared/shared.module';
+import { RightsRoutingModule } from './rights.routing.module';
+
+import { RightsComponent } from './rights.component';
+import { RightsAddComponent } from './rights-add/rights-add.component';
+import { RightsEditComponent } from './rights-edit/rights-edit.component';
 
 @NgModule({
   imports: [
-    FormsModule,
+    SharedModule,
     RightsRoutingModule
   ],
   declarations: [
-    RightsComponent
+    RightsComponent,
+    RightsAddComponent,
+    RightsEditComponent
   ]
 })
 export class RightsModule { }

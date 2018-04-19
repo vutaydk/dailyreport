@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from './services/auth.service';
 import { AppRoutingModule } from './app.routing.module';
@@ -16,9 +15,6 @@ import { AppRoutingModule } from './app.routing.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgbModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [

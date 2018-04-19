@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { PROJECT } from '../../services/project-mock';
 
 @Component({
@@ -6,13 +7,8 @@ import { PROJECT } from '../../services/project-mock';
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent {
 
   projects = PROJECT;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

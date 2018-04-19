@@ -1,17 +1,23 @@
-import { ReportComponent } from './';
-import { ReportRoutingModule } from './report.routing.module';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 
+import { SharedModule } from '../../shared/shared.module';
+import { ReportRoutingModule } from './report.routing.module';
+
+import { ReportComponent } from './report.component';
+import { ReportAddComponent } from './report-add/report-add.component';
+import { ReportEditComponent } from './report-edit/report-edit.component';
+import { ReportManagermentComponent } from './report-managerment/report-managerment.component';
 
 @NgModule({
   imports: [
-    FormsModule,
+    SharedModule,
     ReportRoutingModule
   ],
   declarations: [
-    ReportComponent
+    ReportComponent,
+    ReportAddComponent,
+    ReportEditComponent,
+    ReportManagermentComponent
   ]
 })
 export class ReportModule { }

@@ -5,8 +5,8 @@ import { TaskService } from '../../services/task.service';
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  providers: [TaskService],
-  styleUrls: ['./task.component.css']
+  styleUrls: ['./task.component.css'],
+  providers: [TaskService]
 })
 export class TaskComponent implements OnInit {
 

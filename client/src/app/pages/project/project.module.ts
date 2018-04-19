@@ -1,23 +1,21 @@
-import { NavComponent, SidebarComponent, SidebarRightComponent } from '../../shared/layout';
-import { ProjectComponent } from './project.component';
-import { ProjectRoutingModule } from './project.routing.module';
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { SharedModule } from '../../shared/shared.module';
+import { ProjectRoutingModule } from './project.routing.module';
+
+import { ProjectComponent } from './project.component';
+import { ProjectAddComponent } from './project-add/project-add.component';
+import { ProjectEditComponent } from './project-edit/project-edit.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ProjectRoutingModule,
-    NgbModule.forRoot()
+    SharedModule,
+    ProjectRoutingModule
   ],
   declarations: [
     ProjectComponent,
-    NavComponent,
-    SidebarComponent,
-    SidebarRightComponent
+    ProjectAddComponent,
+    ProjectEditComponent
   ]
 })
 export class ProjectModule { }

@@ -1,9 +1,4 @@
-import { ProjectComponent } from './pages/project/project.component';
-import { TaskComponent } from './pages/task/task.component';
-import { NavComponent, SidebarComponent, SidebarRightComponent } from './shared/layout';
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
@@ -29,7 +24,6 @@ const routes: Routes = [
   },
   {
     path: 'task',
-    component: TaskComponent,
     loadChildren: './pages/task/task.module#TaskModule'
   },
   {
@@ -39,22 +33,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule.forRoot(routes, {
-      enableTracing: true, // <-- debugging purposes only
-      // preload all modules; optionally we could
-      // implement a custom preloading strategy for just some
-      // of the modules (PRs welcome 😉)
-      preloadingStrategy: PreloadAllModules
-    })],
-  declarations: [
-    TaskComponent,
-    NavComponent,
-    SidebarComponent,
-    SidebarRightComponent
-  ],
+  imports: [RouterModule.forRoot(routes, {
+    enableTracing: false, // <-- debugging purposes only
+    // preload all modules; optionally we could
+    // implement a custom preloading strategy for just some
+    // of the modules (PRs welcome 😉)
+    preloadingStrategy: PreloadAllModules
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

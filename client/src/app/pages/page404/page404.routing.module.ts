@@ -1,6 +1,7 @@
-import { Page404Component } from './page404.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { Page404Component } from './page404.component';
 
 const routes: Routes = [
   {

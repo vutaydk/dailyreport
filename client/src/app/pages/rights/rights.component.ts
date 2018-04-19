@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RightsService } from '../../services/rights.service';
 import { Rights } from '../../entity/rights';
+import { RightsService } from '../../services/rights.service';
 
 @Component({
   selector: 'app-rights',
   templateUrl: './rights.component.html',
-  providers: [RightsService],
-  styleUrls: ['./rights.component.css']
+  styleUrls: ['./rights.component.css'],
+  providers: [RightsService]
 })
 export class RightsComponent implements OnInit {
 
