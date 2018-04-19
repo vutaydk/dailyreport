@@ -30,7 +30,7 @@ GO
 CREATE TABLE users (
 	id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     employee_code VARCHAR(12) NOT NULL,
-    password VARCHAR(18) NOT NULL,
+    password VARCHAR(64) NOT NULL,
 	email VARCHAR(120),
     name NVARCHAR(50),
     rights INT FOREIGN KEY REFERENCES rights(id),
