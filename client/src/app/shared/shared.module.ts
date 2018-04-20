@@ -1,21 +1,24 @@
-import {
-  NavComponent,
-  SidebarRightComponent,
-  SidebarComponent
-} from './layout';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import {
+  NavComponent,
+  SidebarRightComponent,
+  SidebarComponent
+} from './layout';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    HttpClientModule,
+    RouterModule,
+    NgbModule.forRoot() // bootstrap
   ],
   declarations: [
     NavComponent,
@@ -25,7 +28,13 @@ import { RouterModule } from '@angular/router';
   exports: [
     NavComponent,
     SidebarComponent,
-    SidebarRightComponent
+    SidebarRightComponent,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgbModule,
+    RouterModule,
   ]
 })
 export class SharedModule { }
