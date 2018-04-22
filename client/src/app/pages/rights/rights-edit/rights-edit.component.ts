@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { RightsService } from '../../../services/rights.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Rights } from '../../../entity/rights';
 
 @Component({
@@ -16,7 +16,8 @@ export class RightsEditComponent implements OnInit, AfterContentChecked {
 
   constructor(
     private route: ActivatedRoute,
-    private rightsService: RightsService
+    private rightsService: RightsService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -26,6 +27,9 @@ export class RightsEditComponent implements OnInit, AfterContentChecked {
   getRights() {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.rights = this.rightsService.getRights(this.id);
+    if (!this.rights) {
+      this.router.navigate(['404page']);
+    }
   }
 
   ngAfterContentChecked() {

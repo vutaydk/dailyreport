@@ -1,3 +1,47 @@
-<p>
-  report-edit works!
-</p>
+<form>
+
+  <div class="form-row mb-2">
+    <div class="col-2">
+      <select class="custom-select" name="projectCode">
+        <option value="">Choose project...</option>
+        <option></option>
+      </select>
+    </div>
+    <div class="col-10">
+      <button class="btn btn-outline-dark" type="button">label.submit</button>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row mb-2">
+        <label class="col-3 col-form-label"> label.taskCode
+          <select class="form-control" name="taskCode">
+            <option value="">Choose task...</option>
+            <option></option>
+          </select>
+        </label>
+        <label class="col-2 col-form-label"> label.timeWork
+          <input class="form-control" type="text" name="timeWork" placeholder="Hour">
+        </label>
+        <div class="col">
+          <button class="btn btn-outline-danger align-bottom">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <button class="btn btn-outline-dark">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="col col-form-label"> label.note
+          <textarea class="form-control" name="note" rows="10"></textarea>
+        </label>
+      </div>
+    </div>
+  </div>
+
+</form>
+<!-- ./create-report form -->

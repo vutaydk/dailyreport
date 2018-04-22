@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../../../services/task.service';
 import { Task } from '../../../entity/task';
 
@@ -15,7 +15,8 @@ export class TaskEditComponent implements OnInit, AfterContentChecked {
 
   constructor(
     private taskService: TaskService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -25,6 +26,9 @@ export class TaskEditComponent implements OnInit, AfterContentChecked {
   getTask() {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.task = this.taskService.getTask(this.id);
+    if (!this.task) {
+      this.router.navigate(['404page']);
+    }
   }
 
   ngAfterContentChecked() {

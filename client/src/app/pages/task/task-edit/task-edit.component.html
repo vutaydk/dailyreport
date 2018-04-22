@@ -1,13 +1,13 @@
-<form id="submit-form" action="" method="POST">
+<form>
   <div class="form-group mb-0">
     <label class="col-3 col-form-label"> label.taskCode
-      <input id="taskCode" type="text" maxlength="4" name="taskCode" [value]="task.taskCode" class="form-control">
+      <input type="text" maxlength="4" name="taskCode" [value]="task?.taskCode" class="form-control">
     </label>
   </div>
 
   <div class="form-group">
     <label class="col-6 col-form-label"> label.name
-      <input id="name" type="text" maxlength="50" name="name" [value]="task.name" class="form-control">
+      <input maxlength="50" name="name" [value]="task?.name" class="form-control">
     </label>
   </div>
 

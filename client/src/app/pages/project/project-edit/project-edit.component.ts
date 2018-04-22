@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { ProjectService } from '../../../services/project.service';
 import { Project } from '../../../entity/project';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-edit',
@@ -16,7 +16,8 @@ export class ProjectEditComponent implements OnInit, AfterContentChecked {
 
   constructor(
     private projectService: ProjectService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -26,6 +27,9 @@ export class ProjectEditComponent implements OnInit, AfterContentChecked {
   getProject() {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.project = this.projectService.getProject(this.id);
+    if (!this.project) {
+      this.router.navigate(['404page']);
+    }
   }
 
   onSubmit(projectForm) {

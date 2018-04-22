@@ -9,7 +9,9 @@ export class ReportEditComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }
+
+

@@ -16,7 +16,7 @@ const routes: Routes = [
         component: ReportAddComponent
       },
       {
-        path: 'managerment',
+        path: 'management',
         component: ReportManagermentComponent
       },
       {
