@@ -1,6 +1,7 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { Project, ProjectJson } from '../../../entity/project';
 import { Task, TaskJson } from '../../../entity/task';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
 @Component({
   selector: 'app-project-chart',
@@ -11,8 +12,10 @@ export class ProjectChartComponent implements OnChanges {
   @Input() projectSelected;
   @Input() taskSelected;
   @Input() projectJson: ProjectJson[] = [];
+  @ViewChild('pChart') baseChart: BaseChartDirective;
   projects: ProjectJson[] = [];
   hasChartData: boolean;
+
   chartOptions = {
     responsive: true
   };
@@ -27,11 +30,28 @@ export class ProjectChartComponent implements OnChanges {
 
   ngOnChanges() {
     this.projects = [];
-    if (this.projectSelected.match(/^[0-9]*$/)) {
-      this.projects = [...this.projectJson.filter(p => p.id === +this.projectSelected)];
+    let filtered: ProjectJson[];
+    if (this.projectSelected.match(/^[0-9]*$/) && this.taskSelected.match(/^[0-9]*$/)) {
+      filtered = this.projectJson.filter(p => p.id === +this.projectSelected).map(p1 => {
+        return {
+          ...p1,
+          tasks: p1.tasks.filter(t => t.taskId === +this.taskSelected)
+        };
+      });
+    } else if (this.projectSelected.match(/^[0-9]*$/)) {
+      filtered = this.projectJson.filter(p => p.id === +this.projectSelected);
+    } else if (this.taskSelected.match(/^[0-9]*$/)) {
+      filtered = this.projectJson.filter(p => p).map(p1 => {
+        return {
+          ...p1,
+          tasks: p1.tasks.filter(t => t.taskId === +this.taskSelected)
+        };
+      });
     } else {
-      this.projects = [...this.projectJson];
+      filtered = [...this.projectJson];
     }
+    this.projects = [...filtered];
+    filtered = [];
     this.getChartData();
   }
 
@@ -52,17 +72,20 @@ export class ProjectChartComponent implements OnChanges {
       }
     }
     chart.forEach(c => {
-      this.chartLabels.push(c.taskName);
       this.chartData.push(c.timeWork);
+      this.chartLabels.push(c.taskName);
       this.tableData.tasks.push(c);
       this.tableData.total += c.timeWork;
     });
     this.hasChartData = true;
+    if (this.baseChart) {
+      this.baseChart.chart.update();
+    }
   }
 
   resetData() {
-    this.chartData = [];
-    this.chartLabels = [];
+    this.chartData.splice(0, this.chartData.length);
+    this.chartLabels.splice(0, this.chartLabels.length);
     this.tableData.tasks = [];
   }
 }
