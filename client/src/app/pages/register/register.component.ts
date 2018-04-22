@@ -4,11 +4,11 @@ import { AuthService } from '../../services/auth.service';
 import { Login } from '../../entity/login';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent {
+export class RegisterComponent {
 
   user: Login = new Login();
 
@@ -17,16 +17,24 @@ export class LoginComponent {
     private router: Router
   ) { }
 
-  onLogin(): void {
-    this.auth.login(this.user)
+  onRegister(loginForm): void {
+    console.log(loginForm);
+    this.auth.register(this.user)
       .then((user) => {
         console.log(user);
-        localStorage.setItem('token', user.token);
-        this.router.navigateByUrl('/project');
+        //localStorage.setItem('token', user.token);
       })
       .catch((err) => {
         console.log(err);
       });
+
+    this.auth.logout();
+  }
+
+  onLogout(): void {
+    this.auth.logout();
+    console.log('logout sucess');
+    this.router.navigateByUrl('/login');
   }
 
 }

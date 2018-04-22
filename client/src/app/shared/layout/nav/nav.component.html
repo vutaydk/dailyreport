@@ -11,7 +11,7 @@
       <button class="btn btn-outline-light" id="userDropdown" ngbDropdownToggle>
         user.rights.name </button>
       <div ngbDropdownMenu aria-labelledby="userDropdown">
-        <a class="dropdown-item" href="logout"> label.logout </a>
+        <a class="dropdown-item" (click)="onLogout()"> label.logout </a>
       </div>
     </li>
   </ul>

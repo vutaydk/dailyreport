@@ -2,11 +2,10 @@ import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 
 import { AuthService } from './services/auth.service';
 import { AppRoutingModule } from './app.routing.module';
+import { Authenticated } from './services/authenticated.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +17,7 @@ import { AppRoutingModule } from './app.routing.module';
     AppRoutingModule
   ],
   providers: [
+    Authenticated,
     AuthService
   ],
   bootstrap: [AppComponent]

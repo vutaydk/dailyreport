@@ -1,29 +1,39 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Authenticated } from './services/authenticated.service';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './pages/login/login.module#LoginModule'
+    canActivate: [Authenticated],
+    loadChildren: './pages/login/login.module#LoginModule',
   },
   {
     path: 'login',
     loadChildren: './pages/login/login.module#LoginModule'
   },
   {
+    path: 'register',
+    loadChildren: './pages/register/register.module#RegisterModule'
+  },
+  {
     path: 'project',
+    canActivate: [Authenticated],
     loadChildren: './pages/project/project.module#ProjectModule'
   },
   {
     path: 'report',
+    canActivate: [Authenticated],
     loadChildren: './pages/report/report.module#ReportModule'
   },
   {
     path: 'rights',
+    canActivate: [Authenticated],
     loadChildren: './pages/rights/rights.module#RightsModule'
   },
   {
     path: 'task',
+    canActivate: [Authenticated],
     loadChildren: './pages/task/task.module#TaskModule'
   },
   {
