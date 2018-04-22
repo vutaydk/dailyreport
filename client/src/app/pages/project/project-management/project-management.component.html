@@ -7,18 +7,18 @@
         <div class="card-body">
           <div class="row justify-content-center mb-3">
             <select class="form-control col-2 mr-2" [(ngModel)]="projectSelected">
-              <option [value]="underfined">All project</option>
+              <option value="all">All project</option>
               <option *ngFor="let p of projects" [value]="p.id">{{p.name}}</option>
             </select>
             <select class="form-control col-2" [(ngModel)]="taskSelected">
-              <option [value]="underfined">All task</option>
+              <option value="all">All task</option>
               <option *ngFor="let t of tasks" [value]="t.id">{{t.name}}</option>
             </select>
             <pre>
               {{projectSelected}} {{taskSelected}}
             </pre>
           </div>
-          <app-project-chart [projectSelected]="projectSelected" [taskSelected]="taskSelected"></app-project-chart>
+          <app-project-chart [projectJson]="projectJson" [projectSelected]="projectSelected" [taskSelected]="taskSelected"></app-project-chart>
         </div>
       </div>
     </div>

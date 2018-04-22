@@ -11,9 +11,10 @@ import { Task, TaskJson } from '../../../entity/task';
 })
 export class ProjectManagementComponent implements OnInit {
 
-  projectSelected: number;
-  taskSelected: number;
+  projectSelected = 'all';
+  taskSelected = 'all';
 
+  projectJson: ProjectJson[] = [];
   projects: Project[] = [];
   tasks: Task[] = [];
 
@@ -22,6 +23,7 @@ export class ProjectManagementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.projectJson = this._projectService.getProjectsJson();
     this.projects = this._projectService.getProjects();
     this.tasks = this._projectService.getTasks();
   }

@@ -1,18 +1,18 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ProjectService } from '../project.service';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Project, ProjectJson } from '../../../entity/project';
 import { Task, TaskJson } from '../../../entity/task';
 
 @Component({
   selector: 'app-project-chart',
   templateUrl: './project-chart.component.html',
-  styleUrls: ['./project-chart.component.css'],
-  providers: [ProjectService]
+  styleUrls: ['./project-chart.component.css']
 })
-export class ProjectChartComponent implements OnInit, OnChanges {
-  @Input() projectSelected: number;
-  @Input() taskSelected: number;
-  projectJson: ProjectJson[] = [];
+export class ProjectChartComponent implements OnChanges {
+  @Input() projectSelected;
+  @Input() taskSelected;
+  @Input() projectJson: ProjectJson[] = [];
+  projects: ProjectJson[] = [];
+  hasChartData: boolean;
   chartOptions = {
     responsive: true
   };
@@ -23,49 +23,32 @@ export class ProjectChartComponent implements OnInit, OnChanges {
     total: 0
   };
 
-  constructor(
-    private _projectService: ProjectService
-  ) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.projectJson = this._projectService.getProjectsJson();
-    this.getData();
-  }
-
-  /*
-    1. get all if projectSelected and taskSelected undefined
-    2. get all task by projectId if projectSelected != undefinded and taskSelected undefined
-    3. get one task of all project if projectSelected undefined and taskSelected != undefined
-    4. get one task of one project if projectSelected and taskSelected != undefined
-  */
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.projectSelected) {
-      this.projectJson = this._projectService.getProjectsJson().filter(p => p.id === +this.projectSelected);
+  ngOnChanges() {
+    this.projects = [];
+    if (this.projectSelected.match(/^[0-9]*$/)) {
+      this.projects = [...this.projectJson.filter(p => p.id === +this.projectSelected)];
+    } else {
+      this.projects = [...this.projectJson];
     }
-    console.log(this.projectSelected, this.taskSelected);
-    console.table(this.projectJson);
-    this.getData();
+    this.getChartData();
   }
 
-  resetChart() {
-    this.chartData = [];
-    this.chartLabels = [];
-    this.tableData.tasks = [];
-  }
-
-
-  getData(): void {
-    this.resetChart();
+  getChartData(): void {
+    this.resetData();
+    if (!this.projects.length) {
+      this.hasChartData = false;
+      return;
+    }
     const chart: Map<number, TaskJson> = new Map<number, TaskJson>();
-    for (const p of this.projectJson) {
+    for (const p of this.projects) {
       for (const t of p.tasks) {
-        if (chart.has(t.taskId)) {
-          // if timework not undefined
-          if (chart.get(t.taskId).timeWork) {
-            t.timeWork += chart.get(t.taskId).timeWork;
-          }
+        const task = { ...t };
+        if (chart.has(task.taskId)) {
+          task.timeWork += chart.get(task.taskId).timeWork;
         }
-        chart.set(t.taskId, t);
+        chart.set(task.taskId, task);
       }
     }
     chart.forEach(c => {
@@ -74,6 +57,12 @@ export class ProjectChartComponent implements OnInit, OnChanges {
       this.tableData.tasks.push(c);
       this.tableData.total += c.timeWork;
     });
+    this.hasChartData = true;
   }
 
+  resetData() {
+    this.chartData = [];
+    this.chartLabels = [];
+    this.tableData.tasks = [];
+  }
 }

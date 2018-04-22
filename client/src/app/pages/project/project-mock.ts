@@ -8,32 +8,37 @@ export const PROJECT_JSON: ProjectJson[] = [
             {
                 taskId: 1,
                 taskName: 'Dev',
-                timeWork: 0
+                timeWork: 1
             },
             {
                 taskId: 2,
                 taskName: 'Test',
-                timeWork: 8
+                timeWork: 2
             },
             {
                 taskId: 3,
                 taskName: 'Search',
-                timeWork: 2
+                timeWork: 3
             },
             {
                 taskId: 1,
                 taskName: 'Dev',
-                timeWork: 10
+                timeWork: 1
             },
             {
                 taskId: 2,
                 taskName: 'Test',
-                timeWork: 45
+                timeWork: 2
             },
             {
                 taskId: 3,
                 taskName: 'Search',
-                timeWork: 24
+                timeWork: 3
+            },
+            {
+                taskId: 3,
+                taskName: 'Search',
+                timeWork: 3
             }
         ]
     },
@@ -44,12 +49,12 @@ export const PROJECT_JSON: ProjectJson[] = [
             {
                 taskId: 1,
                 taskName: 'Dev',
-                timeWork: 5
+                timeWork: 1
             },
             {
                 taskId: 2,
                 taskName: 'Test',
-                timeWork: 8
+                timeWork: 2
             }
         ]
     }
