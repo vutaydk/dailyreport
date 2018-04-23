@@ -1,8 +1,0 @@
-<div *ngIf="hasChartData" class="row justify-content-center">
-  <!-- chart here -->
-  <canvas #pChart="base-chart" baseChart [chartType]="'doughnut'" [data]="chartData" [labels]="chartLabels" [options]="chartOptions" [legend]="true">
-  </canvas>
-</div>
-<div *ngIf="!hasChartData" class="row justify-content-center">
-  <p>Have no data</p>
-</div>
