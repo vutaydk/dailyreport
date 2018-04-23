@@ -86,6 +86,7 @@ export class ProjectChartComponent implements OnChanges {
   resetData() {
     this.chartData.splice(0, this.chartData.length);
     this.chartLabels.splice(0, this.chartLabels.length);
-    this.tableData.tasks = [];
+    this.tableData.total = 0;
+    this.tableData.tasks.splice(0, this.tableData.tasks.length);
   }
 }
