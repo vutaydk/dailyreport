@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { RightsService } from '../../../services/rights.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Rights } from '../../../entity/rights';
+import { RightsService } from '../rights.service';
 
 @Component({
   selector: 'app-rights-edit',

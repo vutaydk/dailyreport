@@ -6,6 +6,7 @@ import { RightsRoutingModule } from './rights.routing.module';
 import { RightsComponent } from './rights.component';
 import { RightsAddComponent } from './rights-add/rights-add.component';
 import { RightsEditComponent } from './rights-edit/rights-edit.component';
+import { RightsService } from './rights.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { RightsEditComponent } from './rights-edit/rights-edit.component';
     RightsComponent,
     RightsAddComponent,
     RightsEditComponent
-  ]
+  ],
+  providers: [RightsService]
 })
 export class RightsModule { }
