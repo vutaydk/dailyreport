@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Rights } from '../../entity/rights';
-import { RightsService } from '../../services/rights.service';
+import { RightsService } from './rights.service';
 
 @Component({
   selector: 'app-rights',
@@ -19,5 +19,4 @@ export class RightsComponent implements OnInit {
   ngOnInit() {
     this.rights = this.rightsService.getAllRights();
   }
-
 }
