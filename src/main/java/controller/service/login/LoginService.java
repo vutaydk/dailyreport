@@ -14,7 +14,7 @@ import org.apache.shiro.subject.Subject;
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
 
-@Path("/project")
+@Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class LoginService {
