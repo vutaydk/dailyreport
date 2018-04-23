@@ -7,12 +7,12 @@ import model.entity.Report;
 import model.repo.report.IReportRepo;
 
 @RequestScoped
-@Transactional
 public class AddReportHandler {
 
 	@Inject
 	private IReportRepo reportRepo;
 
+	@Transactional
 	public int execute(Report input) {
 
 		reportRepo.insert(input);

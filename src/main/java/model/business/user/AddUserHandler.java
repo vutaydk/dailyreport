@@ -7,12 +7,12 @@ import model.entity.User;
 import model.repo.user.IUserRepo;
 
 @RequestScoped
-@Transactional
 public class AddUserHandler {
 
 	@Inject
 	private IUserRepo userRepo;
 
+	@Transactional
 	public int execute(User input) {
 
 		userRepo.insert(input);

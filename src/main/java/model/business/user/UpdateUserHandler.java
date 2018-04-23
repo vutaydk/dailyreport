@@ -10,12 +10,12 @@ import model.entity.User;
 import model.repo.user.IUserRepo;
 
 @RequestScoped
-@Transactional
 public class UpdateUserHandler {
 
 	@Inject
 	private IUserRepo userRepo;
 
+	@Transactional
 	public int execute(User input, int id) {
 		checkExistId(id);
 
@@ -25,7 +25,7 @@ public class UpdateUserHandler {
 		return input.getId();
 	}
 
-	public void checkExistId(int id) {
+	private void checkExistId(int id) {
 		Optional<User> user = userRepo.findById(id);
 		if (!user.isPresent())
 			throw new BusinessException(new RawMessage("user khong ton tai"));

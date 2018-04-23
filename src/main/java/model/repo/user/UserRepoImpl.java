@@ -55,8 +55,25 @@ public class UserRepoImpl implements IUserRepo {
 	public Optional<User> findById(int id) {
 		TypedQuery<User> query = connector.createQuery("FROM " + User.class.getName() + " WHERE id=:id", User.class);
 		query.setParameter("id", id);
-		return Optional.ofNullable(query.getSingleResult());
+		List<User> result = query.getResultList();
+		if (result.isEmpty()) {
+			return Optional.empty();
+		}
+		return Optional.ofNullable(result.get(0));
 
+	}
+
+	@Override
+	public Optional<User> findByEmplyee(String employee) {
+		TypedQuery<User> query = connector.createQuery(
+				"FROM " + User.class.getName() + " WHERE employeeCode=:employee OR  email=:email", User.class);
+		query.setParameter("employee", employee);
+		query.setParameter("email", employee);
+		List<User> result = query.getResultList();
+		if (result.isEmpty()) {
+			return Optional.empty();
+		}
+		return Optional.ofNullable(result.get(0));
 	}
 
 }

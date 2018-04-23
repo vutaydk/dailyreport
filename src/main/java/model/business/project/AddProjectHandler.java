@@ -11,12 +11,12 @@ import model.entity.Project;
 import model.repo.project.IProjectRepo;
 
 @RequestScoped
-@Transactional
 public class AddProjectHandler {
 
 	@Inject
 	private IProjectRepo projectRepo;
 
+	@Transactional
 	public int execute(Project input) {
 		checkDuplicateProjectCode(input.getProjectCode());
 		validateDateRange(input.getStartAt(), input.getFinishAt());
@@ -33,8 +33,7 @@ public class AddProjectHandler {
 	}
 
 	private void validateDateRange(Date startDate, Date endDate) {
-		if (startDate.compareTo(endDate) > 0) {
+		if (startDate.compareTo(endDate) > 0)
 			throw new BusinessException(new RawMessage("start date phai nho hon hoac bang end date"));
-		}
 	}
 }

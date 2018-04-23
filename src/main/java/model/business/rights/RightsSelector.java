@@ -11,13 +11,13 @@ import model.repo.right.IRightRepo;
 public class RightsSelector {
 
 	@Inject
-	private IRightRepo rightRepo;
+	private IRightRepo rightsRepo;
 
 	public List<Rights> getList() {
-		return rightRepo.getAll();
+		return rightsRepo.getAll();
 	}
 
 	public Optional<Rights> getRightsDetailById(int id) {
-		return rightRepo.findById(id);
+		return rightsRepo.findById(id);
 	}
 }

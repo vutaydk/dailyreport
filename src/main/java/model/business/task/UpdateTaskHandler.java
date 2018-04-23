@@ -10,12 +10,12 @@ import model.entity.Task;
 import model.repo.task.ITaskRepo;
 
 @RequestScoped
-@Transactional
 public class UpdateTaskHandler {
 
 	@Inject
 	private ITaskRepo taskRepo;
 
+	@Transactional
 	public int execute(Task input, int id) {
 		checkExistId(id);
 		checkDuplicateProjectCode(input.getTaskCode());
@@ -26,7 +26,7 @@ public class UpdateTaskHandler {
 		return input.getId();
 	}
 
-	public void checkExistId(int id) {
+	private void checkExistId(int id) {
 		Optional<Task> task = taskRepo.findById(id);
 		if (!task.isPresent())
 			throw new BusinessException(new RawMessage("task khong ton tai"));

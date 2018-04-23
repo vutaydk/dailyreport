@@ -1,6 +1,6 @@
 package controller.service.login;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 public class UserDTO {
 
-	@NotBlank
+	@NotNull
 	private String employeeCode;
 
-	@NotBlank
+	@NotNull
 	private String password;
 }

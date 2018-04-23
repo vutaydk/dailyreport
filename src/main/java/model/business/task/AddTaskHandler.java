@@ -10,12 +10,12 @@ import model.entity.Task;
 import model.repo.task.ITaskRepo;
 
 @RequestScoped
-@Transactional
 public class AddTaskHandler {
 
 	@Inject
 	private ITaskRepo taskRepo;
 
+	@Transactional
 	public int execute(Task input) {
 		checkDuplicateProjectCode(input.getTaskCode());
 

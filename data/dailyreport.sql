@@ -133,10 +133,10 @@ VALUES ('Truong Nhom', 3);
 -- INSERT INTO USER
 --1
 INSERT INTO users(employee_code, password, rights, email, name)
-VALUES ('hanh', '1111', 1, 'hanh.cho.do@gmail.com', 'Nguyen Hanh');
+VALUES ('hanh', '0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c', 1, 'hanh.cho.do@gmail.com', 'Nguyen Hanh');
 --1
 INSERT INTO users(employee_code, password, email, name)
-VALUES ('giaduc', '1111', 'giaduc@gmail.com', 'Gia Duc');
+VALUES ('giaduc', '0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c', 'giaduc@gmail.com', 'Gia Duc');
 
 -- INSERT INTO PROJECT
 --1
