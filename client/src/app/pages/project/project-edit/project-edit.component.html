@@ -1,0 +1,68 @@
+<form (submit)="onSubmit(projectForm)" #projectForm="ngForm">
+
+  <div class="form-group mb-0">
+    <label class="col-3 col-form-label">
+      label.projectCode
+      <input type="text" maxlength="4" name="projectCode" [value]="project?.projectCode" class="form-control">
+
+    </label>
+  </div>
+
+  <div class="form-group mb-0">
+    <label for="name" class="col-6 col-form-label">
+      label.name
+      <input type="text" maxlength="50" name="name" [value]="project?.name" class="form-control">
+    </label>
+  </div>
+
+  <div class="form-group mb-0">
+    <label for="startAt" class="col-4 col-form-label">
+      label.startAt
+      <div class="input-group">
+        <input name="startAt" [value]="project?.startAt" class="form-control">
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <i class="far fa-calendar-alt"></i>
+          </span>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <div class="form-group mb-0">
+    <label for="finishAt" class="col-4 col-form-label">
+      label.finishAt
+      <div class="input-group">
+        <input name="finishAt" [value]="project?.finishAt" class="form-control">
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <i class="far fa-calendar-alt"></i>
+          </span>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="col-6 col-form-label"> label.manager
+      <div class="input-group">
+        <input type="text" class="form-control">
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-primary">
+        label.submit</button>
+      <button type="reset" class="btn btn-default">
+        label.reset</button>
+    </div>
+  </div>
+
+</form>

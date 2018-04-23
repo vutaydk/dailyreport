@@ -6,3 +6,6 @@
 /target/
 *.project
 src/main/java/common/util/HibernateUtil.java
+/client/node_modules/*
+/client/yarn.lock
+/client/.vscode/

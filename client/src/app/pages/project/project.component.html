@@ -1,0 +1,17 @@
+<app-nav></app-nav>
+<app-sidebar></app-sidebar>
+<div class="col-sm-9 offset-sm-3 col-lg-10 offset-lg-2 pt-2 main">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <app-sidebar-right [obj]="projects"></app-sidebar-right>
+    </div>
+  </div>
+</div>
+<!-- ./create-project form -->

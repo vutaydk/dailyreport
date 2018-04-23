@@ -1,0 +1,47 @@
+<app-nav></app-nav>
+<app-sidebar></app-sidebar>
+<div class="col-sm-9 offset-sm-3 col-lg-10 offset-lg-2 pt-2 main">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="row justify-content-center mb-3">
+            <select class="form-control col-2 mr-2" [(ngModel)]="projectSelected">
+              <option value="all">All project</option>
+              <option *ngFor="let p of projects" [value]="p.id">{{p.name}}</option>
+            </select>
+            <select class="form-control col-2" [(ngModel)]="taskSelected">
+              <option value="all">All task</option>
+              <option *ngFor="let t of tasks" [value]="t.id">{{t.name}}</option>
+            </select>
+          </div>
+          <app-project-chart #chart [projectJson]="projectJson" [projectSelected]="projectSelected" [taskSelected]="taskSelected"></app-project-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="cart-body">
+          <table *ngIf="chart.hasChartData" class="table mt-3">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let task of chart.tableData.tasks">
+              <tr>
+                <td>{{task.taskName}}</td>
+                <td>{{task.timeWork}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <td>Total</td>
+              <td>{{chart.tableData.total}}</td>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
