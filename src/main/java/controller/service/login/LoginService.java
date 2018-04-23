@@ -27,6 +27,7 @@ public class LoginService {
 	}
 
 	@GET
+	@Path("get-info")
 	public boolean getUser() {
 		Subject currentUser = SecurityUtils.getSubject();
 		return currentUser.isAuthenticated();
