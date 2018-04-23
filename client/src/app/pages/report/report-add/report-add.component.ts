@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+
 import { Project } from '../../../entity/project';
 import { ProjectService } from '../../../services/project.service';
 import { Task } from '../../../entity/task';
@@ -23,7 +24,7 @@ export class ReportAddComponent implements OnInit {
     private taskService: TaskService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.reportForm = this.fb.group({
       projectCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]],
       employeeCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]],
@@ -34,7 +35,7 @@ export class ReportAddComponent implements OnInit {
 
   }
 
-  onSubmit() {
+  onSubmit(): void {
     console.log(JSON.stringify(this.reportForm.value));
   }
 
@@ -46,12 +47,12 @@ export class ReportAddComponent implements OnInit {
     });
   }
 
-  addTask() {
+  addTask(): void {
     const control = <FormArray>this.reportForm.controls['tasks'];
     control.push(this.createTask());
   }
 
-  remoreTask(i: number) {
+  remoreTask(i: number): void {
     const control = <FormArray>this.reportForm.controls['tasks'];
     if (control.length > 1) {
       control.removeAt(i);

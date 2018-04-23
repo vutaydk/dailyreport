@@ -3,7 +3,7 @@
   <div class="form-group mb-0">
     <label class="col-3 col-form-label">
       label.projectCode
-      <input id="projectCode" type="text" maxlength="4" name="projectCode" [value]="project.projectCode" class="form-control">
+      <input type="text" maxlength="4" name="projectCode" [value]="project?.projectCode" class="form-control">
 
     </label>
   </div>
@@ -11,7 +11,7 @@
   <div class="form-group mb-0">
     <label for="name" class="col-6 col-form-label">
       label.name
-      <input id="name" type="text" maxlength="50" name="name" [value]="project.name" class="form-control">
+      <input type="text" maxlength="50" name="name" [value]="project?.name" class="form-control">
     </label>
   </div>
 
@@ -19,7 +19,7 @@
     <label for="startAt" class="col-4 col-form-label">
       label.startAt
       <div class="input-group">
-        <input id="startAt" name="startAt" [value]="project.startAt" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-start-date="0d">
+        <input name="startAt" [value]="project?.startAt" class="form-control">
         <div class="input-group-append">
           <span class="input-group-text">
             <i class="far fa-calendar-alt"></i>
@@ -33,7 +33,7 @@
     <label for="finishAt" class="col-4 col-form-label">
       label.finishAt
       <div class="input-group">
-        <input id="finishAt" name="finishAt" [value]="project.finishAt" class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-start-date="0d">
+        <input name="finishAt" [value]="project?.finishAt" class="form-control">
         <div class="input-group-append">
           <span class="input-group-text">
             <i class="far fa-calendar-alt"></i>

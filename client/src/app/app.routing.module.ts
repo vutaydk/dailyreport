@@ -37,8 +37,13 @@ const routes: Routes = [
     loadChildren: './pages/task/task.module#TaskModule'
   },
   {
-    path: '**',
+    path: '404page',
     loadChildren: './pages/page404/page404.module#Page404Module'
+  },
+  {
+    path: '**',
+    redirectTo: '404page',
+    pathMatch: 'full'
   }
 ];
 
