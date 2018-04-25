@@ -1,45 +1,16 @@
-<div class="input-group mb-1">
-  <input id="search" type="text" class="form-control">
-  <div class="input-group-append">
-    <span class="input-group-text">
-      <i class="fas fa-search"></i>
-    </span>
+<div class="card">
+  <div class="card-body p-1">
+    <div class="input-group mb-1">
+      <input #search (keyup)="onSearch(search)" type="text" class="form-control">
+      <div class="input-group-append">
+        <span class="input-group-text">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="list-group">
+      <a *ngFor="let o of result" [routerLink]="[o.id]" class="list-group-item list-group-item-action">{{o.name}}</a>
+    </div>
   </div>
 </div>
-<div class="sidebar-list mb-1">
-  <ul id="list-bar" class="list-group">
-    <li *ngFor="let o of obj" class="list-group-item">
-      <a routerLink="{{o.id}}">{{o.name}}</a>
-    </li>
-  </ul>
-</div>
-<nav class="sidebar-pagination">
-  <ul class="pagination pagination-sm justify-content-center">
-    <li id="first" class="page-item">
-      <a class="page-link" href="#">
-        <i class="fas fa-angle-double-left"></i>
-      </a>
-    </li>
-    <li id="prev" class="page-item">
-      <a class="page-link" href="#">
-        <i class="fas fa-angle-left"></i>
-      </a>
-    </li>
-    <li class="page-item">
-      <select id="page-select" class="pagination-select">
-      </select>
-    </li>
-    <li id="next" class="page-item">
-      <a class="page-link" href="#">
-        <i class="fas fa-angle-right"></i>
-      </a>
-    </li>
-    <li id="last" class="page-item">
-      <a class="page-link" href="#">
-        <i class="fas fa-angle-double-right"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
-
-<!-- ./sidebar -->

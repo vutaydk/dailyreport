@@ -8,11 +8,19 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SidebarRightComponent implements OnInit {
 
   @Input() obj: any;
+  result;
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.obj);
+    this.result = this.obj;
+  }
+
+  onSearch(search): void {
+    const filter = search.value.toLowerCase().trim();
+    this.result = this.obj.filter(o => {
+      return o.name.trim().toLowerCase().includes(filter);
+    });
   }
 
 }
