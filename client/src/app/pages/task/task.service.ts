@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TASK } from './task-mock';
+import { TASK } from '../../services/task-mock';
 
 @Injectable()
 export class TaskService {

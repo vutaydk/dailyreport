@@ -1,19 +1,23 @@
-<form>
+<form (ngSubmit)="onUpdateTask()" [formGroup]="taskForm">
   <div class="form-group mb-0">
-    <label class="col-3 col-form-label"> label.taskCode
-      <input type="text" maxlength="4" name="taskCode" [value]="task?.taskCode" class="form-control">
+    <label class="col-3 col-form-label">
+      <b>label.taskCode</b>
+      <input formControlName="taskCode" class="form-control" type="text" maxlength="4" [value]="task?.taskCode" [ngClass]="taskForm.controls.taskCode.dirty ? (taskForm.controls.taskCode.valid ? 'is-valid' : 'is-invalid') : ''">
+      <div class="invalid-feedback">Task code must be exactly 4 characters.</div>
     </label>
   </div>
 
   <div class="form-group">
-    <label class="col-6 col-form-label"> label.name
-      <input maxlength="50" name="name" [value]="task?.name" class="form-control">
+    <label class="col-6 col-form-label">
+      <b>label.name</b>
+      <input formControlName="name" class="form-control" maxlength="50" [value]="task?.name" [ngClass]="taskForm.controls.name.dirty ? (taskForm.controls.name.valid ? 'is-valid' : 'is-invalid') : ''">
+      <div class="invalid-feedback">Name must be at least 4 characters.</div>
     </label>
   </div>
 
   <div class="form-group row">
     <div class="col-12 text-center">
-      <button type="submit" class="btn btn-primary">label.submit</button>
+      <button [disabled]="!taskForm.valid" type="submit" class="btn btn-primary">label.submit</button>
       <button type="reset" class="btn btn-default">label.reset</button>
     </div>
   </div>

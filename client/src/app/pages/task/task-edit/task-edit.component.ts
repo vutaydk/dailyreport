@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TaskService } from '../../../services/task.service';
-import { Task } from '../../../entity/task';
+import { TaskService } from '../task.service';
+import { FormGroup } from '@angular/forms';
+import { TaskInterface, Task } from '../../../interfaces/task.interface';
 
 @Component({
   selector: 'app-task-edit',
@@ -10,6 +11,7 @@ import { Task } from '../../../entity/task';
   providers: [TaskService]
 })
 export class TaskEditComponent implements OnInit, AfterContentChecked {
+  taskForm: FormGroup;
   task: Task;
   id: number;
 
@@ -21,6 +23,7 @@ export class TaskEditComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.getTask();
+    this.taskForm = TaskInterface.newTaskForm();
   }
 
   getTask() {
@@ -33,5 +36,11 @@ export class TaskEditComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     this.getTask();
+  }
+
+  onUpdateTask(): void {
+    if (this.taskForm.valid) {
+      // update task
+    }
   }
 }

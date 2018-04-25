@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Rights } from '../../../entity/rights';
 import { RightsService } from '../rights.service';
+import { Rights, RightsInterface } from '../../../interfaces/rights.interface';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-rights-edit',
@@ -10,7 +11,7 @@ import { RightsService } from '../rights.service';
   styleUrls: ['./rights-edit.component.css']
 })
 export class RightsEditComponent implements OnInit, AfterContentChecked {
-
+  rightsForm: FormGroup;
   rights: Rights;
   id: number;
 
@@ -21,6 +22,7 @@ export class RightsEditComponent implements OnInit, AfterContentChecked {
   ) { }
 
   ngOnInit() {
+    this.rightsForm = RightsInterface.newRightsForm();
     this.getRights();
   }
 
@@ -34,6 +36,13 @@ export class RightsEditComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     this.getRights();
+  }
+
+  onUpdateRights(): void {
+    if (this.rightsForm.valid) {
+      // update rights
+      console.log(this.rightsForm.value);
+    }
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Project, ProjectJson } from '../../../entity/project';
 import { ProjectService } from '../project.service';
-import { Task, TaskJson } from '../../../entity/task';
+import { Task } from '../../../interfaces/task.interface';
+import { ProjectJSON, Project } from '../../../interfaces/project.interface';
 
 @Component({
   selector: 'app-project-management',
@@ -14,7 +14,7 @@ export class ProjectManagementComponent implements OnInit {
   projectSelected = 'all';
   taskSelected = 'all';
 
-  projectJson: ProjectJson[] = [];
+  projectJson: ProjectJSON[] = [];
   projects: Project[] = [];
   tasks: Task[] = [];
 

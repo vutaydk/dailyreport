@@ -1,27 +1,26 @@
-<form (submit)="onSubmit(projectForm)" #projectForm="ngForm">
-
+<form (ngSubmit)="onUpdateProject()" [formGroup]="projectForm">
   <div class="form-group mb-0">
     <label class="col-3 col-form-label">
-      label.projectCode
-      <input type="text" maxlength="4" name="projectCode" [value]="project?.projectCode" class="form-control">
-
+      <b> label.projectCode </b>
+      <input formControlName="projectCode" class="form-control" type="text" maxlength="4" [value]="project?.projectCode" [ngClass]="projectForm.controls.projectCode.dirty ? (projectForm.controls.projectCode.valid ? 'is-valid' : 'is-invalid') : ''">
     </label>
   </div>
 
   <div class="form-group mb-0">
     <label for="name" class="col-6 col-form-label">
-      label.name
-      <input type="text" maxlength="50" name="name" [value]="project?.name" class="form-control">
+      <b> label.name </b>
+      <input formControlName="name" class="form-control" type="text" maxlength="50" [value]="project?.name" [ngClass]="projectForm.controls.name.dirty ? (projectForm.controls.name.valid ? 'is-valid' : 'is-invalid') : ''">
     </label>
   </div>
 
   <div class="form-group mb-0">
     <label for="startAt" class="col-4 col-form-label">
-      label.startAt
+      <b> label.startAt </b>
       <div class="input-group">
-        <input name="startAt" [value]="project?.startAt" class="form-control">
+        <input formControlName="startAt" (click)="startAt.toggle()" class="form-control" [value]="project?.startAt" ngbDatepicker
+          #startAt="ngbDatepicker" [ngClass]="projectForm.controls.startAt.dirty ? (projectForm.controls.startAt.valid ? 'is-valid' : 'is-invalid') : ''">
         <div class="input-group-append">
-          <span class="input-group-text">
+          <span class="input-group-text" (click)="startAt.toggle()">
             <i class="far fa-calendar-alt"></i>
           </span>
         </div>
@@ -31,10 +30,11 @@
 
   <div class="form-group mb-0">
     <label for="finishAt" class="col-4 col-form-label">
-      label.finishAt
+      <b> label.finishAt </b>
       <div class="input-group">
-        <input name="finishAt" [value]="project?.finishAt" class="form-control">
-        <div class="input-group-append">
+        <input formControlName="finishAt" (click)="finishAt.toggle()" class="form-control" [value]="project?.finishAt" ngbDatepicker
+          #finishAt="ngbDatepicker" [ngClass]="projectForm.controls.finishAt.dirty ? (projectForm.controls.finishAt.valid ? 'is-valid' : 'is-invalid') : ''">
+        <div class="input-group-append" (click)="finishAt.toggle()">
           <span class="input-group-text">
             <i class="far fa-calendar-alt"></i>
           </span>
@@ -44,7 +44,8 @@
   </div>
 
   <div class="form-group">
-    <label class="col-6 col-form-label"> label.manager
+    <label class="col-6 col-form-label">
+      <b> label.manager </b>
       <div class="input-group">
         <input type="text" class="form-control">
         <div class="input-group-append">
@@ -64,5 +65,4 @@
         label.reset</button>
     </div>
   </div>
-
 </form>

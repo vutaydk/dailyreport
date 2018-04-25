@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
-import { Project, ProjectJson } from '../../../entity/project';
-import { Task, TaskJson } from '../../../entity/task';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
+import { TaskInterface, TaskJSON } from '../../../interfaces/task.interface';
+import { ProjectJSON } from '../../../interfaces/project.interface';
 
 @Component({
   selector: 'app-project-chart',
@@ -11,9 +11,9 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 export class ProjectChartComponent implements OnChanges {
   @Input() projectSelected;
   @Input() taskSelected;
-  @Input() projectJson: ProjectJson[] = [];
+  @Input() projectJson: ProjectJSON[] = [];
   @ViewChild('pChart') baseChart: BaseChartDirective;
-  projects: ProjectJson[] = [];
+  projects: ProjectJSON[] = [];
   hasChartData: boolean;
 
   chartOptions = {
@@ -30,7 +30,7 @@ export class ProjectChartComponent implements OnChanges {
 
   ngOnChanges() {
     this.projects = [];
-    let filtered: ProjectJson[];
+    let filtered: ProjectJSON[];
     if (this.projectSelected.match(/^[0-9]*$/) && this.taskSelected.match(/^[0-9]*$/)) {
       filtered = this.projectJson.filter(p => p.id === +this.projectSelected).map(p1 => {
         return {
@@ -61,7 +61,7 @@ export class ProjectChartComponent implements OnChanges {
       this.hasChartData = false;
       return;
     }
-    const chart: Map<number, TaskJson> = new Map<number, TaskJson>();
+    const chart: Map<number, TaskJSON> = new Map<number, TaskJSON>();
     for (const p of this.projects) {
       for (const t of p.tasks) {
         const task = { ...t };
