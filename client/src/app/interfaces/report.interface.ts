@@ -1,5 +1,8 @@
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
+export interface Report {
+    
+}
 
 export namespace ReportInterface {
     export function newTaskForm(): FormGroup {
