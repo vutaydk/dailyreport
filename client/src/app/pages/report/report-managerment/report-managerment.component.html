@@ -3,11 +3,12 @@
     <form action="" method="post" class="mb-3">
       <div class="form-row">
         <div class="col-3">
-          <label> label.startAt
+          <label>
+            <b> label.startAt </b>
             <div class="input-group">
-              <input class="form-control">
+              <input (click)="startAt.toggle()" class="form-control" ngbDatepicker #startAt="ngbDatepicker">
               <div class="input-group-append">
-                <span class="input-group-text">
+                <span (click)="startAt.toggle()" class="input-group-text">
                   <i class="far fa-calendar-alt"></i>
                 </span>
               </div>
@@ -16,11 +17,12 @@
         </div>
 
         <div class="col-3">
-          <label> label.finishAt
+          <label>
+            <b> label.finishAt </b>
             <div class="input-group">
-              <input class="form-control">
+              <input (click)="finishAt.toggle()" class="form-control" ngbDatepicker #finishAt="ngbDatepicker">
               <div class="input-group-append">
-                <span class="input-group-text">
+                <span (click)="finishAt.toggle()" class="input-group-text">
                   <i class="far fa-calendar-alt"></i>
                 </span>
               </div>
@@ -29,17 +31,22 @@
         </div>
 
         <div class="col-3">
-          <label>Employee
+          <label>
+            <b> Employee </b>
             <div class="input-group">
               <div class="input-group-prepend">
-                <span class="input-group-text">
+                <span (click)="onToggleResult()" class="input-group-text">
                   <i class="fas fa-user-plus"></i>
                 </span>
               </div>
-              <input type="text" class="form-control" placeholder="Select employee">
+              <input (click)="onToggleResult()" type="text" class="form-control" placeholder="Select employee">
             </div>
           </label>
-          <div class="result list-group">
+
+          <div *ngIf="isResultDisplay" class="result list-group">
+            <a #a (click)="onToggleResult(); onSelectedEmp($event)" *ngFor="let e of employeeSearchResults" class="list-group-item list-group-item-action">
+              {{e}}
+            </a>
           </div>
         </div>
       </div>
@@ -57,16 +64,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>kuhd</td>
-          <td>UserName</td>
-          <td>Task1</td>
+        <tr *ngFor="let r of reports">
+          <td>{{r.employeeCode}}</td>
+          <td>{{r.employeeName}}</td>
+          <td>{{Task1}}</td>
           <td>Task2</td>
           <td>Task3</td>
-          <td>12/22/1990</td>
+          <td>{{r.startDate}}</td>
         </tr>
       </tbody>
     </table>
+
+    {{reports | json}}
 
   </div>
 </div>

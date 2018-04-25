@@ -1,7 +1,7 @@
-<form (ngSubmit)="onUpdateRights()" [formGroup]="rightsForm">
-  <div class="card">
-    <div class="card-body">
-
+<div class="card">
+  <div class="card-header"><b>Edit rights</b></div>
+  <div class="card-body">
+    <form (ngSubmit)="onUpdateRights()" [formGroup]="rightsForm">
       <div class="form-group mb-0">
         <label class="col-6 col-form-label">
           <b>label.name</b>
@@ -26,6 +26,6 @@
             label.reset</button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
-</form>
+</div>

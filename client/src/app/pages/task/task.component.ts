@@ -17,7 +17,10 @@ export class TaskComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tasks = this.taskService.getTasks();
+    this.taskService.getTasks().subscribe(
+      res => this.tasks = res,
+      err => console.log(err.message)
+    );
   }
 
 }
