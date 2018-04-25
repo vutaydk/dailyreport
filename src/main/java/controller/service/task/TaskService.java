@@ -11,6 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import common.util.Shiro;
+import model.business.rights.Role;
 import model.business.task.AddTaskHandler;
 import model.business.task.TaskSelector;
 import model.business.task.UpdateTaskHandler;
@@ -18,7 +20,6 @@ import model.entity.Task;
 
 @Path("/task")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class TaskService {
 
 	@Inject
@@ -31,7 +32,11 @@ public class TaskService {
 	TaskConverter converter;
 
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	public int insert(@Valid TaskDTO dto) {
+		// check roles
+		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
 		Task task = converter.fromDtoToEntity(dto);
 		// handling data
 		int taskId = addCommand.execute(task);
@@ -40,7 +45,11 @@ public class TaskService {
 
 	@POST
 	@Path("{id: [0-9]+}")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public int update(@Valid TaskDTO dto, @PathParam("id") int id) {
+		// check roles
+		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
 		Task task = converter.fromDtoToEntity(dto);
 		// handling data
 		int taskId = updateCommand.execute(task, id);
@@ -50,6 +59,9 @@ public class TaskService {
 	@GET
 	@Path("get-json")
 	public List<TaskJSON> getJSON() {
+		// check roles
+		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
 		return taskSelector.getList().stream().map(t -> converter.fromEntityToJSON(t)).collect(Collectors.toList());
 	}
 }

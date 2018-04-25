@@ -11,7 +11,5 @@ public class ErrorMessage {
 	private String message;
 
 	protected ErrorMessage() {
-
 	}
-
 }

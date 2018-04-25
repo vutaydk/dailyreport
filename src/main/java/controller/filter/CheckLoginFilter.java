@@ -8,26 +8,21 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+import javax.servlet.http.HttpServletRequest;
+import common.util.Shiro;
 
-@WebFilter({ /* "/home/*", "/report/*", "/project/*", "/rights/*", "/task/*" */ })
+@WebFilter("/api/*")
 public class CheckLoginFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletResponse response = (HttpServletResponse) res;
+		HttpServletRequest request = (HttpServletRequest) req;
 
-		Subject currentUser = SecurityUtils.getSubject();
-		if (!currentUser.isAuthenticated()) {
-			// redirect to login page
-			String loginURI = "/login";
-			response.sendRedirect(loginURI);
-			return;
-		}
-		chain.doFilter(req, res);
+		// check authentication
+		boolean isLogin = "/login".equals(request.getPathInfo());
+		if (isLogin || Shiro.checkAuthentication())
+			chain.doFilter(req, res);
 	}
 
 	@Override

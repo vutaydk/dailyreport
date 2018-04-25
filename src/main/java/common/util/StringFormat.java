@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringFormat {
+
 	public static String formatErrMessage(String message, List<String> params) {
 		Pattern pattern = Pattern.compile("(\\{\\d+\\})");
 		Matcher matcher = pattern.matcher(message);

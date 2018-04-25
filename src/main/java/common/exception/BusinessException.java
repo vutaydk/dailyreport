@@ -7,6 +7,8 @@ import common.exception.message.ResourceMessage;
 
 public class BusinessException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
+
 	private ErrorMessage message;
 
 	public BusinessException(String messageId) {
@@ -34,5 +36,4 @@ public class BusinessException extends RuntimeException {
 	public String getMessage() {
 		return this.message.getMessage();
 	}
-
 }

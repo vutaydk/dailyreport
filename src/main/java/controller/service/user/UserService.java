@@ -11,6 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import common.util.Shiro;
+import model.business.rights.Role;
 import model.business.user.AddUserHandler;
 import model.business.user.UpdateUserHandler;
 import model.business.user.UserSelector;
@@ -18,7 +20,6 @@ import model.entity.User;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class UserService {
 
 	@Inject
@@ -31,7 +32,11 @@ public class UserService {
 	UserConverter converter;
 
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	public int insert(@Valid UserDTO dto) {
+		// check roles
+		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
 		User user = converter.fromDtoToEntity(dto);
 		// handling data
 		int userId = addCommand.execute(user);
@@ -40,7 +45,11 @@ public class UserService {
 
 	@POST
 	@Path("{id: [0-9]+}")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public int update(@Valid UserDTO dto, @PathParam("id") int id) {
+		// check roles
+		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
 		User user = converter.fromDtoToEntity(dto);
 		// handling data
 		int userId = updateCommand.execute(user, id);
@@ -50,6 +59,9 @@ public class UserService {
 	@GET
 	@Path("get-json")
 	public List<UserJSON> getJSON() {
+		// check roles
+		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
 		return userSelector.getList().stream().map(u -> converter.fromEntityToJSON(u)).collect(Collectors.toList());
 	}
 }

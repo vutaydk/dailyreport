@@ -12,7 +12,6 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import model.entity.i18n.SystemResource;
 import model.repo.i18n.ISystemResourceRepo;
 
@@ -20,7 +19,8 @@ import model.repo.i18n.ISystemResourceRepo;
 @Startup
 @Singleton
 public class SystemResourceInitializer implements IResourceInitializer {
-	private Map<String, ResourceDto> resources;
+
+	private Map<String, ResourceDTO> resources;
 
 	@Inject
 	private ISystemResourceRepo resourceRepo;
@@ -54,13 +54,13 @@ public class SystemResourceInitializer implements IResourceInitializer {
 				labels.put(x.getPk().getResourceCode(), x.getContent());
 			});
 
-			resources.put(key, new ResourceDto(messages, labels));
+			resources.put(key, new ResourceDTO(messages, labels));
 		}
 	}
 
 	@Override
-	public ResourceDto getResource(Locale locale) {
-		return resources.getOrDefault(locale.getLanguage(), new ResourceDto());
+	public ResourceDTO getResource(Locale locale) {
+		return resources.getOrDefault(locale.getLanguage(), new ResourceDTO());
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class SystemResourceInitializer implements IResourceInitializer {
 	}
 
 	@Override
-	public ResourceDto getResource() {
+	public ResourceDTO getResource() {
 		return getResource(Locale.getDefault());
 	}
 

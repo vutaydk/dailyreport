@@ -15,13 +15,13 @@ import model.business.login.LoginHandler;
 
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class LoginService {
 
 	@Inject
 	LoginHandler loginHandler;
 
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	public int login(@Valid UserDTO dto) {
 		return loginHandler.login(dto);
 	}

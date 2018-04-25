@@ -8,11 +8,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ResourceDto implements Serializable {
+public class ResourceDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private Map<String, String> messages;
 	private Map<String, String> labels;
 
-	public ResourceDto() {
+	public ResourceDTO() {
 		messages = new HashMap<>();
 		labels = new HashMap<>();
 	}

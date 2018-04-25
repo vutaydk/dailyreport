@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface IResourceInitializer {
-	ResourceDto getResource(Locale locale);
+	ResourceDTO getResource(Locale locale);
 
 	Map<String, String> getMessages(Locale locale);
 
@@ -15,7 +15,7 @@ public interface IResourceInitializer {
 
 	Optional<String> getLabel(Locale locale, String resourceId);
 
-	ResourceDto getResource();
+	ResourceDTO getResource();
 
 	Map<String, String> getMessages();
 

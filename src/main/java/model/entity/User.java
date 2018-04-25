@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,9 +59,9 @@ public class User extends EntityBase {
 	@JoinColumn(name = "user_id")
 	private Set<Report> reportsForUserId = new HashSet<>(0);
 
-//	@OneToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "user_id")
-//	private DepartmentDetail departmentDetail;
+	// @OneToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name = "user_id")
+	// private DepartmentDetail departmentDetail;
 
 	@OneToMany
 	@JoinColumn(name = "project_manager")

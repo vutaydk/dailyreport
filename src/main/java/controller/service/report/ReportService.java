@@ -12,7 +12,6 @@ import model.entity.Report;
 
 @Path("/report")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class ReportService {
 
 	@Inject
@@ -21,6 +20,7 @@ public class ReportService {
 	ReportConverter converter;
 
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	public int insert(@Valid ReportDTO dto) {
 		Report report = converter.fromDtoToEntity(dto);
 		// handling data
