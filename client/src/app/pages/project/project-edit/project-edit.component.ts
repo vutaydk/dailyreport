@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { ProjectService } from '../../../services/project.service';
-import { Project } from '../../../entity/project';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProjectService } from '../project.service';
+import { Project, ProjectInterface } from '../../../interfaces/project.interface';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-project-edit',
@@ -10,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./project-edit.component.css']
 })
 export class ProjectEditComponent implements OnInit, AfterContentChecked {
-
+  projectForm: FormGroup;
   project: Project;
   id: number;
 
@@ -22,6 +23,7 @@ export class ProjectEditComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.getProject();
+    this.projectForm = ProjectInterface.newProjectForm();
   }
 
   getProject() {
@@ -32,11 +34,13 @@ export class ProjectEditComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  onSubmit(projectForm) {
-    console.log(projectForm.value);
-  }
-
   ngAfterContentChecked() {
     this.getProject();
+  }
+
+  onUpdateProject(): void {
+    if (this.projectForm.valid) {
+      // update project
+    }
   }
 }

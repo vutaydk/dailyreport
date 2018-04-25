@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ProjectInterface } from '../../../interfaces/project.interface';
 
 @Component({
   selector: 'app-project-add',
@@ -6,13 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-add.component.css']
 })
 export class ProjectAddComponent implements OnInit {
+  projectForm: FormGroup;
 
   constructor() { }
 
   ngOnInit() {
+    this.projectForm = ProjectInterface.newProjectForm();
   }
 
-  onSubmit(projectForm) {
-    console.log(projectForm.value);
+  onAddProject(): void {
+    if (this.projectForm.valid) {
+      // add project
+    }
   }
 }

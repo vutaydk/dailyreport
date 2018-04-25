@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { RightsService } from '../rights.service';
+import { RightsInterface } from '../../../interfaces/rights.interface';
 
 @Component({
   selector: 'app-rights-add',
@@ -12,16 +13,11 @@ export class RightsAddComponent implements OnInit {
   rightsForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
     private rightsService: RightsService
   ) { }
 
   ngOnInit() {
-    this.rightsForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(6)]],
-      level: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]]
-    });
-    console.log(this.rightsForm);
+    this.rightsForm = RightsInterface.newRightsForm();
   }
 
   onAddRights() {

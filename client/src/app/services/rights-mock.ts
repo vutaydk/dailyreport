@@ -1,4 +1,4 @@
-import { Rights } from '../entity/rights';
+import { Rights } from '../interfaces/rights.interface';
 
 export const RIGHTS: Rights[] = [
     {

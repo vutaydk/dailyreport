@@ -1,4 +1,5 @@
-import { Task } from '../entity/task';
+import { Task } from '../interfaces/task.interface';
+
 
 export const TASK: Task[] = [
     {

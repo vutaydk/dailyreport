@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { PROJECT } from '../../services/project-mock';
 import { TASK } from '../../services/task-mock';
-import { Project, ProjectJson } from '../../entity/project';
-import { Task } from '../../entity/task';
 import { PROJECT_JSON } from './project-mock';
+import { Task } from '../../interfaces/task.interface';
+import { Project, ProjectJSON } from '../../interfaces/project.interface';
 
 @Injectable()
 export class ProjectService {
@@ -18,11 +18,11 @@ export class ProjectService {
     return this.getProjects().find(p => p.id === id);
   }
 
-  getProjectsJson(): ProjectJson[] {
+  getProjectsJson(): ProjectJSON[] {
     return PROJECT_JSON;
   }
 
-  getProjectJson(id: number): ProjectJson {
+  getProjectJson(id: number): ProjectJSON {
     return this.getProjectsJson().find(p => p.id === id);
   }
 

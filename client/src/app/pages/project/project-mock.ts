@@ -1,6 +1,6 @@
-import { ProjectJson } from '../../entity/project';
+import { ProjectJSON } from '../../interfaces/project.interface';
 
-export const PROJECT_JSON: ProjectJson[] = [
+export const PROJECT_JSON: ProjectJSON[] = [
     {
         id: 1,
         name: 'project 1',

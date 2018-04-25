@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
 
-import { Project } from '../../../entity/project';
-import { ProjectService } from '../../../services/project.service';
-import { Task } from '../../../entity/task';
-import { TaskService } from '../../../services/task.service';
+import { TaskService } from '../../task/task.service';
+import { ProjectService } from '../../project/project.service';
+import { Task } from '../../../interfaces/task.interface';
+import { Project } from '../../../interfaces/project.interface';
+import { ReportInterface } from '../../../interfaces/report.interface';
 
 @Component({
   selector: 'app-report-add',
@@ -19,44 +20,35 @@ export class ReportAddComponent implements OnInit {
   tasks: Task[];
 
   constructor(
-    private fb: FormBuilder,
     private projectService: ProjectService,
     private taskService: TaskService
   ) { }
 
   ngOnInit(): void {
-    this.reportForm = this.fb.group({
-      projectCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]],
-      employeeCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]],
-      tasks: this.fb.array([this.createTask()])
-    });
+    this.reportForm = ReportInterface.newReportForm();
     this.projects = this.projectService.getProjects();
     this.tasks = this.taskService.getTasks();
-
-  }
-
-  onSubmit(): void {
-    console.log(JSON.stringify(this.reportForm.value));
   }
 
   createTask(): FormGroup {
-    return this.fb.group({
-      taskCode: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]],
-      timeWork: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      note: ['', [Validators.required]]
-    });
+    return ReportInterface.newTaskForm();
   }
 
-  addTask(): void {
+  onAddTask(): void {
     const control = <FormArray>this.reportForm.controls['tasks'];
     control.push(this.createTask());
   }
 
-  remoreTask(i: number): void {
+  onRemoveTask(i: number): void {
     const control = <FormArray>this.reportForm.controls['tasks'];
     if (control.length > 1) {
       control.removeAt(i);
     }
   }
 
+  onAddReport(): void {
+    if (this.reportForm.valid) {
+      // add report
+    }
+  }
 }
