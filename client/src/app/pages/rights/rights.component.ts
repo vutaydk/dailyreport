@@ -17,6 +17,16 @@ export class RightsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.rights = this.rightsService.getAllRights();
+    this.rightsService.getAllRights().subscribe(
+      res => this.rights = res,
+      err => console.log(err)
+    );
+  }
+
+  onSearch(event: string) {
+    const filter = event.toLowerCase().trim();
+    this.rightsService.getAllRights().subscribe(
+      res => this.rights = res.filter(r => r.name.toLowerCase().trim().includes(filter))
+    );
   }
 }

@@ -19,12 +19,14 @@ export class ProjectManagementComponent implements OnInit {
   tasks: Task[] = [];
 
   constructor(
-    private _projectService: ProjectService
+    private projectService: ProjectService
   ) { }
 
   ngOnInit() {
-    this.projectJson = this._projectService.getProjectsJson();
-    this.projects = this._projectService.getProjects();
-    this.tasks = this._projectService.getTasks();
+    this.projectJson = this.projectService.getProjectsJson();
+    this.projectService.getProjects().subscribe(
+      res => this.projects = res
+    );
+    this.tasks = this.projectService.getTasks();
   }
 }

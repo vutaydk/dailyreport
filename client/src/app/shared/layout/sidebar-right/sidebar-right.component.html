@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body p-1">
     <div class="input-group mb-1">
-      <input #search (keyup)="onSearch(search)" type="text" class="form-control">
+      <input #search (keyup)="onSearch(search.value)" type="text" class="form-control">
       <div class="input-group-append">
         <span class="input-group-text">
           <i class="fas fa-search"></i>
@@ -9,8 +9,8 @@
       </div>
     </div>
 
-    <div class="list-group">
-      <a *ngFor="let o of result" [routerLink]="[o.id]" class="list-group-item list-group-item-action">{{o.name}}</a>
+    <div class="list-group pt-1">
+      <a *ngFor="let o of obj" [routerLink]="[o.id]" class="list-group-item list-group-item-action">{{o.name}}</a>
     </div>
   </div>
 </div>

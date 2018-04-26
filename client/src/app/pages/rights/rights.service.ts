@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { RIGHTS } from '../../services/rights-mock';
 import { AppConfig } from '../../config/app.config';
+import { Observable } from 'rxjs/Observable';
+import { Rights } from '../../interfaces/rights.interface';
 
 @Injectable()
 export class RightsService {
 
   private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  private urlAPI: string = AppConfig.urlAPI;
-  postUrl = 'https://reqres.in/api/users';
+  // private urlAPI: string = AppConfig.urlAPI;
+  private urlAPI = 'https://raw.githubusercontent.com/vutaydk/dailyreport/dev-client/client/src/app/services';
 
   constructor(
     private http: HttpClient
@@ -21,14 +23,26 @@ export class RightsService {
 
   updateRights(rights): Promise<any> {
     console.log(rights);
-    return this.http.post(this.postUrl, rights, { headers: this.headers }).toPromise();
+    return this.http.post(this.urlAPI, rights, { headers: this.headers }).toPromise();
   }
 
-  getAllRights() {
-    return RIGHTS;
+  /*  getAllRights() {
+     return RIGHTS;
+   } */
+
+  getAllRights(): Observable<Rights[]> {
+    const url = `${this.urlAPI}/rights.json`;
+    return this.http.get<Rights[]>(url);
   }
 
-  getRights(id: number) {
-    return this.getAllRights().find(r => r.id === id);
+  getRights(id: number): Observable<Rights> {
+    const url = `${this.urlAPI}/rights.json`;
+    return this.http.get<Rights[]>(url).map(
+      res => res.find(r => r.id === id)
+    );
   }
+
+  /*  getRights(id: number) {
+     return this.getAllRights().find(r => r.id === id);
+   } */
 }
