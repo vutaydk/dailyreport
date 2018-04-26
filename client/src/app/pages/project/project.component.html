@@ -6,7 +6,7 @@
       <router-outlet></router-outlet>
     </div>
     <div class="col-md-4 pl-0">
-      <app-sidebar-right [obj]="projects"></app-sidebar-right>
+      <app-sidebar-right [obj]="projects" (searchItem)="onSearch($event)"></app-sidebar-right>
     </div>
   </div>
 </div>

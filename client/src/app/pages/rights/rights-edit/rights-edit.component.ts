@@ -28,10 +28,10 @@ export class RightsEditComponent implements OnInit, AfterContentChecked {
 
   getRights() {
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.rights = this.rightsService.getRights(this.id);
+    /* this.rights = this.rightsService.getRights(this.id);
     if (!this.rights) {
       this.router.navigate(['404page']);
-    }
+    } */
   }
 
   ngAfterContentChecked() {
