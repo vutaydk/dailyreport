@@ -22,20 +22,21 @@ export class TaskEditComponent implements OnInit, AfterContentChecked {
   ) { }
 
   ngOnInit() {
-    this.getTask();
+    // this.getTask();
     this.taskForm = TaskInterface.newTaskForm();
   }
 
   getTask() {
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.task = this.taskService.getTask(this.id);
-    if (!this.task) {
+    this.taskService.getTask(this.id).subscribe(res => this.task = res);
+    /* if (!this.task) {
       this.router.navigate(['404page']);
-    }
+    } */
   }
 
   ngAfterContentChecked() {
-    this.getTask();
+    // this.getTask();
+    console.log(this.task);
   }
 
   onUpdateTask(): void {

@@ -27,7 +27,10 @@ export class ReportAddComponent implements OnInit {
   ngOnInit(): void {
     this.reportForm = ReportInterface.newReportForm();
     this.projects = this.projectService.getProjects();
-    this.tasks = this.taskService.getTasks();
+    this.taskService.getTasks().subscribe(
+      res => this.tasks = res,
+      err => console.log(err)
+    );
   }
 
   createTask(): FormGroup {

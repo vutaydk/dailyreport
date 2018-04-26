@@ -13,11 +13,11 @@ export class AuthService {
   ) { }
 
   login(user): Promise<any> {
-    //let url: string = `${this.urlAPI}/login`;
+    // let url: string = `${this.urlAPI}/login`;
     let url: string = 'https://reqres.in/api/login';
     let usertest = {
-      "email": "peter@klaven",
-      "password": "cityslicka"
+      'email': 'peter@klaven',
+      'password': 'cityslicka'
     };
     return this.http.post(url, usertest, { headers: this.headers }).toPromise();
   }
@@ -25,27 +25,27 @@ export class AuthService {
   logout(): Promise<any> {
     let url: string = 'https://reqres.in/api/users';
     let usertest = {
-      "email": "peter@klaven"
+      'email': 'peter@klaven'
     };
     return this.http.post(url, usertest, { headers: this.headers }).toPromise();
   }
 
   register(user): Promise<any> {
-    //let url: string = `${this.urlAPI}/register`;
+    // let url: string = `${this.urlAPI}/register`;
     let url: string = 'https://reqres.in/api/users';
     let usertest = {
-      "name": "morpheus",
-      "job": "leader"
+      'name': 'morpheus',
+      'job': 'leader'
     };
     return this.http.post(url, usertest, { headers: this.headers }).toPromise();
   }
 
   isAuthenticated(token): Promise<any> {
-    //let url: string = `${this.urlAPI}/register`;
+    // let url: string = `${this.urlAPI}/register`;
     let url: string = 'https://reqres.in/api/login';
     let usertest = {
-      "email": "peter@klaven",
-      "password": "cityslicka"
+      'email': 'peter@klaven',
+      'password': 'cityslicka'
     };
     return this.http.post(url, usertest, { headers: this.headers }).toPromise();
   }
