@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../service/project.service';
 import { Project, ProjectInterface } from '../../../interfaces/project.interface';
 import { FormGroup } from '@angular/forms';
 
@@ -28,10 +28,10 @@ export class ProjectEditComponent implements OnInit, AfterContentChecked {
 
   getProject() {
     this.id = +this.route.snapshot.paramMap.get('id');
-    this.project = this.projectService.getProject(this.id);
-    if (!this.project) {
-      this.router.navigate(['404page']);
-    }
+    // this.project = this.projectService.getProject(this.id);
+    // if (!this.project) {
+    //   this.router.navigate(['404page']);
+    // }
   }
 
   ngAfterContentChecked() {

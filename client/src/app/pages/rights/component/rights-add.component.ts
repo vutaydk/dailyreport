@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { RightsService } from '../rights.service';
+import { RightsService } from '../service/rights.service';
 import { RightsInterface } from '../../../interfaces/rights.interface';
 
 @Component({

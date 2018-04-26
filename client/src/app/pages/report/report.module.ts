@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { ReportRoutingModule } from './report.routing.module';
 
-import { ReportComponent } from './report.component';
-import { ReportAddComponent } from './report-add/report-add.component';
-import { ReportEditComponent } from './report-edit/report-edit.component';
-import { ReportManagermentComponent } from './report-managerment/report-managerment.component';
-import { ReportService } from './report.service';
+import { ReportComponent } from './conponent/report.component';
+import { ReportAddComponent } from './conponent/report-add.component';
+import { ReportEditComponent } from './conponent/report-edit.component';
+import { ReportManagermentComponent } from './conponent/report-managerment.component';
+import { ReportService } from './service/report.service';
 
 @NgModule({
   imports: [

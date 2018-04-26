@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportService } from '../report.service';
+import { ReportService } from '../service/report.service';
 import { Report } from '../../../interfaces/report.interface';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
 

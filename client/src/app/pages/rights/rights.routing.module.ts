@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RightsComponent } from './rights.component';
-import { RightsAddComponent } from './rights-add/rights-add.component';
-import { RightsEditComponent } from './rights-edit/rights-edit.component';
+import { RightsComponent } from './component/rights.component';
+import { RightsAddComponent } from './component/rights-add.component';
+import { RightsEditComponent } from './component/rights-edit.component';
 
 const routes: Routes = [
   {

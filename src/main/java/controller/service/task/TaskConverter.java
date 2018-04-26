@@ -12,10 +12,10 @@ public class TaskConverter {
 	}
 
 	public TaskJSON fromEntityToJSON(Task e) {
-		TaskJSON json = new TaskJSON();
-		json.setId(e.getId());
-		json.setTaskCode(e.getTaskCode());
-		json.setName(e.getName());
-		return json;
+		TaskJSON tj = new TaskJSON();
+		tj.setId(e.getId());
+		tj.setTaskCode(e.getTaskCode());
+		tj.setName(e.getName());
+		return tj;
 	}
 }

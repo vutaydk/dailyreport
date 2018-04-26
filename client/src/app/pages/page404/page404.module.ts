@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { Page404RoutingModule } from './page404.routing.module';
-import { Page404Component } from './page404.component';
+import { Page404Component } from './component/page404.component';
 
 @NgModule({
   imports: [

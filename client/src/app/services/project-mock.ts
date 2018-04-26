@@ -1,25 +1,61 @@
-import { Project } from '../interfaces/project.interface';
+import { ProjectJSON } from '../interfaces/project.interface';
 
-export const PROJECT: Project[] = [
+export const PROJECT_JSON: ProjectJSON[] = [
     {
         id: 1,
-        projectCode: 'uejd',
         name: 'project 1',
-        startAt: '19/20/1018',
-        finishAt: '19/20/1018'
+        tasks: [
+            {
+                taskId: 1,
+                taskName: 'Dev',
+                timeWork: 1
+            },
+            {
+                taskId: 2,
+                taskName: 'Test',
+                timeWork: 2
+            },
+            {
+                taskId: 3,
+                taskName: 'Search',
+                timeWork: 3
+            },
+            {
+                taskId: 1,
+                taskName: 'Dev',
+                timeWork: 1
+            },
+            {
+                taskId: 2,
+                taskName: 'Test',
+                timeWork: 2
+            },
+            {
+                taskId: 3,
+                taskName: 'Search',
+                timeWork: 3
+            },
+            {
+                taskId: 3,
+                taskName: 'Search',
+                timeWork: 3
+            }
+        ]
     },
     {
         id: 2,
-        projectCode: 'uemd',
         name: 'project 2',
-        startAt: '19/20/1018',
-        finishAt: '19/20/1018'
-    },
-    {
-        id: 3,
-        projectCode: 'ouek',
-        name: 'project 3',
-        startAt: '19/20/1018',
-        finishAt: '19/20/1018'
+        tasks: [
+            {
+                taskId: 1,
+                taskName: 'Dev',
+                timeWork: 1
+            },
+            {
+                taskId: 2,
+                taskName: 'Test',
+                timeWork: 2
+            }
+        ]
     }
 ];

@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { RightsRoutingModule } from './rights.routing.module';
 
-import { RightsComponent } from './rights.component';
-import { RightsAddComponent } from './rights-add/rights-add.component';
-import { RightsEditComponent } from './rights-edit/rights-edit.component';
-import { RightsService } from './rights.service';
+import { RightsComponent } from './component/rights.component';
+import { RightsAddComponent } from './component/rights-add.component';
+import { RightsEditComponent } from './component/rights-edit.component';
+import { RightsService } from './service/rights.service';
 
 @NgModule({
   imports: [

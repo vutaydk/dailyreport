@@ -70,8 +70,22 @@ public class ProjectService {
 	@GET
 	@Path("get-chart-json")
 	public List<ChartJSON> getChartJSON() {
+		// check roles
+		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
 		return projectSelector.getList().stream().map(p -> {
 			return converter.fromEntityToChartJSON(p);
+		}).collect(Collectors.toList());
+	}
+
+	@GET
+	@Path("get-chart-full-json")
+	public List<ChartFullJSON> getChartFullJSON() {
+		// check roles
+		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
+		return projectSelector.getList().stream().map(p -> {
+			return converter.fromEntityToChartFullJSON(p);
 		}).collect(Collectors.toList());
 	}
 }

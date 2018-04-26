@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RightsService } from '../rights.service';
+import { RightsService } from '../service/rights.service';
 import { Rights, RightsInterface } from '../../../interfaces/rights.interface';
 import { FormGroup } from '@angular/forms';
 

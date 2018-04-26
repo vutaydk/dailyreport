@@ -12,10 +12,10 @@ public class RightsConverter {
 	}
 
 	public RightsJSON fromEntityToJSON(Rights e) {
-		RightsJSON json = new RightsJSON();
-		json.setId(e.getId());
-		json.setName(e.getName());
-		json.setLevel(e.getLevel());
-		return json;
+		RightsJSON rj = new RightsJSON();
+		rj.setId(e.getId());
+		rj.setName(e.getName());
+		rj.setLevel(e.getLevel());
+		return rj;
 	}
 }

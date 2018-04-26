@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ReportComponent } from './report.component';
-import { ReportAddComponent } from './report-add/report-add.component';
-import { ReportEditComponent } from './report-edit/report-edit.component';
-import { ReportManagermentComponent } from './report-managerment/report-managerment.component';
+import { ReportComponent } from './conponent/report.component';
+import { ReportAddComponent } from './conponent/report-add.component';
+import { ReportEditComponent } from './conponent/report-edit.component';
+import { ReportManagermentComponent } from './conponent/report-managerment.component';
 
 const routes: Routes = [
   {

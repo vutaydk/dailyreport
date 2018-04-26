@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { Login } from '../../interfaces/login.interface';
+import { AuthService } from '../../../services/auth.service';
+import { Login } from '../../../interfaces/login.interface';
 
 @Component({
   selector: 'app-register',

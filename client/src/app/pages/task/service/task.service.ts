@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { TASK } from '../../services/task-mock';
+import { TASK } from '../../../services/task-mock';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Task } from '../../interfaces/task.interface';
-import { AppConfig } from '../../config/app.config';
+import { Task } from '../../../interfaces/task.interface';
+import { AppConfig } from '../../../config/app.config';
 import 'rxjs/add/operator/map';
 
 @Injectable()

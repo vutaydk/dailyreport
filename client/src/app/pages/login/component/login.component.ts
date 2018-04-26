@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { Login, LoginInterface } from '../../interfaces/login.interface';
+import { AuthService } from '../../../services/auth.service';
+import { Login, LoginInterface } from '../../../interfaces/login.interface';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -25,15 +25,15 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    this.auth.login(this.loginForm.value)
-      .then((user) => {
-        console.log(user);
-        localStorage.setItem('token', user.token);
-        this.router.navigateByUrl('/project');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // this.auth.login(this.loginForm.value)
+    //   .then((user) => {
+    //     console.log(user);
+    //     localStorage.setItem('token', user.token);
+    //     this.router.navigateByUrl('/project');
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
 
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
-import { TaskService } from '../../task/task.service';
-import { ProjectService } from '../../project/project.service';
+import { TaskService } from '../../task/service/task.service';
+import { ProjectService } from '../../project/service/project.service';
 import { Task } from '../../../interfaces/task.interface';
 import { Project } from '../../../interfaces/project.interface';
 import { ReportInterface } from '../../../interfaces/report.interface';

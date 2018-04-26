@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { RIGHTS } from '../../services/rights-mock';
-import { AppConfig } from '../../config/app.config';
+import { RIGHTS } from '../../../services/rights-mock';
+import { AppConfig } from '../../../config/app.config';
 import { Observable } from 'rxjs/Observable';
-import { Rights } from '../../interfaces/rights.interface';
+import { Rights } from '../../../interfaces/rights.interface';
 
 @Injectable()
 export class RightsService {

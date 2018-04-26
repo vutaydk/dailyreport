@@ -15,11 +15,11 @@ public class UserConverter {
 	}
 
 	public UserJSON fromEntityToJSON(User e) {
-		UserJSON json = new UserJSON();
-		json.setEmployeeCode(e.getEmployeeCode());
-		json.setEmail(e.getEmail());
-		json.setName(e.getName());
-		json.setRights(e.getRights());
-		return json;
+		UserJSON uj = new UserJSON();
+		uj.setEmployeeCode(e.getEmployeeCode());
+		uj.setEmail(e.getEmail());
+		uj.setName(e.getName());
+		uj.setRights(e.getRights());
+		return uj;
 	}
 }

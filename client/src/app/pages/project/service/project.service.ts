@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { PROJECT } from '../../services/project-mock';
-import { TASK } from '../../services/task-mock';
-import { PROJECT_JSON } from './project-mock';
-import { Task } from '../../interfaces/task.interface';
-import { Project, ProjectJSON } from '../../interfaces/project.interface';
+import { TASK } from '../../../services/task-mock';
+import { PROJECT_JSON } from '../../../services/project-mock';
+import { Task } from '../../../interfaces/task.interface';
+import { Project, ProjectJSON } from '../../../interfaces/project.interface';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -46,6 +45,5 @@ export class ProjectService {
   getTask(id: number): Task {
     return this.getTasks().find(t => t.id === id);
   }
-
 
 }

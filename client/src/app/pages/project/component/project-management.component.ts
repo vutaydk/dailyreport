@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../service/project.service';
 import { Task } from '../../../interfaces/task.interface';
 import { ProjectJSON, Project } from '../../../interfaces/project.interface';
 

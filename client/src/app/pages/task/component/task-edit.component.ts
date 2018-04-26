@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TaskService } from '../task.service';
+import { TaskService } from '../service/task.service';
 import { FormGroup } from '@angular/forms';
 import { TaskInterface, Task } from '../../../interfaces/task.interface';
 

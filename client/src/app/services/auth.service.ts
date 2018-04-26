@@ -6,25 +6,24 @@ import { AppConfig } from '../config/app.config';
 export class AuthService {
 
   private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  private urlAPI: string = AppConfig.urlAPI;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  login(user): Promise<any> {
+  login(username, password): Promise<any> {
     // let url: string = `${this.urlAPI}/login`;
-    let url: string = 'https://reqres.in/api/login';
-    let usertest = {
-      'email': 'peter@klaven',
-      'password': 'cityslicka'
+    const url = 'https://reqres.in/api/login';
+    const usertest = {
+      'email': username,
+      'password': password
     };
     return this.http.post(url, usertest, { headers: this.headers }).toPromise();
   }
 
   logout(): Promise<any> {
-    let url: string = 'https://reqres.in/api/users';
-    let usertest = {
+    const url = 'https://reqres.in/api/users';
+    const usertest = {
       'email': 'peter@klaven'
     };
     return this.http.post(url, usertest, { headers: this.headers }).toPromise();
@@ -32,8 +31,8 @@ export class AuthService {
 
   register(user): Promise<any> {
     // let url: string = `${this.urlAPI}/register`;
-    let url: string = 'https://reqres.in/api/users';
-    let usertest = {
+    const url = 'https://reqres.in/api/users';
+    const usertest = {
       'name': 'morpheus',
       'job': 'leader'
     };
@@ -42,8 +41,8 @@ export class AuthService {
 
   isAuthenticated(token): Promise<any> {
     // let url: string = `${this.urlAPI}/register`;
-    let url: string = 'https://reqres.in/api/login';
-    let usertest = {
+    const url = 'https://reqres.in/api/login';
+    const usertest = {
       'email': 'peter@klaven',
       'password': 'cityslicka'
     };

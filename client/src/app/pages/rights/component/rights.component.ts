@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RightsService } from './rights.service';
-import { Rights } from '../../interfaces/rights.interface';
+import { RightsService } from '../service/rights.service';
+import { Rights } from '../../../interfaces/rights.interface';
 
 @Component({
   selector: 'app-rights',
