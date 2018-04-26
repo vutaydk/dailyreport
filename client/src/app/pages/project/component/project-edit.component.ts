@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { Project, ProjectInterface } from '../../../interfaces/project.interface';
@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
   providers: [ProjectService],
   styleUrls: ['./project-edit.component.css']
 })
-export class ProjectEditComponent implements OnInit, AfterContentChecked {
+export class ProjectEditComponent implements OnInit {
   projectForm: FormGroup;
   project: Project;
   id: number;
@@ -22,25 +22,28 @@ export class ProjectEditComponent implements OnInit, AfterContentChecked {
   ) { }
 
   ngOnInit() {
-    this.getProject();
     this.projectForm = ProjectInterface.newProjectForm();
-  }
-
-  getProject() {
-    this.id = +this.route.snapshot.paramMap.get('id');
-    // this.project = this.projectService.getProject(this.id);
-    // if (!this.project) {
-    //   this.router.navigate(['404page']);
-    // }
-  }
-
-  ngAfterContentChecked() {
-    this.getProject();
+    this.route.url.subscribe(
+      url => this.onRouterChange(url)
+    );
   }
 
   onUpdateProject(): void {
     if (this.projectForm.valid) {
       // update project
     }
+  }
+
+  onRouterChange(url) {
+    const pathParam = Number(url[0].path);
+    if (!pathParam) {
+      // param is not a number, redirect to 404
+      this.router.navigate(['404page']);
+      return;
+    }
+    this.projectService.getProject(pathParam).subscribe(
+      res => this.project = res,
+      err => this.router.navigate(['404page'])
+    );
   }
 }

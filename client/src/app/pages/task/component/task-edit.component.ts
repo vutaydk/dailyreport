@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../service/task.service';
 import { FormGroup } from '@angular/forms';
@@ -10,7 +10,7 @@ import { TaskInterface, Task } from '../../../interfaces/task.interface';
   styleUrls: ['./task-edit.component.css'],
   providers: [TaskService]
 })
-export class TaskEditComponent implements OnInit, AfterContentChecked {
+export class TaskEditComponent implements OnInit {
   taskForm: FormGroup;
   task: Task;
   id: number;
@@ -22,26 +22,29 @@ export class TaskEditComponent implements OnInit, AfterContentChecked {
   ) { }
 
   ngOnInit() {
-    // this.getTask();
     this.taskForm = TaskInterface.newTaskForm();
-  }
-
-  getTask() {
-    this.id = +this.route.snapshot.paramMap.get('id');
-    this.taskService.getTask(this.id).subscribe(res => this.task = res);
-    /* if (!this.task) {
-      this.router.navigate(['404page']);
-    } */
-  }
-
-  ngAfterContentChecked() {
-    // this.getTask();
-    console.log(this.task);
+    this.route.url.subscribe(
+      url => this.onRouterChange(url)
+    );
   }
 
   onUpdateTask(): void {
     if (this.taskForm.valid) {
       // update task
     }
+  }
+
+  onRouterChange(url) {
+    const pathParam = Number(url[0].path);
+    if (!pathParam) {
+      // param is not a number, redirect to 404
+      this.router.navigate(['404page']);
+      return;
+    }
+    console.log('Ok');
+    this.taskService.getTask(pathParam).subscribe(
+      res => this.task = res,
+      err => this.router.navigate(['404page'])
+    );
   }
 }

@@ -5,25 +5,25 @@ import { Task } from '../../../interfaces/task.interface';
 import { Project, ProjectJSON } from '../../../interfaces/project.interface';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AppConfig } from '../../../config/app.config';
 
 @Injectable()
 export class ProjectService {
 
   private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  // private urlAPI: string = AppConfig.urlAPI;
-  private urlAPI = 'https://raw.githubusercontent.com/vutaydk/dailyreport/dev-client/client/src/app/services';
+  private urlAPI: string = AppConfig.urlAPI;
 
   constructor(
     private http: HttpClient
   ) { }
 
   getProjects(): Observable<Project[]> {
-    const url = `${this.urlAPI}/project.json`;
+    const url = `${this.urlAPI}project.json`;
     return this.http.get<Project[]>(url);
   }
 
   getProject(id: number): Observable<Project> {
-    const url = `${this.urlAPI}/project.json`;
+    const url = `${this.urlAPI}project.json`;
     return this.http.get<Project[]>(url).map(
       res => res.find(p => p.id === id)
     );

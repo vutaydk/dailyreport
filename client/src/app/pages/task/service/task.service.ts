@@ -10,20 +10,19 @@ import 'rxjs/add/operator/map';
 export class TaskService {
 
   private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  // private urlAPI: string = AppConfig.urlAPI;
-  private urlAPI = 'https://raw.githubusercontent.com/vutaydk/dailyreport/dev-client/client/src/app/services';
+  private urlAPI: string = AppConfig.urlAPI;
 
   constructor(
     private http: HttpClient
   ) { }
 
   getTasks(): Observable<Task[]> {
-    const url = `${this.urlAPI}/task.json`;
+    const url = `${this.urlAPI}task.json`;
     return this.http.get<Task[]>(url);
   }
 
   getTask(id: number): Observable<Task> {
-    const url = `${this.urlAPI}/task.json`;
+    const url = `${this.urlAPI}task.json`;
     return this.http.get<Task[]>(url).map(
       res => res.find(t => t.id === id)
     );

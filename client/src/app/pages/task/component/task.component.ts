@@ -31,4 +31,5 @@ export class TaskComponent implements OnInit {
       res => this.tasks = res.filter(r => r.name.trim().toLowerCase().includes(filter))
     );
   }
+
 }

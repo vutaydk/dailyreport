@@ -9,8 +9,7 @@ import { Rights } from '../../../interfaces/rights.interface';
 export class RightsService {
 
   private headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  // private urlAPI: string = AppConfig.urlAPI;
-  private urlAPI = 'https://raw.githubusercontent.com/vutaydk/dailyreport/dev-client/client/src/app/services';
+  private urlAPI: string = AppConfig.urlAPI;
 
   constructor(
     private http: HttpClient
@@ -31,12 +30,12 @@ export class RightsService {
    } */
 
   getAllRights(): Observable<Rights[]> {
-    const url = `${this.urlAPI}/rights.json`;
+    const url = `${this.urlAPI}rights.json`;
     return this.http.get<Rights[]>(url);
   }
 
   getRights(id: number): Observable<Rights> {
-    const url = `${this.urlAPI}/rights.json`;
+    const url = `${this.urlAPI}rights.json`;
     return this.http.get<Rights[]>(url).map(
       res => res.find(r => r.id === id)
     );

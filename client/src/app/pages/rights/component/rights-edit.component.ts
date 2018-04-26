@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RightsService } from '../service/rights.service';
 import { Rights, RightsInterface } from '../../../interfaces/rights.interface';
@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
   providers: [RightsService],
   styleUrls: ['./rights-edit.component.css']
 })
-export class RightsEditComponent implements OnInit, AfterContentChecked {
+export class RightsEditComponent implements OnInit {
   rightsForm: FormGroup;
   rights: Rights;
   id: number;
@@ -23,19 +23,9 @@ export class RightsEditComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.rightsForm = RightsInterface.newRightsForm();
-    this.getRights();
-  }
-
-  getRights() {
-    this.id = +this.route.snapshot.paramMap.get('id');
-    /* this.rights = this.rightsService.getRights(this.id);
-    if (!this.rights) {
-      this.router.navigate(['404page']);
-    } */
-  }
-
-  ngAfterContentChecked() {
-    this.getRights();
+    this.route.url.subscribe(
+      url => this.onRouterChange(url)
+    );
   }
 
   onUpdateRights(): void {
@@ -45,4 +35,16 @@ export class RightsEditComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  onRouterChange(url) {
+    const pathParam = Number(url[0].path);
+    if (!pathParam) {
+      // param is not a number, redirect to 404
+      this.router.navigate(['404page']);
+      return;
+    }
+    this.rightsService.getRights(pathParam).subscribe(
+      res => this.rights = res,
+      err => this.router.navigate(['404page'])
+    );
+  }
 }
