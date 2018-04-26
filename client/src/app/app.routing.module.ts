@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { Authenticated } from './services/authenticated.service';
+import { Authenticated } from './services/authenticated';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [Authenticated],
-    loadChildren: './pages/login/login.module#LoginModule',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: 'login',

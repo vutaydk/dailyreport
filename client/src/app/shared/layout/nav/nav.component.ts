@@ -7,25 +7,22 @@ import { Router } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
 
   constructor(
     private auth: AuthService,
     private router: Router
   ) { }
 
-  ngOnInit() {
-  }
-
   onLogout(): void {
     this.auth.logout()
-      .then((res) => {
-        console.log(res);
+      .then(req => {
+        console.log(req);
         localStorage.removeItem('token');
-        this.router.navigateByUrl('/login')
+        this.router.navigateByUrl('/login');
       })
-      .catch((res) => {
-        console.log(res);
+      .catch(err => {
+        console.log(err);
       });
   }
 

@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AuthService } from './services/auth.service';
 import { AppRoutingModule } from './app.routing.module';
-import { Authenticated } from './services/authenticated.service';
+import { Authenticated } from './services/authenticated';
 
 @NgModule({
   declarations: [

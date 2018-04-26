@@ -30,7 +30,6 @@ export class AuthService {
   }
 
   register(user): Promise<any> {
-    // let url: string = `${this.urlAPI}/register`;
     const url = 'https://reqres.in/api/users';
     const usertest = {
       'name': 'morpheus',
@@ -39,7 +38,7 @@ export class AuthService {
     return this.http.post(url, usertest, { headers: this.headers }).toPromise();
   }
 
-  isAuthenticated(token): Promise<any> {
+  is_logged_in(): Promise<any> {
     // let url: string = `${this.urlAPI}/register`;
     const url = 'https://reqres.in/api/login';
     const usertest = {
