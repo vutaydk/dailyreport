@@ -11,6 +11,7 @@ import { RightsInterface } from '../../../interfaces/rights.interface';
 })
 export class RightsAddComponent implements OnInit {
   rightsForm: FormGroup;
+  isSubmitting: boolean;
 
   constructor(
     private rightsService: RightsService
@@ -22,10 +23,27 @@ export class RightsAddComponent implements OnInit {
 
   onAddRights() {
     if (this.rightsForm.valid) {
+      if (this.isSubmitting) {
+        return;
+      }
+      this.isSubmitting = true;
       this.rightsService.addRights(this.rightsForm.value)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .then(res => {
+          console.log(res);
+          this.isSubmitting = false;
+        })
+        .catch(err => {
+          console.log(err);
+          this.isSubmitting = false;
+        });
     }
   }
 
+  get name() {
+    return this.rightsForm.get('name');
+  }
+
+  get level() {
+    return this.rightsForm.get('level');
+  }
 }

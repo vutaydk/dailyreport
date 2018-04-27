@@ -13,7 +13,7 @@ import { FormGroup } from '@angular/forms';
 export class RightsEditComponent implements OnInit {
   rightsForm: FormGroup;
   rights: Rights;
-  id: number;
+  isSubmitting: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,8 +30,19 @@ export class RightsEditComponent implements OnInit {
 
   onUpdateRights(): void {
     if (this.rightsForm.valid) {
-      // update rights
-      console.log(this.rightsForm.value);
+      if (this.isSubmitting) {
+        return;
+      }
+      this.isSubmitting = true;
+      this.rightsService.updateRights(this.rightsForm.value)
+        .then(res => {
+          console.log(res);
+          this.isSubmitting = false;
+        })
+        .catch(err => {
+          console.log(err);
+          this.isSubmitting = false;
+        });
     }
   }
 
@@ -46,5 +57,13 @@ export class RightsEditComponent implements OnInit {
       res => this.rights = res,
       err => this.router.navigate(['404page'])
     );
+  }
+
+  get name() {
+    return this.rightsForm.get('name');
+  }
+
+  get level() {
+    return this.rightsForm.get('level');
   }
 }

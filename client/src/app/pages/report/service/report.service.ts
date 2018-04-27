@@ -22,4 +22,14 @@ export class ReportService {
     const url = `${this.urlAPI}report.json`;
     return this.http.get<Report[]>(url);
   }
+
+  addReport(report: Report): Observable<Report> {
+    const url = `${this.urlAPI}report/add`;
+    return this.http.post<Report>(url, report);
+  }
+
+  updateReport(report: Report): Observable<Report> {
+    const url = `${this.urlAPI}report/edit`;
+    return this.http.post<Report>(url, report);
+  }
 }

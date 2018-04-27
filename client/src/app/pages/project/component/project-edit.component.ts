@@ -13,7 +13,7 @@ import { FormGroup } from '@angular/forms';
 export class ProjectEditComponent implements OnInit {
   projectForm: FormGroup;
   project: Project;
-  id: number;
+  isSubmitting: boolean;
 
   constructor(
     private projectService: ProjectService,
@@ -30,7 +30,22 @@ export class ProjectEditComponent implements OnInit {
 
   onUpdateProject(): void {
     if (this.projectForm.valid) {
-      // update project
+      if (this.isSubmitting) {
+        return;
+      }
+      this.isSubmitting = true;
+      this.projectService.updateProject(this.projectForm.value).subscribe(
+        res => {
+          console.log(res);
+          this.projectForm.reset();
+          this.isSubmitting = false;
+        },
+        err => {
+          // handle error
+          console.log(err);
+          this.isSubmitting = false;
+        }
+      );
     }
   }
 
@@ -45,5 +60,21 @@ export class ProjectEditComponent implements OnInit {
       res => this.project = res,
       err => this.router.navigate(['404page'])
     );
+  }
+
+  get projectCode() {
+    return this.projectForm.get('projectCode');
+  }
+
+  get name() {
+    return this.projectForm.get('name');
+  }
+
+  get startAt() {
+    return this.projectForm.get('startAt');
+  }
+
+  get finishAt() {
+    return this.projectForm.get('finishAt');
   }
 }

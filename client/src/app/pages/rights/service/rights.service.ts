@@ -16,18 +16,14 @@ export class RightsService {
   ) { }
 
   addRights(rights): Promise<any> {
-    const url = `${this.urlAPI}/rights/add`;
+    const url = `${this.urlAPI}rights/add`;
     return this.http.post(url, rights, { headers: this.headers }).toPromise();
   }
 
   updateRights(rights): Promise<any> {
-    console.log(rights);
+    const url = `${this.urlAPI}rights/edit`;
     return this.http.post(this.urlAPI, rights, { headers: this.headers }).toPromise();
   }
-
-  /*  getAllRights() {
-     return RIGHTS;
-   } */
 
   getAllRights(): Observable<Rights[]> {
     const url = `${this.urlAPI}rights.json`;
@@ -41,7 +37,4 @@ export class RightsService {
     );
   }
 
-  /*  getRights(id: number) {
-     return this.getAllRights().find(r => r.id === id);
-   } */
 }

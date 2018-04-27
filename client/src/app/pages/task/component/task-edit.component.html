@@ -5,7 +5,7 @@
       <div class="form-group mb-0">
         <label class="col-3 col-form-label">
           <b>label.taskCode</b>
-          <input formControlName="taskCode" class="form-control" type="text" maxlength="4" [value]="task?.taskCode" [ngClass]="taskForm.controls.taskCode.dirty ? (taskForm.controls.taskCode.valid ? 'is-valid' : 'is-invalid') : ''">
+          <input formControlName="taskCode" class="form-control" type="text" maxlength="4" [value]="task?.taskCode" [ngClass]="taskCode.dirty ? (taskCode.valid ? 'is-valid' : 'is-invalid') : ''">
           <div class="invalid-feedback">Task code must be exactly 4 characters.</div>
         </label>
       </div>
@@ -13,7 +13,7 @@
       <div class="form-group">
         <label class="col-6 col-form-label">
           <b>label.name</b>
-          <input formControlName="name" class="form-control" maxlength="50" [value]="task?.name" [ngClass]="taskForm.controls.name.dirty ? (taskForm.controls.name.valid ? 'is-valid' : 'is-invalid') : ''">
+          <input formControlName="name" class="form-control" maxlength="50" [value]="task?.name" [ngClass]="name.dirty ? (name.valid ? 'is-valid' : 'is-invalid') : ''">
           <div class="invalid-feedback">Name must be at least 4 characters.</div>
         </label>
       </div>

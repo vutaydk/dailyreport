@@ -1,7 +1,10 @@
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { TaskJSON } from './task.interface';
 
 export interface Report {
-    
+    employeeCode: string;
+    projectCode: string;
+    tasks: TaskJSON[];
 }
 
 export namespace ReportInterface {

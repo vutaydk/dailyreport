@@ -27,4 +27,16 @@ export class TaskService {
       res => res.find(t => t.id === id)
     );
   }
+
+  addTask(task: Task): Observable<Task> {
+    // const url = `${this.urlAPI}task.json`;
+    const url = 'https://reqres.in/api/users';
+    return this.http.post<Task>(url, task);
+  }
+
+  updateTask(task: Task): Observable<Task> {
+    // const url = `${this.urlAPI}task.json`;
+    const url = 'https://reqres.in/api/users';
+    return this.http.post<Task>(url, task);
+  }
 }

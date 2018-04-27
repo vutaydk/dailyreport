@@ -24,6 +24,7 @@ export class ProjectService {
 
   getProject(id: number): Observable<Project> {
     const url = `${this.urlAPI}project.json`;
+    // TODO: map is not a function
     return this.http.get<Project[]>(url).map(
       res => res.find(p => p.id === id)
     );
@@ -46,4 +47,13 @@ export class ProjectService {
     return this.getTasks().find(t => t.id === id);
   }
 
+  addProject(project: Project): Observable<Project> {
+    const url = `${this.urlAPI}project/add`;
+    return this.http.post<Project>(url, project);
+  }
+
+  updateProject(project: Project): Observable<Project> {
+    const url = `${this.urlAPI}project/edit`;
+    return this.http.post<Project>(url, project);
+  }
 }
