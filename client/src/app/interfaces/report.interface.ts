@@ -7,6 +7,11 @@ export interface Report {
     tasks: TaskJSON[];
 }
 
+export interface Employee {
+    employeeCode: string;
+    employeeName: string;
+}
+
 export namespace ReportInterface {
     export function newTaskForm(): FormGroup {
         return new FormBuilder().group({

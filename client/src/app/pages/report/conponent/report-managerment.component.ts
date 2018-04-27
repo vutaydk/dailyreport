@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../service/report.service';
-import { Report } from '../../../interfaces/report.interface';
+import { Report, Employee } from '../../../interfaces/report.interface';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
 
 @Component({
@@ -9,8 +9,11 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/ng
   styleUrls: ['./report-managerment.component.css']
 })
 export class ReportManagermentComponent implements OnInit {
-  reports: Report[];
-  employeeSearchResults: string[] = [];
+  reports: Report[] = [];
+  reportsFiltered: Report[] = [];
+  employees: Employee[] = [];
+  employeeSearchResults: Employee[] = [];
+  selectedEmp = '';
   isResultDisplay: boolean;
 
   constructor(
@@ -19,14 +22,13 @@ export class ReportManagermentComponent implements OnInit {
 
   ngOnInit() {
     this.reportService.getReports().subscribe(
-      res => this.reports = res,
+      res => {
+        this.reports = res;
+        this.reportsFiltered = [...this.reports];
+        this.getListEmp();
+      },
       err => console.log(err)
     );
-  }
-
-  onSearchEmp() {
-    this.employeeSearchResults = [];
-    // this.reports.filter(r => this.employeeSearchResults.push(r.employeeCode));
   }
 
   onToggleResult(): void {
@@ -34,14 +36,31 @@ export class ReportManagermentComponent implements OnInit {
     this.onSearchEmp();
   }
 
-  onSelectedEmp(event) {
-    console.log(event);
-    console.log(event.target.text.trim());
+  onSearchEmp() {
+    this.employeeSearchResults.splice(0, this.employeeSearchResults.length);
+    this.employeeSearchResults = [...this.employees];
   }
-  /* 
-  onlick, onkeyup: display result (toggle)
-  lọc mảng lấy employeeCode, filter code trùng nhau, 
-  onclick item lấy employeeCode => filter reports lấy kết quả, hiển thị ra bảng
 
-  */
+  onSelectedEmp(selected) {
+    this.selectedEmp = selected;
+    this.reportsFiltered.splice(0, this.reportsFiltered.length);
+    this.reportsFiltered = this.reports.filter(
+      r => r.employeeName.trim().toLowerCase().includes(selected.trim().toLowerCase())
+    );
+  }
+
+  /* get list employee with employee code unduplicated */
+  getListEmp() {
+    this.employees.splice(0, this.employees.length);
+    const emps: Map<string, Employee> = new Map<string, Employee>();
+    for (const e of this.reports) {
+      const emp: Employee = { employeeCode: e.employeeCode, employeeName: e.employeeName };
+      if (!emps.has(e.employeeCode)) {
+        emps.set(e.employeeCode, emp);
+      }
+    }
+    emps.forEach(e => {
+      this.employees.push(e);
+    });
+  }
 }

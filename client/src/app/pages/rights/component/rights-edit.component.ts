@@ -26,6 +26,10 @@ export class RightsEditComponent implements OnInit {
     this.route.url.subscribe(
       url => this.onRouterChange(url)
     );
+    console.log(this.name);
+    console.log(this.level);
+    console.log(this.rights);
+
   }
 
   onUpdateRights(): void {

@@ -35,17 +35,18 @@
             <b> Employee </b>
             <div class="input-group">
               <div class="input-group-prepend">
-                <span (click)="onToggleResult()" class="input-group-text">
+                <span class="input-group-text">
                   <i class="fas fa-user-plus"></i>
                 </span>
               </div>
-              <input (click)="onToggleResult()" type="text" class="form-control" placeholder="Select employee">
+              <input #in (click)="onToggleResult()" (keyup)="onSelectedEmp(in.value)" class="form-control" [value]="selectedEmp" type="text"
+                placeholder="Select employee">
             </div>
           </label>
 
           <div *ngIf="isResultDisplay" class="result list-group">
-            <a #a (click)="onToggleResult(); onSelectedEmp($event)" *ngFor="let e of employeeSearchResults" class="list-group-item list-group-item-action">
-              {{e}}
+            <a (click)="onToggleResult(); onSelectedEmp(e.employeeName)" *ngFor="let e of employeeSearchResults" class="list-group-item list-group-item-action">
+              {{e.employeeCode}} - {{e.employeeName}}
             </a>
           </div>
         </div>
@@ -64,7 +65,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let r of reports">
+        <tr *ngFor="let r of reportsFiltered">
           <td>{{r.employeeCode}}</td>
           <td>{{r.employeeName}}</td>
           <td>{{Task1}}</td>
@@ -75,7 +76,7 @@
       </tbody>
     </table>
 
-    {{reports | json}}
+    {{reportsFiltered | json}}
 
   </div>
 </div>
