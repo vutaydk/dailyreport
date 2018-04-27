@@ -20,6 +20,12 @@ export class ReportManagermentComponent implements OnInit {
     private reportService: ReportService
   ) { }
 
+
+  /*
+    get list report from service
+    assign list to reports
+    assign reports to reportsFiltered
+  */
   ngOnInit() {
     this.reportService.getReports().subscribe(
       res => {
@@ -31,25 +37,45 @@ export class ReportManagermentComponent implements OnInit {
     );
   }
 
+  /*
+    toggle employee result search
+  */
   onToggleResult(): void {
-    this.isResultDisplay = !this.isResultDisplay;
-    this.onSearchEmp();
-  }
-
-  onSearchEmp() {
     this.employeeSearchResults.splice(0, this.employeeSearchResults.length);
     this.employeeSearchResults = [...this.employees];
+    this.isResultDisplay = !this.isResultDisplay;
   }
 
-  onSelectedEmp(selected) {
-    this.selectedEmp = selected;
+  /*
+    filter reports by employeeName = s
+    filter employees by employeeName s
+  */
+  onSearchEmp(filter) {
+    const s = filter.replace(/ /g, '').toLowerCase();
     this.reportsFiltered.splice(0, this.reportsFiltered.length);
+    this.employeeSearchResults.splice(0, this.employeeSearchResults.length);
+
     this.reportsFiltered = this.reports.filter(
-      r => r.employeeName.trim().toLowerCase().includes(selected.trim().toLowerCase())
+      r => this.isContain(r.employeeName, s) || this.isContain(r.employeeCode, s)
+    );
+    this.employeeSearchResults = this.employees.filter(
+      e => this.isContain(e.employeeName, s) || this.isContain(e.employeeCode, s)
     );
   }
 
-  /* get list employee with employee code unduplicated */
+  onSelectedEmp(s) {
+    this.selectedEmp = s;
+    this.onSearchEmp(s);
+  }
+
+  isContain(i: string, c: string): boolean {
+    return i.replace(/ /g, '').toLowerCase().includes(c);
+  }
+
+  /*
+    get list employee from list reports with employee code unduplicated
+    assign list to employees
+  */
   getListEmp() {
     this.employees.splice(0, this.employees.length);
     const emps: Map<string, Employee> = new Map<string, Employee>();
