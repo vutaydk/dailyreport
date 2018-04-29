@@ -35,7 +35,7 @@ public class RightsService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int insert(@Valid RightsDTO dto) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR);
+		// Shiro.checkRoles(Role.DIRECTOR);
 
 		Rights rights = converter.fromDtoToEntity(dto);
 		// handling data

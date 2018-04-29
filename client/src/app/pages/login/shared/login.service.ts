@@ -15,16 +15,20 @@ export class LoginService {
   ) {
     this.loginUrl = AppConfig.API_URL + '/login';
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // this.headers.append('Authorization', 'Bearer hanh');
   }
 
-  login(username, password): Observable<any> {
+  login(login: Login): Observable<any> {
     const url = `${this.loginUrl}`;
-    const usertest: Login = {
-      employeeCode: username,
-      password: password
-    };
-    localStorage.setItem('token', 'asdasd');
-    return this.http.post<any>(url, usertest, { headers: this.headers });
+    const out = this.http.post<any>(url, login, { headers: this.headers });
+
+    let isLogged = false;
+    this.http.get<any>(url, { headers: this.headers }).subscribe(
+      res => { console.log(res); isLogged = true; },
+      err => console.log(err)
+    );
+
+    return out;
   }
 
 }

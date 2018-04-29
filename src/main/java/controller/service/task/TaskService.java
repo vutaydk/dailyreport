@@ -35,7 +35,7 @@ public class TaskService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int insert(@Valid TaskDTO dto) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		Task task = converter.fromDtoToEntity(dto);
 		// handling data

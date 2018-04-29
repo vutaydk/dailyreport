@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { LoginService } from '../shared/login.service';
 import { LoginForm } from '../shared/login.form';
+import { Login } from '../shared/login.model';
 
 @Component({
   selector: 'app-login',
@@ -18,19 +19,19 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loginForm = LoginForm.newLoginForm();
   }
 
   onSubmit(): void {
-
-    const employeeCode = this.loginForm.get('employeeCode').value;
-    const password = this.loginForm.get('password').value;
-
-    this.service.login(employeeCode, password).subscribe(
+    const login: Login = {
+      employeeCode: this.loginForm.get('employeeCode').value,
+      password: this.loginForm.get('password').value
+    };
+    this.service.login(login).subscribe(
       res => {
-        localStorage.setItem('token', res.token);
-        console.log(res.token);
+        console.log(res);
+        localStorage.setItem('isLogged', login.employeeCode);
         this.router.navigateByUrl('/project');
       },
       err => console.log(err)

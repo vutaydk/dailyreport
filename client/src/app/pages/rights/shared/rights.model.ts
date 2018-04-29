@@ -5,3 +5,10 @@ export class Rights {
         public level: number
     ) { }
 }
+
+export class RightsDTO {
+    constructor(
+        public name: string,
+        public level: number
+    ) { }
+}

@@ -60,17 +60,19 @@
           <th>Task 1</th>
           <th>Task 2</th>
           <th>Task 3</th>
-          <th>label.date</th>
+          <th>label.startAt</th>
+          <th>label.finishAt</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let r of reports">
           <td>{{r.employeeCode}}</td>
           <td>{{r.employeeName}}</td>
-          <td>{{r.tasks[0].timeWork}}</td>
+          <td>r.tasks[0].timeWork</td>
           <td>Task2</td>
           <td>Task3</td>
           <td>{{r.startAt}}</td>
+          <td>{{r.finishAt}}</td>
         </tr>
       </tbody>
     </table>

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../../shared/task.service';
-import { FormGroup } from '@angular/forms';
 import { TaskForm } from '../../shared/task.form';
-import { Task } from '../../shared/task.model';
+import { Task, TaskDTO } from '../../shared/task.model';
 
 @Component({
   selector: 'app-task-edit',
@@ -31,8 +31,16 @@ export class TaskEditComponent implements OnInit {
 
   onSubmit(): void {
     if (this.taskForm.valid) {
+      // data
+      const task:TaskDTO = {
+        taskCode: this.taskForm.get('taskCode').value,
+        name: this.taskForm.get('name').value
+      };
       // update task
-      console.log('edited task');
+      this.taskService.update(this.id, task).subscribe(
+        res => { console.log(res); this.taskForm.reset(); },
+        err => console.log(err.message)
+      );
     }
   }
 
@@ -40,7 +48,7 @@ export class TaskEditComponent implements OnInit {
     const id = Number(url[0].path);
     this.taskService.findById(id).subscribe(
       res => this.task = res,
-      err => { console.log(err); this.router.navigate(['404page']); }
+      err => { console.log(err.message); this.router.navigate(['404page']); }
     );
   }
 

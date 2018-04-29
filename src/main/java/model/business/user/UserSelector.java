@@ -17,7 +17,7 @@ public class UserSelector {
 		return userRepo.getAll();
 	}
 
-	public Optional<User> getTaskDetailById(int id) {
+	public Optional<User> getUserDetailById(int id) {
 		return userRepo.findById(id);
 	}
 }

@@ -7,3 +7,12 @@ export class Project {
         public finishAt: string
     ) { }
 }
+
+export class ProjectDTO {
+    constructor(
+        public projectCode: string,
+        public name: string,
+        public startAt: string,
+        public finishAt: string
+    ) { }
+}

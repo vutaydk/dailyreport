@@ -23,6 +23,7 @@ public class LoginService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int login(@Valid UserDTO dto) {
+		System.out.println(dto);
 		return loginHandler.login(dto);
 	}
 

@@ -1,30 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportService } from '../../shared/report.service';
-import { Report } from '../../shared/report.form';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
+import { ReportService } from '../../shared/report.service';
+import { Report } from '../../shared/report.model';
 
 @Component({
   selector: 'app-report-managerment',
   templateUrl: './report-managerment.component.html',
   styleUrls: ['./report-managerment.component.css']
 })
-export class ReportManagermentComponent {
+export class ReportManagermentComponent implements OnInit {
+
   reports: Report[];
   employeeSearchResults: string[] = [];
   isResultDisplay: boolean;
 
   constructor(
     private reportService: ReportService
-  ) {
-    this.reportService.getReports().subscribe(
+  ) { }
+
+  ngOnInit(): void {
+    this.reportService.getList().subscribe(
       res => this.reports = res,
-      err => console.log(err)
+      err => console.log(err.message)
     );
   }
 
   onSearchEmp() {
     this.employeeSearchResults = [];
-    // this.reports.filter(r => this.employeeSearchResults.push(r.employeeCode));
+    //this.reports.filter(r => this.employeeSearchResults.push(r.employeeCode));
   }
 
   onToggleResult(): void {

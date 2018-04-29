@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfig } from '../../../config/app.config';
 import { Observable } from 'rxjs/Observable';
-import { Project } from './project.model';
+import { Project, ProjectDTO } from './project.model';
 import { Task } from './task.model';
 import { ProjectChart } from './projectchart.model';
 
 @Injectable()
 export class ProjectService {
 
-  private projectUrl: string;
-  private taskUrl: string;
+  private readonly projectUrl: string;
+  private readonly taskUrl: string;
   private headers: HttpHeaders;
 
   constructor(
@@ -36,12 +36,12 @@ export class ProjectService {
     return this.http.get<Project>(url);
   }
 
-  create(project: Project): Observable<Project> {
+  create(project: ProjectDTO): Observable<Project> {
     const url = `${this.projectUrl}`;
     return this.http.post<Project>(url, project, { headers: this.headers });
   }
 
-  update(id: number, project: Project): Observable<Project> {
+  update(id: number, project: ProjectDTO): Observable<Project> {
     const url = `${this.projectUrl}/${id}`;
     return this.http.post<Project>(url, project, { headers: this.headers });
   }

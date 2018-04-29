@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { RightsService } from '../../shared/rights.service';
 import { RightsForm } from '../../shared/rights.form';
+import { RightsDTO } from '../../shared/rights.model';
 
 @Component({
   selector: 'app-rights-add',
@@ -22,9 +23,16 @@ export class RightsAddComponent implements OnInit {
 
   onSubmit(): void {
     if (this.rightsForm.valid) {
-      // this.rightsService.addRights(this.rightsForm.value)
-      //   .then(res => console.log(res))
-      //   .catch(err => console.log(err));
+      // data
+      const rights: RightsDTO = {
+        name: this.rightsForm.get('name').value,
+        level: this.rightsForm.get('level').value
+      };
+      // create rights
+      this.rightsService.create(rights).subscribe(
+        res => { console.log(res); this.rightsForm.reset(); },
+        err => console.log(err.message)
+      );
     }
   }
 

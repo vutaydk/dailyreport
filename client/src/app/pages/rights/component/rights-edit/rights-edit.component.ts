@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RightsService } from '../../shared/rights.service';
 import { RightsForm } from '../../shared/rights.form';
-import { Rights } from '../../shared/rights.model';
+import { Rights, RightsDTO } from '../../shared/rights.model';
 
 @Component({
   selector: 'app-rights-edit',
@@ -31,8 +31,16 @@ export class RightsEditComponent implements OnInit {
 
   onSubmit(): void {
     if (this.rightsForm.valid) {
+      // data
+      const rights: RightsDTO = {
+        name: this.rightsForm.get('name').value,
+        level: this.rightsForm.get('level').value
+      };
       // update rights
-      console.log(this.rightsForm.value);
+      this.rightsService.update(this.id, rights).subscribe(
+        res => { console.log(res); this.rightsForm.reset(); },
+        err => console.log(err.message)
+      );
     }
   }
 

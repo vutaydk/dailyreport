@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../shared/project.service';
 import { ProjectForm } from '../../shared/project.form';
-import { Project } from '../../shared/project.model';
+import { Project, ProjectDTO } from '../../shared/project.model';
 
 @Component({
   selector: 'app-project-edit',
@@ -31,7 +31,18 @@ export class ProjectEditComponent implements OnInit {
 
   onSubmit(): void {
     if (this.projectForm.valid) {
+      // data
+      const project: ProjectDTO = {
+        projectCode: this.projectForm.get('projectCode').value,
+        name: this.projectForm.get('name').value,
+        startAt: this.projectForm.get('startAt').value,
+        finishAt: this.projectForm.get('finishAt').value
+      };
       // update project
+      this.projectService.update(this.id, project).subscribe(
+        res => { console.log(res); this.projectForm.reset(); },
+        err => console.log(err.message)
+      );
     }
   }
 

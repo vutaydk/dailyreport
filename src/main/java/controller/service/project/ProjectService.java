@@ -35,7 +35,7 @@ public class ProjectService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int insert(@Valid ProjectDTO dto) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		Project project = converter.fromDtoToEntity(dto);
 		// handling data

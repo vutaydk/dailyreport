@@ -5,3 +5,10 @@ export class Task {
         public name: string
     ) { }
 }
+
+export class TaskDTO {
+    constructor(
+        public taskCode: string,
+        public name: string
+    ) { }
+}

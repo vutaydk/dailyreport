@@ -71,7 +71,7 @@ public class ProjectConverter {
 	private PChartFullJSON fromReportToPChartFullJSON(Report r) {
 		PChartFullJSON pcfj = new PChartFullJSON();
 		pcfj.setId(r.getId());
-		Optional<User> user = userSelector.getTaskDetailById(r.getUserId());
+		Optional<User> user = userSelector.getUserDetailById(r.getUserId());
 		user.ifPresent(x -> {
 			pcfj.setEmployeeCode(x.getEmployeeCode());
 			pcfj.setEmployeeName(x.getName());

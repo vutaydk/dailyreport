@@ -19,13 +19,13 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {
     this.taskService.getList().subscribe(
       res => this.list = this.tasks = res,
-      err => console.log(err)
+      err => console.log(err.message)
     );
   }
 
   onSearch(event: string): void {
     const filter = event.toLowerCase().trim();
-    this.tasks = this.list.filter(r => r.name.trim().toLowerCase().includes(filter))
+    this.tasks = this.list.filter(r => r.name.trim().toLowerCase().includes(filter));
   }
 
 }

@@ -1,40 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
-
-import { TaskService } from '../../../task/shared/task.service';
-import { ProjectService } from '../../../project/shared/project.service';
-import { Task } from '../../../task/shared/task.form';
-import { Project } from '../../../project/shared/project.form';
-import { ReportInterface } from '../../shared/report.form';
+import { ReportService } from '../../shared/report.service';
+import { ReportForm } from '../../shared/report.form';
+import { Project, Task } from '../../shared/report.model';
 
 @Component({
   selector: 'app-report-add',
   templateUrl: './report-add.component.html',
-  providers: [ProjectService, TaskService],
   styleUrls: ['./report-add.component.css']
 })
-export class ReportAddComponent {
+export class ReportAddComponent implements OnInit {
 
   reportForm: FormGroup;
   projects: Project[];
   tasks: Task[];
 
   constructor(
-    private projectService: ProjectService,
-    private taskService: TaskService
-  ) {
-    this.reportForm = ReportInterface.newReportForm();
-    this.projectService.getProjects().subscribe(
-      res => this.projects = res
+    private reportService: ReportService,
+  ) { }
+
+  ngOnInit(): void {
+    this.reportForm = ReportForm.newReportForm();
+    this.reportService.getListProject().subscribe(
+      res => this.projects = res,
+      err => console.log(err.message)
     );
-    this.taskService.get_list().subscribe(
+    this.reportService.getListTask().subscribe(
       res => this.tasks = res,
-      err => console.log(err)
+      err => console.log(err.message)
     );
   }
 
   createTask(): FormGroup {
-    return ReportInterface.newTaskForm();
+    return ReportForm.newTaskForm();
   }
 
   onAddTask(): void {
@@ -49,7 +47,7 @@ export class ReportAddComponent {
     }
   }
 
-  onAddReport(): void {
+  onSubmit(): void {
     if (this.reportForm.valid) {
       // add report
     }
