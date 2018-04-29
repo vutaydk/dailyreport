@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-
-import { LoginService } from '../service/login.service';
-import { Login, LoginInterface } from '../../../interfaces/login.interface';
+import { LoginService } from '../shared/login.service';
+import { LoginForm } from '../shared/login.form';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [LoginService]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -21,10 +19,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loginForm = LoginInterface.newLoginForm();
+    this.loginForm = LoginForm.newLoginForm();
   }
 
-  onLogin(): void {
+  onSubmit(): void {
 
     const employeeCode = this.loginForm.get('employeeCode').value;
     const password = this.loginForm.get('password').value;

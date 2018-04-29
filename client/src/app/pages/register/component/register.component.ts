@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { Login } from '../../../interfaces/login.interface';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +9,7 @@ import { Login } from '../../../interfaces/login.interface';
 })
 export class RegisterComponent {
 
-  user: Login;
+  // user: Login;
 
   constructor(
     private auth: AuthService,
@@ -19,14 +18,14 @@ export class RegisterComponent {
 
   onRegister(loginForm): void {
     console.log(loginForm);
-    this.auth.register(this.user)
-      .then((user) => {
-        console.log(user);
-        // localStorage.setItem('token', user.token);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // this.auth.register(this.user)
+    //   .then((user) => {
+    //     console.log(user);
+    //     // localStorage.setItem('token', user.token);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     this.auth.logout();
   }

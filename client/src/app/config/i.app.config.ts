@@ -1,3 +1,3 @@
 export interface IAppConfig {
-    urlAPI: string;
+    API_URL: string;
 }

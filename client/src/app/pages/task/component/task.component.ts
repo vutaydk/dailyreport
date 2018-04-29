@@ -1,35 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../service/task.service';
-import { Task } from '../../../interfaces/task.interface';
+import { TaskService } from '../shared/task.service';
+import { Task } from '../shared/task.model';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.css'],
-  providers: [TaskService]
+  styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
+
+  private list: Task[];
   tasks: Task[];
 
   constructor(
     private taskService: TaskService
   ) { }
 
-  ngOnInit() {
-    this.taskService.getTasks().subscribe(
-      res => {
-        this.tasks = res;
-        console.log(res);
-      },
-      err => console.log(err.message)
+  ngOnInit(): void {
+    this.taskService.getList().subscribe(
+      res => this.list = this.tasks = res,
+      err => console.log(err)
     );
   }
 
-  onSearch(event: string) {
+  onSearch(event: string): void {
     const filter = event.toLowerCase().trim();
-    this.taskService.getTasks().subscribe(
-      res => this.tasks = res.filter(r => r.name.trim().toLowerCase().includes(filter))
-    );
+    this.tasks = this.list.filter(r => r.name.trim().toLowerCase().includes(filter))
   }
 
 }

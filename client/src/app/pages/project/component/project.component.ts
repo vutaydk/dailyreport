@@ -1,34 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ProjectService } from '../service/project.service';
-import { Project } from '../../../interfaces/project.interface';
+import { ProjectService } from '../shared/project.service';
+import { Project } from '../shared/project.model';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css'],
-  providers: [ProjectService]
+  styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
 
+  private list: Project[];
   projects: Project[];
 
   constructor(
     private projectService: ProjectService
   ) { }
 
-  ngOnInit() {
-    this.projectService.getProjects().subscribe(
-      res => this.projects = res,
+  ngOnInit(): void {
+    this.projectService.getList().subscribe(
+      res => this.list = this.projects = res,
       err => console.log(err)
     );
   }
 
-  onSearch(event: string) {
+  onSearch(event: string): void {
     const filter = event.toLowerCase().trim();
-    this.projectService.getProjects().subscribe(
-      res => this.projects = res.filter(p => p.name.toLowerCase().trim().includes(filter))
-    );
+    this.projects = this.list.filter(p => p.name.toLowerCase().trim().includes(filter));
   }
 
 }

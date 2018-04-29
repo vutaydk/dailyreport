@@ -4,9 +4,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { RightsRoutingModule } from './rights.routing.module';
 
 import { RightsComponent } from './component/rights.component';
-import { RightsAddComponent } from './component/rights-add.component';
-import { RightsEditComponent } from './component/rights-edit.component';
-import { RightsService } from './service/rights.service';
+import { RightsAddComponent } from './component/rights-add/rights-add.component';
+import { RightsEditComponent } from './component/rights-edit/rights-edit.component';
+import { RightsService } from './shared/rights.service';
 
 @NgModule({
   imports: [

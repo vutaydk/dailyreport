@@ -48,7 +48,7 @@ public class RightsService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int update(@Valid RightsDTO dto, @PathParam("id") int id) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR);
+		// Shiro.checkRoles(Role.DIRECTOR);
 
 		Rights rights = converter.fromDtoToEntity(dto);
 		// handling data
@@ -57,11 +57,20 @@ public class RightsService {
 	}
 
 	@GET
-	@Path("get-json")
-	public List<RightsJSON> getJSON() {
+	@Path("get-all")
+	public List<RightsJSON> getAll() {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR);
+		// Shiro.checkRoles(Role.DIRECTOR);
 
 		return rightsSelector.getList().stream().map(r -> converter.fromEntityToJSON(r)).collect(Collectors.toList());
+	}
+
+	@GET
+	@Path("get/{id: [0-9]+}")
+	public RightsJSON get(@PathParam("id") int id) {
+		// check roles
+		// Shiro.checkRoles(Role.DIRECTOR);
+
+		return converter.fromEntityToJSON(rightsSelector.getRightsDetailById(id).get());
 	}
 }

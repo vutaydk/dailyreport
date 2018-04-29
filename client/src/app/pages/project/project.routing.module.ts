@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ProjectComponent } from './component/project.component';
-import { ProjectAddComponent } from './component/project-add.component';
-import { ProjectEditComponent } from './component/project-edit.component';
-import { ProjectManagementComponent } from './component/project-management.component';
+import { ProjectAddComponent } from './component/project-add/project-add.component';
+import { ProjectEditComponent } from './component/project-edit/project-edit.component';
+import { ProjectManagementComponent } from './component/project-management/project-management.component';
 
 const routes: Routes = [
   {

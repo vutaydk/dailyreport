@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { RightsComponent } from './component/rights.component';
-import { RightsAddComponent } from './component/rights-add.component';
-import { RightsEditComponent } from './component/rights-edit.component';
+import { RightsAddComponent } from './component/rights-add/rights-add.component';
+import { RightsEditComponent } from './component/rights-edit/rights-edit.component';
 
 const routes: Routes = [
   {

@@ -35,7 +35,7 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int insert(@Valid UserDTO dto) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		User user = converter.fromDtoToEntity(dto);
 		// handling data
@@ -48,7 +48,7 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int update(@Valid UserDTO dto, @PathParam("id") int id) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		User user = converter.fromDtoToEntity(dto);
 		// handling data
@@ -57,10 +57,10 @@ public class UserService {
 	}
 
 	@GET
-	@Path("get-json")
-	public List<UserJSON> getJSON() {
+	@Path("get-all")
+	public List<UserJSON> getAll() {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		return userSelector.getList().stream().map(u -> converter.fromEntityToJSON(u)).collect(Collectors.toList());
 	}

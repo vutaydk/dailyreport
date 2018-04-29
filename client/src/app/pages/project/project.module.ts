@@ -5,10 +5,11 @@ import { SharedModule } from '../../shared/shared.module';
 import { ProjectRoutingModule } from './project.routing.module';
 
 import { ProjectComponent } from './component/project.component';
-import { ProjectAddComponent } from './component/project-add.component';
-import { ProjectEditComponent } from './component/project-edit.component';
-import { ProjectManagementComponent } from './component/project-management.component';
-import { ProjectChartComponent } from './component/project-chart.component';
+import { ProjectAddComponent } from './component/project-add/project-add.component';
+import { ProjectEditComponent } from './component/project-edit/project-edit.component';
+import { ProjectManagementComponent } from './component/project-management/project-management.component';
+import { ProjectChartComponent } from './component/project-management/project-chart.component';
+import { ProjectService } from './shared/project.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { ProjectChartComponent } from './component/project-chart.component';
     ProjectEditComponent,
     ProjectManagementComponent,
     ProjectChartComponent
-  ]
+  ],
+  providers: [ProjectService]
 })
 export class ProjectModule { }

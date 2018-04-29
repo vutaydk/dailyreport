@@ -48,7 +48,7 @@ public class TaskService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int update(@Valid TaskDTO dto, @PathParam("id") int id) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		Task task = converter.fromDtoToEntity(dto);
 		// handling data
@@ -57,11 +57,20 @@ public class TaskService {
 	}
 
 	@GET
-	@Path("get-json")
-	public List<TaskJSON> getJSON() {
+	@Path("get-all")
+	public List<TaskJSON> getAll() {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		return taskSelector.getList().stream().map(t -> converter.fromEntityToJSON(t)).collect(Collectors.toList());
+	}
+
+	@GET
+	@Path("get/{id: [0-9]+}")
+	public TaskJSON get(@PathParam("id") int id) {
+		// check roles
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+
+		return converter.fromEntityToJSON(taskSelector.getTaskDetailById(id).get());
 	}
 }

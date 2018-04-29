@@ -20,6 +20,7 @@ public class CORSFilter implements Filter {
 		http.addHeader("Access-Control-Allow-Origin", "*");
 		http.addHeader("Access-Control-Allow-Credentials", "true");
 		http.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+		http.addHeader("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
 		chain.doFilter(request, response);
 	}
 

@@ -1,18 +1,18 @@
 <div class="container">
   <div class="auth-form">
-    <form (ngSubmit)="onLogin()" [formGroup]="loginForm" class="login-form">
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="login-form">
       <div class="auth-form-header">
         <h3>Login</h3>
       </div>
       <div class="auth-form-body">
         <div class="form-group">
           <label>Employee code</label>
-          <input formControlName="employeeCode" class="form-control" type="text" [ngClass]="loginForm.controls.employeeCode.dirty ? (loginForm.controls.employeeCode.valid ? 'is-valid' : 'is-invalid') : ''">
+          <input formControlName="employeeCode" class="form-control" type="text" [ngClass]="loginForm.get('employeeCode').dirty ? (loginForm.get('employeeCode').valid ? 'is-valid' : 'is-invalid') : ''">
           <div class="invalid-feedback">Please enter Employee code</div>
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input formControlName="password" class="form-control" type="password" [ngClass]="loginForm.controls.password.dirty ? (loginForm.controls.password.valid ? 'is-valid' : 'is-invalid') : ''">
+          <input formControlName="password" class="form-control" type="password" [ngClass]="loginForm.get('password').dirty ? (loginForm.get('password').valid ? 'is-valid' : 'is-invalid') : ''">
           <div class="invalid-feedback">Please enter password</div>
         </div>
         <div class="form-group text-center">

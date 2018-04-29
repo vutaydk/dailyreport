@@ -13,7 +13,6 @@ import common.util.Shiro;
 
 @WebFilter("/api/*")
 public class CheckLoginFilter implements Filter {
-
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
@@ -21,8 +20,8 @@ public class CheckLoginFilter implements Filter {
 
 		// check authentication
 		boolean isLogin = "/login".equals(request.getPathInfo());
-		if (isLogin || Shiro.checkAuthentication())
-			chain.doFilter(req, res);
+		// if (isLogin || Shiro.checkAuthentication())
+		chain.doFilter(req, res);
 	}
 
 	@Override

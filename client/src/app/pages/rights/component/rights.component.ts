@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { RightsService } from '../service/rights.service';
-import { Rights } from '../../../interfaces/rights.interface';
+import { RightsService } from '../shared/rights.service';
+import { Rights } from '../shared/rights.model';
 
 @Component({
   selector: 'app-rights',
   templateUrl: './rights.component.html',
-  styleUrls: ['./rights.component.css'],
-  providers: [RightsService]
+  styleUrls: ['./rights.component.css']
 })
 export class RightsComponent implements OnInit {
 
+  private list: Rights[];
   rights: Rights[];
 
   constructor(
@@ -17,16 +17,15 @@ export class RightsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.rightsService.getAllRights().subscribe(
-      res => this.rights = res,
+    this.rightsService.getList().subscribe(
+      res => this.list = this.rights = res,
       err => console.log(err)
     );
   }
 
   onSearch(event: string) {
     const filter = event.toLowerCase().trim();
-    this.rightsService.getAllRights().subscribe(
-      res => this.rights = res.filter(r => r.name.toLowerCase().trim().includes(filter))
-    );
+    this.rights = this.list.filter(r => r.name.toLowerCase().trim().includes(filter))
   }
+
 }

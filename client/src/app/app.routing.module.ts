@@ -12,20 +12,20 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './pages/login/login.module#LoginModule'
   },
-  {
-    path: 'register',
-    loadChildren: './pages/register/register.module#RegisterModule'
-  },
+  // {
+  //   path: 'register',
+  //   loadChildren: './pages/register/register.module#RegisterModule'
+  // },
   {
     path: 'project',
     canActivate: [Authenticated],
     loadChildren: './pages/project/project.module#ProjectModule'
   },
-  {
-    path: 'report',
-    canActivate: [Authenticated],
-    loadChildren: './pages/report/report.module#ReportModule'
-  },
+  // {
+  //   path: 'report',
+  //   canActivate: [Authenticated],
+  //   loadChildren: './pages/report/report.module#ReportModule'
+  // },
   {
     path: 'rights',
     canActivate: [Authenticated],

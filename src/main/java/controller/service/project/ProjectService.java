@@ -48,7 +48,7 @@ public class ProjectService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public int update(@Valid ProjectDTO dto, @PathParam("id") int id) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		Project project = converter.fromDtoToEntity(dto);
 		// handling data
@@ -57,10 +57,10 @@ public class ProjectService {
 	}
 
 	@GET
-	@Path("get-json")
-	public List<ProjectJSON> getJSON() {
+	@Path("get-all")
+	public List<ProjectJSON> getAll() {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		return projectSelector.getList().stream().map(p -> {
 			return converter.fromEntityToJSON(p);
@@ -68,10 +68,18 @@ public class ProjectService {
 	}
 
 	@GET
-	@Path("get-chart-json")
-	public List<ChartJSON> getChartJSON() {
+	@Path("get/{id}")
+	public ProjectJSON get(@PathParam("id") int id) {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		return converter.fromEntityToJSON(projectSelector.getProjectDetailById(id).get());
+	}
+
+	@GET
+	@Path("get-chart")
+	public List<ChartJSON> getChart() {
+		// check roles
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		return projectSelector.getList().stream().map(p -> {
 			return converter.fromEntityToChartJSON(p);
@@ -79,10 +87,10 @@ public class ProjectService {
 	}
 
 	@GET
-	@Path("get-chart-full-json")
-	public List<ChartFullJSON> getChartFullJSON() {
+	@Path("get-chart-full")
+	public List<ChartFullJSON> getChartFull() {
 		// check roles
-		Shiro.checkRoles(Role.DIRECTOR, Role.PM);
+		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 
 		return projectSelector.getList().stream().map(p -> {
 			return converter.fromEntityToChartFullJSON(p);
