@@ -12,7 +12,7 @@ import lombok.Setter;
 public class ReportJSON {
 	public Integer id;
 	public String employeeCode;
-	public String emploueeName;
+	public String employeeName;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	public Date startAt;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
