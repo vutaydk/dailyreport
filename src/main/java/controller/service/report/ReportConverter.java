@@ -45,7 +45,7 @@ public class ReportConverter {
 		Optional<User> user = userSelector.getUserDetailById(e.getUserId());
 		user.ifPresent(u -> {
 			j.setEmployeeCode(u.getEmployeeCode());
-			j.setEmploueeName(u.getName());
+			j.setEmployeeName(u.getName());
 		});
 		Optional<Project> project = projectSelector.getProjectDetailById(e.getProjectId());
 		project.ifPresent(p -> {
