@@ -151,6 +151,11 @@ body {
     background-color: #f1f4f7;
 }
 
+.sidebar ul.nav li.nav-item.active {
+    text-decoration: none;
+    background-color: #f1f4f7;
+}
+
 .sidebar ul.nav li.divider {
     border-bottom: 1px solid #f1f4f7;
     margin: 20px 0;
