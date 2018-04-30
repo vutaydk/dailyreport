@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../shared/project.service';
 import { ProjectForm } from '../../shared/project.form';
-import { Project, ProjectDTO } from '../../shared/project.model';
+import { ProjectDTO } from '../../shared/project.model';
 
 @Component({
   selector: 'app-project-edit',
@@ -11,9 +11,7 @@ import { Project, ProjectDTO } from '../../shared/project.model';
   styleUrls: ['./project-edit.component.css']
 })
 export class ProjectEditComponent implements OnInit {
-
   projectForm: FormGroup;
-  project: Project;
   id: number;
 
   constructor(
@@ -23,9 +21,17 @@ export class ProjectEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.projectForm = ProjectForm.newProjectForm();
     this.route.url.subscribe(
       url => this.onRouterChange(url)
+    );
+    this.projectForm = ProjectForm.newProjectForm();
+  }
+
+  onRouterChange(url): void {
+    const id = Number(url[0].path);
+    this.projectService.findById(id).subscribe(
+      res => this.projectForm = ProjectForm.newProjectForm(res),
+      err => { console.log(err); this.router.navigate(['404page']); }
     );
   }
 
@@ -45,13 +51,4 @@ export class ProjectEditComponent implements OnInit {
       );
     }
   }
-
-  onRouterChange(url): void {
-    const id = Number(url[0].path);
-    this.projectService.findById(id).subscribe(
-      res => this.project = res,
-      err => { console.log(err); this.router.navigate(['404page']); }
-    );
-  }
-
 }

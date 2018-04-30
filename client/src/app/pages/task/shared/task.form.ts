@@ -1,10 +1,11 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Task, TaskDTO } from './task.model';
 
 export namespace TaskForm {
-    export function newTaskForm(): FormGroup {
-        return new FormGroup({
-            taskCode: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z]{4}$/)]),
-            name: new FormControl('', [Validators.required, Validators.minLength(4)])
+    export function newTaskForm(task: TaskDTO = new TaskDTO('', '')): FormGroup {
+        return new FormBuilder().group({
+            taskCode: [task.taskCode, [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{4}$/)]],
+            name: [task.name, [Validators.required, Validators.minLength(4)]]
         });
     }
 }

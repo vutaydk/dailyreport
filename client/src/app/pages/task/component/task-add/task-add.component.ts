@@ -10,7 +10,6 @@ import { Task, TaskDTO } from '../../shared/task.model';
   styleUrls: ['./task-add.component.css']
 })
 export class TaskAddComponent implements OnInit {
-
   taskForm: FormGroup;
 
   constructor(
@@ -35,5 +34,4 @@ export class TaskAddComponent implements OnInit {
       );
     }
   }
-
 }

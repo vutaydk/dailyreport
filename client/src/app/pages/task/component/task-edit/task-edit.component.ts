@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../../shared/task.service';
 import { TaskForm } from '../../shared/task.form';
-import { Task, TaskDTO } from '../../shared/task.model';
+import { TaskDTO } from '../../shared/task.model';
 
 @Component({
   selector: 'app-task-edit',
@@ -11,9 +11,7 @@ import { Task, TaskDTO } from '../../shared/task.model';
   styleUrls: ['./task-edit.component.css']
 })
 export class TaskEditComponent implements OnInit {
-
   taskForm: FormGroup;
-  task: Task;
   id: number;
 
   constructor(
@@ -23,16 +21,24 @@ export class TaskEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.taskForm = TaskForm.newTaskForm();
     this.route.url.subscribe(
       url => this.onRouterChange(url)
+    );
+    this.taskForm = TaskForm.newTaskForm();
+  }
+
+  onRouterChange(url): void {
+    const id = Number(url[0].path);
+    this.taskService.findById(id).subscribe(
+      res => this.taskForm = TaskForm.newTaskForm(res),
+      err => { console.log(err.message); this.router.navigate(['404page']); }
     );
   }
 
   onSubmit(): void {
     if (this.taskForm.valid) {
       // data
-      const task:TaskDTO = {
+      const task: TaskDTO = {
         taskCode: this.taskForm.get('taskCode').value,
         name: this.taskForm.get('name').value
       };
@@ -42,14 +48,6 @@ export class TaskEditComponent implements OnInit {
         err => console.log(err.message)
       );
     }
-  }
-
-  onRouterChange(url): void {
-    const id = Number(url[0].path);
-    this.taskService.findById(id).subscribe(
-      res => this.task = res,
-      err => { console.log(err.message); this.router.navigate(['404page']); }
-    );
   }
 
 }

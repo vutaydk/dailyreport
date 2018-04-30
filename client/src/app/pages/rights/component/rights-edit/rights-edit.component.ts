@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RightsService } from '../../shared/rights.service';
 import { RightsForm } from '../../shared/rights.form';
-import { Rights, RightsDTO } from '../../shared/rights.model';
+import { RightsDTO } from '../../shared/rights.model';
 
 @Component({
   selector: 'app-rights-edit',
@@ -11,9 +11,7 @@ import { Rights, RightsDTO } from '../../shared/rights.model';
   styleUrls: ['./rights-edit.component.css']
 })
 export class RightsEditComponent implements OnInit {
-
   rightsForm: FormGroup;
-  rights: Rights;
   id: number;
 
   constructor(
@@ -23,9 +21,17 @@ export class RightsEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.rightsForm = RightsForm.newRightsForm();
     this.route.url.subscribe(
       url => this.onRouterChange(url)
+    );
+    this.rightsForm = RightsForm.newRightsForm();
+  }
+
+  onRouterChange(url): void {
+    const id = Number(url[0].path);
+    this.rightsService.findById(id).subscribe(
+      res => this.rightsForm = RightsForm.newRightsForm(res),
+      err => { console.log(err); this.router.navigate(['404page']); }
     );
   }
 
@@ -43,13 +49,4 @@ export class RightsEditComponent implements OnInit {
       );
     }
   }
-
-  onRouterChange(url): void {
-    const id = Number(url[0].path);
-    this.rightsService.findById(id).subscribe(
-      res => this.rights = res,
-      err => { console.log(err); this.router.navigate(['404page']); }
-    );
-  }
-
 }

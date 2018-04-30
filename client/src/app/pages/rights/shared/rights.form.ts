@@ -1,10 +1,11 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { RightsDTO } from './rights.model';
 
 export namespace RightsForm {
-    export function newRightsForm(): FormGroup {
-        return new FormGroup({
-            name: new FormControl('', [Validators.required, Validators.minLength(6)]),
-            level: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)])
+    export function newRightsForm(rights: RightsDTO = new RightsDTO('', 0)): FormGroup {
+        return new FormBuilder().group({
+            name: [rights.name, [Validators.required, Validators.minLength(6)]],
+            level: [rights.level, [Validators.required, Validators.pattern(/^[0-9]*$/)]]
         });
     }
 }
