@@ -8,8 +8,8 @@
       <div class="invalid-feedback">Please choose a Project.</div>
     </div>
     <div class="col-10">
-      <button (click)="onAddTask()" class="btn btn-outline-dark" type="button">label.submit</button>
-      <button class="btn btn-primary" [disabled]="!reportForm.valid" type="submit">Submit</button>
+      <button (click)="onAddTask()" class="btn btn-outline-dark" type="button">Add task</button>
+      <button class="btn btn-primary" [disabled]="!reportForm.valid" type="submit">Report</button>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
     <div [formGroupName]="i" class="card-body">
       <div class="row mb-2">
         <label class="col-3 col-form-label">
-          <b>label.taskCode</b>
+          <b>Task code</b>
           <select formControlName="taskCode" class="form-control" [ngClass]="task.get('taskCode').dirty ? (task.get('taskCode').valid ? 'is-valid' : 'is-invalid') : ''">
             <option value="">Choose task...</option>
             <option *ngFor="let t of tasks" [value]="t.id">{{t.name}}</option>
@@ -26,7 +26,7 @@
         </label>
 
         <label class="col-2 col-form-label">
-          <b>label.timeWork</b>
+          <b>Time work</b>
           <input formControlName="timeWork" class="form-control" type="text" [ngClass]="task.get('timeWork').dirty ? (task.get('timeWork').valid ? 'is-valid' : 'is-invalid') : ''">
           <div class="invalid-feedback">Time work must be a digit.</div>
         </label>
@@ -35,15 +35,15 @@
           <button (click)="onRemoveTask(i)" [disabled]="reportForm.controls['tasks'].length == 1" class="btn btn-outline-danger align-bottom">
             <i class="fas fa-trash-alt"></i>
           </button>
-          <button class="btn btn-outline-dark">
+          <!-- <button class="btn btn-outline-dark">
             <i class="fas fa-minus"></i>
-          </button>
+          </button> -->
         </div>
       </div>
 
       <div class="row">
         <label class="col col-form-label">
-          <b>label.note</b>
+          <b>Note</b>
           <textarea formControlName="note" class="form-control" rows="10" [ngClass]="task.get('note').dirty ? (task.get('note').valid ? 'is-valid' : 'is-invalid') : ''"></textarea>
           <div class="invalid-feedback">Note is required.</div>
         </label>

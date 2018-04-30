@@ -6,7 +6,7 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="projectForm">
       <div class="form-group mb-0">
         <label class="col-3 col-form-label">
-          <b>label.projectCode</b>
+          <b>Project code</b>
           <input formControlName="projectCode" class="form-control" type="text" maxlength="4" [ngClass]="projectForm.get('projectCode').dirty ? (projectForm.get('projectCode').valid ? 'is-valid' : 'is-invalid') : ''">
           <div class="invalid-feedback">Project code must be exactly 4 characters.</div>
         </label>
@@ -14,7 +14,7 @@
 
       <div class="form-group mb-0">
         <label for="name" class="col-6 col-form-label">
-          <b>label.name</b>
+          <b>Name</b>
           <input formControlName="name" class="form-control" type="text" maxlength="50" [ngClass]="projectForm.get('name').dirty ? (projectForm.get('name').valid ? 'is-valid' : 'is-invalid') : ''">
           <div class="invalid-feedback">Name must be at least 6 characters.</div>
         </label>
@@ -22,7 +22,7 @@
 
       <div class="form-group mb-0">
         <label for="startAt" class="col-4 col-form-label">
-          <b>label.startAt</b>
+          <b>Start at</b>
           <div class="input-group">
             <input formControlName="startAt" (click)="startAt.toggle()" class="form-control" ngbDatepicker #startAt="ngbDatepicker" [ngClass]="projectForm.get('startAt').dirty ? (projectForm.get('startAt').valid ? 'is-valid' : 'is-invalid') : ''">
             <div class="input-group-append">
@@ -37,7 +37,7 @@
 
       <div class="form-group mb-0">
         <label for="finishAt" class="col-4 col-form-label">
-          <b> label.finishAt </b>
+          <b>Finish at</b>
           <div class="input-group">
             <input formControlName="finishAt" (click)="finishAt.toggle()" class="form-control" ngbDatepicker #finishAt="ngbDatepicker"
               [ngClass]="projectForm.get('finishAt').dirty ? (projectForm.get('finishAt').valid ? 'is-valid' : 'is-invalid') : ''">
@@ -52,7 +52,7 @@
 
       <div class="form-group">
         <label class="col-6 col-form-label">
-          <b> label.manager </b>
+          <b>Manager</b>
           <div class="input-group">
             <input class="form-control" type="text">
             <div class="input-group-append">
@@ -66,8 +66,8 @@
 
       <div class="form-group row">
         <div class="col-12 text-center">
-          <button type="submit" class="btn btn-primary" [disabled]="!projectForm.valid">label.submit</button>
-          <button type="reset" class="btn btn-default">label.reset</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!projectForm.valid">Add</button>
+          <button type="reset" class="btn btn-default">Reset</button>
         </div>
       </div>
     </form>
