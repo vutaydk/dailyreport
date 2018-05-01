@@ -1,7 +1,9 @@
+import { log } from 'util';
 import { Component, OnInit } from '@angular/core';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
 import { ReportService } from '../../shared/report.service';
 import { Report } from '../../shared/report.model';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-report-managerment',
@@ -9,10 +11,16 @@ import { Report } from '../../shared/report.model';
   styleUrls: ['./report-managerment.component.css']
 })
 export class ReportManagermentComponent implements OnInit {
-
   reports: Report[];
-  employeeSearchResults: string[] = [];
+  filteredReports: Report[];
+  filteredEmployee: string[] = [];
   isResultDisplay: boolean;
+
+  start: string;
+  finish: string;
+  emp: string;
+
+  filters = {};
 
   constructor(
     private reportService: ReportService
@@ -20,29 +28,76 @@ export class ReportManagermentComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportService.getList().subscribe(
-      res => this.reports = res,
+      res => {
+        this.reports = res;
+        this.applyFilters();
+      },
       err => console.log(err.message)
     );
   }
 
-  onSearchEmp() {
-    this.employeeSearchResults = [];
-    //this.reports.filter(r => this.employeeSearchResults.push(r.employeeCode));
+  applyFilters() {
+    this.filteredReports = _.filter(this.reports, _.conforms(this.filters));
+  }
+
+  // filter by employee search
+  onSearchEmp(property: string, rule: string) {
+    this.filters[property] = val => val.replace(/ /g, '').toLowerCase().includes(rule);
+    this.applyFilters();
+  }
+
+  // filter by start at select
+  onStartAtSelect(property: string, rule: any) {
+    let date;
+    this.filters[property] = val => {
+      date = this.stringToDate(val);
+      if (rule['year'] === date['year'] && rule['month'] === date['month'] && rule['day'] > date['day']) {
+        return;
+      }
+      if (rule['year'] === date['year'] && rule['month'] > date['month']) {
+        return;
+      }
+      if (rule['year'] > date['year']) {
+        return;
+      }
+      return val;
+    };
+    this.applyFilters();
+  }
+
+  // filter by finish at select
+  onFinishAtSelect(property: string, rule: any) {
+    let date;
+    this.filters[property] = val => {
+      date = this.stringToDate(val);
+      if (rule['year'] === date['year'] && rule['month'] === date['month'] && rule['day'] < date['day']) {
+        return;
+      }
+      if (rule['year'] === date['year'] && rule['month'] < date['month']) {
+        return;
+      }
+      if (rule['year'] < date['year']) {
+        return;
+      }
+      return val;
+    };
+    this.applyFilters();
   }
 
   onToggleResult(): void {
     this.isResultDisplay = !this.isResultDisplay;
-    this.onSearchEmp();
   }
 
   onSelectedEmp(event) {
-    console.log(event);
-    console.log(event.target.text.trim());
+    this.onSearchEmp('employeeCode', event);
   }
-  /*
-  onlick, onkeyup: display result (toggle)
-  lọc mảng lấy employeeCode, filter code trùng nhau,
-  onclick item lấy employeeCode => filter reports lấy kết quả, hiển thị ra bảng
 
-  */
+  stringToDate(d) {
+    return _.fromPairs([
+      ['year', Number(d.split('-')[0])],
+      ['month', Number(d.split('-')[1])],
+      ['day', Number(d.split('-')[2])]
+    ]);
+  }
+
 }

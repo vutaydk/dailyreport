@@ -14,10 +14,9 @@ export namespace ProjectForm {
 }
 
 function convertDate(date) {
-    const converted = _.fromPairs([
+    return _.fromPairs([
         ['year', Number(date.split('-')[0])],
         ['month', Number(date.split('-')[1])],
         ['day', Number(date.split('-')[2])]
     ]);
-    return converted;
 }

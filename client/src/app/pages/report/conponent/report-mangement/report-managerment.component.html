@@ -6,7 +6,8 @@
           <label>
             <b>Start at</b>
             <div class="input-group">
-              <input (click)="startAt.toggle()" class="form-control" ngbDatepicker #startAt="ngbDatepicker">
+              <input class="form-control" [(ngModel)]="start" name="start" (dateSelect)="onStartAtSelect('startDate', start)" ngbDatepicker
+                #startAt="ngbDatepicker">
               <div class="input-group-append">
                 <span (click)="startAt.toggle()" class="input-group-text">
                   <i class="far fa-calendar-alt"></i>
@@ -20,7 +21,8 @@
           <label>
             <b>Finish at</b>
             <div class="input-group">
-              <input (click)="finishAt.toggle()" class="form-control" ngbDatepicker #finishAt="ngbDatepicker">
+              <input class="form-control" [(ngModel)]="finish" name="finish" (dateSelect)="onFinishAtSelect('finishDate', finish)" ngbDatepicker
+                #finishAt="ngbDatepicker">
               <div class="input-group-append">
                 <span (click)="finishAt.toggle()" class="input-group-text">
                   <i class="far fa-calendar-alt"></i>
@@ -35,16 +37,17 @@
             <b> Employee </b>
             <div class="input-group">
               <div class="input-group-prepend">
-                <span (click)="onToggleResult()" class="input-group-text">
+                <span class="input-group-text">
                   <i class="fas fa-user-plus"></i>
                 </span>
               </div>
-              <input (click)="onToggleResult()" type="text" class="form-control" placeholder="Select employee">
+              <input (click)="onToggleResult()" [(ngModel)]="emp" (keyup)="onSearchEmp('employeeCode', emp)" name="emp" type="text" class="form-control"
+                placeholder="Select employee">
             </div>
           </label>
 
           <div *ngIf="isResultDisplay" class="result list-group">
-            <a #a (click)="onToggleResult(); onSelectedEmp($event)" *ngFor="let e of employeeSearchResults" class="list-group-item list-group-item-action">
+            <a #a (click)="onToggleResult(); onSelectedEmp($event)" *ngFor="let e of filteredEmployee" class="list-group-item list-group-item-action">
               {{e}}
             </a>
           </div>
@@ -65,19 +68,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let r of reports">
+        <tr *ngFor="let r of filteredReports">
           <td>{{r.employeeCode}}</td>
           <td>{{r.employeeName}}</td>
           <td>r.tasks[0].timeWork</td>
           <td>Task2</td>
           <td>Task3</td>
-          <td>{{r.startAt}}</td>
-          <td>{{r.finishAt}}</td>
+          <td>{{r.startDate}}</td>
+          <td>{{r.finishDate}}</td>
         </tr>
       </tbody>
     </table>
-
-    {{reports | json}}
-
   </div>
 </div>

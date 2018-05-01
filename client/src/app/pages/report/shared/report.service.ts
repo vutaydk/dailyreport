@@ -22,7 +22,9 @@ export class ReportService {
   }
 
   getList(): Observable<Report[]> {
-    const url = `${this.reportUrl}/get-all`;
+    // const url = `${this.reportUrl}/get-all`;
+    const url = `https://raw.githubusercontent.com/vutaydk/dailyreport/dev-client/client/src/assets/report.json`;
+
     return this.http.get<Report[]>(url);
   }
 
