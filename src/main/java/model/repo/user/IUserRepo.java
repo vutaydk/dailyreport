@@ -6,7 +6,7 @@ import model.repo.IRepository;
 
 public interface IUserRepo extends IRepository<User> {
 
-	Optional<User> check(String em, String pwd);
+	Optional<User> findByUserPassword(String em, String pwd);
 
 	Optional<User> findById(int id);
 

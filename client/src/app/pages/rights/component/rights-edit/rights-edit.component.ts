@@ -13,6 +13,7 @@ import { RightsDTO } from '../../shared/rights.model';
   styleUrls: ['./rights-edit.component.css']
 })
 export class RightsEditComponent implements OnInit {
+
   private _message = new Subject<string>();
   rightsForm: FormGroup;
   isSubmitting: boolean;
@@ -55,7 +56,7 @@ export class RightsEditComponent implements OnInit {
         level: this.rightsForm.get('level').value
       };
       // update rights
-      this.rightsService.update(this.id, rights).subscribe(
+      this.rightsService.update(rights, this.id).subscribe(
         res => {
           console.log(res);
           this.rightsForm.reset();

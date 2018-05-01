@@ -3,14 +3,10 @@ package model.business.login;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.subject.Subject;
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
-import controller.service.login.UserDTO;
+import controller.service.login.business.UserDTO;
 import model.entity.User;
 import model.repo.user.IUserRepo;
 
@@ -20,21 +16,14 @@ public class LoginHandler {
 	@Inject
 	IUserRepo userRepo;
 
-	public int login(UserDTO input) {
-		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.isAuthenticated())
-			return 1;
-
+	public int execute(UserDTO input) {
 		checkExistEmplyee(input.getEmployeeCode());
 
 		String hexPass = new Sha256Hash(input.getPassword()).toHex();
-		UsernamePasswordToken token = new UsernamePasswordToken(input.getEmployeeCode(), hexPass);
-		try {
-			currentUser.login(token);
-			return 1;
-		} catch (AuthenticationException e) {
-			throw new BusinessException(new RawMessage("Invalid username or password"));
-		}
+		Optional<User> user = userRepo.findByUserPassword(input.getEmployeeCode(), hexPass);
+		if (user.isPresent())
+			return user.get().getId();
+		throw new BusinessException(new RawMessage("Invalid username or password"));
 	}
 
 	private void checkExistEmplyee(String employee) {

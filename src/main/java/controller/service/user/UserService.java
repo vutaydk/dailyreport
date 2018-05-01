@@ -11,8 +11,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import common.util.Shiro;
-import model.business.rights.Role;
+import controller.filter.JWTTokenNeeded;
+import controller.service.user.business.UserConverter;
+import controller.service.user.business.UserDTO;
+import controller.service.user.business.UserJSON;
 import model.business.user.AddUserHandler;
 import model.business.user.UpdateUserHandler;
 import model.business.user.UserSelector;
@@ -33,10 +35,8 @@ public class UserService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@JWTTokenNeeded
 	public int insert(@Valid UserDTO dto) {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
-
 		User user = converter.fromDtoToEntity(dto);
 		// handling data
 		int userId = addCommand.execute(user);
@@ -46,10 +46,8 @@ public class UserService {
 	@POST
 	@Path("{id: [0-9]+}")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@JWTTokenNeeded
 	public int update(@Valid UserDTO dto, @PathParam("id") int id) {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
-
 		User user = converter.fromDtoToEntity(dto);
 		// handling data
 		int userId = updateCommand.execute(user, id);
@@ -58,10 +56,10 @@ public class UserService {
 
 	@GET
 	@Path("get-all")
+	@JWTTokenNeeded
 	public List<UserJSON> getAll() {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
-
-		return userSelector.getList().stream().map(u -> converter.fromEntityToJSON(u)).collect(Collectors.toList());
+		return userSelector.getList().stream().map(u -> {
+			return converter.fromEntityToJSON(u);
+		}).collect(Collectors.toList());
 	}
 }

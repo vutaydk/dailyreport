@@ -10,6 +10,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import controller.filter.JWTTokenNeeded;
+import controller.service.report.business.ReportConverter;
+import controller.service.report.business.ReportDTO;
+import controller.service.report.business.ReportJSON;
 import model.business.report.AddReportHandler;
 import model.business.report.ReportSelector;
 import model.entity.Report;
@@ -27,6 +31,7 @@ public class ReportService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@JWTTokenNeeded
 	public int insert(@Valid ReportDTO dto) {
 		Report report = converter.fromDtoToEntity(dto);
 		// handling data
@@ -36,7 +41,10 @@ public class ReportService {
 
 	@GET
 	@Path("get-all")
+	@JWTTokenNeeded
 	public List<ReportJSON> getAll() {
-		return reportSelector.getList().stream().map(r -> converter.fromEntityToJSON(r)).collect(Collectors.toList());
+		return reportSelector.getList().stream().map(r -> {
+			return converter.fromEntityToJSON(r);
+		}).collect(Collectors.toList());
 	}
 }

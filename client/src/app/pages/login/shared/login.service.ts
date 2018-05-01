@@ -20,15 +20,7 @@ export class LoginService {
 
   login(login: Login): Observable<any> {
     const url = `${this.loginUrl}`;
-    const out = this.http.post<any>(url, login, { headers: this.headers });
-
-    let isLogged = false;
-    this.http.get<any>(url, { headers: this.headers }).subscribe(
-      res => { console.log(res); isLogged = true; },
-      err => console.log(err)
-    );
-
-    return out;
+    return this.http.post<any>(url, login, { headers: this.headers });
   }
 
 }

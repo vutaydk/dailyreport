@@ -1,5 +1,5 @@
-import { IAppConfig } from './i.app.config';
+import { AppInterface } from './app.interface';
 
-export const AppConfig: IAppConfig = {
+export const AppConfig: AppInterface = {
     API_URL: 'http://localhost:8080/dailyreport/api'
 };

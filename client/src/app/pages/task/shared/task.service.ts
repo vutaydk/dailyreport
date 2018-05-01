@@ -8,33 +8,42 @@ import { Task, TaskDTO } from './task.model';
 export class TaskService {
 
   private readonly taskUrl: string;
-  private headers: HttpHeaders;
 
   constructor(
     private http: HttpClient
   ) {
     this.taskUrl = AppConfig.API_URL + '/task';
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
   getList(): Observable<Task[]> {
     const url = `${this.taskUrl}/get-all`;
-    return this.http.get<Task[]>(url);
+    return this.get<Task[]>(url);
   }
 
   findById(id: number): Observable<Task> {
     const url = `${this.taskUrl}/get/${id}`;
-    return this.http.get<Task>(url);
+    return this.get<Task>(url);
   }
 
   create(task: TaskDTO): Observable<Task> {
     const url = `${this.taskUrl}`;
-    return this.http.post<Task>(url, task, { headers: this.headers });
+    return this.post<Task>(url, task);
   }
 
-  update(id: number, task: TaskDTO): Observable<Task> {
+  update(task: TaskDTO, id: number): Observable<Task> {
     const url = `${this.taskUrl}/${id}`;
-    return this.http.post<Task>(url, task, { headers: this.headers });
+    return this.post<Task>(url, task);
+  }
+
+  private get<T>(url: string) {
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get<T>(url, { headers: headers });
+  }
+
+  private post<T>(url: string, data: any) {
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<T>(url, data, { headers: headers });
   }
 
 }

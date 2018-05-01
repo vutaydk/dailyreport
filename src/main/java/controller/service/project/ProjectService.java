@@ -11,11 +11,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import common.util.Shiro;
+import controller.filter.JWTTokenNeeded;
+import controller.service.project.business.ChartFullJSON;
+import controller.service.project.business.ChartJSON;
+import controller.service.project.business.ProjectConverter;
+import controller.service.project.business.ProjectDTO;
+import controller.service.project.business.ProjectJSON;
 import model.business.project.AddProjectHandler;
 import model.business.project.ProjectSelector;
 import model.business.project.UpdateProjectHandler;
-import model.business.rights.Role;
 import model.entity.Project;
 
 @Path("/project")
@@ -33,10 +37,8 @@ public class ProjectService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@JWTTokenNeeded
 	public int insert(@Valid ProjectDTO dto) {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
-
 		Project project = converter.fromDtoToEntity(dto);
 		// handling data
 		int projectId = addCommand.execute(project);
@@ -46,10 +48,8 @@ public class ProjectService {
 	@POST
 	@Path("{id: [0-9]+}")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@JWTTokenNeeded
 	public int update(@Valid ProjectDTO dto, @PathParam("id") int id) {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
-
 		Project project = converter.fromDtoToEntity(dto);
 		// handling data
 		int projectId = updateCommand.execute(project, id);
@@ -58,10 +58,8 @@ public class ProjectService {
 
 	@GET
 	@Path("get-all")
+	@JWTTokenNeeded
 	public List<ProjectJSON> getAll() {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
-
 		return projectSelector.getList().stream().map(p -> {
 			return converter.fromEntityToJSON(p);
 		}).collect(Collectors.toList());
@@ -69,18 +67,15 @@ public class ProjectService {
 
 	@GET
 	@Path("get/{id}")
+	@JWTTokenNeeded
 	public ProjectJSON get(@PathParam("id") int id) {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
 		return converter.fromEntityToJSON(projectSelector.getProjectDetailById(id).get());
 	}
 
 	@GET
 	@Path("get-chart")
+	@JWTTokenNeeded
 	public List<ChartJSON> getChart() {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
-
 		return projectSelector.getList().stream().map(p -> {
 			return converter.fromEntityToChartJSON(p);
 		}).collect(Collectors.toList());
@@ -89,9 +84,6 @@ public class ProjectService {
 	@GET
 	@Path("get-chart-full")
 	public List<ChartFullJSON> getChartFull() {
-		// check roles
-		// Shiro.checkRoles(Role.DIRECTOR, Role.PM);
-
 		return projectSelector.getList().stream().map(p -> {
 			return converter.fromEntityToChartFullJSON(p);
 		}).collect(Collectors.toList());

@@ -13,6 +13,7 @@ import { TaskDTO } from '../../shared/task.model';
   styleUrls: ['./task-edit.component.css']
 })
 export class TaskEditComponent implements OnInit {
+
   private _message = new Subject<string>();
   taskForm: FormGroup;
   isSubmitting: boolean;
@@ -55,7 +56,7 @@ export class TaskEditComponent implements OnInit {
         name: this.taskForm.get('name').value
       };
       // update task
-      this.taskService.update(this.id, task).subscribe(
+      this.taskService.update(task, this.id).subscribe(
         res => {
           console.log(res);
           this.taskForm.reset();

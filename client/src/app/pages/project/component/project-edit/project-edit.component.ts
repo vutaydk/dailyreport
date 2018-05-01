@@ -57,7 +57,7 @@ export class ProjectEditComponent implements OnInit {
         finishAt: this.projectForm.get('finishAt').value
       };
       // update project
-      this.projectService.update(this.id, project).subscribe(
+      this.projectService.update(project, this.id).subscribe(
         res => {
           console.log(res);
           this.projectForm.reset();

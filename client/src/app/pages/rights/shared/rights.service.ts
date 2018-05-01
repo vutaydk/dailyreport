@@ -8,33 +8,42 @@ import { Rights, RightsDTO } from './rights.model';
 export class RightsService {
 
   private readonly rightsUrl: string;
-  private headers: HttpHeaders;
 
   constructor(
     private http: HttpClient
   ) {
     this.rightsUrl = AppConfig.API_URL + '/rights';
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
   getList(): Observable<Rights[]> {
     const url = `${this.rightsUrl}/get-all`;
-    return this.http.get<Rights[]>(url);
+    return this.get<Rights[]>(url);
   }
 
   findById(id: number): Observable<Rights> {
     const url = `${this.rightsUrl}/get/${id}`;
-    return this.http.get<Rights>(url);
+    return this.get<Rights>(url);
   }
 
   create(rights: RightsDTO): Observable<Rights> {
     const url = `${this.rightsUrl}`;
-    return this.http.post<Rights>(url, rights, { headers: this.headers });
+    return this.post<Rights>(url, rights);
   }
 
-  update(id: number, rights: RightsDTO): Observable<Rights> {
+  update(rights: RightsDTO, id: number): Observable<Rights> {
     const url = `${this.rightsUrl}/${id}`;
-    return this.http.post<Rights>(url, rights, { headers: this.headers });
+    return this.post<Rights>(url, rights);
+  }
+
+  private get<T>(url: string) {
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get<T>(url, { headers: headers });
+  }
+
+  private post<T>(url: string, data: any) {
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<T>(url, data, { headers: headers });
   }
 
 }

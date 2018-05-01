@@ -40,7 +40,7 @@ public class UserRepoImpl implements IUserRepo {
 		return true;
 	}
 
-	public Optional<User> check(String em, String pwd) {
+	public Optional<User> findByUserPassword(String em, String pwd) {
 		TypedQuery<User> query = connector
 				.createQuery("FROM " + User.class.getName() + " WHERE employee_code=:em AND password=:pwd", User.class);
 		query.setParameter("em", em);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { AppConfig } from '../config/app.config';
 
@@ -19,11 +19,9 @@ export class Authenticated implements CanActivate {
 
     canActivate(): boolean {
         const url = `${this.loginUrl}`;
-        let isLogged: boolean = false;
-        this.http.get<any>(url).subscribe(
-            res => { console.log(res); isLogged = true; },
-            err => this.router.navigateByUrl('/login')
-        );
+        let isLogged: boolean = true;
+        this.auth.isLogged().then(() => { isLogged = true; console.log(isLogged); });
+        console.log(isLogged)
         return isLogged;
     }
 }

@@ -10,7 +10,6 @@ export class ReportService {
   private readonly reportUrl: string;
   private readonly projectUrl: string;
   private readonly taskUrl: string;
-  private headers: HttpHeaders;
 
   constructor(
     private http: HttpClient
@@ -18,39 +17,47 @@ export class ReportService {
     this.reportUrl = AppConfig.API_URL + '/report';
     this.projectUrl = AppConfig.API_URL + '/project';
     this.taskUrl = AppConfig.API_URL + '/task';
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
   getList(): Observable<Report[]> {
-    // const url = `${this.reportUrl}/get-all`;
-    const url = `https://raw.githubusercontent.com/vutaydk/dailyreport/dev-client/client/src/assets/report.json`;
-
-    return this.http.get<Report[]>(url);
+    const url = `${this.reportUrl}/get-all`;
+    return this.get<Report[]>(url);
   }
 
   getListProject(): Observable<Project[]> {
     const url = `${this.projectUrl}/get-all`;
-    return this.http.get<Project[]>(url);
+    return this.get<Project[]>(url);
   }
 
   getListTask(): Observable<Task[]> {
     const url = `${this.taskUrl}/get-all`;
-    return this.http.get<Task[]>(url);
+    return this.get<Task[]>(url);
   }
 
   findById(id: number): Observable<Report> {
     const url = `${this.reportUrl}/get/${id}`;
-    return this.http.get<Report>(url);
+    return this.get<Report>(url);
   }
 
   create(report: ReportDTO): Observable<Report> {
     const url = `${this.reportUrl}`;
-    return this.http.post<Report>(url, report, { headers: this.headers });
+    return this.post<Report>(url, report);
   }
 
-  update(id: number, report: ReportDTO): Observable<Report> {
+  update(report: ReportDTO, id: number): Observable<Report> {
     const url = `${this.reportUrl}/${id}`;
-    return this.http.post<Report>(url, report, { headers: this.headers });
+    return this.post<Report>(url, report);
+  }
+
+  private get<T>(url: string) {
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get<T>(url, { headers: headers });
+  }
+
+  private post<T>(url: string, data: any) {
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<T>(url, data, { headers: headers });
   }
 
 }

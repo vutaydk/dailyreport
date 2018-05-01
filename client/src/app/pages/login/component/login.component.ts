@@ -30,9 +30,13 @@ export class LoginComponent implements OnInit {
     };
     this.service.login(login).subscribe(
       res => {
-        console.log(res);
-        localStorage.setItem('isLogged', login.employeeCode);
-        this.router.navigateByUrl('/project');
+        if (res.token && res.userId) {
+          console.log(res.userId);
+          console.log(res.token);
+          localStorage.setItem('isLogged', res.userId);
+          localStorage.setItem('token', res.token);
+          this.router.navigateByUrl('/project');
+        }
       },
       err => console.log(err)
     );

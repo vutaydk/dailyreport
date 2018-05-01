@@ -12,33 +12,29 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './pages/login/login.module#LoginModule'
   },
-  // {
-  //   path: 'register',
-  //   loadChildren: './pages/register/register.module#RegisterModule'
-  // },
   {
     path: 'project',
-    // canActivate: [Authenticated],
+    canActivate: [Authenticated],
     loadChildren: './pages/project/project.module#ProjectModule'
   },
   {
     path: 'report',
-    // canActivate: [Authenticated],
+    canActivate: [Authenticated],
     loadChildren: './pages/report/report.module#ReportModule'
   },
   {
     path: 'rights',
-    // canActivate: [Authenticated],
+    canActivate: [Authenticated],
     loadChildren: './pages/rights/rights.module#RightsModule'
   },
   {
     path: 'task',
-    // canActivate: [Authenticated],
+    canActivate: [Authenticated],
     loadChildren: './pages/task/task.module#TaskModule'
   },
   {
     path: 'user',
-    // canActivate: [Authenticated],
+    canActivate: [Authenticated],
     loadChildren: './pages/user/user.module#UserModule'
   },
   {
