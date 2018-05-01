@@ -37,6 +37,11 @@ const routes: Routes = [
     loadChildren: './pages/task/task.module#TaskModule'
   },
   {
+    path: 'user',
+    // canActivate: [Authenticated],
+    loadChildren: './pages/user/user.module#UserModule'
+  },
+  {
     path: '404page',
     loadChildren: './pages/page404/page404.module#Page404Module'
   },
