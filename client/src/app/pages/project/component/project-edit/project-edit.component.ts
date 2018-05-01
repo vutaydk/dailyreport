@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+import { debounceTime } from 'rxjs/operator/debounceTime';
 import { ProjectService } from '../../shared/project.service';
 import { ProjectForm } from '../../shared/project.form';
 import { ProjectDTO } from '../../shared/project.model';
@@ -11,8 +13,12 @@ import { ProjectDTO } from '../../shared/project.model';
   styleUrls: ['./project-edit.component.css']
 })
 export class ProjectEditComponent implements OnInit {
+  private _message = new Subject<string>();
   projectForm: FormGroup;
+  isSubmitting: boolean;
   id: number;
+  message: string;
+  type: string;
 
   constructor(
     private projectService: ProjectService,
@@ -25,6 +31,8 @@ export class ProjectEditComponent implements OnInit {
       url => this.onRouterChange(url)
     );
     this.projectForm = ProjectForm.newProjectForm();
+    this._message.subscribe((message) => this.message = message);
+    debounceTime.call(this._message, 4000).subscribe(() => this.message = null);
   }
 
   onRouterChange(url): void {
@@ -37,6 +45,10 @@ export class ProjectEditComponent implements OnInit {
 
   onSubmit(): void {
     if (this.projectForm.valid) {
+      if (this.isSubmitting) {
+        return;
+      }
+      this.isSubmitting = true;
       // data
       const project: ProjectDTO = {
         projectCode: this.projectForm.get('projectCode').value,
@@ -46,8 +58,19 @@ export class ProjectEditComponent implements OnInit {
       };
       // update project
       this.projectService.update(this.id, project).subscribe(
-        res => { console.log(res); this.projectForm.reset(); },
-        err => console.log(err.message)
+        res => {
+          console.log(res);
+          this.projectForm.reset();
+          this.type = 'success';
+          this._message.next(`Update successfully!`);
+          this.isSubmitting = false;
+        },
+        err => {
+          console.log(err.message);
+          this.type = 'danger';
+          this._message.next(`Update fail! Please try again.`);
+          this.isSubmitting = false;
+        }
       );
     }
   }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
+import { debounceTime } from 'rxjs/operator/debounceTime';
 import { ReportService } from '../../shared/report.service';
 import { ReportForm } from '../../shared/report.form';
 import { Project, Task } from '../../shared/report.model';
@@ -10,10 +12,13 @@ import { Project, Task } from '../../shared/report.model';
   styleUrls: ['./report-add.component.css']
 })
 export class ReportAddComponent implements OnInit {
-
+  private _message = new Subject<string>();
   reportForm: FormGroup;
   projects: Project[];
   tasks: Task[];
+  isSubmitting: boolean;
+  message: string;
+  type: string;
 
   constructor(
     private reportService: ReportService,
@@ -29,6 +34,8 @@ export class ReportAddComponent implements OnInit {
       res => this.tasks = res,
       err => console.log(err.message)
     );
+    this._message.subscribe((message) => this.message = message);
+    debounceTime.call(this._message, 4000).subscribe(() => this.message = null);
   }
 
   createTask(): FormGroup {
@@ -49,8 +56,11 @@ export class ReportAddComponent implements OnInit {
 
   onSubmit(): void {
     if (this.reportForm.valid) {
+      if (this.isSubmitting) {
+        return;
+      }
+      this.isSubmitting = true;
       // add report
     }
   }
-
 }

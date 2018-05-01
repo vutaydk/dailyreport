@@ -1,3 +1,4 @@
+<ngb-alert *ngIf="message" [type]="type" (close)="message = null">{{ message }}</ngb-alert>
 <div class="card">
   <div class="card-header">
     <b>Edit project</b>
@@ -22,8 +23,7 @@
         <label for="startAt" class="col-4 col-form-label">
           <b>Start at</b>
           <div class="input-group">
-            <input formControlName="startAt" (click)="startAt.toggle()" class="form-control" ngbDatepicker
-              #startAt="ngbDatepicker" [ngClass]="projectForm.get('startAt').dirty ? (projectForm.get('startAt').valid ? 'is-valid' : 'is-invalid') : ''">
+            <input formControlName="startAt" (click)="startAt.toggle()" class="form-control" ngbDatepicker #startAt="ngbDatepicker" [ngClass]="projectForm.get('startAt').dirty ? (projectForm.get('startAt').valid ? 'is-valid' : 'is-invalid') : ''">
             <div class="input-group-append">
               <span class="input-group-text" (click)="startAt.toggle()">
                 <i class="far fa-calendar-alt"></i>
