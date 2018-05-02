@@ -25,17 +25,17 @@ public class ReportConverter {
 
 	public Report fromAddDtoToEntity(ReportDTO dto) {
 		Report e = new Report();
-		e.setId(dto.getProjectId());
+		e.setProjectId(dto.getProjectId());
 		e.setUserId(1);
 		Set<ReportPart> reportParts = new HashSet<>();
 		for (PTaskDTO p : dto.getTasks()) {
 			ReportPart r = new ReportPart();
-			r.setId(p.getTaskId());
+			r.setTaskId(p.getTaskId());
 			r.setTimeWorked(p.getTimeWork());
 			r.setNote(p.getNote());
-			reportParts.add(r);
+			e.getReportDetails().add(r);
 		}
-		e.setReportDetails(reportParts);
+		// e.setReportDetails(reportParts);
 		return e;
 	}
 

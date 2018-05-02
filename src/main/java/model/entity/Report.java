@@ -3,6 +3,7 @@ package model.entity;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +50,7 @@ public class Report extends EntityBase {
 	@Column(name = "updated_at", length = 16)
 	private Date updatedAt;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "report_id")
 	private Set<ReportPart> reportDetails = new HashSet<>(0);
 

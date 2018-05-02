@@ -52,11 +52,8 @@ public class UpdateRightsHandler {
 	}
 
 	private void checkLevel(int level) {
-		String authorizationHeader = httpHeaders.getHeader(HttpHeaders.AUTHORIZATION);
-		String token = authorizationHeader.substring("Bearer".length()).trim();
-		Key key = Sha256.generateKey();
-		String obj = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
-		Optional<User> user = userRepo.findById(Integer.valueOf(obj));
+		int id = getUserCurrent();
+		Optional<User> user = userRepo.findById(id);
 		if (user.isPresent()) {
 			Optional<Rights> rights = rightsRepo.findById(user.get().getRights());
 			// check level
@@ -67,5 +64,13 @@ public class UpdateRightsHandler {
 		}
 
 		throw new BusinessException(new RawMessage("khong du quyen"));
+	}
+
+	private int getUserCurrent() {
+		String authorizationHeader = httpHeaders.getHeader(HttpHeaders.AUTHORIZATION);
+		String token = authorizationHeader.substring("Bearer".length()).trim();
+		Key key = Sha256.generateKey();
+		String obj = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
+		return Integer.valueOf(obj);
 	}
 }
