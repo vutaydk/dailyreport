@@ -12,3 +12,9 @@ export class TaskDTO {
         public name: string
     ) { }
 }
+
+export class TaskDTOEdit {
+    constructor(
+        public name: string
+    ) { }
+}

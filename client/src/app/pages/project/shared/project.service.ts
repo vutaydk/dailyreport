@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfig } from '../../../config/app.config';
 import { Observable } from 'rxjs/Observable';
-import { Project, ProjectDTO } from './project.model';
+import { Project, ProjectDTO, ProjectDTOEdit } from './project.model';
 import { Task } from './task.model';
 import { ProjectChart } from './projectchart.model';
 
@@ -39,7 +39,7 @@ export class ProjectService {
     return this.post<Project>(url, project);
   }
 
-  update(project: ProjectDTO, id: number): Observable<Project> {
+  update(project: ProjectDTOEdit, id: number): Observable<Project> {
     const url = `${this.projectUrl}/${id}`;
     return this.post<Project>(url, project);
   }

@@ -16,3 +16,11 @@ export class ProjectDTO {
         public finishAt: string
     ) { }
 }
+
+export class ProjectDTOEdit {
+    constructor(
+        public name: string,
+        public startAt: string,
+        public finishAt: string
+    ) { }
+}

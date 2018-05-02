@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfig } from '../../../config/app.config';
 import { Observable } from 'rxjs/Observable';
-import { Task, TaskDTO } from './task.model';
+import { Task, TaskDTO, TaskDTOEdit } from './task.model';
 import { isNull } from 'lodash';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class TaskService {
   constructor(
     private http: HttpClient
   ) {
-    this.taskUrl = AppConfig.API_URL + '/task';
+    this.taskUrl = `${AppConfig.API_URL}/task`;
   }
 
 
@@ -32,7 +32,7 @@ export class TaskService {
     return this.post<Task>(url, task);
   }
 
-  update(task: TaskDTO, id: number): Observable<Task> {
+  update(task: TaskDTOEdit, id: number): Observable<Task> {
     const url = `${this.taskUrl}/${id}`;
     return this.post<Task>(url, task);
   }
