@@ -1,12 +1,12 @@
-package controller.service.task.business;
+package controller.service.rights.logic;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class TaskJSON {
+public class RightsJSON {
 	private Integer id;
-	private String taskCode;
 	private String name;
+	private Integer level;
 }

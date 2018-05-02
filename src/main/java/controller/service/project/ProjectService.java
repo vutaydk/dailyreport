@@ -12,11 +12,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import controller.filter.JWTTokenNeeded;
-import controller.service.project.business.ChartFullJSON;
-import controller.service.project.business.ChartJSON;
-import controller.service.project.business.ProjectConverter;
-import controller.service.project.business.ProjectDTO;
-import controller.service.project.business.ProjectJSON;
+import controller.service.project.logic.AddProjectDTO;
+import controller.service.project.logic.ChartFullJSON;
+import controller.service.project.logic.ChartJSON;
+import controller.service.project.logic.EditProjectDTO;
+import controller.service.project.logic.ProjectConverter;
+import controller.service.project.logic.ProjectJSON;
 import model.business.project.AddProjectHandler;
 import model.business.project.ProjectSelector;
 import model.business.project.UpdateProjectHandler;
@@ -38,8 +39,9 @@ public class ProjectService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
-	public int insert(@Valid ProjectDTO dto) {
-		Project project = converter.fromDtoToEntity(dto);
+	public int insert(@Valid AddProjectDTO dto) {
+		Project project = converter.fromAddDtoToEntity(dto);
+		System.out.println(project);
 		// handling data
 		int projectId = addCommand.execute(project);
 		return projectId;
@@ -49,10 +51,11 @@ public class ProjectService {
 	@Path("{id: [0-9]+}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
-	public int update(@Valid ProjectDTO dto, @PathParam("id") int id) {
-		Project project = converter.fromDtoToEntity(dto);
+	public int update(@Valid EditProjectDTO dto, @PathParam("id") int id) {
+		Project project = converter.fromEditDtoToEntity(dto, id);
+		System.out.println(project);
 		// handling data
-		int projectId = updateCommand.execute(project, id);
+		int projectId = updateCommand.execute(project);
 		return projectId;
 	}
 

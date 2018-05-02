@@ -1,11 +1,19 @@
-package controller.service.rights.business;
+package controller.service.rights.logic;
 
 import model.entity.Rights;
 
 public class RightsConverter {
 
-	public Rights fromDtoToEntity(RightsDTO dto) {
+	public Rights fromAddDtoToEntity(RightsDTO dto) {
 		Rights e = new Rights();
+		e.setName(dto.getName());
+		e.setLevel(dto.getLevel());
+		return e;
+	}
+
+	public Rights fromEditDtoToEntity(RightsDTO dto, int id) {
+		Rights e = new Rights();
+		e.setId(id);
 		e.setName(dto.getName());
 		e.setLevel(dto.getLevel());
 		return e;

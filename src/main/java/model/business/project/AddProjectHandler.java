@@ -18,12 +18,22 @@ public class AddProjectHandler {
 
 	@Transactional
 	public int execute(Project input) {
+
+		// check
 		checkDuplicateProjectCode(input.getProjectCode());
 		validateDateRange(input.getStartAt(), input.getFinishAt());
 
-		projectRepo.insert(input);
+		// converter
+		Project project = new Project();
+		project.setProjectCode(input.getProjectCode());
+		project.setName(input.getName());
+		project.setStartAt(input.getStartAt());
+		project.setFinishAt(input.getFinishAt());
 
-		return input.getId();
+		// execute
+		projectRepo.insert(project);
+
+		return project.getId();
 	}
 
 	private void checkDuplicateProjectCode(String code) {

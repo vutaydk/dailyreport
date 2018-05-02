@@ -17,21 +17,30 @@ public class UpdateProjectHandler {
 	private IProjectRepo projectRepo;
 
 	@Transactional
-	public int execute(Project input, int id) {
-		checkExistId(id);
+	public int execute(Project input) {
+
+		// check
+		Project project = checkExistId(input.getId());
 		checkDuplicateProjectCode(input.getProjectCode());
 		validateDateRange(input.getStartAt(), input.getFinishAt());
 
-		input.setId(id);
-		projectRepo.update(input);
+		// converter
+		project.setName(input.getName());
+		project.setStartAt(input.getStartAt());
+		project.setFinishAt(input.getFinishAt());
 
-		return input.getId();
+		// execute
+		projectRepo.update(project);
+
+		return project.getId();
 	}
 
-	private void checkExistId(int id) {
+	private Project checkExistId(int id) {
 		Optional<Project> project = projectRepo.findById(id);
 		if (!project.isPresent())
 			throw new BusinessException(new RawMessage("project khong ton tai"));
+
+		return project.get();
 	}
 
 	private void checkDuplicateProjectCode(String code) {

@@ -1,4 +1,4 @@
-package controller.service.project.business;
+package controller.service.project.logic;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -12,9 +12,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import controller.filter.JWTTokenNeeded;
-import controller.service.rights.business.RightsConverter;
-import controller.service.rights.business.RightsDTO;
-import controller.service.rights.business.RightsJSON;
+import controller.service.rights.logic.RightsConverter;
+import controller.service.rights.logic.RightsDTO;
+import controller.service.rights.logic.RightsJSON;
 import model.business.rights.AddRightsHandler;
 import model.business.rights.RightsSelector;
 import model.business.rights.UpdateRightsHandler;
@@ -37,7 +37,8 @@ public class RightsService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
 	public int insert(@Valid RightsDTO dto) {
-		Rights rights = converter.fromDtoToEntity(dto);
+		Rights rights = converter.fromAddDtoToEntity(dto);
+		System.out.println(rights);
 		// handling data
 		int rightsId = addCommand.execute(rights);
 		return rightsId;
@@ -48,9 +49,10 @@ public class RightsService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
 	public int update(@Valid RightsDTO dto, @PathParam("id") int id) {
-		Rights rights = converter.fromDtoToEntity(dto);
+		Rights rights = converter.fromEditDtoToEntity(dto, id);
+		System.out.println(rights);
 		// handling data
-		int rightsId = updateCommand.execute(rights, id);
+		int rightsId = updateCommand.execute(rights);
 		return rightsId;
 	}
 

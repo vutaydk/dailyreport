@@ -1,4 +1,4 @@
-package controller.service.report.business;
+package controller.service.report.logic;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class ReportConverter {
 	@Inject
 	TaskSelector taskSelector;
 
-	public Report fromDtoToEntity(ReportDTO dto) {
+	public Report fromAddDtoToEntity(ReportDTO dto) {
 		Report e = new Report();
 		e.setId(dto.getProjectId());
 		e.setUserId(1);

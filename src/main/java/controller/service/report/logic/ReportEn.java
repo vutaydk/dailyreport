@@ -1,4 +1,4 @@
-package controller.service.report.business;
+package controller.service.report.logic;
 
 import java.util.List;
 import lombok.Getter;

@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
-import controller.service.login.business.UserDTO;
+import controller.service.login.logic.UserDTO;
 import model.entity.User;
 import model.repo.user.IUserRepo;
 

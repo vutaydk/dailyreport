@@ -1,4 +1,4 @@
-package controller.service.user.business;
+package controller.service.user.logic;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;

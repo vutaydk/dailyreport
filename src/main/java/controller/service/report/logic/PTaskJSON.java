@@ -1,4 +1,4 @@
-package controller.service.report.business;
+package controller.service.report.logic;
 
 import lombok.Getter;
 import lombok.Setter;

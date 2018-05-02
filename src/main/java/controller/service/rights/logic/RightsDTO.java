@@ -1,4 +1,4 @@
-package controller.service.rights.business;
+package controller.service.rights.logic;
 
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;

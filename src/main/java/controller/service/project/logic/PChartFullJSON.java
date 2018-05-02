@@ -1,22 +1,20 @@
-package controller.service.report.business;
+package controller.service.project.logic;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class ReportJSON {
-	public Integer id;
-	public String employeeCode;
-	public String employeeName;
+@Setter
+public class PChartFullJSON {
+	private Integer id;
+	private String employeeCode;
+	private String employeeName;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-	public Date startAt;
+	private Date startAt;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-	public Date finishAt;
-	public List<PTaskJSON> tasks = new ArrayList<>();
-
+	private Date finishAt;
+	private List<PChartJSON> tasks;
 }

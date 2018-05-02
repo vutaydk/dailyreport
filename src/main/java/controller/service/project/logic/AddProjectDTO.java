@@ -1,4 +1,4 @@
-package controller.service.project.business;
+package controller.service.project.logic;
 
 import java.util.Date;
 import javax.validation.constraints.Size;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProjectDTO {
+public class AddProjectDTO {
 
 	@Size(min = 4, max = 4)
 	private String projectCode;

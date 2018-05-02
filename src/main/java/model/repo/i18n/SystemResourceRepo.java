@@ -1,5 +1,6 @@
 package model.repo.i18n;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.enterprise.context.RequestScoped;
@@ -19,11 +20,11 @@ public class SystemResourceRepo implements ISystemResourceRepo {
 
 	@Override
 	public List<SystemResource> getAll() {
-		TypedQuery<SystemResource> query = connection.getEntityManager()
-				.createQuery("FROM " + SystemResource.class.getName(), SystemResource.class);
-		List<SystemResource> resources = query.getResultList();
+//		TypedQuery<SystemResource> query = connection.getEntityManager()
+//				.createQuery("FROM " + SystemResource.class.getName(), SystemResource.class);
+//		List<SystemResource> resources = query.getResultList();
 
-		return resources;
+		return new ArrayList<>();
 	}
 
 	@Override

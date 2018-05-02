@@ -1,13 +1,10 @@
 package common.security;
 
 import java.security.Key;
-
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * @author JoanVasquez
- * Date 19/10/2017
- * A class to generate the JWT key
+ * @author JoanVasquez Date 19/10/2017 A class to generate the JWT key
  */
 public class Sha256 {
 	/**

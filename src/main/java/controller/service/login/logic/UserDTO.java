@@ -1,4 +1,4 @@
-package controller.service.login.business;
+package controller.service.login.logic;
 
 import javax.validation.constraints.NotNull;
 import lombok.Getter;

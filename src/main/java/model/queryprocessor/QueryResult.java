@@ -1,5 +1,5 @@
 package model.queryprocessor;
 
-public class QueryBase {
+public class QueryResult {
 
 }

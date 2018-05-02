@@ -11,9 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import controller.filter.JWTTokenNeeded;
-import controller.service.report.business.ReportConverter;
-import controller.service.report.business.ReportDTO;
-import controller.service.report.business.ReportJSON;
+import controller.service.report.logic.ReportConverter;
+import controller.service.report.logic.ReportDTO;
+import controller.service.report.logic.ReportJSON;
 import model.business.report.AddReportHandler;
 import model.business.report.ReportSelector;
 import model.entity.Report;
@@ -33,7 +33,8 @@ public class ReportService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
 	public int insert(@Valid ReportDTO dto) {
-		Report report = converter.fromDtoToEntity(dto);
+		Report report = converter.fromAddDtoToEntity(dto);
+		System.out.println(report);
 		// handling data
 		int reportId = addCommand.execute(report);
 		return reportId;

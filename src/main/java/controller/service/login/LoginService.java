@@ -11,7 +11,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -19,7 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import common.security.Sha256;
 import controller.filter.JWTTokenNeeded;
-import controller.service.login.business.UserDTO;
+import controller.service.login.logic.UserDTO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import model.business.login.LoginHandler;
@@ -54,9 +53,9 @@ public class LoginService {
 
 	@GET
 	@JWTTokenNeeded
-	public int status(@Context ContainerRequestContext requestContext) {
+	public int status(@Context HttpHeaders httpHeaders) {
 		System.out.println("@JWTTokenNeeded");
-		String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
+		String authorizationHeader = httpHeaders.getHeaderString(HttpHeaders.AUTHORIZATION);
 		try {
 			String token = authorizationHeader.substring("Bearer".length()).trim();
 			Key key = Sha256.generateKey();

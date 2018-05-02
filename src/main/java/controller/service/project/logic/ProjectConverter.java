@@ -1,11 +1,11 @@
-package controller.service.project.business;
+package controller.service.project.logic;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import model.business.report.ReportSelector;
 import model.business.task.TaskSelector;
 import model.business.user.UserSelector;
 import model.entity.Project;
@@ -14,18 +14,26 @@ import model.entity.ReportPart;
 import model.entity.Task;
 import model.entity.User;
 
+@RequestScoped
 public class ProjectConverter {
 
 	@Inject
 	TaskSelector taskSelector;
 	@Inject
-	ReportSelector reportSelector;
-	@Inject
 	UserSelector userSelector;
 
-	public Project fromDtoToEntity(ProjectDTO dto) {
+	public Project fromAddDtoToEntity(AddProjectDTO dto) {
 		Project e = new Project();
 		e.setProjectCode(dto.getProjectCode());
+		e.setName(dto.getName());
+		e.setStartAt(dto.getStartAt());
+		e.setFinishAt(dto.getFinishAt());
+		return e;
+	}
+
+	public Project fromEditDtoToEntity(EditProjectDTO dto, int id) {
+		Project e = new Project();
+		e.setId(id);
 		e.setName(dto.getName());
 		e.setStartAt(dto.getStartAt());
 		e.setFinishAt(dto.getFinishAt());

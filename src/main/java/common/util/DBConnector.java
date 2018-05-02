@@ -22,11 +22,11 @@ public class DBConnector {
 		return this.entityManager.createNamedQuery(queryString, resultWrapper);
 	}
 
-	public void update(EntityBase entity) {
+	public void insert(EntityBase entity) {
 		this.entityManager.persist(entity);
 	}
 
-	public void insert(EntityBase entity) {
+	public void update(EntityBase entity) {
 		this.entityManager.persist(entity);
 	}
 

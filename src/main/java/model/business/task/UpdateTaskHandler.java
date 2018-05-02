@@ -16,20 +16,27 @@ public class UpdateTaskHandler {
 	private ITaskRepo taskRepo;
 
 	@Transactional
-	public int execute(Task input, int id) {
-		checkExistId(id);
+	public int execute(Task input) {
+
+		// check
+		Task task = checkExistId(input.getId());
 		checkDuplicateProjectCode(input.getTaskCode());
 
-		input.setId(id);
-		taskRepo.update(input);
+		// converter
+		task.setName(input.getName());
 
-		return input.getId();
+		// execute
+		taskRepo.update(task);
+
+		return task.getId();
 	}
 
-	private void checkExistId(int id) {
+	private Task checkExistId(int id) {
 		Optional<Task> task = taskRepo.findById(id);
 		if (!task.isPresent())
 			throw new BusinessException(new RawMessage("task khong ton tai"));
+
+		return task.get();
 	}
 
 	private void checkDuplicateProjectCode(String code) {

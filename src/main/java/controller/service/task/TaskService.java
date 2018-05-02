@@ -12,9 +12,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import controller.filter.JWTTokenNeeded;
-import controller.service.task.business.TaskConverter;
-import controller.service.task.business.TaskDTO;
-import controller.service.task.business.TaskJSON;
+import controller.service.task.logic.AddTaskDTO;
+import controller.service.task.logic.EditTaskDTO;
+import controller.service.task.logic.TaskConverter;
+import controller.service.task.logic.TaskJSON;
 import model.business.task.AddTaskHandler;
 import model.business.task.TaskSelector;
 import model.business.task.UpdateTaskHandler;
@@ -36,8 +37,9 @@ public class TaskService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
-	public int insert(@Valid TaskDTO dto) {
-		Task task = converter.fromDtoToEntity(dto);
+	public int insert(@Valid AddTaskDTO dto) {
+		Task task = converter.fromAddDtoToEntity(dto);
+		System.out.println(task);
 		// handling data
 		int taskId = addCommand.execute(task);
 		return taskId;
@@ -47,10 +49,11 @@ public class TaskService {
 	@Path("{id: [0-9]+}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
-	public int update(@Valid TaskDTO dto, @PathParam("id") int id) {
-		Task task = converter.fromDtoToEntity(dto);
+	public int update(@Valid EditTaskDTO dto, @PathParam("id") int id) {
+		Task task = converter.fromEditDtoToEntity(dto, id);
+		System.out.println(task);
 		// handling data
-		int taskId = updateCommand.execute(task, id);
+		int taskId = updateCommand.execute(task);
 		return taskId;
 	}
 

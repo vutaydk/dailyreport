@@ -12,9 +12,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import controller.filter.JWTTokenNeeded;
-import controller.service.user.business.UserConverter;
-import controller.service.user.business.UserDTO;
-import controller.service.user.business.UserJSON;
+import controller.service.user.logic.UserConverter;
+import controller.service.user.logic.UserDTO;
+import controller.service.user.logic.UserJSON;
 import model.business.user.AddUserHandler;
 import model.business.user.UpdateUserHandler;
 import model.business.user.UserSelector;
@@ -37,7 +37,8 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
 	public int insert(@Valid UserDTO dto) {
-		User user = converter.fromDtoToEntity(dto);
+		User user = converter.fromAddDtoToEntity(dto);
+		System.out.println(user);
 		// handling data
 		int userId = addCommand.execute(user);
 		return userId;
@@ -48,9 +49,10 @@ public class UserService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@JWTTokenNeeded
 	public int update(@Valid UserDTO dto, @PathParam("id") int id) {
-		User user = converter.fromDtoToEntity(dto);
+		User user = converter.fromEditDtoToEntity(dto, id);
+		System.out.println(user);
 		// handling data
-		int userId = updateCommand.execute(user, id);
+		int userId = updateCommand.execute(user);
 		return userId;
 	}
 

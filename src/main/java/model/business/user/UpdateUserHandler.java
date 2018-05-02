@@ -16,18 +16,29 @@ public class UpdateUserHandler {
 	private IUserRepo userRepo;
 
 	@Transactional
-	public int execute(User input, int id) {
-		checkExistId(id);
+	public int execute(User input) {
 
-		input.setId(id);
-		userRepo.update(input);
+		// check
+		User user = checkExistId(input.getId());
 
-		return input.getId();
+		// converter
+		user.setEmployeeCode(input.getEmployeeCode());
+		user.setPassword(input.getPassword());
+		user.setEmail(input.getEmail());
+		user.setName(input.getName());
+		user.setRights(input.getRights());
+
+		// execute
+		userRepo.update(user);
+
+		return user.getId();
 	}
 
-	private void checkExistId(int id) {
+	private User checkExistId(int id) {
 		Optional<User> user = userRepo.findById(id);
 		if (!user.isPresent())
 			throw new BusinessException(new RawMessage("user khong ton tai"));
+
+		return user.get();
 	}
 }

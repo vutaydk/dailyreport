@@ -17,11 +17,19 @@ public class AddTaskHandler {
 
 	@Transactional
 	public int execute(Task input) {
+
+		// check
 		checkDuplicateProjectCode(input.getTaskCode());
 
-		taskRepo.insert(input);
+		// converter
+		Task task = new Task();
+		task.setTaskCode(input.getTaskCode());
+		task.setName(input.getName());
 
-		return input.getId();
+		// execute
+		taskRepo.insert(task);
+
+		return task.getId();
 	}
 
 	private void checkDuplicateProjectCode(String code) {

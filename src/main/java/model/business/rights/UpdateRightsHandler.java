@@ -22,20 +22,28 @@ public class UpdateRightsHandler {
 	private IUserRepo userRepo;
 
 	@Transactional
-	public int execute(Rights input, int id) {
-		checkExistId(id);
+	public int execute(Rights input) {
+
+		// check
+		Rights rights = checkExistId(input.getId());
 		checkLevel(input.getLevel());
 
-		input.setId(id);
-		rightsRepo.update(input);
+		// converter
+		rights.setName(input.getName());
+		rights.setLevel(input.getLevel());
 
-		return input.getId();
+		// execute
+		rightsRepo.update(rights);
+
+		return rights.getId();
 	}
 
-	private void checkExistId(int id) {
+	private Rights checkExistId(int id) {
 		Optional<Rights> rights = rightsRepo.findById(id);
 		if (!rights.isPresent())
 			throw new BusinessException(new RawMessage("rights khong ton tai"));
+
+		return rights.get();
 	}
 
 	private void checkLevel(int level) {
