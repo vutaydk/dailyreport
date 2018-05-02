@@ -4,7 +4,7 @@ export class UserDTO {
         public password: string,
         public email: string,
         public name: string,
-        public rights: Rights
+        public rights: number
     ) { }
 }
 
@@ -15,7 +15,7 @@ export class User {
         public password: string,
         public email: string,
         public name: string,
-        public rights: Rights
+        public rights: number
     ) { }
 }
 

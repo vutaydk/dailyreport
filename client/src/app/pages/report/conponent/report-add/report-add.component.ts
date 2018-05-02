@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operator/debounceTime';
 import { ReportService } from '../../shared/report.service';
 import { ReportForm } from '../../shared/report.form';
-import { Project, Task } from '../../shared/report.model';
+import { Project, Task, ReportDTO } from '../../shared/report.model';
 
 @Component({
   selector: 'app-report-add',
@@ -60,6 +60,33 @@ export class ReportAddComponent implements OnInit {
         return;
       }
       this.isSubmitting = true;
+
+      // data
+      const report: ReportDTO = {
+        projectId: Number(this.reportForm.get('projectCode').value),
+        tasks: this.reportForm.get('tasks').value
+      };
+
+      this.reportService.create(report).subscribe(
+        res => {
+          console.log(res);
+          this.reportForm.reset();
+          this.type = 'success';
+          this._message.next(`Add successfully!`);
+          this.isSubmitting = false;
+        },
+        err => {
+          console.log(err);
+          this.type = 'danger';
+          this._message.next(`Add fail! Please try again.`);
+          this.isSubmitting = false;
+        }
+      );
+
+      this.isSubmitting = false;
+      console.log(report);
+
+
       // add report
     }
   }

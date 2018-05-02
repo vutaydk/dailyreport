@@ -19,7 +19,7 @@
       <div class="row mb-2">
         <label class="col-3 col-form-label">
           <b>Task code</b>
-          <select formControlName="taskCode" class="form-control" [ngClass]="task.get('taskCode').dirty ? (task.get('taskCode').valid ? 'is-valid' : 'is-invalid') : ''">
+          <select formControlName="taskId" class="form-control" [ngClass]="task.get('taskId').dirty ? (task.get('taskId').valid ? 'is-valid' : 'is-invalid') : ''">
             <option value="">Choose task...</option>
             <option *ngFor="let t of tasks" [value]="t.id">{{t.name}}</option>
           </select>
