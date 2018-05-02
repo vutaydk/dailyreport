@@ -6,7 +6,9 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
+import model.entity.Rights;
 import model.entity.User;
+import model.repo.right.IRightRepo;
 import model.repo.user.IUserRepo;
 
 @RequestScoped
@@ -14,12 +16,15 @@ public class UpdateUserHandler {
 
 	@Inject
 	private IUserRepo userRepo;
+	@Inject
+	private IRightRepo rightRepo;
 
 	@Transactional
 	public int execute(User input) {
 
 		// check
 		User user = checkExistId(input.getId());
+		checkExistRights(input.getRights());
 
 		// converter
 		user.setEmployeeCode(input.getEmployeeCode());
@@ -40,5 +45,11 @@ public class UpdateUserHandler {
 			throw new BusinessException(new RawMessage("user khong ton tai"));
 
 		return user.get();
+	}
+
+	private void checkExistRights(int id) {
+		Optional<Rights> rights = rightRepo.findById(id);
+		if (!rights.isPresent())
+			throw new BusinessException(new RawMessage("rights khong ton tai"));
 	}
 }
