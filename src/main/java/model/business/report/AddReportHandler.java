@@ -1,6 +1,8 @@
 package model.business.report;
 
 import java.security.Key;
+import java.util.HashSet;
+import java.util.Set;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,8 @@ import javax.ws.rs.core.HttpHeaders;
 import common.security.Sha256;
 import io.jsonwebtoken.Jwts;
 import model.entity.Report;
+import model.entity.ReportPart;
+import model.repo.report.IReportPartRepo;
 import model.repo.report.IReportRepo;
 
 @RequestScoped
@@ -16,6 +20,9 @@ public class AddReportHandler {
 
 	@Inject
 	private IReportRepo reportRepo;
+	@Inject
+	private IReportPartRepo reportPartRepo;
+
 	@Inject
 	HttpServletRequest httpHeaders;
 
@@ -26,8 +33,18 @@ public class AddReportHandler {
 		int id = getUserCurrent();
 		input.setUserId(id);
 
+		//
+		Set<ReportPart> set = new HashSet<>(input.getReportDetails());
+		input.getReportDetails().clear();
+
 		// execute
 		reportRepo.insert(input);
+
+		//
+		for (ReportPart reportPart : set) {
+			reportPart.setReportId(input.getId());
+			reportPartRepo.insert(reportPart);
+		}
 
 		return input.getId();
 	}

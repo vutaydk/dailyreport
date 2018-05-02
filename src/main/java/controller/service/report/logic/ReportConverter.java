@@ -1,8 +1,6 @@
 package controller.service.report.logic;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import model.business.project.ProjectSelector;
@@ -27,7 +25,6 @@ public class ReportConverter {
 		Report e = new Report();
 		e.setProjectId(dto.getProjectId());
 		e.setUserId(1);
-		Set<ReportPart> reportParts = new HashSet<>();
 		for (PTaskDTO p : dto.getTasks()) {
 			ReportPart r = new ReportPart();
 			r.setTaskId(p.getTaskId());
@@ -35,7 +32,6 @@ public class ReportConverter {
 			r.setNote(p.getNote());
 			e.getReportDetails().add(r);
 		}
-		// e.setReportDetails(reportParts);
 		return e;
 	}
 
