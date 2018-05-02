@@ -64,4 +64,11 @@ public class UserService {
 			return converter.fromEntityToJSON(u);
 		}).collect(Collectors.toList());
 	}
+
+	@GET
+	@Path("get/{id: [0-9]+}")
+	@JWTTokenNeeded
+	public UserJSON get(@PathParam("id") int id) {
+		return converter.fromEntityToJSON(userSelector.getUserDetailById(id).get());
+	}
 }
