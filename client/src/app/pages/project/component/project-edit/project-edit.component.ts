@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operator/debounceTime';
 import { ProjectService } from '../../shared/project.service';
 import { ProjectForm } from '../../shared/project.form';
-import { ProjectDTO } from '../../shared/project.model';
+import { ProjectDTO, ProjectDTOEdit } from '../../shared/project.model';
 
 @Component({
   selector: 'app-project-edit',
@@ -30,7 +30,7 @@ export class ProjectEditComponent implements OnInit {
     this.route.url.subscribe(
       url => this.onRouterChange(url)
     );
-    this.projectForm = ProjectForm.newProjectForm();
+    this.projectForm = ProjectForm.newProjectFormEdit();
     this._message.subscribe((message) => this.message = message);
     debounceTime.call(this._message, 4000).subscribe(() => this.message = null);
   }
@@ -38,7 +38,7 @@ export class ProjectEditComponent implements OnInit {
   onRouterChange(url): void {
     this.id = Number(url[0].path);
     this.projectService.findById(this.id).subscribe(
-      res => this.projectForm = ProjectForm.newProjectForm(res),
+      res => this.projectForm = ProjectForm.newProjectFormEdit(res),
       err => { console.log(err); this.router.navigate(['404page']); }
     );
   }
@@ -52,8 +52,7 @@ export class ProjectEditComponent implements OnInit {
       // data
       const startDate = this.projectForm.get('startAt').value;
       const finishDate = this.projectForm.get('finishAt').value;
-      const project: ProjectDTO = {
-        projectCode: this.projectForm.get('projectCode').value,
+      const project: ProjectDTOEdit = {
         name: this.projectForm.get('name').value,
         startAt: `${startDate['day']}/${startDate['month']}/${startDate['year']}`,
         finishAt: `${finishDate['day']}/${finishDate['month']}/${finishDate['year']}`

@@ -5,12 +5,6 @@
   </div>
   <div class="card-body">
     <form (ngSubmit)="onSubmit()" [formGroup]="projectForm">
-      <div class="form-group mb-0">
-        <label class="col-3 col-form-label">
-          <b>Project code</b>
-          <input formControlName="projectCode" class="form-control" type="text" maxlength="4" [ngClass]="projectForm.get('projectCode').dirty ? (projectForm.get('projectCode').valid ? 'is-valid' : 'is-invalid') : ''">
-        </label>
-      </div>
 
       <div class="form-group mb-0">
         <label for="name" class="col-6 col-form-label">

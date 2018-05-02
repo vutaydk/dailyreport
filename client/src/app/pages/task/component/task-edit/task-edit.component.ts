@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operator/debounceTime';
 import { TaskService } from '../../shared/task.service';
 import { TaskForm } from '../../shared/task.form';
-import { TaskDTO } from '../../shared/task.model';
+import { TaskDTO, TaskDTOEdit } from '../../shared/task.model';
 
 @Component({
   selector: 'app-task-edit',
@@ -31,7 +31,7 @@ export class TaskEditComponent implements OnInit {
     this.route.url.subscribe(
       url => this.onRouterChange(url)
     );
-    this.taskForm = TaskForm.newTaskForm();
+    this.taskForm = TaskForm.newTaskFormEdit();
     this._message.subscribe((message) => this.message = message);
     debounceTime.call(this._message, 4000).subscribe(() => this.message = null);
   }
@@ -39,7 +39,7 @@ export class TaskEditComponent implements OnInit {
   onRouterChange(url): void {
     this.id = Number(url[0].path);
     this.taskService.findById(this.id).subscribe(
-      res => this.taskForm = TaskForm.newTaskForm(res),
+      res => this.taskForm = TaskForm.newTaskFormEdit(res),
       err => { console.log(err.message); this.router.navigate(['404page']); }
     );
   }
@@ -51,8 +51,7 @@ export class TaskEditComponent implements OnInit {
       }
       this.isSubmitting = true;
       // data
-      const task: TaskDTO = {
-        taskCode: this.taskForm.get('taskCode').value,
+      const task: TaskDTOEdit = {
         name: this.taskForm.get('name').value
       };
       // update task
