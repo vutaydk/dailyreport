@@ -37,8 +37,8 @@ export class TaskEditComponent implements OnInit {
   }
 
   onRouterChange(url): void {
-    const id = Number(url[0].path);
-    this.taskService.findById(id).subscribe(
+    this.id = Number(url[0].path);
+    this.taskService.findById(this.id).subscribe(
       res => this.taskForm = TaskForm.newTaskForm(res),
       err => { console.log(err.message); this.router.navigate(['404page']); }
     );

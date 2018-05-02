@@ -36,8 +36,8 @@ export class ProjectEditComponent implements OnInit {
   }
 
   onRouterChange(url): void {
-    const id = Number(url[0].path);
-    this.projectService.findById(id).subscribe(
+    this.id = Number(url[0].path);
+    this.projectService.findById(this.id).subscribe(
       res => this.projectForm = ProjectForm.newProjectForm(res),
       err => { console.log(err); this.router.navigate(['404page']); }
     );
@@ -50,12 +50,16 @@ export class ProjectEditComponent implements OnInit {
       }
       this.isSubmitting = true;
       // data
+      const startDate = this.projectForm.get('startAt').value;
+      const finishDate = this.projectForm.get('finishAt').value;
       const project: ProjectDTO = {
         projectCode: this.projectForm.get('projectCode').value,
         name: this.projectForm.get('name').value,
-        startAt: this.projectForm.get('startAt').value,
-        finishAt: this.projectForm.get('finishAt').value
+        startAt: `${startDate['day']}/${startDate['month']}/${startDate['year']}`,
+        finishAt: `${finishDate['day']}/${finishDate['month']}/${finishDate['year']}`
       };
+      console.log(project);
+
       // update project
       this.projectService.update(project, this.id).subscribe(
         res => {

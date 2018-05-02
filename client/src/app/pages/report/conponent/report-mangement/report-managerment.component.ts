@@ -31,9 +31,11 @@ export class ReportManagermentComponent implements OnInit {
       res => {
         this.reports = res;
         this.applyFilters();
+        console.log(this.reports);
       },
       err => console.log(err.message)
     );
+
   }
 
   applyFilters() {

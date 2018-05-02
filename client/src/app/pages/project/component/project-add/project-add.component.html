@@ -25,7 +25,7 @@
         <label for="startAt" class="col-4 col-form-label">
           <b>Start at</b>
           <div class="input-group">
-            <input formControlName="startAt" (click)="startAt.toggle()" class="form-control" ngbDatepicker #startAt="ngbDatepicker" [ngClass]="projectForm.get('startAt').dirty ? (projectForm.get('startAt').valid ? 'is-valid' : 'is-invalid') : ''">
+            <input formControlName="startAt" class="form-control" ngbDatepicker #startAt="ngbDatepicker" [ngClass]="projectForm.get('startAt').dirty ? (projectForm.get('startAt').valid ? 'is-valid' : 'is-invalid') : ''">
             <div class="input-group-append">
               <span class="input-group-text" (click)="startAt.toggle()">
                 <i class="far fa-calendar-alt"></i>
@@ -40,7 +40,7 @@
         <label for="finishAt" class="col-4 col-form-label">
           <b>Finish at</b>
           <div class="input-group">
-            <input formControlName="finishAt" (click)="finishAt.toggle()" class="form-control" ngbDatepicker #finishAt="ngbDatepicker"
+            <input formControlName="finishAt" class="form-control" ngbDatepicker #finishAt="ngbDatepicker"
               [ngClass]="projectForm.get('finishAt').dirty ? (projectForm.get('finishAt').valid ? 'is-valid' : 'is-invalid') : ''">
             <div class="input-group-append">
               <span class="input-group-text" (click)="finishAt.toggle()">

@@ -1,4 +1,4 @@
-<div class="card">
+<div *ngIf="obj" class="card">
   <div class="card-body p-1">
     <div class="input-group mb-1">
       <input #search (keyup)="onSearch(search.value)" type="text" class="form-control">

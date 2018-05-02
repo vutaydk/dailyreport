@@ -6,10 +6,14 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './sidebar-right.component.html',
   styleUrls: ['./sidebar-right.component.css']
 })
-export class SidebarRightComponent {
+export class SidebarRightComponent implements OnInit {
 
   @Output() searchItem: EventEmitter<string> = new EventEmitter();
-  @Input() obj: any;
+  @Input() obj;
+
+  ngOnInit(): void {
+
+  }
 
   onSearch(search: string): void {
     this.searchItem.emit(search);

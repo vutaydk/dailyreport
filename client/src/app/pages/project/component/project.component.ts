@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../shared/project.service';
 import { Project } from '../shared/project.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-project',
@@ -25,7 +26,7 @@ export class ProjectComponent implements OnInit {
 
   onSearch(event: string): void {
     const filter = event.toLowerCase().trim();
-    this.projects = this.list.filter(p => p.name.toLowerCase().trim().includes(filter));
+    this.projects = this.list.filter(p => p.name.replace(/ /g, '').toLowerCase().includes(filter));
   }
 
 }

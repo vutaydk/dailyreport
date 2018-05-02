@@ -37,8 +37,8 @@ export class RightsEditComponent implements OnInit {
   }
 
   onRouterChange(url): void {
-    const id = Number(url[0].path);
-    this.rightsService.findById(id).subscribe(
+    this.id = Number(url[0].path);
+    this.rightsService.findById(this.id).subscribe(
       res => this.rightsForm = RightsForm.newRightsForm(res),
       err => { console.log(err); this.router.navigate(['404page']); }
     );

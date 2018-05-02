@@ -65,6 +65,7 @@
           <th>Task 3</th>
           <th>Start at</th>
           <th>Finish at</th>
+          <th>Approve</th>
         </tr>
       </thead>
       <tbody>
@@ -74,8 +75,11 @@
           <td>r.tasks[0].timeWork</td>
           <td>Task2</td>
           <td>Task3</td>
-          <td>{{r.startDate}}</td>
-          <td>{{r.finishDate}}</td>
+          <td>{{r.startAt}}</td>
+          <td>{{r.finishAt}}</td>
+          <td>
+            <button class="btn btn-primary">Approve</button>
+          </td>
         </tr>
       </tbody>
     </table>

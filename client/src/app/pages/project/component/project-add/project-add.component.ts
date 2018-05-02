@@ -35,12 +35,16 @@ export class ProjectAddComponent implements OnInit {
       }
       this.isSubmitting = true;
       // data
+      const startDate = this.projectForm.get('startAt').value;
+      const finishDate = this.projectForm.get('finishAt').value;
       const project: ProjectDTO = {
         projectCode: this.projectForm.get('projectCode').value,
         name: this.projectForm.get('name').value,
-        startAt: this.projectForm.get('startAt').value,
-        finishAt: this.projectForm.get('finishAt').value
+        startAt: `${startDate['day']}/${startDate['month']}/${startDate['year']}`,
+        finishAt: `${finishDate['day']}/${finishDate['month']}/${finishDate['year']}`
       };
+      console.log(project);
+
       // create project
       this.projectService.create(project).subscribe(
         res => {
