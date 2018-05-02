@@ -27,6 +27,7 @@ public class UserConverter {
 
 	public UserJSON fromEntityToJSON(User e) {
 		UserJSON uj = new UserJSON();
+		uj.setId(e.getId());
 		uj.setEmployeeCode(e.getEmployeeCode());
 		uj.setEmail(e.getEmail());
 		uj.setName(e.getName());
