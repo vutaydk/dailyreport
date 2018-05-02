@@ -44,20 +44,19 @@ public class AddRightsHandler {
 	}
 
 	private void checkLevel(int level) {
-		System.out.println("@JWTTokenNeeded");
-		// httpHeaders.getHeader(HttpHeaders.AUTHORIZATION);
 		String authorizationHeader = httpHeaders.getHeader(HttpHeaders.AUTHORIZATION);
 		String token = authorizationHeader.substring("Bearer".length()).trim();
 		Key key = Sha256.generateKey();
 		String obj = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
 		Optional<User> user = userRepo.findById(Integer.valueOf(obj));
-		user.ifPresent(u -> {
-			Optional<Rights> rights = rightsRepo.findById(u.getRights());
-			rights.ifPresent(r -> {
-				if (r.getLevel() <= level)
+		if (user.isPresent()) {
+			Optional<Rights> rights = rightsRepo.findById(user.get().getRights());
+			// check level
+			if (rights.isPresent()) {
+				if (rights.get().getLevel() <= level)
 					return;
-			});
-		});
+			}
+		}
 
 		throw new BusinessException(new RawMessage("khong du quyen"));
 	}

@@ -1,13 +1,16 @@
 package model.business.rights;
 
+import java.security.Key;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+import javax.ws.rs.core.HttpHeaders;
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
+import common.security.Sha256;
+import io.jsonwebtoken.Jwts;
 import model.entity.Rights;
 import model.entity.User;
 import model.repo.right.IRightRepo;
@@ -20,6 +23,8 @@ public class UpdateRightsHandler {
 	private IRightRepo rightsRepo;
 	@Inject
 	private IUserRepo userRepo;
+	@Inject
+	HttpServletRequest httpHeaders;
 
 	@Transactional
 	public int execute(Rights input) {
@@ -47,15 +52,19 @@ public class UpdateRightsHandler {
 	}
 
 	private void checkLevel(int level) {
-		Subject currentUser = SecurityUtils.getSubject();
-		Optional<User> user = userRepo.findByEmplyee(currentUser.getPrincipal().toString());
-		user.ifPresent(u -> {
-			Optional<Rights> rights = rightsRepo.findById(u.getRights());
-			rights.ifPresent(r -> {
-				if (r.getLevel() >= level)
+		String authorizationHeader = httpHeaders.getHeader(HttpHeaders.AUTHORIZATION);
+		String token = authorizationHeader.substring("Bearer".length()).trim();
+		Key key = Sha256.generateKey();
+		String obj = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
+		Optional<User> user = userRepo.findById(Integer.valueOf(obj));
+		if (user.isPresent()) {
+			Optional<Rights> rights = rightsRepo.findById(user.get().getRights());
+			// check level
+			if (rights.isPresent()) {
+				if (rights.get().getLevel() <= level)
 					return;
-			});
-		});
+			}
+		}
 
 		throw new BusinessException(new RawMessage("khong du quyen"));
 	}
