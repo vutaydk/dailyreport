@@ -14,7 +14,6 @@ export class AuthService {
     this.loginUrl = AppConfig.API_URL + '/login';
   }
 
-
   logout(): Promise<any> {
     const url = 'https://reqres.in/api/users';
     const usertest = {
@@ -23,16 +22,8 @@ export class AuthService {
     return this.http.post(url, usertest, { headers: this.headers }).toPromise();
   }
 
-
-  isLogged(): Promise<any> {
-    let promise = new Promise((resolve, reject) => {
-      let url: string = `${this.loginUrl}`;
-      let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-      this.http.get(url, { headers: headers }).toPromise()
-        .then(() => resolve(true))
-        .catch(() => resolve(false));
-    });
-    return promise;
+  isLogged(): boolean {
+    return !!localStorage.getItem('token');
   }
 
 }

@@ -19,6 +19,7 @@ export class NavComponent {
       .then(req => {
         console.log(req);
         localStorage.removeItem('token');
+        localStorage.removeItem('isLogged');
         this.router.navigateByUrl('/login');
       })
       .catch(err => {

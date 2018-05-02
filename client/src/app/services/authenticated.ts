@@ -19,9 +19,10 @@ export class Authenticated implements CanActivate {
 
     canActivate(): boolean {
         const url = `${this.loginUrl}`;
-        let isLogged: boolean = true;
-        this.auth.isLogged().then(() => { isLogged = true; console.log(isLogged); });
-        console.log(isLogged)
-        return isLogged;
+        if (!this.auth.isLogged()) {
+            this.router.navigate(['login']);
+            return false;
+        }
+        return true;
     }
 }
