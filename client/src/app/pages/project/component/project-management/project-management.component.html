@@ -22,22 +22,24 @@
     <div class="col-md-4 pl-0">
       <div class="card">
         <div class="cart-body">
-          <table *ngIf="chart.hasChartData" class="table mt-3">
+          <table *ngIf="chart.hasChartData" class="table">
             <thead>
               <tr>
                 <th>Task</th>
                 <th>Time (Hour)</th>
               </tr>
             </thead>
-            <tbody *ngFor="let task of chart.tableData.tasks">
-              <tr>
+            <tbody>
+              <tr *ngFor="let task of chart.tableData.tasks">
                 <td>{{task.taskName}}</td>
                 <td>{{task.timeWork}}</td>
               </tr>
             </tbody>
             <tfoot>
-              <td>Total (Hour)</td>
-              <td>{{chart.tableData.total}}</td>
+              <tr>
+                <th>Total</th>
+                <th>{{chart.tableData.total}}</th>
+              </tr>
             </tfoot>
           </table>
         </div>

@@ -2,6 +2,7 @@
   <div class="card-body">
     <form action="" method="post" class="mb-3">
       <div class="form-row">
+
         <div class="col-3">
           <label>
             <b>Start at</b>
@@ -45,13 +46,13 @@
                 placeholder="Select employee">
             </div>
           </label>
-
           <div *ngIf="isResultDisplay" class="result list-group">
             <a #a (click)="onToggleResult(); onSelectedEmp($event)" *ngFor="let e of filteredEmployee" class="list-group-item list-group-item-action">
               {{e}}
             </a>
           </div>
         </div>
+        
       </div>
     </form>
 
@@ -70,9 +71,7 @@
         <tr *ngFor="let r of filteredReports; let i = index;">
           <td>{{r.employeeCode}}</td>
           <td>{{r.employeeName}}</td>
-
           <td>
-
             <ng-template #i let-c="close" let-d="dismiss">
               <div class="modal-header">
                 <h4 class="modal-title">Tasks</h4>
@@ -84,22 +83,17 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <td>Task name</td>
-                      <td>Task code</td>
+                      <th>Task name</th>
+                      <th>Time work</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let t of r.tasks">
+                    <tr *ngFor="let t of r.tasks" placement="bottom" ngbTooltip="{{t.taskName}}">
                       <td>{{t.taskName}}</td>
                       <td>{{t.timeWork}}</td>
                     </tr>
                   </tbody>
                 </table>
-                <!-- <ul class="list-group">
-                  <li *ngFor="let t of r.tasks" class="list-group-item list-group-item-action">{{t.taskName}}
-                    <span class="badge">{{t.timeWork}}</span>
-                  </li>
-                </ul> -->
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
@@ -115,7 +109,5 @@
         </tr>
       </tbody>
     </table>
-
-
   </div>
 </div>
