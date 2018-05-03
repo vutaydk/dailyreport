@@ -1,6 +1,7 @@
 package controller.service.report;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -8,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import controller.filter.JWTTokenNeeded;
@@ -37,6 +39,18 @@ public class ReportService {
 		System.out.println(report);
 		// handling data
 		int reportId = addCommand.execute(report);
+		return reportId;
+	}
+
+	@POST
+	@Path("/approvel/{id: [0-9]+}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@JWTTokenNeeded
+	public int approvel(@PathParam("id") int id) {
+		Optional<Report> report = reportSelector.getReportDetailById(id);
+		System.out.println(report.get());
+		// handling data
+		int reportId = 1;
 		return reportId;
 	}
 

@@ -4,6 +4,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -22,7 +23,10 @@ import controller.service.login.logic.UserDTO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import model.business.login.LoginHandler;
+import model.business.rights.RightsSelector;
 import model.business.user.UserSelector;
+import model.entity.Rights;
+import model.entity.User;
 
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,6 +36,8 @@ public class LoginService {
 	LoginHandler loginHandler;
 	@Inject
 	UserSelector userSelector;
+	@Inject
+	RightsSelector rightsSelector;
 	@Context
 	private UriInfo uriInfo;
 
@@ -61,6 +67,25 @@ public class LoginService {
 			Key key = Sha256.generateKey();
 			String obj = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
 			return Integer.valueOf(obj);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	@GET
+	@Path("/get-rights-level")
+	@JWTTokenNeeded
+	public int getRights(@Context HttpHeaders httpHeaders) {
+		System.out.println("@JWTTokenNeeded");
+		String authorizationHeader = httpHeaders.getHeaderString(HttpHeaders.AUTHORIZATION);
+		try {
+			String token = authorizationHeader.substring("Bearer".length()).trim();
+			Key key = Sha256.generateKey();
+			String obj = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
+			int id = Integer.valueOf(obj);
+			Optional<User> user = userSelector.getUserDetailById(id);
+			Optional<Rights> rights = rightsSelector.getRightsDetailById(user.get().getRights());
+			return rights.get().getLevel();
 		} catch (Exception e) {
 			return 0;
 		}
