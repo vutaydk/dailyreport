@@ -6,7 +6,7 @@
           <label>
             <b>Start at</b>
             <div class="input-group">
-              <input class="form-control" [(ngModel)]="start" name="start" (dateSelect)="onStartAtSelect('startDate', start)" ngbDatepicker
+              <input class="form-control" [(ngModel)]="start" name="start" (dateSelect)="onStartAtSelect('startAt', start)" ngbDatepicker
                 #startAt="ngbDatepicker">
               <div class="input-group-append">
                 <span (click)="startAt.toggle()" class="input-group-text">
@@ -21,7 +21,7 @@
           <label>
             <b>Finish at</b>
             <div class="input-group">
-              <input class="form-control" [(ngModel)]="finish" name="finish" (dateSelect)="onFinishAtSelect('finishDate', finish)" ngbDatepicker
+              <input class="form-control" [(ngModel)]="finish" name="finish" (dateSelect)="onFinishAtSelect('finishAt', finish)" ngbDatepicker
                 #finishAt="ngbDatepicker">
               <div class="input-group-append">
                 <span (click)="finishAt.toggle()" class="input-group-text">
@@ -60,21 +60,53 @@
         <tr>
           <th>Employee code</th>
           <th>Employee name</th>
-          <th>Task 1</th>
-          <th>Task 2</th>
-          <th>Task 3</th>
+          <th>Tasks</th>
           <th>Start at</th>
           <th>Finish at</th>
           <th>Approve</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let r of filteredReports">
+        <tr *ngFor="let r of filteredReports; let i = index;">
           <td>{{r.employeeCode}}</td>
           <td>{{r.employeeName}}</td>
-          <td>r.tasks[0].timeWork</td>
-          <td>Task2</td>
-          <td>Task3</td>
+
+          <td>
+
+            <ng-template #i let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Tasks</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <td>Task name</td>
+                      <td>Task code</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let t of r.tasks">
+                      <td>{{t.taskName}}</td>
+                      <td>{{t.timeWork}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- <ul class="list-group">
+                  <li *ngFor="let t of r.tasks" class="list-group-item list-group-item-action">{{t.taskName}}
+                    <span class="badge">{{t.timeWork}}</span>
+                  </li>
+                </ul> -->
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+              </div>
+            </ng-template>
+            <button class="btn btn-outline-primary" (click)="open(i)">View</button>
+          </td>
           <td>{{r.startAt}}</td>
           <td>{{r.finishAt}}</td>
           <td>
@@ -83,5 +115,7 @@
         </tr>
       </tbody>
     </table>
+
+
   </div>
 </div>

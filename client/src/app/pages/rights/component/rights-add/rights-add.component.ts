@@ -5,6 +5,7 @@ import { debounceTime } from 'rxjs/operator/debounceTime';
 import { RightsService } from '../../shared/rights.service';
 import { RightsForm } from '../../shared/rights.form';
 import { RightsDTO } from '../../shared/rights.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rights-add',
