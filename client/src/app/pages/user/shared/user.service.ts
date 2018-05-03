@@ -22,9 +22,19 @@ export class UserService {
         return this.get<User[]>(url);
     }
 
+    findById(id: number): Observable<User> {
+        const url = `${this.userUrl}/get/${id}`;
+        return this.get<User>(url);
+    }
+
     getListRights(): Observable<Rights[]> {
         const url = `${this.rightsUrl}/get-all`;
         return this.get<Rights[]>(url);
+    }
+
+    getRightsById(id: number): Observable<Rights> {
+        const url = `${this.rightsUrl}/get/${id}`;
+        return this.get<Rights>(url);
     }
 
     create(user: UserDTO): Observable<User> {
@@ -38,13 +48,15 @@ export class UserService {
     }
 
     private get<T>(url: string) {
-        let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+        const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
         return this.http.get<T>(url, { headers: headers });
     }
 
     private post<T>(url: string, data: any) {
-        let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-        headers.append('Content-Type', 'application/json');
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+        });
         return this.http.post<T>(url, data, { headers: headers });
     }
 

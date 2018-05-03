@@ -1,3 +1,58 @@
-<p>
-  user-edit works!
-</p>
+<ngb-alert *ngIf="message" [type]="type" (close)="message = null">{{ message }}</ngb-alert>
+<div class="card">
+  <div class="card-header">
+    <b>Edit user</b>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onEditUser()" [formGroup]="userForm">
+      <div class="form-group mb-0">
+        <label class="col-3 col-form-label">
+          <b>Employee code</b>
+          <input formControlName="employeeCode" class="form-control" type="text" maxlength="4">
+          <div class="invalid-feedback">Employee code must be exactly 4 characters.</div>
+        </label>
+      </div>
+
+      <div class="form-group mb-0">
+        <label class="col-6 col-form-label">
+          <b>Password</b>
+          <input formControlName="password" class="form-control" type="password" maxlength="50">
+          <div class="invalid-feedback"></div>
+        </label>
+      </div>
+
+      <div class="form-group mb-0">
+        <label class="col-6 col-form-label">
+          <b>Email</b>
+          <input formControlName="email" class="form-control" type="text" maxlength="50">
+          <div class="invalid-feedback"></div>
+        </label>
+      </div>
+
+      <div class="form-group mb-0">
+        <label class="col-6 col-form-label">
+          <b>Name</b>
+          <input formControlName="name" class="form-control" type="text" maxlength="50">
+          <div class="invalid-feedback">Name must be at least 4 characters.</div>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="col-6 col-form-label">
+          <b>Rights</b>
+          <select formControlName="rights" class="form-control" name="">
+            <!-- <option *ngFor="let r of rights" [value]="r.id">{{r.name}}</option> -->
+          </select>
+          <div class="invalid-feedback"></div>
+        </label>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-12 text-center">
+          <button [disabled]="!userForm.valid" type="submit" class="btn btn-primary">Update</button>
+          <button type="reset" class="btn btn-default">Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
