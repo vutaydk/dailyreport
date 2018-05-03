@@ -4,12 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import {
-  NavComponent,
-  SidebarRightComponent,
-  SidebarComponent
-} from './layout';
+import { NavComponent, SidebarRightComponent, SidebarComponent } from './components';
 
 @NgModule({
   imports: [
