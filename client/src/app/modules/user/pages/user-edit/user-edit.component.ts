@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 import { debounceTime } from 'rxjs/operator/debounceTime';
-import { UserService } from '../../shared/user.service';
-import { UserForm } from '../../shared/user.form';
-import { UserDTO } from '../../shared/user.model';
+import { UserService } from '../../user.service';
+import { UserForm } from '../../user.form';
+import { UserDTO } from '../../models/user.model';
 
 @Component({
   selector: 'app-user-edit',
