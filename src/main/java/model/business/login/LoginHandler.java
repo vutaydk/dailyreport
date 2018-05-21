@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import common.exception.BusinessException;
 import common.exception.message.RawMessage;
-import controller.service.login.logic.UserDTO;
+import controller.service.login.logic.LoginDTO;
 import model.entity.User;
 import model.repo.user.IUserRepo;
 
@@ -16,7 +16,7 @@ public class LoginHandler {
 	@Inject
 	IUserRepo userRepo;
 
-	public int execute(UserDTO input) {
+	public int execute(LoginDTO input) {
 		checkExistEmplyee(input.getEmployeeCode());
 
 		String hexPass = new Sha256Hash(input.getPassword()).toHex();

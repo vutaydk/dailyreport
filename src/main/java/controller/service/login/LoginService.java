@@ -18,8 +18,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import common.security.Sha256;
+import common.util.JWTToken;
 import controller.filter.JWTTokenNeeded;
-import controller.service.login.logic.UserDTO;
+import controller.service.login.logic.LoginDTO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import model.business.login.LoginHandler;
@@ -43,7 +44,7 @@ public class LoginService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response login(@Valid UserDTO dto) {
+	public Response login(@Valid LoginDTO dto) {
 		int id = loginHandler.execute(dto);
 		Map<String, String> datas = new HashMap<String, String>();
 		datas.put("userId", String.valueOf(id));
@@ -59,35 +60,22 @@ public class LoginService {
 
 	@GET
 	@JWTTokenNeeded
-	public int status(@Context HttpHeaders httpHeaders) {
-		System.out.println("@JWTTokenNeeded");
+	public Response status(@Context HttpHeaders httpHeaders) {
 		String authorizationHeader = httpHeaders.getHeaderString(HttpHeaders.AUTHORIZATION);
-		try {
-			String token = authorizationHeader.substring("Bearer".length()).trim();
-			Key key = Sha256.generateKey();
-			String obj = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
-			return Integer.valueOf(obj);
-		} catch (Exception e) {
-			return 0;
-		}
+		String token = authorizationHeader.substring("Bearer".length()).trim();
+		String subject = JWTToken.getSubject(token);
+		return Response.ok(subject).build();
 	}
 
 	@GET
 	@Path("/get-rights-level")
 	@JWTTokenNeeded
 	public int getRights(@Context HttpHeaders httpHeaders) {
-		System.out.println("@JWTTokenNeeded");
 		String authorizationHeader = httpHeaders.getHeaderString(HttpHeaders.AUTHORIZATION);
-		try {
-			String token = authorizationHeader.substring("Bearer".length()).trim();
-			Key key = Sha256.generateKey();
-			String obj = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
-			int id = Integer.valueOf(obj);
-			Optional<User> user = userSelector.getUserDetailById(id);
-			Optional<Rights> rights = rightsSelector.getRightsDetailById(user.get().getRights());
-			return rights.get().getLevel();
-		} catch (Exception e) {
-			return 0;
-		}
+		String token = authorizationHeader.substring("Bearer".length()).trim();
+		String subject = JWTToken.getSubject(token);
+		Optional<User> user = userSelector.getUserDetailById(Integer.valueOf(subject));
+		Optional<Rights> rights = rightsSelector.getRightsDetailById(user.get().getRights());
+		return rights.get().getLevel();
 	}
 }

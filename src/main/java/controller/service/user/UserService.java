@@ -39,9 +39,7 @@ public class UserService {
 	public int insert(@Valid UserDTO dto) {
 		User user = converter.fromAddDtoToEntity(dto);
 		System.out.println(user);
-		// handling data
-		int userId = addCommand.execute(user);
-		return userId;
+		return addCommand.execute(user);
 	}
 
 	@POST
@@ -51,9 +49,7 @@ public class UserService {
 	public int update(@Valid UserDTO dto, @PathParam("id") int id) {
 		User user = converter.fromEditDtoToEntity(dto, id);
 		System.out.println(user);
-		// handling data
-		int userId = updateCommand.execute(user);
-		return userId;
+		return updateCommand.execute(user);
 	}
 
 	@GET
@@ -69,6 +65,7 @@ public class UserService {
 	@Path("get/{id: [0-9]+}")
 	@JWTTokenNeeded
 	public UserJSON get(@PathParam("id") int id) {
-		return converter.fromEntityToJSON(userSelector.getUserDetailById(id).get());
+		User user = userSelector.getUserDetailById(id).get();
+		return converter.fromEntityToJSON(user);
 	}
 }

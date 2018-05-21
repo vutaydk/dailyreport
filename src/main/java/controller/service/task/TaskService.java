@@ -40,9 +40,7 @@ public class TaskService {
 	public int insert(@Valid AddTaskDTO dto) {
 		Task task = converter.fromAddDtoToEntity(dto);
 		System.out.println(task);
-		// handling data
-		int taskId = addCommand.execute(task);
-		return taskId;
+		return addCommand.execute(task);
 	}
 
 	@POST
@@ -52,9 +50,7 @@ public class TaskService {
 	public int update(@Valid EditTaskDTO dto, @PathParam("id") int id) {
 		Task task = converter.fromEditDtoToEntity(dto, id);
 		System.out.println(task);
-		// handling data
-		int taskId = updateCommand.execute(task);
-		return taskId;
+		return updateCommand.execute(task);
 	}
 
 	@GET
@@ -70,6 +66,7 @@ public class TaskService {
 	@Path("get/{id: [0-9]+}")
 	@JWTTokenNeeded
 	public TaskJSON get(@PathParam("id") int id) {
-		return converter.fromEntityToJSON(taskSelector.getTaskDetailById(id).get());
+		Task task = taskSelector.getTaskDetailById(id).get();
+		return converter.fromEntityToJSON(task);
 	}
 }

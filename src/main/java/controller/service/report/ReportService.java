@@ -37,9 +37,7 @@ public class ReportService {
 	public int insert(@Valid ReportDTO dto) {
 		Report report = converter.fromAddDtoToEntity(dto);
 		System.out.println(report);
-		// handling data
-		int reportId = addCommand.execute(report);
-		return reportId;
+		return addCommand.execute(report);
 	}
 
 	@POST

@@ -39,9 +39,7 @@ public class RightsService {
 	public int insert(@Valid RightsDTO dto) {
 		Rights rights = converter.fromAddDtoToEntity(dto);
 		System.out.println(rights);
-		// handling data
-		int rightsId = addCommand.execute(rights);
-		return rightsId;
+		return addCommand.execute(rights);
 	}
 
 	@POST
@@ -51,9 +49,7 @@ public class RightsService {
 	public int update(@Valid RightsDTO dto, @PathParam("id") int id) {
 		Rights rights = converter.fromEditDtoToEntity(dto, id);
 		System.out.println(rights);
-		// handling data
-		int rightsId = updateCommand.execute(rights);
-		return rightsId;
+		return updateCommand.execute(rights);
 	}
 
 	@GET
@@ -69,6 +65,7 @@ public class RightsService {
 	@Path("get/{id: [0-9]+}")
 	@JWTTokenNeeded
 	public RightsJSON get(@PathParam("id") int id) {
-		return converter.fromEntityToJSON(rightsSelector.getRightsDetailById(id).get());
+		Rights rights = rightsSelector.getRightsDetailById(id).get();
+		return converter.fromEntityToJSON(rights);
 	}
 }

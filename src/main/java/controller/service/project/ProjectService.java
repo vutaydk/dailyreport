@@ -42,9 +42,7 @@ public class ProjectService {
 	public int insert(@Valid AddProjectDTO dto) {
 		Project project = converter.fromAddDtoToEntity(dto);
 		System.out.println(project);
-		// handling data
-		int projectId = addCommand.execute(project);
-		return projectId;
+		return addCommand.execute(project);
 	}
 
 	@POST
@@ -54,9 +52,7 @@ public class ProjectService {
 	public int update(@Valid EditProjectDTO dto, @PathParam("id") int id) {
 		Project project = converter.fromEditDtoToEntity(dto, id);
 		System.out.println(project);
-		// handling data
-		int projectId = updateCommand.execute(project);
-		return projectId;
+		return updateCommand.execute(project);
 	}
 
 	@GET
@@ -72,7 +68,8 @@ public class ProjectService {
 	@Path("get/{id}")
 	@JWTTokenNeeded
 	public ProjectJSON get(@PathParam("id") int id) {
-		return converter.fromEntityToJSON(projectSelector.getProjectDetailById(id).get());
+		Project project = projectSelector.getProjectDetailById(id).get();
+		return converter.fromEntityToJSON(project);
 	}
 
 	@GET
